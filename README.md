@@ -21,7 +21,7 @@ Install dependencies.
 npm i
 ```
 
-Run development server on [http://localhost:3000](http://localhost:3000).
+Run development server on [http://localhost:5173](http://localhost:5173).
 
 ```shell
 npm start
