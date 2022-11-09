@@ -18,7 +18,7 @@ const translationModules = import.meta.glob([
 const translations = Object.keys(translationModules).reduce((result, path) => {
 	const language = lastSegmentFromPath(path)
 
-	result[language] = translations[path]
+	result[language] = translationModules[path]
 
 	return result
 }, {})

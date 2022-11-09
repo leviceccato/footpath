@@ -8,7 +8,14 @@ import {
 import type { ParentComponent } from 'solid-js'
 import type { Translation } from '@/scripts/i18n'
 
-const context = createContext<Translation>()
+function createI18nContext(initialTranslation: Translation) {
+	const [translation, setTranslation] = createSignal(initialTranslation)
+	return [translation, setTranslation] as const
+}
+
+type I18nContext = ReturnType<typeof createI18nContext>
+
+const context = createContext<I18nContext>()
 
 export function useI18n() {
 	return useContext(context)
@@ -41,7 +48,9 @@ const I18n: ParentComponent<{
 	})
 
 	return (
-		<context.Provider value={translation()}>{props.children}</context.Provider>
+		<context.Provider value={[translation, setTranslation]}>
+			{props.children}
+		</context.Provider>
 	)
 }
 
