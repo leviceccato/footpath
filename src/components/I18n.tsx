@@ -8,9 +8,15 @@ import {
 import type { ParentComponent } from 'solid-js'
 import type { Translation } from '@/scripts/i18n'
 
-function createI18nContext(initialTranslation: Translation) {
-	const [translation, setTranslation] = createSignal(initialTranslation)
-	return [translation, setTranslation] as const
+// Function used purely to get return type for context
+
+function createI18nContext(
+	initialTranslation: Translation,
+	initialLanguage: string,
+) {
+	const [translation] = createSignal(initialTranslation)
+	const [_, setLanguage] = createSignal(initialLanguage)
+	return [translation, setLanguage] as const
 }
 
 type I18nContext = ReturnType<typeof createI18nContext>
@@ -22,25 +28,24 @@ export function useI18n() {
 }
 
 const I18n: ParentComponent<{
-	language?: string
 	defaultTranslation: Translation
 	translations?: Record<string, () => Promise<Translation>>
 }> = (props) => {
-	const _props = mergeProps({ language: '_default' }, props)
-
-	const [translation, setTranslation] = createSignal(_props.defaultTranslation)
+	const [translation, setTranslation] = createSignal(props.defaultTranslation)
+	const [language, setLanguage] = createSignal('_default')
 
 	createEffect(async () => {
-		if (_props.language === '_default') {
-			return setTranslation(_props.defaultTranslation)
+		console.log('getting here', language(), translation())
+		if (language() === '_default') {
+			return setTranslation(props.defaultTranslation)
 		}
 
-		const newTranslationModule = _props.translations[_props.language]
+		const newTranslationModule = props.translations[language()]
 		if (!newTranslationModule) {
 			console.warn(
-				`Translation for language "${_props.language}" not found, using default.`,
+				`Translation for language "${language()}" not found, using default.`,
 			)
-			return setTranslation(_props.defaultTranslation)
+			return setTranslation(props.defaultTranslation)
 		}
 
 		const newTranslation = await newTranslationModule()
@@ -48,7 +53,7 @@ const I18n: ParentComponent<{
 	})
 
 	return (
-		<context.Provider value={[translation, setTranslation]}>
+		<context.Provider value={[translation, setLanguage]}>
 			{props.children}
 		</context.Provider>
 	)
