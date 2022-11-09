@@ -35,7 +35,6 @@ const I18n: ParentComponent<{
 	const [language, setLanguage] = createSignal('_default')
 
 	createEffect(async () => {
-		console.log('getting here', language(), translation())
 		if (language() === '_default') {
 			return setTranslation(props.defaultTranslation)
 		}
