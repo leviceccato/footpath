@@ -1,4 +1,8 @@
-# SVG.ZY
+<p align="center">
+    <img alt="Lacy logo" src="https://raw.githubusercontent.com/leviceccato/lacy/main/readme-logo.svg">
+</p>
+
+# Lacy
 
 A tool to help with viewing SVG symbols.
 
