@@ -1,5 +1,5 @@
 export default {
-	hello: 'supasdasdasdasasdasdasdasd',
+	hello: 'TEST LANG',
 	test: (count: number): string => {
 		return ''
 	},
