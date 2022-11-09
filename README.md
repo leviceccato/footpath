@@ -1,3 +1,4 @@
+<br />
 <p align="center">
     <img alt="Lacy logo" width="300" src="https://raw.githubusercontent.com/leviceccato/lacy/main/readme-logo.svg">
 </p>
