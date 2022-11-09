@@ -8,10 +8,10 @@ import Button from '@/components/Button'
 // Import translations
 
 import { defaultTranslation } from '@/scripts/i18n'
-const translationModules = import.meta.glob([
-	'@/translations/*.ts',
-	'!**/_default.ts',
-])
+const translationModules = import.meta.glob(
+	['@/translations/*.ts', '!**/_default.ts'],
+	{ import: 'default' },
+)
 
 // Generate language name to import map
 
