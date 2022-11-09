@@ -1,0 +1,13 @@
+# OS
+Icon
+[Tt]humbs.db
+.DS_Store
+
+# Vendor
+/node_modules/
+
+# Built files
+/dist/
+
+# Temp
+/vite.config.ts.js

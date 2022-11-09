@@ -1,0 +1,30 @@
+{
+	"name": "svg.zy",
+	"private": true,
+	"scripts": {
+		"start": "vite",
+		"build": "vite build",
+		"serve": "vite preview"
+	},
+	"prettier": {
+		"useTabs": true,
+		"semi": false,
+		"singleQuote": true,
+		"trailingComma": "all",
+		"singleAttributePerLine": true
+	},
+	"dependencies": {
+		"@vanilla-extract/css": "^1.9.1",
+		"modern-normalize": "^1.1.0",
+		"solid-js": "^1.5.1"
+	},
+	"devDependencies": {
+		"@types/node": "^18.11.9",
+		"@vanilla-extract/vite-plugin": "^3.6.1",
+		"prettier": "^2.7.1",
+		"ts-node": "^10.9.1",
+		"typescript": "^4.8.2",
+		"vite": "^3.0.9",
+		"vite-plugin-solid": "^2.3.0"
+	}
+}
