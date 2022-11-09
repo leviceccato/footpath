@@ -1,25 +1,47 @@
-import { createContext, useContext } from 'solid-js'
+import {
+	createContext,
+	createSignal,
+	useContext,
+	createEffect,
+	mergeProps,
+} from 'solid-js'
 import type { ParentComponent } from 'solid-js'
-import { defaultTranslation } from '@/utils/i18n'
-import type { Translation, TranslationContent } from '@/utils/i18n'
+import type { Translation } from '@/scripts/i18n'
 
-const defaultContext = {
-	t: defaultTranslation.content,
-}
-
-const context = createContext(defaultContext)
+const context = createContext<Translation>()
 
 export function useI18n() {
 	return useContext(context)
 }
 
-type LazyTranslation = () => Promise<Translation>
-
 const I18n: ParentComponent<{
-	translations: Record<string, Translation | LazyTranslation>
+	language?: string
+	defaultTranslation: Translation
+	translations?: Record<string, () => Promise<Translation>>
 }> = (props) => {
+	const _props = mergeProps({ language: '_default' }, props)
+
+	const [translation, setTranslation] = createSignal(_props.defaultTranslation)
+
+	createEffect(async () => {
+		if (_props.language === '_default') {
+			return setTranslation(_props.defaultTranslation)
+		}
+
+		const newTranslationModule = _props.translations[_props.language]
+		if (!newTranslationModule) {
+			console.warn(
+				`Translation for language "${_props.language}" not found, using default.`,
+			)
+			return setTranslation(_props.defaultTranslation)
+		}
+
+		const newTranslation = await newTranslationModule()
+		setTranslation(newTranslation)
+	})
+
 	return (
-		<context.Provider value={defaultContext}>{props.children}</context.Provider>
+		<context.Provider value={translation()}>{props.children}</context.Provider>
 	)
 }
 
