@@ -4,7 +4,7 @@
 
 # Lacy
 
-A tool to help with viewing SVG symbols.
+A tool to help with editing, viewing and optimising SVGs.
 
 ## Usage
 
