@@ -23,7 +23,7 @@ const translations = Object.keys(translationModules).reduce((result, path) => {
 	return result
 }, {})
 
-const App: Component = () => {
+const TheApp: Component = () => {
 	return (
 		<I18n
 			defaultTranslation={defaultTranslation}
@@ -40,4 +40,4 @@ const App: Component = () => {
 	)
 }
 
-export default App
+export default TheApp
