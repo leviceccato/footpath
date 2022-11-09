@@ -15,8 +15,8 @@ function createI18nContext(
 	initialLanguage: string,
 ) {
 	const [translation] = createSignal(initialTranslation)
-	const [_, setLanguage] = createSignal(initialLanguage)
-	return [translation, setLanguage] as const
+	const [language, setLanguage] = createSignal(initialLanguage)
+	return [translation, { get: language, set: setLanguage }] as const
 }
 
 type I18nContext = ReturnType<typeof createI18nContext>
@@ -52,7 +52,9 @@ const I18n: ParentComponent<{
 	})
 
 	return (
-		<context.Provider value={[translation, setLanguage]}>
+		<context.Provider
+			value={[translation, { get: language, set: setLanguage }]}
+		>
 			{props.children}
 		</context.Provider>
 	)
