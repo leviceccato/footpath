@@ -17,8 +17,7 @@ const Button: ParentComponent = (props) => {
 			class={css.root}
 			onClick={toggleLanguage}
 		>
-			{t().hello}
-			{props.children}
+			Hello from {t().language}
 		</button>
 	)
 }

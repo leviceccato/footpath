@@ -1,7 +1,7 @@
 import { createTranslation } from '@/scripts/i18n'
 
 export default createTranslation({
-	hello: 'TEST LANG',
+	language: 'Test',
 	test: (count: number): string => {
 		return ''
 	},
