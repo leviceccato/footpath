@@ -7,6 +7,9 @@ export default defineConfig({
 	root: 'src',
 	clearScreen: false,
 	plugins: [solidPlugin(), vanillaExtractPlugin()],
+	server: {
+		host: true,
+	},
 	build: {
 		target: 'esnext',
 	},
