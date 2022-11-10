@@ -1,27 +1,23 @@
-import { setDefaultProps } from '@/scripts/solid-helpers'
+import { Dynamic } from 'solid-js/web'
 import type { ParentComponent } from 'solid-js'
 import * as css from './Button.css'
-import { useI18n } from '@/components/I18n'
 
-const Button: ParentComponent<{ test?: string }> = (props) => {
-	setDefaultProps(props, { test: 'asd' })
-
-	const [t, language] = useI18n()
-
-	function toggleLanguage() {
-		if (language.get() === '_default') {
-			return language.set('test')
+const Button: ParentComponent<{ href?: string }> = (props) => {
+	const tag = () => {
+		if (props.href) {
+			return 'a'
 		}
-		language.set('_default')
+		return 'button'
 	}
 
 	return (
-		<button
+		<Dynamic
+			component={tag()}
 			class={css.root}
-			onClick={toggleLanguage}
+			href={props.href}
 		>
-			Hello from {t().language} {props.test}
-		</button>
+			{props.children}
+		</Dynamic>
 	)
 }
 
