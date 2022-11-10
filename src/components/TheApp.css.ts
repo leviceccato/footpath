@@ -2,16 +2,33 @@ import { style } from '@vanilla-extract/css'
 
 export const root = style({})
 
-export const header = style({})
-
-export const logoContainer = style({})
-
-export const logo = style({
-	width: 50,
+export const header = style({
+	display: 'flex',
+	height: 40,
+	borderBottom: '1px solid currentColor',
 })
 
-export const logoLink = style({})
+export const logoContainer = style({
+	padding: 4,
+	display: 'flex',
+	borderRight: '1px solid currentColor',
+})
 
-export const tabContainer = style({})
+export const logo = style({
+	width: 48,
+	paddingTop: '2%',
+})
 
-export const menuContainer = style({})
+export const logoLink = style({
+	padding: '0 10px',
+	display: 'flex',
+	alignItems: 'center',
+})
+
+export const tabContainer = style({
+	width: '100%',
+})
+
+export const menuContainer = style({
+	padding: 4,
+})
