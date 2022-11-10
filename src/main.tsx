@@ -6,8 +6,10 @@ import '@/base.css'
 
 import { render } from 'solid-js/web'
 import { lastSegmentFromPath } from '@/scripts/utils'
+import { parseToRgb } from 'polished'
 
 import ProviderI18n from '@/components/ProviderI18n'
+import ProviderTheme from '@/components/ProviderTheme'
 import TheApp from '@/components/TheApp'
 
 // Import translations and generate languageName -> importFunc map
@@ -24,13 +26,19 @@ const translations = Object.keys(translationModules).reduce((result, path) => {
 	return result
 }, {})
 
+// Initialise theme data
+
+const initialBgColour = parseToRgb('#FF0000')
+
 render(
 	() => (
 		<ProviderI18n
 			defaultTranslation={defaultTranslation}
 			translations={translations}
 		>
-			<TheApp />
+			<ProviderTheme initialBgColour={initialBgColour}>
+				<TheApp />
+			</ProviderTheme>
 		</ProviderI18n>
 	),
 	document.getElementById('root') as HTMLElement,
