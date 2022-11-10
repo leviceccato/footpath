@@ -18,7 +18,7 @@ export function useTheme() {
 	return useContext(context)
 }
 
-const Theme: ParentComponent<{ initialColour: RgbColor }> = (props) => {
+const ProviderTheme: ParentComponent<{ initialColour: RgbColor }> = (props) => {
 	const [colour, setColour] = createSignal(props.initialColour)
 
 	const colourString = () => toColorString(colour())
@@ -30,4 +30,4 @@ const Theme: ParentComponent<{ initialColour: RgbColor }> = (props) => {
 	)
 }
 
-export default Theme
+export default ProviderTheme

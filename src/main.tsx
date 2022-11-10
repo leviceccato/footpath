@@ -7,10 +7,10 @@ import '@/base.css'
 import { render } from 'solid-js/web'
 import { lastSegmentFromPath } from '@/scripts/utils'
 
-import I18n from '@/components/I18n'
+import ProviderI18n from '@/components/ProviderI18n'
 import TheApp from '@/components/TheApp'
 
-// Import translations
+// Import translations and generate languageName -> importFunc map
 
 import { defaultTranslation } from '@/scripts/i18n'
 const translationModules = import.meta.glob(
@@ -18,24 +18,20 @@ const translationModules = import.meta.glob(
 	{ import: 'default' },
 )
 
-// Generate language name to import map
-
 const translations = Object.keys(translationModules).reduce((result, path) => {
 	const language = lastSegmentFromPath(path)
-
 	result[language] = translationModules[path]
-
 	return result
 }, {})
 
 render(
 	() => (
-		<I18n
+		<ProviderI18n
 			defaultTranslation={defaultTranslation}
 			translations={translations}
 		>
 			<TheApp />
-		</I18n>
+		</ProviderI18n>
 	),
 	document.getElementById('root') as HTMLElement,
 )

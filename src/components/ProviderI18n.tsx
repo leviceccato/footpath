@@ -21,7 +21,7 @@ export function useI18n() {
 	return useContext(context)
 }
 
-const I18n: ParentComponent<{
+const ProviderI18n: ParentComponent<{
 	defaultTranslation: Translation
 	translations?: Record<string, () => Promise<Translation>>
 }> = (props) => {
@@ -54,4 +54,4 @@ const I18n: ParentComponent<{
 	)
 }
 
-export default I18n
+export default ProviderI18n

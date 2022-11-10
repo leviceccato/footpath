@@ -1,5 +1,5 @@
 import { createSignal } from 'solid-js'
-import { useI18n } from '@/components/I18n'
+import { useI18n } from '@/components/ProviderI18n'
 import type { Component } from 'solid-js'
 import * as css from './TheApp.css'
 
