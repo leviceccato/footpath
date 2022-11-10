@@ -1,10 +1,4 @@
-import {
-	createContext,
-	createSignal,
-	useContext,
-	createEffect,
-	mergeProps,
-} from 'solid-js'
+import { createContext, createSignal, useContext, createEffect } from 'solid-js'
 import type { ParentComponent } from 'solid-js'
 import type { Translation } from '@/scripts/i18n'
 
