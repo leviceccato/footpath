@@ -6,6 +6,7 @@ import * as css from './TheApp.css'
 import Button from '@/components/Button'
 import LogoLacy from '@/components/LogoLacy'
 import VisuallyHidden from '@/components/VisuallyHidden'
+import TheMenu from '@/components/TheMenu'
 
 const TheApp: Component = () => {
 	const [t] = useI18n()
@@ -23,7 +24,7 @@ const TheApp: Component = () => {
 					</Button>
 				</div>
 				<div class={css.tabContainer}></div>
-				<div class={css.menuContainer}></div>
+				<TheMenu class={css.menuContainer} />
 			</header>
 		</div>
 	)
