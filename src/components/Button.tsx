@@ -1,6 +1,5 @@
-import { setDefaultProps } from '@/scripts/solid-helpers'
 import { Dynamic } from 'solid-js/web'
-import type { ParentComponent } from 'solid-js'
+import type { ParentComponent, JSX } from 'solid-js'
 import * as css from './Button.css'
 
 const Button: ParentComponent<{ class?: string; href?: string }> = (props) => {
@@ -16,7 +15,7 @@ const Button: ParentComponent<{ class?: string; href?: string }> = (props) => {
 	return (
 		<Dynamic
 			component={tag()}
-			class={`${css.root} ${props.class}`}
+			class={`${css.root} ${props.class ?? ''}`}
 			href={props.href}
 		>
 			{props.children}
