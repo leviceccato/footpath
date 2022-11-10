@@ -11,8 +11,6 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 	line-height: 1.4;
 	font-family: inherit;
-	overflow-y: scroll;
-	overflow-x: hidden;
 }
 
 blockquote,
