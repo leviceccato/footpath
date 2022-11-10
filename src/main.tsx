@@ -8,7 +8,7 @@ import { render } from 'solid-js/web'
 import { lastSegmentFromPath } from '@/scripts/utils'
 
 import I18n from '@/components/I18n'
-import App from '@/components/TheApp'
+import TheApp from '@/components/TheApp'
 
 // Import translations
 
@@ -34,7 +34,7 @@ render(
 			defaultTranslation={defaultTranslation}
 			translations={translations}
 		>
-			<App />
+			<TheApp />
 		</I18n>
 	),
 	document.getElementById('root') as HTMLElement,
