@@ -16,6 +16,7 @@ export const logoContainer = style({
 
 export const logo = style({
 	width: 48,
+	maxWidth: 'none',
 	paddingTop: '2%',
 })
 
