@@ -1,9 +1,11 @@
+import { createSignal } from 'solid-js'
 import type { Component } from 'solid-js'
 import * as css from './TheApp.css'
 import { lastSegmentFromPath } from '@/scripts/utils'
 
 import I18n from '@/components/I18n'
 import Button from '@/components/Button'
+import LogoLacy from '@/components/LogoLacy'
 
 // Import translations
 
@@ -32,8 +34,15 @@ const TheApp: Component = () => {
 			<div class={css.root}>
 				<header class={css.header}>
 					<div class={css.logoContainer}>
-						<Button>Hello</Button>
+						<Button
+							class={css.logoLink}
+							href="/"
+						>
+							<LogoLacy class={css.logo} />
+						</Button>
 					</div>
+					<div class={css.tabContainer}></div>
+					<div class={css.menuContainer}></div>
 				</header>
 			</div>
 		</I18n>
