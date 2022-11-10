@@ -22,8 +22,12 @@ export const logo = style({
 
 export const logoLink = style({
 	padding: '0 10px',
+	borderRadius: 4,
 	display: 'flex',
 	alignItems: 'center',
+	':hover': {
+		backgroundColor: '#DDDDDD',
+	},
 })
 
 export const tabContainer = style({
