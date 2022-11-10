@@ -1,8 +1,11 @@
+import { setDefaultProps } from '@/scripts/solid-helpers'
 import { Dynamic } from 'solid-js/web'
 import type { ParentComponent } from 'solid-js'
 import * as css from './Button.css'
 
 const Button: ParentComponent<{ class?: string; href?: string }> = (props) => {
+	setDefaultProps(props, { class: '' })
+
 	const tag = () => {
 		if (props.href) {
 			return 'a'
