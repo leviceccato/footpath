@@ -2,9 +2,12 @@ import { Dynamic } from 'solid-js/web'
 import type { ParentComponent, JSX } from 'solid-js'
 import * as css from './Button.css'
 
-const Button: ParentComponent<{ class?: string; href?: string }> = (props) => {
-	setDefaultProps(props, { class: '' })
-
+const Button: ParentComponent<
+	JSX.ButtonHTMLAttributes<HTMLButtonElement> & {
+		class?: string
+		href?: string
+	}
+> = (props) => {
 	const tag = () => {
 		if (props.href) {
 			return 'a'
