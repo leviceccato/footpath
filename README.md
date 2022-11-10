@@ -5,7 +5,7 @@
 
 # Lacy
 
-A tool to help with editing, viewing and optimising SVGs.
+A tool to help with editing, viewing and optimising SVGs. It is an SPA built with [SolidJS](https://www.solidjs.com), [vanilla-extract](https://vanilla-extract.style) and [Vite](https://vitejs.dev).
 
 ## Usage
 
