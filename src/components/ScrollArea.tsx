@@ -1,3 +1,5 @@
+import 'simplebar/dist/simplebar.css'
+
 import SimpleBar from 'simplebar'
 import { onMount, onCleanup, createSignal, mergeProps } from 'solid-js'
 import type { ParentComponent } from 'solid-js'
