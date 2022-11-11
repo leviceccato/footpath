@@ -9,7 +9,7 @@ function createI18nContext(
 ) {
 	const [translation] = createSignal(initialTranslation)
 	const [language, setLanguage] = createSignal(initialLanguage)
-	return [translation, { get: language, set: setLanguage }]
+	return [translation, { get: language, set: setLanguage }] as const
 }
 
 const context = createContext(createI18nContext(defaultTranslation, '_default'))
