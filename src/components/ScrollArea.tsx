@@ -95,25 +95,29 @@ const ScrollArea: ParentComponent<{
 				<div
 					classList={{
 						[css.overflowShadow]: true,
-						[css.overflowShadowVariant.top]: isOverflowingTop(),
+						[css.overflowShadowVariant.top]: true,
+						[css.overflowShadowVariant.shown]: isOverflowingTop(),
 					}}
 				/>
 				<div
 					classList={{
 						[css.overflowShadow]: true,
-						[css.overflowShadowVariant.bottom]: isOverflowingBottom(),
+						[css.overflowShadowVariant.bottom]: true,
+						[css.overflowShadowVariant.shown]: isOverflowingBottom(),
 					}}
 				/>
 				<div
 					classList={{
 						[css.overflowShadow]: true,
-						[css.overflowShadowVariant.left]: isOverflowingLeft(),
+						[css.overflowShadowVariant.left]: true,
+						[css.overflowShadowVariant.shown]: isOverflowingLeft(),
 					}}
 				/>
 				<div
 					classList={{
 						[css.overflowShadow]: true,
-						[css.overflowShadowVariant.right]: isOverflowingRight(),
+						[css.overflowShadowVariant.right]: true,
+						[css.overflowShadowVariant.shown]: isOverflowingRight(),
 					}}
 				/>
 			</div>

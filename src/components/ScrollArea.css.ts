@@ -1,4 +1,5 @@
 import { style, styleVariants } from '@vanilla-extract/css'
+import * as themeCss from '@/components/ProviderTheme.css'
 
 export const root = style({
 	maxHeight: '100%',
@@ -17,14 +18,24 @@ export const overflowShadow = style({
 	transition: 'opacity 250ms',
 })
 
+function createOverflowGradient(degress: number): string {
+	return `linear-gradient(${degress}deg, transparent 0%, ${themeCss.colour700Var}) 100%)`
+}
+
 export const overflowShadowVariant = styleVariants({
+	shown: [
+		overflowShadow,
+		{
+			opacity: 1,
+		},
+	],
 	top: [
 		overflowShadow,
 		{
 			top: 0,
 			left: 0,
 			width: '100%',
-			backgroundImage: `linear-gradient(0deg, )`,
+			backgroundImage: createOverflowGradient(0),
 		},
 	],
 	bottom: [
@@ -33,6 +44,7 @@ export const overflowShadowVariant = styleVariants({
 			left: 0,
 			bottom: 0,
 			width: '100%',
+			backgroundImage: createOverflowGradient(180),
 		},
 	],
 	left: [
@@ -41,6 +53,7 @@ export const overflowShadowVariant = styleVariants({
 			top: 0,
 			left: 0,
 			height: '100%',
+			backgroundImage: createOverflowGradient(270),
 		},
 	],
 	right: [
@@ -49,6 +62,7 @@ export const overflowShadowVariant = styleVariants({
 			top: 0,
 			right: 0,
 			height: '100%',
+			backgroundImage: createOverflowGradient(90),
 		},
 	],
 })
