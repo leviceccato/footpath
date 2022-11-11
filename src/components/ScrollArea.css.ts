@@ -19,50 +19,58 @@ export const overflowShadow = style({
 })
 
 function createOverflowGradient(degress: number): string {
-	return `linear-gradient(${degress}deg, transparent 0%, ${themeCss.colour700Var}) 100%)`
+	return `linear-gradient(${degress}deg, transparent 0%, rgba(${themeCss.colourBase700Var}, 0.1) 100%)`
 }
 
-export const overflowShadowVariant = styleVariants({
-	shown: [
-		overflowShadow,
-		{
-			opacity: 1,
-		},
-	],
-	top: [
-		overflowShadow,
-		{
-			top: 0,
-			left: 0,
-			width: '100%',
-			backgroundImage: createOverflowGradient(0),
-		},
-	],
-	bottom: [
-		overflowShadow,
-		{
-			left: 0,
-			bottom: 0,
-			width: '100%',
-			backgroundImage: createOverflowGradient(180),
-		},
-	],
-	left: [
-		overflowShadow,
-		{
-			top: 0,
-			left: 0,
-			height: '100%',
-			backgroundImage: createOverflowGradient(270),
-		},
-	],
-	right: [
-		overflowShadow,
-		{
-			top: 0,
-			right: 0,
-			height: '100%',
-			backgroundImage: createOverflowGradient(90),
-		},
-	],
+export const overflowShadowTop = style([
+	overflowShadow,
+	{
+		top: 0,
+		left: 0,
+		height: 16,
+		width: '100%',
+		transform: 'translate(0, -8px)',
+		backgroundImage: createOverflowGradient(0),
+	},
+])
+
+export const overflowShadowBottom = style([
+	overflowShadow,
+	{
+		left: 0,
+		bottom: 0,
+		height: 16,
+		width: '100%',
+		transform: 'translate(0, 8px)',
+		backgroundImage: createOverflowGradient(180),
+	},
+])
+
+export const overflowShadowLeft = style([
+	overflowShadow,
+	{
+		top: 0,
+		left: 0,
+		height: '100%',
+		width: 16,
+		transform: 'translate(-8px, 0)',
+		backgroundImage: createOverflowGradient(270),
+	},
+])
+
+export const overflowShadowRight = style([
+	overflowShadow,
+	{
+		top: 0,
+		right: 0,
+		height: '100%',
+		width: 16,
+		transform: 'translate(8px, 0)',
+		backgroundImage: createOverflowGradient(90),
+	},
+])
+
+export const shown = style({
+	opacity: 1,
+	transform: 'translate(0, 0)',
 })

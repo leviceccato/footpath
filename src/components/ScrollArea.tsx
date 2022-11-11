@@ -16,6 +16,7 @@ const ScrollArea: ParentComponent<{
 	)
 
 	let rootRef: HTMLDivElement | undefined
+	let scrollElement: HTMLElement | undefined
 
 	const [simpleBar, setSimpleBar] = createSignal<SimpleBar>()
 
@@ -28,24 +29,32 @@ const ScrollArea: ParentComponent<{
 	const [isOverflowingLeft, setIsOverflowingLeft] = createSignal(false)
 	const [isOverflowingRight, setIsOverflowingRight] = createSignal(false)
 
-	function checkOverflow({ target }: Event) {
-		if (!target || !(target instanceof HTMLElement)) {
+	function checkOverflow() {
+		if (!scrollElement) {
 			return
 		}
 
-		setScrollTop(target.scrollTop)
-		setScrollLeft(target.scrollLeft)
+		setScrollTop(scrollElement.scrollTop)
+		setScrollLeft(scrollElement.scrollLeft)
 
 		// Set overflow booleans for each side based on minimum distance values
 
-		setIsOverflowingTop(target.scrollTop > _props.minDistanceForOverflowY)
+		setIsOverflowingTop(
+			scrollElement.scrollTop > _props.minDistanceForOverflowY,
+		)
 		setIsOverflowingBottom(
-			target.scrollHeight - target.scrollTop - target.clientHeight >
+			scrollElement.scrollHeight -
+				scrollElement.scrollTop -
+				scrollElement.clientHeight >
 				_props.minDistanceForOverflowY,
 		)
-		setIsOverflowingLeft(target.scrollLeft > _props.minDistanceForOverflowX)
+		setIsOverflowingLeft(
+			scrollElement.scrollLeft > _props.minDistanceForOverflowX,
+		)
 		setIsOverflowingRight(
-			target.scrollWidth - target.scrollLeft - target.clientWidth >
+			scrollElement.scrollWidth -
+				scrollElement.scrollLeft -
+				scrollElement.clientWidth >
 				_props.minDistanceForOverflowX,
 		)
 	}
@@ -54,12 +63,19 @@ const ScrollArea: ParentComponent<{
 		if (!rootRef) return
 
 		setSimpleBar(new SimpleBar(rootRef, {}))
-		const scrollElement = simpleBar()?.getScrollElement()
+
+		scrollElement = simpleBar()?.getScrollElement()
 		scrollElement?.addEventListener('scroll', checkOverflow)
+
+		window.addEventListener('resize', checkOverflow)
+
+		checkOverflow()
 	})
 
 	onCleanup(() => {
 		simpleBar()?.unMount()
+
+		window.removeEventListener('resize', checkOverflow)
 	})
 
 	// Use expected SimpleBar markup
@@ -95,30 +111,26 @@ const ScrollArea: ParentComponent<{
 			<div class={css.overlay}>
 				<div
 					classList={{
-						[css.overflowShadow]: true,
-						[css.overflowShadowVariant.top]: true,
-						[css.overflowShadowVariant.shown]: isOverflowingTop(),
+						[css.overflowShadowTop]: true,
+						[css.shown]: isOverflowingTop(),
 					}}
 				/>
 				<div
 					classList={{
-						[css.overflowShadow]: true,
-						[css.overflowShadowVariant.bottom]: true,
-						[css.overflowShadowVariant.shown]: isOverflowingBottom(),
+						[css.overflowShadowBottom]: true,
+						[css.shown]: isOverflowingBottom(),
 					}}
 				/>
 				<div
 					classList={{
-						[css.overflowShadow]: true,
-						[css.overflowShadowVariant.left]: true,
-						[css.overflowShadowVariant.shown]: isOverflowingLeft(),
+						[css.overflowShadowLeft]: true,
+						[css.shown]: isOverflowingLeft(),
 					}}
 				/>
 				<div
 					classList={{
-						[css.overflowShadow]: true,
-						[css.overflowShadowVariant.right]: true,
-						[css.overflowShadowVariant.shown]: isOverflowingRight(),
+						[css.overflowShadowRight]: true,
+						[css.shown]: isOverflowingRight(),
 					}}
 				/>
 			</div>
