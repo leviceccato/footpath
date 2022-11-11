@@ -5,6 +5,16 @@ export const root = style({
 	maxHeight: '100%',
 })
 
+export const scrollable = style({
+	':focus': {
+		outline: 'none',
+	},
+	':focus-visible': {
+		outlineOffset: -2,
+		outline: '2px dashed currentColor',
+	},
+})
+
 export const overlay = style({
 	position: 'absolute',
 	inset: 0,

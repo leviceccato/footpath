@@ -91,7 +91,7 @@ const ScrollArea: ParentComponent<{
 				</div>
 				<div class="simplebar-mask">
 					<div class="simplebar-offset">
-						<div class="simplebar-content-wrapper">
+						<div class={`${css.scrollable} simplebar-content-wrapper`}>
 							<div class="simplebar-content">{props.children}</div>
 						</div>
 					</div>
