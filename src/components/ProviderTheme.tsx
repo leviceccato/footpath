@@ -1,6 +1,7 @@
 import { createContext, createSignal, useContext, createEffect } from 'solid-js'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { readableColor, parseToHsl, toColorString } from 'polished'
+import { decimalToPercentage } from '@/scripts/utils'
 import type { RgbColor } from 'polished/lib/types/color'
 import type { ParentComponent } from 'solid-js'
 import * as css from './ProviderTheme.css'
@@ -34,7 +35,9 @@ const ProviderTheme: ParentComponent<{ initialBgColour: RgbColor }> = (
 	const lightnessDirection = () => (isColourLight() ? -1 : 1)
 
 	function createLightnessVar(value: number): string {
-		return String(bgColourHsl().lightness + value * lightnessDirection())
+		const offset = value * lightnessDirection()
+		const lightness = bgColourHsl().lightness + offset
+		return decimalToPercentage(lightness)
 	}
 
 	const theme = () => {
@@ -42,7 +45,9 @@ const ProviderTheme: ParentComponent<{ initialBgColour: RgbColor }> = (
 			class: css.colours,
 			vars: assignInlineVars({
 				[css.bgColourHueVar]: String(bgColourHsl().hue),
-				[css.bgColourSaturationVar]: String(bgColourHsl().saturation),
+				[css.bgColourSaturationVar]: decimalToPercentage(
+					bgColourHsl().saturation,
+				),
 
 				// Colour lightness values
 
