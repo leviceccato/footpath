@@ -11,12 +11,12 @@ import TheMenu from '@/components/TheMenu'
 
 const TheApp: Component = () => {
 	const [t] = useI18n()
-	const [theme] = useTheme()
+	const [vars] = useTheme()
 
 	return (
 		<div
-			classList={{ [css.root]: true, [theme.class]: true }}
-			style={theme.vars}
+			class={css.root}
+			style={vars()}
 		>
 			<header class={css.header}>
 				<div class={css.logoContainer}>

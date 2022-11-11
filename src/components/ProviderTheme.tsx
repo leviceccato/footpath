@@ -1,17 +1,17 @@
 import { createContext, createSignal, useContext, createEffect } from 'solid-js'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
-import { readableColor, parseToHsl, toColorString } from 'polished'
+import { readableColor, mix, toColorString } from 'polished'
+import type { Styles } from 'polished/lib/types/style'
 import { decimalToPercentage } from '@/scripts/utils'
-import type { RgbColor } from 'polished/lib/types/color'
 import type { ParentComponent } from 'solid-js'
 import * as css from './ProviderTheme.css'
 
 // Function used purely to get return type for context
 
-function createThemeContext(initialBgColour: RgbColor) {
-	const [_, setBgColour] = createSignal(initialBgColour)
-	const vars = assignInlineVars({})
-	return [{ vars, class: css.colours }, setBgColour] as const
+function createThemeContext() {
+	const [_, setColour] = createSignal<string>()
+	const [vars, __] = createSignal<ReturnType<typeof assignInlineVars>>()
+	return [vars, setColour] as const
 }
 
 type ThemeContext = ReturnType<typeof createThemeContext>
@@ -22,52 +22,35 @@ export function useTheme() {
 	return useContext(context)
 }
 
-const ProviderTheme: ParentComponent<{ initialBgColour: RgbColor }> = (
-	props,
-) => {
-	const [bgColour, setBgColour] = createSignal(props.initialBgColour)
+// Component
 
-	const bgColourString = () => toColorString(bgColour())
-	const bgColourHsl = () => parseToHsl(bgColourString())
+const ProviderTheme: ParentComponent<{ initialColour: string }> = (props) => {
+	const [colour, setColour] = createSignal(props.initialColour)
+	const [vars, setVars] = createSignal<ReturnType<typeof assignInlineVars>>()
 
-	const readable = () => readableColor(bgColourString())
-	const isColourLight = () => readable() === '#fff'
-	const lightnessDirection = () => (isColourLight() ? 1 : -1)
+	const readable = () => readableColor(colour())
 
-	function createLightnessVar(value: number): string {
-		const offset = value * lightnessDirection()
-		const lightness = bgColourHsl().lightness + offset
-		return decimalToPercentage(lightness)
-	}
-
-	const theme = () => {
-		return {
-			class: css.colours,
-			vars: assignInlineVars({
-				[css.bgColourHueVar]: String(bgColourHsl().hue),
-				[css.bgColourSaturationVar]: decimalToPercentage(
-					bgColourHsl().saturation,
-				),
-
-				// Colour lightness values
-
-				[css.colourLightness0Var]: createLightnessVar(1),
-				[css.colourLightness1Var]: createLightnessVar(0.9),
-				[css.colourLightness2Var]: createLightnessVar(0.8),
-				[css.colourLightness3Var]: createLightnessVar(0.7),
-				[css.colourLightness4Var]: createLightnessVar(0.6),
-				[css.colourLightness5Var]: createLightnessVar(0.5),
-				[css.colourLightness6Var]: createLightnessVar(0.4),
-				[css.colourLightness7Var]: createLightnessVar(0.3),
-				[css.colourLightness8Var]: createLightnessVar(0.2),
-				[css.colourLightness9Var]: createLightnessVar(0.1),
-				[css.colourLightness10Var]: createLightnessVar(0),
+	createEffect(() => {
+		setVars(
+			assignInlineVars({
+				[css.colourVar]: colour(),
+				[css.colour50Var]: mix(0.95, colour(), readable()),
+				[css.colour100Var]: mix(0.9, colour(), readable()),
+				[css.colour200Var]: mix(0.8, colour(), readable()),
+				[css.colour300Var]: mix(0.7, colour(), readable()),
+				[css.colour400Var]: mix(0.6, colour(), readable()),
+				[css.colour500Var]: mix(0.5, colour(), readable()),
+				[css.colour600Var]: mix(0.4, colour(), readable()),
+				[css.colour700Var]: mix(0.3, colour(), readable()),
+				[css.colour800Var]: mix(0.2, colour(), readable()),
+				[css.colour900Var]: mix(0.1, colour(), readable()),
+				[css.colour1000Var]: readable(),
 			}),
-		}
-	}
+		)
+	})
 
 	return (
-		<context.Provider value={[theme(), setBgColour]}>
+		<context.Provider value={[vars, setColour]}>
 			{props.children}
 		</context.Provider>
 	)
