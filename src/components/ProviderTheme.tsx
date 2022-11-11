@@ -1,8 +1,7 @@
-import { createContext, createSignal, useContext, createEffect } from 'solid-js'
+import { createContext, createSignal, useContext } from 'solid-js'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
-import { readableColor, mix, toColorString } from 'polished'
+import { readableColor, mix } from 'polished'
 import type { Styles } from 'polished/lib/types/style'
-import { decimalToPercentage } from '@/scripts/utils'
 import type { ParentComponent } from 'solid-js'
 import * as css from './ProviderTheme.css'
 
