@@ -10,13 +10,13 @@ import VisuallyHidden from '@/components/VisuallyHidden'
 import TheMenu from '@/components/TheMenu'
 
 const TheApp: Component = () => {
+	const [theme, setColour] = useTheme()
 	const [t] = useI18n()
-	const [vars] = useTheme()
 
 	return (
 		<div
-			class={css.root}
-			style={vars()}
+			classList={{ [css.root]: true, [theme().class]: true }}
+			style={theme().vars}
 		>
 			<header class={css.header}>
 				<div class={css.logoContainer}>
