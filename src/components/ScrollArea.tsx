@@ -66,13 +66,7 @@ const ScrollArea: ParentComponent<{
 	return (
 		<div
 			ref={rootRef}
-			classList={{
-				[css.root]: true,
-				[css.rootVariant.overflowTop]: isOverflowingTop(),
-				[css.rootVariant.overflowBottom]: isOverflowingBottom(),
-				[css.rootVariant.overflowLeft]: isOverflowingLeft(),
-				[css.rootVariant.overflowRight]: isOverflowingRight(),
-			}}
+			class={css.root}
 		>
 			<div class="simplebar-wrapper">
 				<div class="simplebar-height-auto-observer-wrapper">
@@ -96,6 +90,32 @@ const ScrollArea: ParentComponent<{
 				<div class="simplebar-scrollbar">
 					<div class="simplebar-scrollbar-inner" />
 				</div>
+			</div>
+			<div class={css.overlay}>
+				<div
+					classList={{
+						[css.overflowShadow]: true,
+						[css.overflowShadowVariant.top]: isOverflowingTop(),
+					}}
+				/>
+				<div
+					classList={{
+						[css.overflowShadow]: true,
+						[css.overflowShadowVariant.bottom]: isOverflowingBottom(),
+					}}
+				/>
+				<div
+					classList={{
+						[css.overflowShadow]: true,
+						[css.overflowShadowVariant.left]: isOverflowingLeft(),
+					}}
+				/>
+				<div
+					classList={{
+						[css.overflowShadow]: true,
+						[css.overflowShadowVariant.right]: isOverflowingRight(),
+					}}
+				/>
 			</div>
 		</div>
 	)
