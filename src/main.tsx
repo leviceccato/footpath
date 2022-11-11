@@ -28,7 +28,7 @@ const translations = Object.keys(translationModules).reduce((result, path) => {
 
 // Initialise theme data
 
-const initialBgColour = parseToRgb('#FF0000')
+const initialBgColour = parseToRgb('#FFB885')
 
 render(
 	() => (
