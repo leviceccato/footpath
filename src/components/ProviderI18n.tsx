@@ -1,4 +1,5 @@
 import { createContext, createSignal, useContext, createEffect } from 'solid-js'
+import { defaultTranslation } from '@/scripts/i18n'
 import type { ParentComponent } from 'solid-js'
 import type { Translation } from '@/scripts/i18n'
 
@@ -15,7 +16,9 @@ function createI18nContext(
 
 type I18nContext = ReturnType<typeof createI18nContext>
 
-const context = createContext<I18nContext>()
+const context = createContext<I18nContext>(
+	createI18nContext(defaultTranslation, '_default'),
+)
 
 export function useI18n() {
 	return useContext(context)

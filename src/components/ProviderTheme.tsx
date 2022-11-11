@@ -16,7 +16,7 @@ function createThemeContext() {
 
 type ThemeContext = ReturnType<typeof createThemeContext>
 
-const context = createContext<ThemeContext>()
+const context = createContext<ThemeContext>(createThemeContext())
 
 export function useTheme() {
 	return useContext(context)
