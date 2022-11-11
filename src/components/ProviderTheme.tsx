@@ -31,8 +31,8 @@ const ProviderTheme: ParentComponent<{ initialBgColour: RgbColor }> = (
 	const bgColourHsl = () => parseToHsl(bgColourString())
 
 	const readable = () => readableColor(bgColourString())
-	const isColourLight = () => readable() === '#FFF'
-	const lightnessDirection = () => (isColourLight() ? -1 : 1)
+	const isColourLight = () => readable() === '#fff'
+	const lightnessDirection = () => (isColourLight() ? 1 : -1)
 
 	function createLightnessVar(value: number): string {
 		const offset = value * lightnessDirection()
