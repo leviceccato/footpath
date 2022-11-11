@@ -7,6 +7,7 @@ import '@/base.css'
 import { render } from 'solid-js/web'
 import { lastSegmentFromPath } from '@/scripts/utils'
 import { parseToRgb } from 'polished'
+import type { Translation, Translations } from './scripts/i18n'
 
 import ProviderI18n from '@/components/ProviderI18n'
 import ProviderTheme from '@/components/ProviderTheme'
@@ -14,17 +15,19 @@ import TheApp from '@/components/TheApp'
 
 // Import translations and generate languageName -> importFunc map
 
-import { defaultTranslation } from '@/scripts/i18n'
-const translationModules = import.meta.glob(
+const translationModules = import.meta.glob<Translation>(
 	['@/translations/*.ts', '!**/_default.ts'],
 	{ import: 'default' },
 )
 
-const translations = Object.keys(translationModules).reduce((result, path) => {
-	const language = lastSegmentFromPath(path)
-	result[language] = translationModules[path]
-	return result
-}, {})
+const translations = Object.keys(translationModules).reduce<Translations>(
+	(result, path) => {
+		const language = lastSegmentFromPath(path)
+		result[language] = translationModules[path]
+		return result
+	},
+	{},
+)
 
 // Initialise theme data
 
@@ -33,7 +36,7 @@ const initialColour = '#FFB885'
 render(
 	() => (
 		<ProviderI18n
-			defaultTranslation={defaultTranslation}
+			defaultLanguage="_default"
 			translations={translations}
 		>
 			<ProviderTheme initialColour={initialColour}>
