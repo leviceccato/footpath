@@ -10,7 +10,7 @@ import * as css from './ProviderTheme.css'
 function createThemeContext(initialBgColour: RgbColor) {
 	const [_, setBgColour] = createSignal(initialBgColour)
 	const vars = assignInlineVars({})
-	return [{ vars }, setBgColour] as const
+	return [{ vars, class: css.colours }, setBgColour] as const
 }
 
 type ThemeContext = ReturnType<typeof createThemeContext>
@@ -33,26 +33,30 @@ const ProviderTheme: ParentComponent<{ initialBgColour: RgbColor }> = (
 	const isColourLight = () => readable() === '#FFF'
 	const lightnessDirection = () => (isColourLight() ? -1 : 1)
 
-	function createBgLightnessVar(value: number): string {
+	function createLightnessVar(value: number): string {
 		return String(bgColourHsl().lightness + value * lightnessDirection())
 	}
 
 	const theme = () => {
 		return {
+			class: css.colours,
 			vars: assignInlineVars({
 				[css.bgColourHueVar]: String(bgColourHsl().hue),
 				[css.bgColourSaturationVar]: String(bgColourHsl().saturation),
-				[css.bgColourLightness0Var]: createBgLightnessVar(0),
-				[css.bgColourLightness1Var]: createBgLightnessVar(0.1),
-				[css.bgColourLightness2Var]: createBgLightnessVar(0.2),
-				[css.bgColourLightness3Var]: createBgLightnessVar(0.3),
-				[css.bgColourLightness4Var]: createBgLightnessVar(0.4),
-				[css.bgColourLightness5Var]: createBgLightnessVar(0.5),
-				[css.bgColourLightness6Var]: createBgLightnessVar(0.6),
-				[css.bgColourLightness7Var]: createBgLightnessVar(0.7),
-				[css.bgColourLightness8Var]: createBgLightnessVar(0.8),
-				[css.bgColourLightness9Var]: createBgLightnessVar(0.9),
-				[css.bgColourLightness10Var]: createBgLightnessVar(1),
+
+				// Colour lightness values
+
+				[css.colourLightness0Var]: createLightnessVar(1),
+				[css.colourLightness1Var]: createLightnessVar(0.9),
+				[css.colourLightness2Var]: createLightnessVar(0.8),
+				[css.colourLightness3Var]: createLightnessVar(0.7),
+				[css.colourLightness4Var]: createLightnessVar(0.6),
+				[css.colourLightness5Var]: createLightnessVar(0.5),
+				[css.colourLightness6Var]: createLightnessVar(0.4),
+				[css.colourLightness7Var]: createLightnessVar(0.3),
+				[css.colourLightness8Var]: createLightnessVar(0.2),
+				[css.colourLightness9Var]: createLightnessVar(0.1),
+				[css.colourLightness10Var]: createLightnessVar(0),
 			}),
 		}
 	}
