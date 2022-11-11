@@ -29,7 +29,7 @@ const ProviderI18n: ParentComponent<{
 	const [language, setLanguage] = createSignal('_default')
 
 	createEffect(async () => {
-		if (language() === '_default') {
+		if (language() === '_default' || !props.translations) {
 			return setTranslation(props.defaultTranslation)
 		}
 

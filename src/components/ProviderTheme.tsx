@@ -9,7 +9,7 @@ import * as css from './ProviderTheme.css'
 // Function used purely to get return type for context
 
 function createThemeContext() {
-	const [_, setColour] = createSignal<string>()
+	const [_, setColour] = createSignal('')
 	const vars = () => assignInlineVars({})
 	return [vars, setColour] as const
 }
