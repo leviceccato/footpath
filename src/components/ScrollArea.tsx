@@ -25,33 +25,25 @@ const ScrollArea: ParentComponent<{
 	const [isOverflowingLeft, setIsOverflowingLeft] = createSignal(false)
 	const [isOverflowingRight, setIsOverflowingRight] = createSignal(false)
 
-	function checkOverflow(event: Event) {
-		const target = event.target
+	function checkOverflow({ target }: Event) {
 		if (!target || !(target instanceof HTMLElement)) {
 			return
 		}
 
-		const {
-			scrollTop,
-			scrollLeft,
-			scrollHeight,
-			scrollWidth,
-			clientHeight,
-			clientWidth,
-		} = target
-
-		setScrollTop(scrollTop)
-		setScrollLeft(scrollLeft)
+		setScrollTop(target.scrollTop)
+		setScrollLeft(target.scrollLeft)
 
 		// Set overflow booleans for each side based on minimum distance values
 
-		setIsOverflowingTop(scrollTop > _props.minDistanceForOverflowY)
+		setIsOverflowingTop(target.scrollTop > _props.minDistanceForOverflowY)
 		setIsOverflowingBottom(
-			scrollHeight - scrollTop - clientHeight > _props.minDistanceForOverflowY,
+			target.scrollHeight - target.scrollTop - target.clientHeight >
+				_props.minDistanceForOverflowY,
 		)
-		setIsOverflowingLeft(scrollLeft > _props.minDistanceForOverflowX)
+		setIsOverflowingLeft(target.scrollLeft > _props.minDistanceForOverflowX)
 		setIsOverflowingRight(
-			scrollWidth - scrollLeft - clientWidth > _props.minDistanceForOverflowX,
+			target.scrollWidth - target.scrollLeft - target.clientWidth >
+				_props.minDistanceForOverflowX,
 		)
 	}
 
