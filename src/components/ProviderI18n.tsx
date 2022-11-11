@@ -1,7 +1,7 @@
 import { createContext, createSignal, useContext, createEffect } from 'solid-js'
 import { defaultTranslation } from '@/scripts/i18n'
 import type { ParentComponent } from 'solid-js'
-import type { Translation } from '@/scripts/i18n'
+import type { Translation, Translations } from '@/scripts/i18n'
 
 // Function used purely to get return type for context
 
@@ -25,15 +25,15 @@ export function useI18n() {
 }
 
 const ProviderI18n: ParentComponent<{
-	defaultTranslation: Translation
-	translations?: Record<string, () => Promise<Translation>>
+	defaultLanguage: string
+	translations?: Translations
 }> = (props) => {
-	const [translation, setTranslation] = createSignal(props.defaultTranslation)
-	const [language, setLanguage] = createSignal('_default')
+	const [translation, setTranslation] = createSignal(defaultTranslation)
+	const [language, setLanguage] = createSignal(props.defaultLanguage)
 
 	createEffect(async () => {
 		if (language() === '_default' || !props.translations) {
-			return setTranslation(props.defaultTranslation)
+			return setTranslation(defaultTranslation)
 		}
 
 		const newTranslationModule = props.translations[language()]
@@ -41,7 +41,7 @@ const ProviderI18n: ParentComponent<{
 			console.warn(
 				`Translation for language "${language()}" not found, using default.`,
 			)
-			return setTranslation(props.defaultTranslation)
+			return setTranslation(defaultTranslation)
 		}
 
 		const newTranslation = await newTranslationModule()
