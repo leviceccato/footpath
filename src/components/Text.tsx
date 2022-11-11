@@ -1,34 +1,23 @@
 import { Dynamic } from 'solid-js/web'
-import { setDefaultProps } from '@/scripts/solid-helpers'
+import { mergeProps } from 'solid-js'
 import type { ParentComponent } from 'solid-js'
 import * as css from './Text.css'
 
 const Text: ParentComponent<{
 	tag?: string
 	class?: string
-	variant:
-		| 'body-xsmall'
-		| 'body-small'
-		| 'body-medium'
-		| 'heading-small'
-		| 'heading-medium'
-		| 'heading-large'
+	variant: keyof typeof css.variant
 }> = (props) => {
-	setDefaultProps(props, { tag: 'span' })
-
-	const variant = () => {
-		const [style, size] = props.variant.split('-')
-		return { style, size }
-	}
+	const _props = mergeProps({ tag: 'span' }, props)
 
 	return (
 		<Dynamic
-			classList={`${css.root} ${css[variant().style]} ${css[variant().size]} ${
-				props.class ?? ''
+			classList={`${css.root} ${css.variant[_props.variant]} ${
+				_props.class ?? ''
 			}`}
-			component={props.tag}
+			component={_props.tag}
 		>
-			{props.children}
+			{_props.children}
 		</Dynamic>
 	)
 }
