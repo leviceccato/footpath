@@ -5,17 +5,13 @@ import type { Styles } from 'polished/lib/types/style'
 import type { ParentComponent } from 'solid-js'
 import * as css from './ProviderTheme.css'
 
-// Function used purely to get return type for context
-
 function createThemeContext() {
 	const [_, setColour] = createSignal('')
 	const vars = () => assignInlineVars({})
-	return [vars, setColour] as const
+	return [vars, setColour]
 }
 
-type ThemeContext = ReturnType<typeof createThemeContext>
-
-const context = createContext<ThemeContext>(createThemeContext())
+const context = createContext(createThemeContext())
 
 export function useTheme() {
 	return useContext(context)
