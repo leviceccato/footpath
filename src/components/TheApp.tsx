@@ -35,9 +35,9 @@ const TheApp: Component = () => {
 						<Button class={css.tabButton}>Untitled</Button>
 						<Button class={css.tabButton}>Untitled</Button>
 						<Button class={css.tabButton}>Untitled</Button>
-						<Button class={css.addTabButton}>+</Button>
 					</div>
 				</ScrollArea>
+				<Button class={css.addTabButton}>+</Button>
 				<TheMenu class={css.menuContainer} />
 			</header>
 			<main class={css.main} />

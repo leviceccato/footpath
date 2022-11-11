@@ -19,7 +19,6 @@ export const header = style({
 export const logoContainer = style({
 	padding: 4,
 	display: 'flex',
-	borderRight: `1px solid ${themeCss.colour100Var}`,
 })
 
 export const logo = style({
@@ -42,6 +41,8 @@ export const logoLink = style({
 export const scrollArea = style({
 	width: '100%',
 	height: '100%',
+	borderLeft: `1px solid ${themeCss.colour100Var}`,
+	borderRight: `1px solid ${themeCss.colour100Var}`,
 })
 
 export const tabContainer = style({
@@ -51,12 +52,19 @@ export const tabContainer = style({
 
 export const tabButton = style({
 	height: headerHeight,
+	width: '100%',
+	minWidth: 100,
+	selectors: {
+		'&:not(:first-of-type)': {
+			borderLeft: `1px solid ${themeCss.colour100Var}`,
+		},
+	},
 })
 
 export const addTabButton = style({
 	margin: 4,
 	borderRadius: 4,
-	width: `calc(${headerHeight} - 8px)`,
+	minWidth: `calc(${headerHeight} - 8px)`,
 	display: 'flex',
 	justifyContent: 'center',
 	alignItems: 'center',
@@ -67,7 +75,6 @@ export const addTabButton = style({
 
 export const menuContainer = style({
 	padding: 4,
-	borderLeft: `1px solid ${themeCss.colour100Var}`,
 })
 
 export const main = style({
