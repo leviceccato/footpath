@@ -7,6 +7,7 @@ import * as css from './TheApp.css'
 import Button from '@/components/Button'
 import LogoLacy from '@/components/LogoLacy'
 import VisuallyHidden from '@/components/VisuallyHidden'
+import ScrollArea from '@/components/ScrollArea'
 import TheMenu from '@/components/TheMenu'
 
 const TheApp: Component = () => {
@@ -28,9 +29,18 @@ const TheApp: Component = () => {
 						<LogoLacy class={css.logo} />
 					</Button>
 				</div>
-				<div class={css.tabContainer}></div>
+				<ScrollArea class={css.scrollArea}>
+					<div class={css.tabContainer}>
+						<Button class={css.tabButton}>Untitled</Button>
+						<Button class={css.tabButton}>Untitled</Button>
+						<Button class={css.tabButton}>Untitled</Button>
+						<Button class={css.tabButton}>Untitled</Button>
+						<Button class={css.addTabButton}>+</Button>
+					</div>
+				</ScrollArea>
 				<TheMenu class={css.menuContainer} />
 			</header>
+			<main class={css.main} />
 		</div>
 	)
 }

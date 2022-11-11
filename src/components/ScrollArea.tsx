@@ -8,6 +8,7 @@ import * as css from './ScrollArea.css'
 const ScrollArea: ParentComponent<{
 	minDistanceForOverflowX?: number
 	minDistanceForOverflowY?: number
+	class?: string
 }> = (props) => {
 	const _props = mergeProps(
 		{ minDistanceForOverflowX: 0, minDistanceForOverflowY: 0 },
@@ -66,7 +67,7 @@ const ScrollArea: ParentComponent<{
 	return (
 		<div
 			ref={rootRef}
-			class={css.root}
+			class={`${css.root} ${_props.class ?? ''}`}
 		>
 			<div class="simplebar-wrapper">
 				<div class="simplebar-height-auto-observer-wrapper">
