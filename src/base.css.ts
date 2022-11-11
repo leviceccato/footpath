@@ -85,10 +85,6 @@ g('button:focus', {
 	outline: 'none',
 })
 
-g('button:focus-visible', {
-	boxShadow: '0px 0px 0px 2px currentColor',
-})
-
 g('button:enabled', {
 	cursor: 'pointer',
 })
