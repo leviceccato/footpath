@@ -2,6 +2,8 @@ import { Dynamic } from 'solid-js/web'
 import type { ParentComponent, JSX } from 'solid-js'
 import * as css from './Button.css'
 
+import Text from '@/components/Text'
+
 const Button: ParentComponent<
 	JSX.ButtonHTMLAttributes<HTMLButtonElement> & {
 		class?: string
@@ -21,7 +23,7 @@ const Button: ParentComponent<
 			class={`${css.root} ${props.class ?? ''}`}
 			href={props.href}
 		>
-			{props.children}
+			<Text variant="bodyS">{props.children}</Text>
 		</Dynamic>
 	)
 }
