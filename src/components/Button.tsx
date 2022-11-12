@@ -23,7 +23,7 @@ const Button: ParentComponent<
 			class={`${css.root} ${props.class ?? ''}`}
 			href={props.href}
 		>
-			<Text variant="bodyS">{props.children}</Text>
+			<Text variant="bodyXs">{props.children}</Text>
 		</Dynamic>
 	)
 }
