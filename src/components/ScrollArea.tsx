@@ -8,10 +8,15 @@ import * as css from './ScrollArea.css'
 const ScrollArea: ParentComponent<{
 	minDistanceForOverflowX?: number
 	minDistanceForOverflowY?: number
+	shouldScrollHorizontally?: boolean
 	class?: string
 }> = (props) => {
 	const _props = mergeProps(
-		{ minDistanceForOverflowX: 0, minDistanceForOverflowY: 0 },
+		{
+			minDistanceForOverflowX: 0,
+			minDistanceForOverflowY: 0,
+			shouldScrollHorizontally: true,
+		},
 		props,
 	)
 
@@ -59,6 +64,14 @@ const ScrollArea: ParentComponent<{
 		)
 	}
 
+	function scrollHorizontally(event: WheelEvent) {
+		if (!scrollElement) return
+
+		event.preventDefault()
+
+		scrollElement.scrollLeft += event.deltaY
+	}
+
 	onMount(() => {
 		if (!rootRef) return
 
@@ -66,8 +79,11 @@ const ScrollArea: ParentComponent<{
 
 		scrollElement = simpleBar()?.getScrollElement()
 		scrollElement?.addEventListener('scroll', checkOverflow)
-
 		window.addEventListener('resize', checkOverflow)
+
+		if (_props.shouldScrollHorizontally) {
+			scrollElement?.addEventListener('wheel', scrollHorizontally)
+		}
 
 		checkOverflow()
 	})
