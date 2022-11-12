@@ -52,16 +52,42 @@ export const tabContainer = style({
 	display: 'flex',
 })
 
-export const tabButton = style({
-	height: headerHeight,
+export const tabButtonWrapper = style({
+	position: 'relative',
 	width: '100%',
 	minWidth: 100,
+	selectors: {
+		'&:not(:first-of-type)': {
+			borderLeft: `1px solid ${themeCss.colour100Var}`,
+		},
+	},
+})
+
+export const tabButton = style({
+	height: headerHeight,
+	alignItems: 'center',
+	width: '100%',
+	paddingLeft: 16,
 	selectors: {
 		'&:hover, &:focus-visible': {
 			backgroundColor: themeCss.colour50Var,
 		},
-		'&:not(:first-of-type)': {
-			borderLeft: `1px solid ${themeCss.colour100Var}`,
+	},
+})
+
+export const closeTabButton = style({
+	position: 'absolute',
+	right: 6,
+	top: '50%',
+	width: 20,
+	height: 20,
+	alignItems: 'center',
+	justifyContent: 'center',
+	borderRadius: 4,
+	transform: 'translateY(-50%)',
+	selectors: {
+		'&:hover, &:focus-visible': {
+			backgroundColor: themeCss.colour100Var,
 		},
 	},
 })
