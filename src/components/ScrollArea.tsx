@@ -66,8 +66,6 @@ const ScrollArea: ParentComponent<{
 	function scrollHorizontally(event: WheelEvent) {
 		if (!scrollElement) return
 
-		event.preventDefault()
-
 		scrollElement.scrollLeft += event.deltaY
 	}
 
@@ -83,7 +81,9 @@ const ScrollArea: ParentComponent<{
 		window.addEventListener('resize', checkOverflow)
 
 		if (_props.shouldScrollHorizontally) {
-			scrollElement?.addEventListener('wheel', scrollHorizontally)
+			scrollElement?.addEventListener('wheel', scrollHorizontally, {
+				passive: true,
+			})
 		}
 
 		checkOverflow()
