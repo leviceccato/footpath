@@ -1,4 +1,4 @@
-import { style, createVar } from '@vanilla-extract/css'
+import { style, createVar, styleVariants } from '@vanilla-extract/css'
 import * as themeCss from '@/components/ProviderTheme.css'
 
 export const headerHeight = createVar()
@@ -75,6 +75,15 @@ export const tabButton = style({
 	},
 })
 
+export const tabButtonVariant = styleVariants({
+	inactive: [
+		tabButton,
+		{
+			color: themeCss.colour500Var,
+		},
+	],
+})
+
 export const closeTabButton = style({
 	position: 'absolute',
 	right: 6,
@@ -87,9 +96,19 @@ export const closeTabButton = style({
 	transform: 'translateY(-50%)',
 	selectors: {
 		'&:hover, &:focus-visible': {
+			opacity: 1,
 			backgroundColor: themeCss.colour100Var,
 		},
 	},
+})
+
+export const closeTabButtonVariant = styleVariants({
+	inactive: [
+		closeTabButton,
+		{
+			opacity: 0,
+		},
+	],
 })
 
 export const addTabButton = style({
