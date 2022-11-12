@@ -31,10 +31,11 @@ const TheApp: Component = () => {
 				</div>
 				<ScrollArea class={css.scrollArea}>
 					<div class={css.tabContainer}>
-						<Button class={css.tabButton}>Untitled</Button>
-						<Button class={css.tabButton}>Untitled</Button>
-						<Button class={css.tabButton}>Untitled</Button>
-						<Button class={css.tabButton}>Untitled</Button>
+						<Button class={css.tabButton}>Untitled1</Button>
+						<Button class={css.tabButton}>Untitled2</Button>
+						<Button class={css.tabButton}>Untitled3</Button>
+						<Button class={css.tabButton}>Untitled4</Button>
+						<Button class={css.tabButton}>Untitled5</Button>
 					</div>
 				</ScrollArea>
 				<Button class={css.addTabButton}>+</Button>
