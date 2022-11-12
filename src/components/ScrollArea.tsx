@@ -90,8 +90,6 @@ const ScrollArea: ParentComponent<{
 	})
 
 	onCleanup(() => {
-		simpleBar()?.unMount()
-
 		window.removeEventListener('resize', checkOverflow)
 	})
 
