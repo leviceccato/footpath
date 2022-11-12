@@ -100,6 +100,7 @@ const ScrollArea: ParentComponent<{
 	return (
 		<div
 			ref={rootRef}
+			data-simplebar
 			class={`${css.root} ${_props.class ?? ''}`}
 		>
 			<div class="simplebar-wrapper">
