@@ -5,6 +5,7 @@ import type { Component } from 'solid-js'
 import * as css from './TheApp.css'
 
 import Button from '@/components/Button'
+import Text from '@/components/Text'
 import LogoLacy from '@/components/LogoLacy'
 import VisuallyHidden from '@/components/VisuallyHidden'
 import ScrollArea from '@/components/ScrollArea'
@@ -31,11 +32,36 @@ const TheApp: Component = () => {
 				</div>
 				<ScrollArea class={css.scrollArea}>
 					<div class={css.tabContainer}>
-						<Button class={css.tabButton}>Untitled1</Button>
-						<Button class={css.tabButton}>Untitled2</Button>
-						<Button class={css.tabButton}>Untitled3</Button>
-						<Button class={css.tabButton}>Untitled4</Button>
-						<Button class={css.tabButton}>Untitled5</Button>
+						<div class={css.tabButtonWrapper}>
+							<Button class={css.tabButton}>
+								<Text variant="bodyXs">Untitled1</Text>
+							</Button>
+							<Button class={css.closeTabButton}>+</Button>
+						</div>
+						<div class={css.tabButtonWrapper}>
+							<Button class={css.tabButton}>
+								<Text variant="bodyXs">Untitled1</Text>
+							</Button>
+							<Button class={css.closeTabButton}>+</Button>
+						</div>
+						<div class={css.tabButtonWrapper}>
+							<Button class={css.tabButton}>
+								<Text variant="bodyXs">Untitled1</Text>
+							</Button>
+							<Button class={css.closeTabButton}>+</Button>
+						</div>
+						<div class={css.tabButtonWrapper}>
+							<Button class={css.tabButton}>
+								<Text variant="bodyXs">Untitled1</Text>
+							</Button>
+							<Button class={css.closeTabButton}>+</Button>
+						</div>
+						<div class={css.tabButtonWrapper}>
+							<Button class={css.tabButton}>
+								<Text variant="bodyXs">Untitled1</Text>
+							</Button>
+							<Button class={css.closeTabButton}>+</Button>
+						</div>
 					</div>
 				</ScrollArea>
 				<Button class={css.addTabButton}>+</Button>
