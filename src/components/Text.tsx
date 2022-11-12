@@ -12,9 +12,7 @@ const Text: ParentComponent<{
 
 	return (
 		<Dynamic
-			classList={`${css.root} ${css.variant[_props.variant]} ${
-				_props.class ?? ''
-			}`}
+			class={`${css.root} ${css.variant[_props.variant]} ${_props.class ?? ''}`}
 			component={_props.tag}
 		>
 			{_props.children}
