@@ -1,30 +1,6 @@
 export default {
-	hello: 'supasdasdasdasasdasdasdasd',
-	test2: {
-		thing: {
-			hello: '',
-		},
-		test2: {
-			thing: {
-				hello: '',
-			},
-			test2: {
-				thing: {
-					hello: '',
-				},
-				test2: {
-					thing: {
-						hello: '',
-					},
-					test2: {
-						thing: {
-							hello: '',
-						},
-					},
-				},
-			},
-		},
-	},
+	language: 'Default',
+	lacy: 'Lacy',
 	test: (count: number): string => {
 		return ''
 	},
