@@ -16,7 +16,7 @@ const TheApp: Component = () => {
 
 	return (
 		<div
-			classList={{ [css.root]: true, [theme().class]: true }}
+			class={`${css.root} ${theme().class}`}
 			style={theme().vars}
 		>
 			<header class={css.header}>
