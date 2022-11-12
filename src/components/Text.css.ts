@@ -26,7 +26,7 @@ export const variant = styleVariants({
 	bodyXs: [
 		body,
 		{
-			fontSize: 15,
+			fontSize: 14,
 		},
 	],
 	bodyS: [
