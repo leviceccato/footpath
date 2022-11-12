@@ -1,4 +1,19 @@
-import { globalStyle as g } from '@vanilla-extract/css'
+import { fontFace, globalStyle as g } from '@vanilla-extract/css'
+
+export const fontPlexSansMedium = fontFace({
+	src: `local("IBM Plex Sans"), url("/fonts/IBMPlexSans-Medium.woff2") format("woff2")`,
+	fontWeight: 500,
+})
+
+export const fontPlexMonoRegular = fontFace({
+	src: `local("IBM Plex Sans"), url("/fonts/IBMPlexMono-Regular.woff2") format("woff2")`,
+	fontWeight: 400,
+})
+
+export const fontPlexMonoBold = fontFace({
+	src: `local("IBM Plex Sans"), url("/fonts/IBMPlexMono-Bold.woff2") format("woff2")`,
+	fontWeight: 700,
+})
 
 g('html', {
 	height: '100%',
