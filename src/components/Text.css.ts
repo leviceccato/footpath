@@ -1,11 +1,11 @@
-import { style, styleVariants } from '@vanilla-extract/css'
+import { style, fontFace, styleVariants } from '@vanilla-extract/css'
+import * as baseCss from '@/base.css'
 
 export const root = style({
 	display: 'block',
 	fontSize: 'inherit',
 	fontWeight: 400,
-	color: 'var(--color, inherit)',
-	fontFamily: 'var(--font-interdisplay)',
+	fontFamily: baseCss.fontPlexSansMedium,
 })
 
 export const body = style([
