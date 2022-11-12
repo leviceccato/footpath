@@ -33,10 +33,16 @@ const TheApp: Component = () => {
 				<ScrollArea class={css.scrollArea}>
 					<div class={css.tabContainer}>
 						<div class={css.tabButtonWrapper}>
-							<Button class={css.tabButton}>
+							<Button
+								class={`${css.tabButton} ${css.tabButtonVariant.inactive}`}
+							>
 								<Text variant="bodyXs">Untitled1</Text>
 							</Button>
-							<Button class={css.closeTabButton}>+</Button>
+							<Button
+								class={`${css.closeTabButton} ${css.closeTabButtonVariant.inactive}`}
+							>
+								+
+							</Button>
 						</div>
 						<div class={css.tabButtonWrapper}>
 							<Button class={css.tabButton}>
