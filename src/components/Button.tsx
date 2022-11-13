@@ -24,6 +24,7 @@ const Button: ParentComponent<
 			component={tag()}
 			class={`${css.root} ${props.class ?? ''}`}
 			href={props.href}
+			onClick={props.onClick}
 		>
 			<Show
 				when={props.text}
