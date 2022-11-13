@@ -1,8 +1,10 @@
 import { createTranslation } from '@/scripts/i18n'
 
 export default createTranslation({
-	languageKey: 'Spanish',
-	language: 'Español',
+	language: {
+		english: 'Inglés',
+		spanish: 'Español',
+	},
 	lacy: 'Lacy',
 	untitled: 'Intitulado',
 })

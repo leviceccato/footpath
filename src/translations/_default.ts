@@ -1,6 +1,8 @@
 export default {
-	languageKey: 'Default',
-	language: 'English',
+	language: {
+		english: 'English',
+		spanish: 'Spanish',
+	},
 	lacy: 'Lacy',
 	untitled: 'Untitled',
 }
