@@ -19,7 +19,7 @@ function createCroppedFont(font: Font, lineHeight: number) {
 			display: 'block',
 			height: 0,
 			width: 0,
-			marginBottom: `calc((${font.top} - ${lineHeight}) * 0.2em)`,
+			marginBottom: `calc((${font.top} - ${lineHeight}) * 0.5em)`,
 		},
 	}
 }
