@@ -5,7 +5,11 @@ import * as css from './ProviderIcons.css'
 
 type Icons = typeof iconConstants
 
-const icons = (Object.keys(iconConstants) as (keyof Icons)[]).map((name) => {
+type IconName = keyof Icons
+
+const iconNames = Object.keys(iconConstants) as IconName[]
+
+const icons = iconNames.map((name) => {
 	const icon = iconConstants[name]
 	return {
 		...icon,
@@ -13,7 +17,11 @@ const icons = (Object.keys(iconConstants) as (keyof Icons)[]).map((name) => {
 	}
 })
 
-const context = createContext([iconConstants])
+function getIcon(name: IconName): string {
+	return iconConstants[name].use
+}
+
+const context = createContext([getIcon])
 
 export function useIcons() {
 	return useContext(context)
@@ -24,7 +32,7 @@ export function useIcons() {
 const ProviderIcons: ParentComponent = (props) => {
 	return (
 		<>
-			<svg>
+			<svg class={css.root}>
 				<For each={icons}>
 					{(icon) => (
 						<symbol
@@ -35,9 +43,7 @@ const ProviderIcons: ParentComponent = (props) => {
 					)}
 				</For>
 			</svg>
-			<context.Provider value={[iconConstants]}>
-				{props.children}
-			</context.Provider>
+			<context.Provider value={[getIcon]}>{props.children}</context.Provider>
 		</>
 	)
 }
