@@ -4,6 +4,7 @@ import { useIcons } from '@/components/ProviderIcons'
 import { useTheme } from '@/components/ProviderTheme'
 
 import Button from '@/components/Button'
+import Text from '@/components/Text'
 
 const TheMenu: Component<{ class?: string }> = (props) => {
 	const [Icon] = useIcons()
@@ -15,15 +16,32 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 
 	return (
 		<div class={`${css.root} ${props.class ?? ''}`}>
-			<Button text={'Preferences'} />
-			<Button text={'About'} />
-			<Button>
+			<Button class={css.button}>
+				<Text
+					class={css.buttonText}
+					variant="bodyXs"
+				>
+					Preferences
+				</Text>
+			</Button>
+			<Button class={css.button}>
+				<Text
+					class={css.buttonText}
+					variant="bodyXs"
+				>
+					About
+				</Text>
+			</Button>
+			<Button class={css.button}>
 				<Icon
 					class={css.icon}
 					name="i18n"
 				/>
 			</Button>
-			<Button onClick={setRandomColour}>
+			<Button
+				class={css.button}
+				onClick={setRandomColour}
+			>
 				<Icon
 					class={css.icon}
 					name="palette"
