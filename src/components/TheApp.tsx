@@ -2,6 +2,7 @@ import { For, Show } from 'solid-js'
 import { createStore } from 'solid-js/store'
 import { useI18n } from '@/components/ProviderI18n'
 import { useTheme } from '@/components/ProviderTheme'
+import { useIcons } from '@/components/ProviderIcons'
 import type { Component } from 'solid-js'
 import * as css from './TheApp.css'
 
@@ -21,6 +22,7 @@ type Tab = {
 
 const TheApp: Component = () => {
 	const [theme, setColour] = useTheme()
+	const [icon] = useIcons()
 	const [t] = useI18n()
 
 	let tabId = 0
@@ -111,6 +113,7 @@ const TheApp: Component = () => {
 				>
 					+
 				</Button>
+				<svg innerHTML={icon('i18n')} />
 				<TheMenu class={css.menuContainer} />
 			</header>
 			<main class={css.main} />
