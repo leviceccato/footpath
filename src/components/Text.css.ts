@@ -1,17 +1,39 @@
 import { style, fontFace, styleVariants } from '@vanilla-extract/css'
 import * as baseCss from '@/base.css'
+import type { Font } from '@/base.css'
+
+function createCroppedFont(font: Font, lineHeight: number) {
+	return {
+		fontWeight: font.weight,
+		fontFamily: font.family,
+		lineHeight,
+		'::before': {
+			content: '',
+			display: 'block',
+			height: 0,
+			width: 0,
+			marginTop: `calc((${font.top} - ${lineHeight}) * 0.5em)`,
+		},
+		'::after': {
+			content: '',
+			display: 'block',
+			height: 0,
+			width: 0,
+			marginBottom: `calc((${font.top} - ${lineHeight}) * 0.2em)`,
+		},
+	}
+}
 
 export const root = style({
 	display: 'block',
 	fontSize: 'inherit',
-	fontWeight: 400,
-	fontFamily: baseCss.fontPlexSansMedium,
+	...createCroppedFont(baseCss.fontPlexSansMedium, 1.4),
 })
 
 export const body = style([
 	root,
 	{
-		lineHeight: 1.5,
+		...createCroppedFont(baseCss.fontPlexSansMedium, 1.4),
 	},
 ])
 

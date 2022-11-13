@@ -1,19 +1,38 @@
 import { fontFace, globalStyle as g } from '@vanilla-extract/css'
 
-export const fontPlexSansMedium = fontFace({
-	src: `local("IBM Plex Sans"), url("/fonts/IBMPlexSans-Medium.woff2") format("woff2")`,
-	fontWeight: 500,
-})
+export type Font = {
+	weight: number
+	top: number
+	bottom: number
+	family: string
+}
 
-export const fontPlexMonoRegular = fontFace({
-	src: `local("IBM Plex Sans"), url("/fonts/IBMPlexMono-Regular.woff2") format("woff2")`,
-	fontWeight: 400,
-})
+export const fontPlexSansMedium: Font = {
+	weight: 500,
+	top: 0.75,
+	bottom: 0.85,
+	family: fontFace({
+		src: `local("IBM Plex Sans"), url("/fonts/IBMPlexSans-Medium.woff2") format("woff2")`,
+	}),
+}
 
-export const fontPlexMonoBold = fontFace({
-	src: `local("IBM Plex Sans"), url("/fonts/IBMPlexMono-Bold.woff2") format("woff2")`,
-	fontWeight: 700,
-})
+export const fontPlexMonoRegular: Font = {
+	weight: 400,
+	top: 0.75,
+	bottom: 0.85,
+	family: fontFace({
+		src: `local("IBM Plex Sans"), url("/fonts/IBMPlexMono-Regular.woff2") format("woff2")`,
+	}),
+}
+
+export const fontPlexMonoBold: Font = {
+	weight: 700,
+	top: 0.75,
+	bottom: 0.85,
+	family: fontFace({
+		src: `local("IBM Plex Sans"), url("/fonts/IBMPlexMono-Bold.woff2") format("woff2")`,
+	}),
+}
 
 g('html', {
 	height: '100%',
