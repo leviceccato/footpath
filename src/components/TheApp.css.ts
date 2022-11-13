@@ -76,10 +76,16 @@ export const tabButton = style({
 })
 
 export const tabButtonVariant = styleVariants({
+	active: [
+		tabButton,
+		{
+			color: themeCss.colour1000Var,
+		},
+	],
 	inactive: [
 		tabButton,
 		{
-			color: themeCss.colour500Var,
+			color: themeCss.colour300Var,
 		},
 	],
 })
@@ -96,13 +102,18 @@ export const closeTabButton = style({
 	transform: 'translateY(-50%)',
 	selectors: {
 		'&:hover, &:focus-visible': {
-			opacity: 1,
 			backgroundColor: themeCss.colour100Var,
 		},
 	},
 })
 
 export const closeTabButtonVariant = styleVariants({
+	active: [
+		closeTabButton,
+		{
+			opacity: 1,
+		},
+	],
 	inactive: [
 		closeTabButton,
 		{

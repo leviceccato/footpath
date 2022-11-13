@@ -1,4 +1,5 @@
-import { createSignal } from 'solid-js'
+import { For, Show } from 'solid-js'
+import { createStore } from 'solid-js/store'
 import { useI18n } from '@/components/ProviderI18n'
 import { useTheme } from '@/components/ProviderTheme'
 import type { Component } from 'solid-js'
@@ -11,9 +12,51 @@ import VisuallyHidden from '@/components/VisuallyHidden'
 import ScrollArea from '@/components/ScrollArea'
 import TheMenu from '@/components/TheMenu'
 
+type Tab = {
+	id: number
+	name: string
+	isActive: boolean
+	deletedAt: Date | null
+}
+
 const TheApp: Component = () => {
 	const [theme, setColour] = useTheme()
 	const [t] = useI18n()
+
+	let tabId = 0
+
+	const [tabs, setTabs] = createStore<Tab[]>([])
+	addTab()
+
+	function createTab(): Tab {
+		return { id: ++tabId, name: t().untitled, isActive: false, deletedAt: null }
+	}
+
+	function addTab() {
+		const tab = createTab()
+		setTabs([...tabs, tab])
+		activateTab(tab.id)
+	}
+
+	function activateTab(id: number) {
+		setTabs(
+			(tab) => tab.id === id || tab.isActive,
+			(tab) => {
+				if (tab.id === id && tab.isActive) {
+					return tab
+				}
+				return { ...tab, isActive: !tab.isActive }
+			},
+		)
+	}
+
+	function deleteTab(id: number) {
+		setTabs(
+			(tab) => tab.id === id,
+			'deletedAt',
+			(deletedAt) => new Date(),
+		)
+	}
 
 	return (
 		<div
@@ -32,45 +75,42 @@ const TheApp: Component = () => {
 				</div>
 				<ScrollArea class={css.scrollArea}>
 					<div class={css.tabContainer}>
-						<div class={css.tabButtonWrapper}>
-							<Button
-								class={`${css.tabButton} ${css.tabButtonVariant.inactive}`}
-							>
-								<Text variant="bodyXs">Untitled1</Text>
-							</Button>
-							<Button
-								class={`${css.closeTabButton} ${css.closeTabButtonVariant.inactive}`}
-							>
-								+
-							</Button>
-						</div>
-						<div class={css.tabButtonWrapper}>
-							<Button class={css.tabButton}>
-								<Text variant="bodyXs">Untitled1</Text>
-							</Button>
-							<Button class={css.closeTabButton}>+</Button>
-						</div>
-						<div class={css.tabButtonWrapper}>
-							<Button class={css.tabButton}>
-								<Text variant="bodyXs">Untitled1</Text>
-							</Button>
-							<Button class={css.closeTabButton}>+</Button>
-						</div>
-						<div class={css.tabButtonWrapper}>
-							<Button class={css.tabButton}>
-								<Text variant="bodyXs">Untitled1</Text>
-							</Button>
-							<Button class={css.closeTabButton}>+</Button>
-						</div>
-						<div class={css.tabButtonWrapper}>
-							<Button class={css.tabButton}>
-								<Text variant="bodyXs">Untitled1</Text>
-							</Button>
-							<Button class={css.closeTabButton}>+</Button>
-						</div>
+						<For each={tabs}>
+							{(tab) => (
+								<Show when={!tab.deletedAt}>
+									<div class={css.tabButtonWrapper}>
+										<Button
+											onClick={[activateTab, tab.id]}
+											class={
+												css.tabButtonVariant[
+													tab.isActive ? 'active' : 'inactive'
+												]
+											}
+										>
+											<Text variant="bodyXs">{tab.name}</Text>
+										</Button>
+										<Button
+											onClick={[deleteTab, tab.id]}
+											class={
+												css.closeTabButtonVariant[
+													tab.isActive ? 'active' : 'inactive'
+												]
+											}
+										>
+											+
+										</Button>
+									</div>
+								</Show>
+							)}
+						</For>
 					</div>
 				</ScrollArea>
-				<Button class={css.addTabButton}>+</Button>
+				<Button
+					onClick={addTab}
+					class={css.addTabButton}
+				>
+					+
+				</Button>
 				<TheMenu class={css.menuContainer} />
 			</header>
 			<main class={css.main} />
