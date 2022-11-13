@@ -41,14 +41,26 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 					</Text>
 				</Button>
 			</div>
-			<div class={css.buttonWrapper}>
-				<Button class={css.button}>
-					<Icon
-						class={css.icon}
-						name="i18n"
-					/>
-				</Button>
-			</div>
+			<Popover
+				class={css.buttonWrapper}
+				when="click"
+				options={{
+					placement: 'bottom-end',
+					modifiers: [{ name: 'offset', options: { offset: [0, 8] } }],
+				}}
+				reference={
+					<Button class={css.button}>
+						<Icon
+							class={css.icon}
+							name="i18n"
+						/>
+					</Button>
+				}
+			>
+				<div class={css.dropdown}>
+					<Text variant="bodyXs">Hello</Text>
+				</div>
+			</Popover>
 			<Popover
 				class={css.buttonWrapper}
 				when="click"
