@@ -6,12 +6,12 @@ export type Icon = {
 	id: string
 	viewBox: ViewBox
 	content: string
-	toString: () => string
+	use: string
 }
 
-function createIcon(icon: Omit<Icon, 'id'>): Icon {
+function createIcon(icon: Omit<Icon, 'id' | 'use'>): Icon {
 	const id = createUniqueId()
-	return { ...icon, id, toString: () => `<use href="#${id}" />` }
+	return { ...icon, id, use: `<use href="#${id}" />` }
 }
 
 export default {
