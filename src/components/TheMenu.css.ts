@@ -13,9 +13,14 @@ export const icon = style({
 	height: 18,
 })
 
-export const button = style({
+export const buttonWrapper = style({
 	height: 'calc(100% - 8px)',
+})
+
+export const button = style({
 	minWidth: 32,
+	height: '100%',
+	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'center',
 	borderRadius: 4,
@@ -28,4 +33,11 @@ export const button = style({
 
 export const buttonText = style({
 	padding: '0 10px',
+})
+
+export const dropdown = style({
+	borderRadius: 8,
+	padding: 10,
+	backgroundColor: themeCss.colourVar,
+	border: `1px solid ${themeCss.colour200Var}`,
 })

@@ -1,3 +1,4 @@
+import { createSignal } from 'solid-js'
 import type { Component } from 'solid-js'
 import * as css from './TheMenu.css'
 import { useIcons } from '@/components/ProviderIcons'
@@ -5,10 +6,14 @@ import { useTheme } from '@/components/ProviderTheme'
 
 import Button from '@/components/Button'
 import Text from '@/components/Text'
+import Popover from '@/components/Popover'
 
 const TheMenu: Component<{ class?: string }> = (props) => {
 	const [Icon] = useIcons()
 	const [_, setColour] = useTheme()
+	const [activeMenuDropdown, setActiveMenuDropdown] = createSignal<
+		string | null
+	>(null)
 
 	function setRandomColour() {
 		setColour(`#${Math.floor(Math.random() * 16777215).toString(16)}`)
@@ -16,37 +21,57 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 
 	return (
 		<div class={`${css.root} ${props.class ?? ''}`}>
-			<Button class={css.button}>
-				<Text
-					class={css.buttonText}
-					variant="bodyXs"
-				>
-					Preferences
-				</Text>
-			</Button>
-			<Button class={css.button}>
-				<Text
-					class={css.buttonText}
-					variant="bodyXs"
-				>
-					About
-				</Text>
-			</Button>
-			<Button class={css.button}>
-				<Icon
-					class={css.icon}
-					name="i18n"
-				/>
-			</Button>
-			<Button
-				class={css.button}
-				onClick={setRandomColour}
+			<div class={css.buttonWrapper}>
+				<Button class={css.button}>
+					<Text
+						class={css.buttonText}
+						variant="bodyXs"
+					>
+						Preferences
+					</Text>
+				</Button>
+			</div>
+			<div class={css.buttonWrapper}>
+				<Button class={css.button}>
+					<Text
+						class={css.buttonText}
+						variant="bodyXs"
+					>
+						About
+					</Text>
+				</Button>
+			</div>
+			<div class={css.buttonWrapper}>
+				<Button class={css.button}>
+					<Icon
+						class={css.icon}
+						name="i18n"
+					/>
+				</Button>
+			</div>
+			<Popover
+				class={css.buttonWrapper}
+				when="click"
+				options={{
+					placement: 'bottom-end',
+					modifiers: [{ name: 'offset', options: { offset: [0, 8] } }],
+				}}
+				reference={
+					<Button
+						class={css.button}
+						onClick={setRandomColour}
+					>
+						<Icon
+							class={css.icon}
+							name="palette"
+						/>
+					</Button>
+				}
 			>
-				<Icon
-					class={css.icon}
-					name="palette"
-				/>
-			</Button>
+				<div class={css.dropdown}>
+					<Text variant="bodyXs">Hello</Text>
+				</div>
+			</Popover>
 		</div>
 	)
 }
