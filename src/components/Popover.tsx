@@ -44,10 +44,22 @@ const Popover: ParentComponent<{
 		return isShown() ? 'shown' : 'hidden'
 	}
 
+	function toggleEventListeners(enabled: boolean) {
+		popper?.setOptions((options) => ({
+			...options,
+			modifiers: [
+				...(options.modifiers || []),
+				{ name: 'eventListeners', enabled },
+			],
+		}))
+	}
+
 	createEffect(() => {
 		if (isShown()) {
-			popper?.update()
+			toggleEventListeners(true)
+			return popper?.update()
 		}
+		toggleEventListeners(false)
 	})
 
 	onMount(async () => {
