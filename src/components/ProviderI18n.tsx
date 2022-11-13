@@ -6,13 +6,23 @@ import type { Translation, Translations } from '@/scripts/i18n'
 function createI18nContext(
 	initialTranslation: Translation,
 	initialLanguage: string,
+	translations: Translations,
 ) {
 	const [translation] = createSignal(initialTranslation)
 	const [language, setLanguage] = createSignal(initialLanguage)
-	return [translation, { get: language, set: setLanguage }] as const
+	return [
+		translation,
+		{
+			get: language,
+			set: setLanguage,
+			getAll: () => Object.keys(translations),
+		},
+	] as const
 }
 
-const context = createContext(createI18nContext(defaultTranslation, '_default'))
+const context = createContext(
+	createI18nContext(defaultTranslation, '_default', {}),
+)
 
 export function useI18n() {
 	return useContext(context)
@@ -44,7 +54,14 @@ const ProviderI18n: ParentComponent<{
 
 	return (
 		<context.Provider
-			value={[translation, { get: language, set: setLanguage }]}
+			value={[
+				translation,
+				{
+					get: language,
+					set: setLanguage,
+					getAll: () => Object.keys(props.translations || {}),
+				},
+			]}
 		>
 			{props.children}
 		</context.Provider>
