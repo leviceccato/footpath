@@ -136,9 +136,7 @@ export const addTabButton = style({
 	},
 })
 
-export const menuContainer = style({
-	padding: 4,
-})
+export const menuContainer = style({})
 
 export const main = style({
 	borderTop: `1px solid ${themeCss.colour100Var}`,

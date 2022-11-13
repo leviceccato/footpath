@@ -116,7 +116,6 @@ const TheApp: Component = () => {
 				>
 					+
 				</Button>
-				<svg innerHTML={icon('i18n')} />
 				<TheMenu class={css.menuContainer} />
 			</header>
 			<main class={css.main} />
