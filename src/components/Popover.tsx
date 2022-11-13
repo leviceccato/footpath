@@ -1,6 +1,7 @@
 import {
 	createUniqueId,
 	onMount,
+	onCleanup,
 	mergeProps,
 	createSignal,
 	createEffect,
@@ -54,6 +55,19 @@ const Popover: ParentComponent<{
 		}))
 	}
 
+	function handleDocumentClick({ target }: Event) {
+		if (!(target instanceof Node)) {
+			return
+		}
+
+		const isOutsideReference = !referenceRef?.contains(target)
+		const isOutsideContent = !contentRef?.contains(target)
+
+		if (isOutsideReference && isOutsideContent) {
+			setIsToggled(false)
+		}
+	}
+
 	createEffect(() => {
 		if (isShown()) {
 			toggleEventListeners(true)
@@ -77,6 +91,12 @@ const Popover: ParentComponent<{
 			contentRef,
 			_props.options,
 		)
+
+		window.addEventListener('click', handleDocumentClick)
+	})
+
+	onCleanup(() => {
+		window.removeEventListener('click', handleDocumentClick)
 	})
 
 	return (
