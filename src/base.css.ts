@@ -9,7 +9,7 @@ export type Font = {
 
 export const fontPlexSansMedium: Font = {
 	weight: 500,
-	top: 0.75,
+	top: 0.85,
 	bottom: 0.85,
 	family: fontFace({
 		src: `local("IBM Plex Sans"), url("/fonts/IBMPlexSans-Medium.woff2") format("woff2")`,
@@ -18,7 +18,7 @@ export const fontPlexSansMedium: Font = {
 
 export const fontPlexMonoRegular: Font = {
 	weight: 400,
-	top: 0.75,
+	top: 0.85,
 	bottom: 0.85,
 	family: fontFace({
 		src: `local("IBM Plex Sans"), url("/fonts/IBMPlexMono-Regular.woff2") format("woff2")`,
@@ -27,7 +27,7 @@ export const fontPlexMonoRegular: Font = {
 
 export const fontPlexMonoBold: Font = {
 	weight: 700,
-	top: 0.75,
+	top: 0.85,
 	bottom: 0.85,
 	family: fontFace({
 		src: `local("IBM Plex Sans"), url("/fonts/IBMPlexMono-Bold.woff2") format("woff2")`,
