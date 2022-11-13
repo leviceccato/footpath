@@ -13,12 +13,13 @@ const icons = iconNames.map((name) => {
 	const icon = iconConstants[name]
 	return {
 		...icon,
+		id: `icon_${name}`,
 		viewBox: icon.viewBox.join(' '),
 	}
 })
 
 function getIcon(name: IconName): string {
-	return iconConstants[name].use
+	return `<use href="#icon_${name}" />`
 }
 
 const context = createContext([getIcon])

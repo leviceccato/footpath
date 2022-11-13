@@ -1,17 +1,12 @@
-import { createUniqueId } from 'solid-js'
-
 export type ViewBox = [number, number, number, number]
 
 export type Icon = {
-	id: string
 	viewBox: ViewBox
 	content: string
-	use: string
 }
 
-function createIcon(icon: Omit<Icon, 'id' | 'use'>): Icon {
-	const id = createUniqueId()
-	return { ...icon, id, use: `<use href="#${id}" />` }
+function createIcon(icon: Icon): Icon {
+	return icon
 }
 
 export default {

@@ -72,7 +72,10 @@ const TheApp: Component = () => {
 						href="/"
 					>
 						<VisuallyHidden>{t().lacy}</VisuallyHidden>
-						<LogoLacy class={css.logo} />
+						<svg
+							class={css.logo}
+							innerHTML={icon('logoLacy')}
+						/>
 					</Button>
 				</div>
 				<ScrollArea class={css.scrollArea}>
