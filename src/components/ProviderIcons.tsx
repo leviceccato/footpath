@@ -18,11 +18,22 @@ const icons = iconNames.map((name) => {
 	}
 })
 
-function getIcon(name: IconName): string {
-	return `<use href="#icon_${name}" />`
+// Consumer component exposed with context
+
+const Icon: Component<{ class?: string; name: IconName }> = (props) => {
+	const icon = iconConstants[props.name]
+	return (
+		<svg
+			class={props.class ?? ''}
+			width={icon.viewBox[2]}
+			height={icon.viewBox[3]}
+		>
+			<use href={`#icon_${props.name}`} />
+		</svg>
+	)
 }
 
-const context = createContext([getIcon])
+const context = createContext([Icon])
 
 export function useIcons() {
 	return useContext(context)
@@ -44,7 +55,7 @@ const ProviderIcons: ParentComponent = (props) => {
 					)}
 				</For>
 			</svg>
-			<context.Provider value={[getIcon]}>{props.children}</context.Provider>
+			<context.Provider value={[Icon]}>{props.children}</context.Provider>
 		</>
 	)
 }

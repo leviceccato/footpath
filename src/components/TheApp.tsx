@@ -22,7 +22,7 @@ type Tab = {
 
 const TheApp: Component = () => {
 	const [theme, setColour] = useTheme()
-	const [icon] = useIcons()
+	const [Icon] = useIcons()
 	const [t] = useI18n()
 
 	let tabId = 0
@@ -72,9 +72,9 @@ const TheApp: Component = () => {
 						href="/"
 					>
 						<VisuallyHidden>{t().lacy}</VisuallyHidden>
-						<svg
+						<Icon
 							class={css.logo}
-							innerHTML={icon('logoLacy')}
+							name="logoLacy"
 						/>
 					</Button>
 				</div>
