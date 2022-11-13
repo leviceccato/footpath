@@ -40,6 +40,7 @@ const ProviderTheme: ParentComponent<{ initialColour: string }> = (props) => {
 				[css.colourBaseVar]: createColour(1),
 				[css.colourBase50Var]: createColour(0.95),
 				[css.colourBase100Var]: createColour(0.9),
+				[css.colourBase150Var]: createColour(0.85),
 				[css.colourBase200Var]: createColour(0.8),
 				[css.colourBase300Var]: createColour(0.7),
 				[css.colourBase400Var]: createColour(0.6),

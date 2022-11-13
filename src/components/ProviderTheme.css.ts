@@ -6,6 +6,7 @@ import { style, createVar } from '@vanilla-extract/css'
 export const colourBaseVar = createVar()
 export const colourBase50Var = createVar()
 export const colourBase100Var = createVar()
+export const colourBase150Var = createVar()
 export const colourBase200Var = createVar()
 export const colourBase300Var = createVar()
 export const colourBase400Var = createVar()
@@ -21,6 +22,7 @@ export const colourBase1000Var = createVar()
 export const colourVar = createVar()
 export const colour50Var = createVar()
 export const colour100Var = createVar()
+export const colour150Var = createVar()
 export const colour200Var = createVar()
 export const colour300Var = createVar()
 export const colour400Var = createVar()
@@ -38,6 +40,7 @@ export const colours = style({
 		[colourVar]: `rgb(${colourBaseVar})`,
 		[colour50Var]: `rgb(${colourBase50Var})`,
 		[colour100Var]: `rgb(${colourBase100Var})`,
+		[colour150Var]: `rgb(${colourBase150Var})`,
 		[colour200Var]: `rgb(${colourBase200Var})`,
 		[colour300Var]: `rgb(${colourBase300Var})`,
 		[colour400Var]: `rgb(${colourBase400Var})`,
