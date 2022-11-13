@@ -102,7 +102,10 @@ const TheApp: Component = () => {
 												]
 											}
 										>
-											+
+											<Icon
+												class={css.closeTabIcon}
+												name="close"
+											/>
 										</Button>
 									</div>
 								</Show>
@@ -114,11 +117,14 @@ const TheApp: Component = () => {
 					onClick={addTab}
 					class={css.addTabButton}
 				>
-					+
+					<Icon
+						class={css.addTabIcon}
+						name="add"
+					/>
 				</Button>
 				<TheMenu class={css.menuContainer} />
 			</header>
-			<main class={css.main} />
+			<main class={css.main}></main>
 		</div>
 	)
 }
