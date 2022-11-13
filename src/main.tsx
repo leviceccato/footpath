@@ -11,6 +11,7 @@ import type { Translation, Translations } from './scripts/i18n'
 
 import ProviderI18n from '@/components/ProviderI18n'
 import ProviderTheme from '@/components/ProviderTheme'
+import ProviderIcons from '@/components/ProviderIcons'
 import TheApp from '@/components/TheApp'
 
 // Import translations and generate languageName -> importFunc map
@@ -40,7 +41,9 @@ render(
 			translations={translations}
 		>
 			<ProviderTheme initialColour={initialColour}>
-				<TheApp />
+				<ProviderIcons>
+					<TheApp />
+				</ProviderIcons>
 			</ProviderTheme>
 		</ProviderI18n>
 	),
