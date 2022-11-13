@@ -7,8 +7,7 @@ export const root = style({
 	padding: '0 20px',
 })
 
-export const i18nIcon = style({
-	minWidth: 20,
-	width: 20,
-	height: 20,
+export const icon = style({
+	minWidth: 18,
+	height: 18,
 })
