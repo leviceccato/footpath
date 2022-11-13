@@ -57,10 +57,7 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 					modifiers: [{ name: 'offset', options: { offset: [0, 8] } }],
 				}}
 				reference={
-					<Button
-						class={css.button}
-						onClick={setRandomColour}
-					>
+					<Button class={css.button}>
 						<Icon
 							class={css.icon}
 							name="palette"
