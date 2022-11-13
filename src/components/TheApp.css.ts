@@ -44,8 +44,8 @@ export const logoLink = style({
 export const scrollArea = style({
 	width: '100%',
 	height: '100%',
-	borderLeft: `1px solid ${themeCss.colour100Var}`,
-	borderRight: `1px solid ${themeCss.colour100Var}`,
+	borderLeft: `1px solid ${themeCss.colour150Var}`,
+	borderRight: `1px solid ${themeCss.colour150Var}`,
 })
 
 export const tabContainer = style({
@@ -59,7 +59,7 @@ export const tabButtonWrapper = style({
 	minWidth: 100,
 	selectors: {
 		'&:not(:first-of-type)': {
-			borderLeft: `1px solid ${themeCss.colour100Var}`,
+			borderLeft: `1px solid ${themeCss.colour150Var}`,
 		},
 	},
 })
@@ -123,6 +123,10 @@ export const closeTabButtonVariant = styleVariants({
 	],
 })
 
+export const closeTabIcon = style({
+	width: 16,
+})
+
 export const addTabButton = style({
 	margin: 4,
 	borderRadius: 4,
@@ -137,8 +141,12 @@ export const addTabButton = style({
 	},
 })
 
+export const addTabIcon = style({
+	width: 16,
+})
+
 export const menuContainer = style({})
 
 export const main = style({
-	borderTop: `1px solid ${themeCss.colour100Var}`,
+	borderTop: `1px solid ${themeCss.colour150Var}`,
 })
