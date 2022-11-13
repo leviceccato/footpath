@@ -5,6 +5,7 @@ export const headerHeight = createVar()
 
 export const root = style({
 	backgroundColor: themeCss.colourVar,
+	color: themeCss.colour1000Var,
 	height: '100vh',
 	vars: {
 		[headerHeight]: '40px',
