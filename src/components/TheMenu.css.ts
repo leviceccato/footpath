@@ -5,7 +5,7 @@ export const root = style({
 	display: 'flex',
 	alignItems: 'center',
 	gap: 4,
-	padding: '0 4px',
+	padding: '0 8px',
 })
 
 export const icon = style({
