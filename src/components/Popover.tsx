@@ -132,10 +132,10 @@ const Popover: ParentComponent<{
 				ref={referenceRef}
 				aria-describedby={id}
 				onClick={() => setIsToggled((v) => !v)}
-				focusin={[setIsFocused, true]}
-				focusout={[setIsFocused, false]}
-				mouseenter={[setIsHovered, true]}
-				mouseleave={[setIsHovered, false]}
+				onfocusin={[setIsFocused, true]}
+				onfocusout={[setIsFocused, false]}
+				onmouseenter={[setIsHovered, true]}
+				onmouseleave={[setIsHovered, false]}
 			>
 				{reference()}
 			</Dynamic>
