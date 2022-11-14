@@ -67,9 +67,16 @@ const Popover: ParentComponent<{
 				{ name: 'eventListeners', enabled },
 			],
 		}))
+		if (enabled) {
+			window.addEventListener('click', handleClickOutsideToClose)
+			window.addEventListener('keydown', handleEscapeToClose)
+			return
+		}
+		window.removeEventListener('click', handleClickOutsideToClose)
+		window.removeEventListener('keydown', handleEscapeToClose)
 	}
 
-	function handleDocumentClick({ target }: Event) {
+	function handleClickOutsideToClose({ target }: Event) {
 		if (!(target instanceof Node)) {
 			return
 		}
@@ -78,6 +85,12 @@ const Popover: ParentComponent<{
 		const isOutsideContent = !contentRef?.contains(target)
 
 		if (isOutsideReference && isOutsideContent) {
+			setIsToggled(false)
+		}
+	}
+
+	function handleEscapeToClose({ key }: KeyboardEvent) {
+		if (key === 'Escape') {
 			setIsToggled(false)
 		}
 	}
@@ -105,12 +118,10 @@ const Popover: ParentComponent<{
 			contentRef,
 			_props.options,
 		)
-
-		window.addEventListener('click', handleDocumentClick)
 	})
 
 	onCleanup(() => {
-		window.removeEventListener('click', handleDocumentClick)
+		toggleEventListeners(false)
 	})
 
 	return (
