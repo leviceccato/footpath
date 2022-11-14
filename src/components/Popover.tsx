@@ -6,7 +6,7 @@ import {
 	createSignal,
 	createEffect,
 } from 'solid-js'
-import type { ParentComponent, JSX } from 'solid-js'
+import type { ParentComponent, JSX, FlowProps, Accessor } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
 import type { StrictModifiers, Options, Instance } from '@popperjs/core'
 import * as css from './Popover.css'
@@ -16,7 +16,14 @@ const Popover: ParentComponent<{
 	class?: string
 	referenceTag?: string
 	contentTag?: string
-	reference?: JSX.Element
+	reference?:
+		| JSX.Element
+		| ((state: {
+				isToggled: Accessor<boolean>
+				isFocused: Accessor<boolean>
+				isHovered: Accessor<boolean>
+				isShown: () => boolean
+		  }) => JSX.Element)
 	options?: Partial<Options>
 }> = (props) => {
 	const _props = mergeProps({ referenceTag: 'div', contentTag: 'div' }, props)
@@ -39,6 +46,13 @@ const Popover: ParentComponent<{
 			return isToggled()
 		}
 		return Boolean(_props.when)
+	}
+
+	const reference = () => {
+		if (typeof _props.reference === 'function') {
+			return _props.reference({ isHovered, isFocused, isToggled, isShown })
+		}
+		return props.reference
 	}
 
 	const contentVariant = (): keyof typeof css.contentVariants => {
@@ -112,7 +126,7 @@ const Popover: ParentComponent<{
 				mouseenter={[setIsHovered, true]}
 				mouseleave={[setIsHovered, false]}
 			>
-				{_props.reference}
+				{reference()}
 			</Dynamic>
 			<Dynamic
 				class={css.contentVariants[contentVariant()]}
