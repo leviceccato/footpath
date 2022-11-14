@@ -46,19 +46,24 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 				when="click"
 				options={{
 					placement: 'bottom-end',
-					modifiers: [{ name: 'offset', options: { offset: [0, 8] } }],
+					modifiers: [{ name: 'offset', options: { offset: [0, 9] } }],
 				}}
-				reference={
-					<Button class={css.button}>
+				reference={(state) => (
+					<Button
+						class={
+							css.buttonVariant[state.isShown() ? 'dropdownOpen' : 'default']
+						}
+					>
 						<Icon
 							class={css.icon}
-							name="i18n"
+							name={state.isHovered() ? 'logoLacy' : 'i18n'}
 						/>
 					</Button>
-				}
+				)}
 			>
 				<div class={css.dropdown}>
-					<Text variant="bodyXs">Hello</Text>
+					<Button text="English" />
+					<Button text="Español / Spanish" />
 				</div>
 			</Popover>
 			<Popover
@@ -66,7 +71,7 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 				when="click"
 				options={{
 					placement: 'bottom-end',
-					modifiers: [{ name: 'offset', options: { offset: [0, 8] } }],
+					modifiers: [{ name: 'offset', options: { offset: [0, 9] } }],
 				}}
 				reference={
 					<Button class={css.button}>
