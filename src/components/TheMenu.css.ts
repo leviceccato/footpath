@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css'
+import { style, styleVariants } from '@vanilla-extract/css'
 import * as themeCss from '@/components/ProviderTheme.css'
 
 export const root = style({
@@ -29,6 +29,21 @@ export const button = style({
 			backgroundColor: themeCss.colour100Var,
 		},
 	},
+})
+
+export const buttonVariant = styleVariants({
+	default: [
+		button,
+		{
+			border: `1px solid transparent`,
+		},
+	],
+	dropdownOpen: [
+		button,
+		{
+			border: `1px solid ${themeCss.colour200Var}`,
+		},
+	],
 })
 
 export const buttonText = style({
