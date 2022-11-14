@@ -34,4 +34,9 @@ export default {
 		viewBox: [0, 0, 24, 24],
 		content: '<path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/>',
 	}),
+	check: createIcon({
+		viewBox: [0, 0, 24, 24],
+		content:
+			'<path d="M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z" />',
+	}),
 }
