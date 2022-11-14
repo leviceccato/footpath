@@ -36,8 +36,9 @@ export const buttonText = style({
 })
 
 export const dropdown = style({
-	borderRadius: 8,
+	borderRadius: 4,
 	padding: 10,
 	backgroundColor: themeCss.colourVar,
 	border: `1px solid ${themeCss.colour200Var}`,
+	boxShadow: ' 0px 10px 15px -3px rgba(0,0,0,0.1)',
 })
