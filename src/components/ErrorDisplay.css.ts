@@ -6,5 +6,7 @@ export const root = style({
 	alignItems: 'center',
 	justifyContent: 'center',
 	gap: 20,
+	textAlign: 'center',
+	padding: 20,
 	height: '100%',
 })
