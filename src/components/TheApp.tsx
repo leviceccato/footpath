@@ -12,6 +12,7 @@ import LogoLacy from '@/components/LogoLacy'
 import VisuallyHidden from '@/components/VisuallyHidden'
 import ScrollArea from '@/components/ScrollArea'
 import TheMenu from '@/components/TheMenu'
+import ErrorDisplay from '@/components/ErrorDisplay'
 
 type Tab = {
 	id: number
@@ -65,66 +66,71 @@ const TheApp: Component = () => {
 			class={`${css.root} ${theme().class}`}
 			style={theme().vars}
 		>
-			<header class={css.header}>
-				<div class={css.logoContainer}>
+			<ErrorDisplay>
+				<header class={css.header}>
+					{() => {
+						throw 'Error'
+					}}
+					<div class={css.logoContainer}>
+						<Button
+							class={css.logoLink}
+							href="/"
+						>
+							<VisuallyHidden>{t().lacy}</VisuallyHidden>
+							<Icon
+								class={css.logo}
+								name="logoLacy"
+							/>
+						</Button>
+					</div>
+					<ScrollArea class={css.scrollArea}>
+						<div class={css.tabContainer}>
+							<For each={tabs}>
+								{(tab) => (
+									<Show when={!tab.deletedAt}>
+										<div class={css.tabButtonWrapper}>
+											<Button
+												onClick={[activateTab, tab.id]}
+												class={
+													css.tabButtonVariant[
+														tab.isActive ? 'active' : 'inactive'
+													]
+												}
+											>
+												<Text variant="bodyXs">{tab.name}</Text>
+											</Button>
+											<Button
+												onClick={[deleteTab, tab.id]}
+												class={
+													css.closeTabButtonVariant[
+														tab.isActive ? 'active' : 'inactive'
+													]
+												}
+											>
+												<Icon
+													class={css.closeTabIcon}
+													name="close"
+												/>
+											</Button>
+										</div>
+									</Show>
+								)}
+							</For>
+						</div>
+					</ScrollArea>
 					<Button
-						class={css.logoLink}
-						href="/"
+						onClick={addTab}
+						class={css.addTabButton}
 					>
-						<VisuallyHidden>{t().lacy}</VisuallyHidden>
 						<Icon
-							class={css.logo}
-							name="logoLacy"
+							class={css.addTabIcon}
+							name="add"
 						/>
 					</Button>
-				</div>
-				<ScrollArea class={css.scrollArea}>
-					<div class={css.tabContainer}>
-						<For each={tabs}>
-							{(tab) => (
-								<Show when={!tab.deletedAt}>
-									<div class={css.tabButtonWrapper}>
-										<Button
-											onClick={[activateTab, tab.id]}
-											class={
-												css.tabButtonVariant[
-													tab.isActive ? 'active' : 'inactive'
-												]
-											}
-										>
-											<Text variant="bodyXs">{tab.name}</Text>
-										</Button>
-										<Button
-											onClick={[deleteTab, tab.id]}
-											class={
-												css.closeTabButtonVariant[
-													tab.isActive ? 'active' : 'inactive'
-												]
-											}
-										>
-											<Icon
-												class={css.closeTabIcon}
-												name="close"
-											/>
-										</Button>
-									</div>
-								</Show>
-							)}
-						</For>
-					</div>
-				</ScrollArea>
-				<Button
-					onClick={addTab}
-					class={css.addTabButton}
-				>
-					<Icon
-						class={css.addTabIcon}
-						name="add"
-					/>
-				</Button>
-				<TheMenu class={css.menuContainer} />
-			</header>
-			<main class={css.main}></main>
+					<TheMenu class={css.menuContainer} />
+				</header>
+				<main class={css.main}></main>
+			</ErrorDisplay>
 		</div>
 	)
 }
