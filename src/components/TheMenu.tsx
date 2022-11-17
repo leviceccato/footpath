@@ -1,4 +1,4 @@
-import { createSignal, createUniqueId, For } from 'solid-js'
+import { createSignal, createUniqueId, Index } from 'solid-js'
 import type { Component } from 'solid-js'
 import * as css from './TheMenu.css'
 import { useIcons } from '@/components/ProviderIcons'
@@ -64,22 +64,28 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 				)}
 			>
 				<div class={css.dropdown}>
-					<For each={Object.entries(t().language.all)}>
-						{([key, { _: name, untranslated }]) => (
+					<Index each={Object.entries(t().language.all)}>
+						{(item) => (
 							<Button
-								onClick={[language.set, key]}
+								onClick={[language.set, item()[0]]}
 								class={css.dropdownButton}
 							>
-								<Icon name="check" />
+								<Icon
+									class={css.dropdownButtonIcon}
+									name="check"
+								/>
 								<Text
 									class={css.dropdownButtonText}
 									variant="bodyXs"
 								>
-									{name} {name === untranslated ? '' : `/ ${untranslated}`}
+									{item()[1]._}{' '}
+									{item()[1]._ === item()[1].untranslated
+										? ''
+										: `/ ${item()[1].untranslated}`}
 								</Text>
 							</Button>
 						)}
-					</For>
+					</Index>
 				</div>
 			</Popover>
 			<Popover
