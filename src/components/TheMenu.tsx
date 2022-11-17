@@ -1,8 +1,9 @@
-import { createSignal, createUniqueId } from 'solid-js'
+import { createSignal, createUniqueId, For } from 'solid-js'
 import type { Component } from 'solid-js'
 import * as css from './TheMenu.css'
 import { useIcons } from '@/components/ProviderIcons'
 import { useTheme } from '@/components/ProviderTheme'
+import { useI18n } from '@/components/ProviderI18n'
 
 import Button from '@/components/Button'
 import Text from '@/components/Text'
@@ -12,6 +13,7 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 	const popoverGroupId = createUniqueId()
 
 	const [Icon] = useIcons()
+	const [t, language] = useI18n()
 	const [_, setColour] = useTheme()
 
 	function setRandomColour() {
@@ -26,7 +28,7 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 						class={css.buttonText}
 						variant="bodyXs"
 					>
-						Preferences
+						{t().preferences}
 					</Text>
 				</Button>
 			</div>
@@ -36,7 +38,7 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 						class={css.buttonText}
 						variant="bodyXs"
 					>
-						About
+						{t().about}
 					</Text>
 				</Button>
 			</div>
@@ -62,8 +64,22 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 				)}
 			>
 				<div class={css.dropdown}>
-					<Button text="English" />
-					<Button text="Español / Spanish" />
+					<For each={Object.entries(t().language)}>
+						{([key, { _, untranslated }]) => (
+							<Button
+								onClick={[language.set, key]}
+								class={css.dropdownButton}
+							>
+								<Icon name="check" />
+								<Text
+									class={css.dropdownButtonText}
+									variant="bodyXs"
+								>
+									{_} {_ === untranslated ? '' : `/ ${untranslated}`}
+								</Text>
+							</Button>
+						)}
+					</For>
 				</div>
 			</Popover>
 			<Popover
@@ -88,7 +104,10 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 				)}
 			>
 				<div class={css.dropdown}>
-					<Text variant="bodyXs">Hello</Text>
+					<Button
+						class={css.dropdownButton}
+						text="Hello"
+					/>
 				</div>
 			</Popover>
 		</div>
