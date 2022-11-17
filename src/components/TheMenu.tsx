@@ -1,4 +1,4 @@
-import { createSignal } from 'solid-js'
+import { createSignal, createUniqueId } from 'solid-js'
 import type { Component } from 'solid-js'
 import * as css from './TheMenu.css'
 import { useIcons } from '@/components/ProviderIcons'
@@ -9,11 +9,10 @@ import Text from '@/components/Text'
 import Popover from '@/components/Popover'
 
 const TheMenu: Component<{ class?: string }> = (props) => {
+	const popoverGroupId = createUniqueId()
+
 	const [Icon] = useIcons()
 	const [_, setColour] = useTheme()
-	const [activeMenuDropdown, setActiveMenuDropdown] = createSignal<
-		string | null
-	>(null)
 
 	function setRandomColour() {
 		setColour(`#${Math.floor(Math.random() * 16777215).toString(16)}`)
@@ -44,6 +43,7 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 			<Popover
 				class={css.buttonWrapper}
 				when="click"
+				groupId={popoverGroupId}
 				options={{
 					placement: 'bottom-end',
 					modifiers: [{ name: 'offset', options: { offset: [0, 9] } }],
@@ -56,7 +56,7 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 					>
 						<Icon
 							class={css.icon}
-							name={state.isHovered() ? 'logoLacy' : 'i18n'}
+							name="i18n"
 						/>
 					</Button>
 				)}
@@ -69,18 +69,23 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 			<Popover
 				class={css.buttonWrapper}
 				when="click"
+				groupId={popoverGroupId}
 				options={{
 					placement: 'bottom-end',
 					modifiers: [{ name: 'offset', options: { offset: [0, 9] } }],
 				}}
-				reference={
-					<Button class={css.button}>
+				reference={(state) => (
+					<Button
+						class={
+							css.buttonVariant[state.isShown() ? 'dropdownOpen' : 'default']
+						}
+					>
 						<Icon
 							class={css.icon}
 							name="palette"
 						/>
 					</Button>
-				}
+				)}
 			>
 				<div class={css.dropdown}>
 					<Text variant="bodyXs">Hello</Text>
