@@ -78,3 +78,18 @@ export const dropdownButtonIcon = style({
 	height: 16,
 	padding: '0 10px',
 })
+
+export const dropdownButtonIconVariant = styleVariants({
+	shown: [
+		dropdownButtonIcon,
+		{
+			opacity: 1,
+		},
+	],
+	hidden: [
+		dropdownButtonIcon,
+		{
+			opacity: 0,
+		},
+	],
+})

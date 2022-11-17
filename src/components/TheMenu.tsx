@@ -71,7 +71,11 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 								class={css.dropdownButton}
 							>
 								<Icon
-									class={css.dropdownButtonIcon}
+									class={
+										css.dropdownButtonIconVariant[
+											language.get() === item()[0] ? 'shown' : 'hidden'
+										]
+									}
 									name="check"
 								/>
 								<Text
@@ -110,10 +114,54 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 				)}
 			>
 				<div class={css.dropdown}>
-					<Button
-						class={css.dropdownButton}
-						text="Hello"
-					/>
+					<Button class={css.dropdownButton}>
+						<Icon
+							class={css.dropdownButtonIcon}
+							name="check"
+						/>
+						<Text
+							class={css.dropdownButtonText}
+							variant="bodyXs"
+						>
+							Light
+						</Text>
+					</Button>
+					<Button class={css.dropdownButton}>
+						<Icon
+							class={css.dropdownButtonIcon}
+							name="check"
+						/>
+						<Text
+							class={css.dropdownButtonText}
+							variant="bodyXs"
+						>
+							Dark
+						</Text>
+					</Button>
+					<Button class={css.dropdownButton}>
+						<Icon
+							class={css.dropdownButtonIcon}
+							name="check"
+						/>
+						<Text
+							class={css.dropdownButtonText}
+							variant="bodyXs"
+						>
+							System
+						</Text>
+					</Button>
+					<Button class={css.dropdownButton}>
+						<Icon
+							class={css.dropdownButtonIcon}
+							name="check"
+						/>
+						<Text
+							class={css.dropdownButtonText}
+							variant="bodyXs"
+						>
+							Custom
+						</Text>
+					</Button>
 				</div>
 			</Popover>
 		</div>
