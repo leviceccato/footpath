@@ -15,7 +15,7 @@ import type {
 	Setter,
 } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
-import type { StrictModifiers, Options, Instance } from '@popperjs/core'
+import { StrictModifiers, Options, Instance, popper } from '@popperjs/core'
 import * as css from './Popover.css'
 
 type PopoverState = {
@@ -27,6 +27,8 @@ type Popover = PopoverState & {
 	groupId?: string
 	setIsShown: Setter<boolean>
 }
+
+type InteractionMethod = 'hover' | 'click'
 
 const store = createRoot(() => {
 	const [popovers, setPopovers] = createSignal<Popover[]>([])
@@ -60,11 +62,21 @@ const store = createRoot(() => {
 		return popover.isShown
 	}
 
-	function setPopoverShown(id: string, to: boolean) {
+	function getOpenGroupMembers(groupId?: string): Popover[] {
+		return popovers().filter(
+			(p) => p.isShown() && Boolean(groupId) && p.groupId === groupId,
+		)
+	}
+
+	function setPopoverShown(id: string, isShown: boolean) {
 		const popover = getPopover(id)
 		if (!popover) return
 
-		popover.setIsShown(to)
+		getOpenGroupMembers(popover.groupId).forEach((p) => {
+			p.setIsShown(false)
+		})
+
+		popover.setIsShown(isShown)
 	}
 
 	return {
@@ -72,11 +84,12 @@ const store = createRoot(() => {
 		removePopover,
 		isPopoverShown,
 		setPopoverShown,
+		getOpenGroupMembers,
 	}
 })
 
 const Popover: ParentComponent<{
-	when?: boolean | 'hover' | 'click'
+	when?: boolean | InteractionMethod
 	class?: string
 	groupId?: string
 	referenceTag?: string
@@ -88,7 +101,13 @@ const Popover: ParentComponent<{
 
 	const id = createUniqueId()
 
-	const { addPopover, removePopover, isPopoverShown, setPopoverShown } = store
+	const {
+		addPopover,
+		removePopover,
+		isPopoverShown,
+		setPopoverShown,
+		getOpenGroupMembers,
+	} = store
 
 	addPopover(id, _props.groupId)
 
@@ -107,6 +126,21 @@ const Popover: ParentComponent<{
 
 	const contentVariant = (): keyof typeof css.contentVariants => {
 		return isShown() ? 'shown' : 'hidden'
+	}
+
+	function handleClick() {
+		if (_props.when === 'click') {
+			return setPopoverShown(id, !isShown())
+		}
+	}
+
+	function handleHover(isIn: boolean) {
+		if (_props.when === 'hover') {
+			return setPopoverShown(id, isIn)
+		}
+		if (isIn && getOpenGroupMembers(_props.groupId).length) {
+			return setPopoverShown(id, true)
+		}
 	}
 
 	function toggleEventListeners(enabled: boolean) {
@@ -182,11 +216,11 @@ const Popover: ParentComponent<{
 				class={_props.class ?? ''}
 				ref={referenceRef}
 				aria-describedby={id}
-				onClick={[setPopoverShown, id, true]}
-				// onfocusin={handleHover}
-				// onfocusout={[setIsHovered, false]}
-				// onmouseenter={handleHover}
-				// onmouseleave={[setIsHovered, false]}
+				onClick={handleClick}
+				onFocusIn={[handleHover, true]}
+				onFocusOut={[handleHover, false]}
+				onMouseEnter={[handleHover, true]}
+				onMouseLeave={[handleHover, false]}
 			>
 				{reference()}
 			</Dynamic>
