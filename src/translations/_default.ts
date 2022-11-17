@@ -1,6 +1,6 @@
 export default {
 	language: {
-		english: {
+		_default: {
 			_: 'English',
 			untranslated: 'English',
 		},

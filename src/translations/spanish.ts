@@ -2,7 +2,7 @@ import { createTranslation } from '@/scripts/i18n'
 
 export default createTranslation({
 	language: {
-		english: {
+		_default: {
 			_: 'Inglés',
 			untranslated: 'English',
 		},
