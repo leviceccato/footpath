@@ -52,8 +52,29 @@ export const buttonText = style({
 
 export const dropdown = style({
 	borderRadius: 4,
-	padding: 10,
+	padding: '8px 0 10px 0',
 	backgroundColor: themeCss.colourVar,
 	border: `1px solid ${themeCss.colour200Var}`,
 	boxShadow: ' 0px 10px 15px -3px rgba(0,0,0,0.1)',
+})
+
+export const dropdownButton = style({
+	display: 'flex',
+	width: '100%',
+	padding: '8px 16px 8px 0',
+	selectors: {
+		'&:hover, &:focus-visible': {
+			backgroundColor: themeCss.colour100Var,
+		},
+	},
+})
+
+export const dropdownButtonText = style({
+	paddingTop: 2,
+})
+
+export const dropdownButtonIcon = style({
+	width: 16,
+	height: 16,
+	padding: '0 10px',
 })
