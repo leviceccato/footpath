@@ -2,13 +2,16 @@ import { createTranslation } from '@/scripts/i18n'
 
 export default createTranslation({
 	language: {
-		_default: {
-			_: 'Inglés',
-			untranslated: 'English',
-		},
-		spanish: {
-			_: 'Español',
-			untranslated: 'Español',
+		setTo: (language: string) => `Establecer idioma en ${language}`,
+		all: {
+			_default: {
+				_: 'Inglés',
+				untranslated: 'English',
+			},
+			spanish: {
+				_: 'Español',
+				untranslated: 'Español',
+			},
 		},
 	},
 	lacy: 'Lacy',

@@ -64,7 +64,7 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 				)}
 			>
 				<div class={css.dropdown}>
-					<For each={Object.entries(t().language)}>
+					<For each={Object.entries(t().language.all)}>
 						{([key, { _: name, untranslated }]) => (
 							<Button
 								onClick={[language.set, key]}
