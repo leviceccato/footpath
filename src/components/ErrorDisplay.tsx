@@ -10,7 +10,7 @@ const ErrorDisplay: ParentComponent = (props) => {
 			fallback={(error) => (
 				<div class={css.root}>
 					<Text variant="bodyS">An error has occured in script execution:</Text>
-					<Text variant="bodyXs">{error}</Text>
+					<Text variant="bodyXs">{error.stack}</Text>
 				</div>
 			)}
 		>
