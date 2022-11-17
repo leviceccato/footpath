@@ -65,7 +65,7 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 			>
 				<div class={css.dropdown}>
 					<For each={Object.entries(t().language)}>
-						{([key, { _, untranslated }]) => (
+						{([key, { _: name, untranslated }]) => (
 							<Button
 								onClick={[language.set, key]}
 								class={css.dropdownButton}
@@ -75,7 +75,7 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 									class={css.dropdownButtonText}
 									variant="bodyXs"
 								>
-									{_} {_ === untranslated ? '' : `/ ${untranslated}`}
+									{name} {name === untranslated ? '' : `/ ${untranslated}`}
 								</Text>
 							</Button>
 						)}
