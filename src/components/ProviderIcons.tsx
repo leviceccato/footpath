@@ -24,7 +24,7 @@ const Icon: Component<{ class?: string; name: IconName }> = (props) => {
 	const icon = iconConstants[props.name]
 	return (
 		<svg
-			class={props.class ?? ''}
+			class={`${css.icon} ${props.class ?? ''}`}
 			width={icon.viewBox[2]}
 			height={icon.viewBox[3]}
 		>
