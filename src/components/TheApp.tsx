@@ -68,9 +68,6 @@ const TheApp: Component = () => {
 		>
 			<ErrorDisplay>
 				<header class={css.header}>
-					{() => {
-						throw 'Error'
-					}}
 					<div class={css.logoContainer}>
 						<Button
 							class={css.logoLink}
