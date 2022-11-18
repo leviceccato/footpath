@@ -6,8 +6,9 @@ import type { ParentComponent } from 'solid-js'
 import * as css from './ProviderTheme.css'
 
 function createThemeContext() {
-	const [_, setColour] = createSignal('')
+	const [colour, setColour] = createSignal('')
 	const theme = () => ({
+		colour,
 		vars: assignInlineVars({}),
 		class: css.colours,
 	})
@@ -35,6 +36,7 @@ const ProviderTheme: ParentComponent<{ initialColour: string }> = (props) => {
 
 	const theme = () => {
 		return {
+			colour,
 			class: css.colours,
 			vars: assignInlineVars({
 				[css.colourBaseVar]: createColour(1),
