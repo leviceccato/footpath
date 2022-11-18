@@ -14,10 +14,10 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 
 	const [Icon] = useIcons()
 	const [t, language] = useI18n()
-	const [_, setColour] = useTheme()
+	const [theme] = useTheme()
 
 	function setRandomColour() {
-		setColour(`#${Math.floor(Math.random() * 16777215).toString(16)}`)
+		theme().setColour(`#${Math.floor(Math.random() * 16777215).toString(16)}`)
 	}
 
 	return (
@@ -116,7 +116,11 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 				<div class={css.dropdown}>
 					<Button class={css.dropdownButton}>
 						<Icon
-							class={css.dropdownButtonIcon}
+							class={
+								css.dropdownButtonIconVariant[
+									theme().colour() === '#FFFFFF' ? 'shown' : 'hidden'
+								]
+							}
 							name="check"
 						/>
 						<Text
@@ -128,7 +132,11 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 					</Button>
 					<Button class={css.dropdownButton}>
 						<Icon
-							class={css.dropdownButtonIcon}
+							class={
+								css.dropdownButtonIconVariant[
+									theme().colour() === '#000000' ? 'shown' : 'hidden'
+								]
+							}
 							name="check"
 						/>
 						<Text

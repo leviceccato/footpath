@@ -7,12 +7,16 @@ import * as css from './ProviderTheme.css'
 
 function createThemeContext() {
 	const [colour, setColour] = createSignal('')
+	const [shouldUseSystem, setShouldUseSystem] = createSignal(false)
 	const theme = () => ({
 		colour,
+		setColour,
+		shouldUseSystem,
+		setShouldUseSystem,
 		vars: assignInlineVars({}),
 		class: css.colours,
 	})
-	return [theme, setColour] as const
+	return [theme] as const
 }
 
 const context = createContext(createThemeContext())
@@ -25,6 +29,7 @@ export function useTheme() {
 
 const ProviderTheme: ParentComponent<{ initialColour: string }> = (props) => {
 	const [colour, setColour] = createSignal(props.initialColour)
+	const [shouldUseSystem, setShouldUseSystem] = createSignal(false)
 
 	const readable = () => readableColor(colour())
 
@@ -37,6 +42,9 @@ const ProviderTheme: ParentComponent<{ initialColour: string }> = (props) => {
 	const theme = () => {
 		return {
 			colour,
+			setColour,
+			shouldUseSystem,
+			setShouldUseSystem,
 			class: css.colours,
 			vars: assignInlineVars({
 				[css.colourBaseVar]: createColour(1),
@@ -56,11 +64,7 @@ const ProviderTheme: ParentComponent<{ initialColour: string }> = (props) => {
 		}
 	}
 
-	return (
-		<context.Provider value={[theme, setColour]}>
-			{props.children}
-		</context.Provider>
-	)
+	return <context.Provider value={[theme]}>{props.children}</context.Provider>
 }
 
 export default ProviderTheme
