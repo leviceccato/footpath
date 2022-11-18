@@ -7,6 +7,7 @@ import '@/base.css'
 import { render } from 'solid-js/web'
 import { lastSegmentFromPath } from '@/scripts/utils'
 import { parseToRgb } from 'polished'
+import { colourBrand } from '@/data/colours'
 import type { Translation, Translations } from './scripts/i18n'
 
 import ProviderI18n from '@/components/ProviderI18n'
@@ -32,7 +33,8 @@ const translations = Object.keys(translationModules).reduce<Translations>(
 
 // Initialise theme data
 
-const initialColour = '#FFB885'
+const colour = localStorage.getItem('colour') || colourBrand
+const shouldUseSystem = localStorage.getItem('shouldUseSystem') || 'false'
 
 render(
 	() => (
@@ -40,7 +42,10 @@ render(
 			defaultLanguage="_default"
 			translations={translations}
 		>
-			<ProviderTheme initialColour={initialColour}>
+			<ProviderTheme
+				initialColour={colour}
+				initialShouldUseSystem={shouldUseSystem}
+			>
 				<ProviderIcons>
 					<TheApp />
 				</ProviderIcons>

@@ -6,8 +6,10 @@ import type { ParentComponent } from 'solid-js'
 import * as css from './ProviderTheme.css'
 
 function createThemeContext() {
-	const [colour, setColour] = createSignal('')
-	const [shouldUseSystem, setShouldUseSystem] = createSignal(false)
+	const [colour, _] = createSignal('')
+	const [shouldUseSystem, __] = createSignal(false)
+	const setColour = (to: string) => {}
+	const setShouldUseSystem = (to: boolean) => {}
 	const theme = () => ({
 		colour,
 		setColour,
@@ -27,9 +29,24 @@ export function useTheme() {
 
 // Component
 
-const ProviderTheme: ParentComponent<{ initialColour: string }> = (props) => {
+const ProviderTheme: ParentComponent<{
+	initialColour: string
+	initialShouldUseSystem: string
+}> = (props) => {
+	const _initialShouldUseSystem = () => {
+		if (props.initialShouldUseSystem === 'false') {
+			return false
+		}
+		if (props.initialShouldUseSystem === 'true') {
+			return true
+		}
+		return false
+	}
+
 	const [colour, setColour] = createSignal(props.initialColour)
-	const [shouldUseSystem, setShouldUseSystem] = createSignal(false)
+	const [shouldUseSystem, setShouldUseSystem] = createSignal(
+		_initialShouldUseSystem(),
+	)
 
 	const readable = () => readableColor(colour())
 
@@ -39,12 +56,22 @@ const ProviderTheme: ParentComponent<{ initialColour: string }> = (props) => {
 		return [red, green, blue].join()
 	}
 
+	function _setColour(to: string) {
+		setColour(to)
+		localStorage.setItem('colour', to)
+	}
+
+	function _setShouldUseSystem(to: boolean) {
+		setShouldUseSystem(to)
+		localStorage.setItem('shouldUseSystem', to ? 'true' : 'false')
+	}
+
 	const theme = () => {
 		return {
 			colour,
-			setColour,
+			setColour: _setColour,
 			shouldUseSystem,
-			setShouldUseSystem,
+			setShouldUseSystem: _setShouldUseSystem,
 			class: css.colours,
 			vars: assignInlineVars({
 				[css.colourBaseVar]: createColour(1),
