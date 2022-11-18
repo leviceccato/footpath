@@ -1,6 +1,7 @@
 import { createContext, createSignal, useContext } from 'solid-js'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { readableColor, mix, parseToRgb } from 'polished'
+import { colourDark, colourLight } from '@/data/colours'
 import type { Styles } from 'polished/lib/types/style'
 import type { ParentComponent } from 'solid-js'
 import * as css from './ProviderTheme.css'
@@ -10,10 +11,12 @@ function createThemeContext() {
 	const [shouldUseSystem, __] = createSignal(false)
 	const setColour = (to: string) => {}
 	const setShouldUseSystem = (to: boolean) => {}
+	const isColourLight = () => true
 	const theme = () => ({
 		colour,
 		setColour,
 		shouldUseSystem,
+		isColourLight,
 		setShouldUseSystem,
 		vars: assignInlineVars({}),
 		class: css.colours,
@@ -48,7 +51,9 @@ const ProviderTheme: ParentComponent<{
 		_initialShouldUseSystem(),
 	)
 
-	const readable = () => readableColor(colour())
+	const readable = () => readableColor(colour(), colourDark, colourLight)
+
+	const isColourLight = () => readable() === colourLight
 
 	function createColour(weight: number): string {
 		const mixed = mix(weight, colour(), readable())
@@ -71,6 +76,7 @@ const ProviderTheme: ParentComponent<{
 			colour,
 			setColour: _setColour,
 			shouldUseSystem,
+			isColourLight,
 			setShouldUseSystem: _setShouldUseSystem,
 			class: css.colours,
 			vars: assignInlineVars({
