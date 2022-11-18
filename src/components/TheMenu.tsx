@@ -1,6 +1,7 @@
 import { createSignal, createUniqueId, Index } from 'solid-js'
 import type { Component } from 'solid-js'
 import * as css from './TheMenu.css'
+import { colourDark, colourLight } from '@/data/colours'
 import { useIcons } from '@/components/ProviderIcons'
 import { useTheme } from '@/components/ProviderTheme'
 import { useI18n } from '@/components/ProviderI18n'
@@ -9,12 +10,27 @@ import Button from '@/components/Button'
 import Text from '@/components/Text'
 import Popover from '@/components/Popover'
 
+type ThemeOption = 'light' | 'dark' | 'system' | 'custom'
+
 const TheMenu: Component<{ class?: string }> = (props) => {
 	const popoverGroupId = createUniqueId()
 
 	const [Icon] = useIcons()
 	const [t, language] = useI18n()
 	const [theme] = useTheme()
+
+	const selectedThemeOption = (): ThemeOption => {
+		if (theme().shouldUseSystem()) {
+			return 'system'
+		}
+		if (theme().colour() === colourDark) {
+			return 'dark'
+		}
+		if (theme().colour() === colourLight) {
+			return 'light'
+		}
+		return 'custom'
+	}
 
 	function setRandomColour() {
 		theme().setColour(`#${Math.floor(Math.random() * 16777215).toString(16)}`)
