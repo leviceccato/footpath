@@ -22,19 +22,23 @@ describe('utils', () => {
 	})
 
 	test('createRandomColour', () => {
+		// Create hex colour with hash, e.g. '#FF00AA'
+
 		const got = createRandomColour()
 
 		expect(got).toBeTypeOf('string')
 		expect(got).toHaveLength(7)
 
-		const [hash, ...colours] = got
-		expect(got[0]).toBe('#')
+		const [first, ...rest] = got
+		expect(first).toBe('#')
 
-		colours
+		// Assert each hexadecimal value to be valid
+
+		rest
 			.join('')
 			.match(/.{1, 2}/g)
-			?.forEach((colour) => {
-				expect(isNaN(parseInt(colour, 16))).toBe(false)
+			?.forEach((pair) => {
+				expect(isNaN(parseInt(pair, 16))).toBe(false)
 			})
 	})
 })
