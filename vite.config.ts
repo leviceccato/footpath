@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 import { resolve } from 'path'
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin'
 import solidPlugin from 'vite-plugin-solid'
