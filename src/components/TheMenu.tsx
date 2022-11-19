@@ -1,6 +1,7 @@
 import { createSignal, createUniqueId, Index } from 'solid-js'
 import type { Component } from 'solid-js'
 import * as css from './TheMenu.css'
+import { createRandomColour } from '@/scripts/utils'
 import { colourDark, colourLight } from '@/data/colours'
 import { useIcons } from '@/components/ProviderIcons'
 import { useTheme } from '@/components/ProviderTheme'
@@ -34,7 +35,7 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 	}
 
 	function getRandomColour() {
-		let colour = `#${Math.floor(Math.random() * 16777215).toString(16)}`
+		let colour = createRandomColour()
 		while (colour === colourDark || colour === colourLight) {
 			colour = getRandomColour()
 		}
