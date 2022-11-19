@@ -1,4 +1,11 @@
-import { createContext, createSignal, useContext } from 'solid-js'
+import {
+	createContext,
+	createEffect,
+	createSignal,
+	useContext,
+	onMount,
+	onCleanup,
+} from 'solid-js'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { readableColor, mix, parseToRgb } from 'polished'
 import { colourDark, colourLight } from '@/data/colours'
@@ -46,38 +53,74 @@ const ProviderTheme: ParentComponent<{
 		return false
 	}
 
+	const prefersColourSchemeDarkMedia = window.matchMedia(
+		'(prefers-color-scheme: dark)',
+	)
+
 	const [colour, setColour] = createSignal(props.initialColour)
+	const [prefersColourSchemeDark, setPrefersColourSchemeDark] = createSignal(
+		prefersColourSchemeDarkMedia.matches,
+	)
 	const [shouldUseSystem, setShouldUseSystem] = createSignal(
 		_initialShouldUseSystem(),
 	)
 
-	const readable = () => readableColor(colour(), colourDark, colourLight)
+	const _colour = () => {
+		if (!shouldUseSystem()) {
+			return colour()
+		}
+		if (prefersColourSchemeDark()) {
+			return colourDark
+		}
+		return colourLight
+	}
+
+	const readable = () => readableColor(_colour(), colourDark, colourLight)
 
 	const isColourLight = () => readable() === colourLight
 
 	function createColour(weight: number): string {
-		const mixed = mix(weight, colour(), readable())
+		const mixed = mix(weight, _colour(), readable())
 		const { red, green, blue } = parseToRgb(mixed)
 		return [red, green, blue].join()
 	}
 
-	function _setColour(to: string) {
-		setColour(to)
-		localStorage.setItem('colour', to)
+	function _setPrefersColourSchemeDark(event: MediaQueryListEvent) {
+		setPrefersColourSchemeDark(event.matches)
 	}
 
-	function _setShouldUseSystem(to: boolean) {
-		setShouldUseSystem(to)
-		localStorage.setItem('shouldUseSystem', to ? 'true' : 'false')
-	}
+	createEffect(() => {
+		localStorage.setItem('colour', colour())
+	})
+
+	createEffect(() => {
+		localStorage.setItem(
+			'shouldUseSystem',
+			shouldUseSystem() ? 'true' : 'false',
+		)
+	})
+
+	onMount(() => {
+		prefersColourSchemeDarkMedia.addEventListener(
+			'change',
+			_setPrefersColourSchemeDark,
+		)
+	})
+
+	onCleanup(() => {
+		prefersColourSchemeDarkMedia.removeEventListener(
+			'change',
+			_setPrefersColourSchemeDark,
+		)
+	})
 
 	const theme = () => {
 		return {
-			colour,
-			setColour: _setColour,
+			colour: _colour,
+			setColour,
 			shouldUseSystem,
 			isColourLight,
-			setShouldUseSystem: _setShouldUseSystem,
+			setShouldUseSystem,
 			class: css.colours,
 			vars: assignInlineVars({
 				[css.colourBaseVar]: createColour(1),
