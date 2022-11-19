@@ -72,10 +72,10 @@ const TheApp: Component = () => {
 							class={css.logoLink}
 							href="/"
 						>
-							<VisuallyHidden>{t().lacy}</VisuallyHidden>
+							<VisuallyHidden>Lacey</VisuallyHidden>
 							<Icon
 								class={css.logo}
-								name="logoLacy"
+								name="logoMain"
 							/>
 						</Button>
 					</div>

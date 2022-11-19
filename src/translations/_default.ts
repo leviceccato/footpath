@@ -16,7 +16,6 @@ export default {
 	dark: 'Dark',
 	system: 'System',
 	custom: 'Custom',
-	lacy: 'Lacy',
 	untitled: 'Untitled',
 	preferences: 'Preferences',
 	about: 'About',

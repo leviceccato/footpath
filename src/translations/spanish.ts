@@ -18,7 +18,6 @@ export default createTranslation({
 	dark: 'Oscuro',
 	system: 'Sistema',
 	custom: 'Personalizado',
-	lacy: 'Lacy',
 	untitled: 'Intitulado',
 	preferences: 'Preferencias',
 	about: 'Sobre',
