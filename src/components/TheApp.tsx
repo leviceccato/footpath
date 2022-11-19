@@ -8,7 +8,6 @@ import * as css from './TheApp.css'
 
 import Button from '@/components/Button'
 import Text from '@/components/Text'
-import LogoLacy from '@/components/LogoLacy'
 import VisuallyHidden from '@/components/VisuallyHidden'
 import ScrollArea from '@/components/ScrollArea'
 import TheMenu from '@/components/TheMenu'
