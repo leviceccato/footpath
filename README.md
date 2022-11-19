@@ -1,8 +1,3 @@
-<br />
-<p align="center">
-    <img alt="Lacey logo" width="250" src="https://raw.githubusercontent.com/leviceccato/lacey/main/readme-logo.svg">
-</p>
-
 # Lacey
 
 A tool to help with editing, viewing and optimising SVGs. It is an SPA built with [SolidJS](https://www.solidjs.com), [vanilla-extract](https://vanilla-extract.style) and [Vite](https://vitejs.dev).
