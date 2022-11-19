@@ -21,7 +21,7 @@ type Tab = {
 }
 
 const TheApp: Component = () => {
-	const [theme, setColour] = useTheme()
+	const [theme] = useTheme()
 	const [Icon] = useIcons()
 	const [t] = useI18n()
 
