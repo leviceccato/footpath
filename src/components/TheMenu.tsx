@@ -33,8 +33,16 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 		return 'custom'
 	}
 
+	function getRandomColour() {
+		let colour = `#${Math.floor(Math.random() * 16777215).toString(16)}`
+		while (colour === colourDark || colour === colourLight) {
+			colour = getRandomColour()
+		}
+		return colour
+	}
+
 	function setRandomColour() {
-		theme().setColour(`#${Math.floor(Math.random() * 16777215).toString(16)}`)
+		setColour(getRandomColour())
 	}
 
 	function setColour(colour: string) {
@@ -195,7 +203,7 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 						</Text>
 					</Button>
 					<Button
-						onClick={[theme().setShouldUseSystem, true]}
+						onClick={setRandomColour}
 						class={css.dropdownButton}
 					>
 						<Icon
