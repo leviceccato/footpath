@@ -18,6 +18,7 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 	const [Icon] = useIcons()
 	const [t, language] = useI18n()
 	const [theme] = useTheme()
+	const [previousColour, setPreviousColour] = createSignal(theme().colour())
 
 	const selectedThemeOption = (): ThemeOption => {
 		if (theme().shouldUseSystem()) {
@@ -34,6 +35,12 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 
 	function setRandomColour() {
 		theme().setColour(`#${Math.floor(Math.random() * 16777215).toString(16)}`)
+	}
+
+	function setColour(colour: string) {
+		setPreviousColour(theme().colour())
+		theme().setColour(colour)
+		theme().setShouldUseSystem(false)
 	}
 
 	return (
@@ -130,11 +137,14 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 				)}
 			>
 				<div class={css.dropdown}>
-					<Button class={css.dropdownButton}>
+					<Button
+						onClick={[setColour, colourLight]}
+						class={css.dropdownButton}
+					>
 						<Icon
 							class={
 								css.dropdownButtonIconVariant[
-									theme().colour() === '#FFFFFF' ? 'shown' : 'hidden'
+									selectedThemeOption() === 'light' ? 'shown' : 'hidden'
 								]
 							}
 							name="check"
@@ -143,14 +153,17 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 							class={css.dropdownButtonText}
 							variant="bodyXs"
 						>
-							Light
+							{t().light}
 						</Text>
 					</Button>
-					<Button class={css.dropdownButton}>
+					<Button
+						onClick={[setColour, colourDark]}
+						class={css.dropdownButton}
+					>
 						<Icon
 							class={
 								css.dropdownButtonIconVariant[
-									theme().colour() === '#000000' ? 'shown' : 'hidden'
+									selectedThemeOption() === 'dark' ? 'shown' : 'hidden'
 								]
 							}
 							name="check"
@@ -159,31 +172,45 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 							class={css.dropdownButtonText}
 							variant="bodyXs"
 						>
-							Dark
+							{t().dark}
 						</Text>
 					</Button>
-					<Button class={css.dropdownButton}>
+					<Button
+						onClick={[theme().setShouldUseSystem, true]}
+						class={css.dropdownButton}
+					>
 						<Icon
-							class={css.dropdownButtonIcon}
+							class={
+								css.dropdownButtonIconVariant[
+									selectedThemeOption() === 'system' ? 'shown' : 'hidden'
+								]
+							}
 							name="check"
 						/>
 						<Text
 							class={css.dropdownButtonText}
 							variant="bodyXs"
 						>
-							System
+							{t().system}
 						</Text>
 					</Button>
-					<Button class={css.dropdownButton}>
+					<Button
+						onClick={[theme().setShouldUseSystem, true]}
+						class={css.dropdownButton}
+					>
 						<Icon
-							class={css.dropdownButtonIcon}
+							class={
+								css.dropdownButtonIconVariant[
+									selectedThemeOption() === 'custom' ? 'shown' : 'hidden'
+								]
+							}
 							name="check"
 						/>
 						<Text
 							class={css.dropdownButtonText}
 							variant="bodyXs"
 						>
-							Custom
+							{t().custom}
 						</Text>
 					</Button>
 				</div>
