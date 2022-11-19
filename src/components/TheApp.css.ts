@@ -23,14 +23,14 @@ export const logoContainer = style({
 })
 
 export const logo = style({
-	width: 48,
+	width: 26,
+	height: 26,
 	maxWidth: 'none',
 	color: themeCss.colour900Var,
-	paddingTop: '2%',
 })
 
 export const logoLink = style({
-	padding: '0 10px',
+	padding: '0 8px',
 	borderRadius: 4,
 	display: 'flex',
 	alignItems: 'center',
