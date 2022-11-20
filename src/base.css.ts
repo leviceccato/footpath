@@ -98,6 +98,27 @@ g(
 	},
 )
 
+g('input[type=range]', {
+	WebkitAppearance: 'none',
+	width: '100%',
+})
+
+g('input[type=range]::-webkit-slider-thumb', {
+	WebkitAppearance: 'none',
+})
+
+g('input[type=range]:focus', {
+	outline: 'none',
+})
+
+g('input[type=range]::-ms-track', {
+	width: '100%',
+	background: 'transparent',
+	cursor: 'pointer',
+	borderColor: 'transparent',
+	color: 'transparent',
+})
+
 g('button, textarea, input, select, a', {
 	WebkitTapHighlightColor: ['rgba(0, 0, 0, 0)', 'transparent'],
 })
