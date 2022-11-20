@@ -51,10 +51,10 @@ const TheColourPicker: Component<{ class?: string; canvasSize?: number }> = (
 
 	return (
 		<div class={`${css.root} ${_props.class ?? ''}`}>
-			<div class={css.canvasContainer}>
+			<div class={css.spectrumContainer}>
 				<canvas
-					ref={canvasRef}
-					class={css.canvas}
+					ref={spectrumRef}
+					class={css.spectrum}
 				/>
 				<div class={css.colourSelector} />
 			</div>
