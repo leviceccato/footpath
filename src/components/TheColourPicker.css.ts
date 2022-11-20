@@ -1,6 +1,8 @@
 import { createVar, style } from '@vanilla-extract/css'
 import * as themeCss from '@/components/ProviderTheme.css'
 
+export const hueVar = createVar()
+
 export const root = style({})
 
 export const spectrumContainer = style({
@@ -14,13 +16,20 @@ export const spectrum = style({
 	width: '100%',
 })
 
-export const colourSelector = style({})
+export const colourSelector = style({
+	width: 13,
+	height: 13,
+	borderRadius: 1000,
+	position: 'absolute',
+	top: -6,
+	left: -6,
+	backgroundColor: themeCss.colourVar,
+	border: `1px solid ${themeCss.colour1000Var}`,
+})
 
 export const hueRangeContainer = style({
 	padding: 12,
 })
-
-export const hueVar = createVar()
 
 export const hueRange = style({
 	height: 8,
