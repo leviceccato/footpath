@@ -1,4 +1,5 @@
 import { mergeProps, createSignal, onMount, createEffect } from 'solid-js'
+import { assignInlineVars } from '@vanilla-extract/dynamic'
 import type { JSX, Component } from 'solid-js'
 import { useTheme } from '@/components/ProviderTheme'
 import * as css from './TheColourPicker.css'
@@ -63,7 +64,10 @@ const TheColourPicker: Component<{ class?: string; canvasSize?: number }> = (
 	})
 
 	return (
-		<div class={`${css.root} ${_props.class ?? ''}`}>
+		<div
+			class={`${css.root} ${_props.class ?? ''}`}
+			style={assignInlineVars({ [css.hueVar]: String(hue()) })}
+		>
 			<div class={css.spectrumContainer}>
 				<canvas
 					ref={spectrumRef}
