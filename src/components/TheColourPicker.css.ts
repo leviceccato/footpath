@@ -24,7 +24,7 @@ export const colourSelector = style({
 	top: -6,
 	left: -6,
 	backgroundColor: themeCss.colourVar,
-	border: `1px solid ${themeCss.colour1000Var}`,
+	boxShadow: `0 0 0 1px ${themeCss.colour1000Var}, 0 0 0 3px rgba(${themeCss.colourBaseVar}, 0.3)`,
 })
 
 export const hueRangeContainer = style({
@@ -38,7 +38,7 @@ export const hueRange = style({
 	background:
 		'linear-gradient(to right, rgb(255, 0, 0), rgb(255, 255, 0), rgb(0, 255, 0), rgb(0, 255, 255), rgb(0, 0, 255), rgb(255, 0, 255), rgb(255, 0, 0))',
 	'::-webkit-slider-thumb': {
-		boxShadow: `0 0 0 0.5px ${themeCss.colour1000Var}`,
+		boxShadow: `0 0 0 0.5px ${themeCss.colour1000Var}, 0 0 0 1.5px rgba(${themeCss.colourBaseVar}, 0.3)`,
 		backgroundColor: `hsla(${hueVar} 100% 50%)`,
 		height: 6,
 		width: 6,
