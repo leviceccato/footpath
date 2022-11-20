@@ -97,32 +97,34 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 				)}
 			>
 				<div class={css.dropdown}>
-					<Index each={Object.entries(t().language.all)}>
-						{(item) => (
-							<Button
-								onClick={[language.set, item()[0]]}
-								class={css.dropdownButton}
-							>
-								<Icon
-									class={
-										css.dropdownButtonIconVariant[
-											language.get() === item()[0] ? 'shown' : 'hidden'
-										]
-									}
-									name="check"
-								/>
-								<Text
-									class={css.dropdownButtonText}
-									variant="bodyXs"
+					<div class={css.dropdownButtonContainer}>
+						<Index each={Object.entries(t().language.all)}>
+							{(item) => (
+								<Button
+									onClick={[language.set, item()[0]]}
+									class={css.dropdownButton}
 								>
-									{item()[1]._}{' '}
-									{item()[1]._ === item()[1].untranslated
-										? ''
-										: `/ ${item()[1].untranslated}`}
-								</Text>
-							</Button>
-						)}
-					</Index>
+									<Icon
+										class={
+											css.dropdownButtonIconVariant[
+												language.get() === item()[0] ? 'shown' : 'hidden'
+											]
+										}
+										name="check"
+									/>
+									<Text
+										class={css.dropdownButtonText}
+										variant="bodyXs"
+									>
+										{item()[1]._}{' '}
+										{item()[1]._ === item()[1].untranslated
+											? ''
+											: `/ ${item()[1].untranslated}`}
+									</Text>
+								</Button>
+							)}
+						</Index>
+					</div>
 				</div>
 			</Popover>
 			<Popover
@@ -147,82 +149,84 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 				)}
 			>
 				<div class={css.dropdown}>
-					<Button
-						onClick={[setColour, colourLight]}
-						class={css.dropdownButton}
-					>
-						<Icon
-							class={
-								css.dropdownButtonIconVariant[
-									selectedThemeOption() === 'light' ? 'shown' : 'hidden'
-								]
-							}
-							name="check"
-						/>
-						<Text
-							class={css.dropdownButtonText}
-							variant="bodyXs"
+					<div class={css.dropdownButtonContainer}>
+						<Button
+							onClick={[setColour, colourLight]}
+							class={css.dropdownButton}
 						>
-							{t().light}
-						</Text>
-					</Button>
-					<Button
-						onClick={[setColour, colourDark]}
-						class={css.dropdownButton}
-					>
-						<Icon
-							class={
-								css.dropdownButtonIconVariant[
-									selectedThemeOption() === 'dark' ? 'shown' : 'hidden'
-								]
-							}
-							name="check"
-						/>
-						<Text
-							class={css.dropdownButtonText}
-							variant="bodyXs"
+							<Icon
+								class={
+									css.dropdownButtonIconVariant[
+										selectedThemeOption() === 'light' ? 'shown' : 'hidden'
+									]
+								}
+								name="check"
+							/>
+							<Text
+								class={css.dropdownButtonText}
+								variant="bodyXs"
+							>
+								{t().light}
+							</Text>
+						</Button>
+						<Button
+							onClick={[setColour, colourDark]}
+							class={css.dropdownButton}
 						>
-							{t().dark}
-						</Text>
-					</Button>
-					<Button
-						onClick={[theme().setShouldUseSystem, true]}
-						class={css.dropdownButton}
-					>
-						<Icon
-							class={
-								css.dropdownButtonIconVariant[
-									selectedThemeOption() === 'system' ? 'shown' : 'hidden'
-								]
-							}
-							name="check"
-						/>
-						<Text
-							class={css.dropdownButtonText}
-							variant="bodyXs"
+							<Icon
+								class={
+									css.dropdownButtonIconVariant[
+										selectedThemeOption() === 'dark' ? 'shown' : 'hidden'
+									]
+								}
+								name="check"
+							/>
+							<Text
+								class={css.dropdownButtonText}
+								variant="bodyXs"
+							>
+								{t().dark}
+							</Text>
+						</Button>
+						<Button
+							onClick={[theme().setShouldUseSystem, true]}
+							class={css.dropdownButton}
 						>
-							{t().system}
-						</Text>
-					</Button>
-					<Button
-						onClick={setRandomColour}
-						class={css.dropdownButton}
-					>
-						<Icon
-							class={
-								css.dropdownButtonIconVariant[
-									selectedThemeOption() === 'custom' ? 'shown' : 'hidden'
-								]
-							}
-							name="check"
-						/>
-						<Text
-							class={css.dropdownButtonText}
-							variant="bodyXs"
+							<Icon
+								class={
+									css.dropdownButtonIconVariant[
+										selectedThemeOption() === 'system' ? 'shown' : 'hidden'
+									]
+								}
+								name="check"
+							/>
+							<Text
+								class={css.dropdownButtonText}
+								variant="bodyXs"
+							>
+								{t().system}
+							</Text>
+						</Button>
+						<Button
+							onClick={setRandomColour}
+							class={css.dropdownButton}
 						>
-							{t().custom}
-						</Text>
-					</Button>
+							<Icon
+								class={
+									css.dropdownButtonIconVariant[
+										selectedThemeOption() === 'custom' ? 'shown' : 'hidden'
+									]
+								}
+								name="check"
+							/>
+							<Text
+								class={css.dropdownButtonText}
+								variant="bodyXs"
+							>
+								{t().custom}
+							</Text>
+						</Button>
+					</div>
 					<div class={css.colourPickerContainer}>
 						<TheColourPicker class={css.colourPicker} />
 					</div>
