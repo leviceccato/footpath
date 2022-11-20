@@ -101,6 +101,7 @@ g(
 g('input[type=range]', {
 	WebkitAppearance: 'none',
 	width: '100%',
+	display: 'block',
 })
 
 g('input[type=range]::-webkit-slider-thumb', {
