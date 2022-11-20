@@ -15,7 +15,7 @@ import type {
 	Setter,
 } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
-import { StrictModifiers, Options, Instance, popper } from '@popperjs/core'
+import type { StrictModifiers, Options, Instance } from '@popperjs/core'
 import * as css from './Popover.css'
 
 type PopoverState = {
