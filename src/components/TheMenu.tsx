@@ -10,6 +10,7 @@ import { useI18n } from '@/components/ProviderI18n'
 import Button from '@/components/Button'
 import Text from '@/components/Text'
 import Popover from '@/components/Popover'
+import TheColourPicker from '@/components/TheColourPicker'
 
 type ThemeOption = 'light' | 'dark' | 'system' | 'custom'
 
@@ -222,6 +223,7 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 							{t().custom}
 						</Text>
 					</Button>
+					<TheColourPicker class={css.colourPicker} />
 				</div>
 			</Popover>
 		</div>

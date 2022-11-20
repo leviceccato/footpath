@@ -93,3 +93,7 @@ export const dropdownButtonIconVariant = styleVariants({
 		},
 	],
 })
+
+export const colourPicker = style({
+	width: 200,
+})
