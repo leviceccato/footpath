@@ -94,6 +94,10 @@ export const dropdownButtonIconVariant = styleVariants({
 	],
 })
 
+export const colourPickerContainer = style({
+	margin: '0 -1px',
+})
+
 export const colourPicker = style({
 	width: 200,
 })

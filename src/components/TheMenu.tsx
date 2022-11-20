@@ -223,7 +223,9 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 							{t().custom}
 						</Text>
 					</Button>
-					<TheColourPicker class={css.colourPicker} />
+					<div class={css.colourPickerContainer}>
+						<TheColourPicker class={css.colourPicker} />
+					</div>
 				</div>
 			</Popover>
 		</div>
