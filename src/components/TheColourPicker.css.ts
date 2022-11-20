@@ -17,7 +17,7 @@ export const spectrum = style({
 export const colourSelector = style({})
 
 export const hueRangeContainer = style({
-	padding: '6px 12px',
+	padding: 12,
 })
 
 export const hueVar = createVar()
