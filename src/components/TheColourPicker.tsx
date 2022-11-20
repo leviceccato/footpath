@@ -4,6 +4,11 @@ import type { JSX, Component } from 'solid-js'
 import { useTheme } from '@/components/ProviderTheme'
 import * as css from './TheColourPicker.css'
 
+type CanvasPointerEvent = PointerEvent & {
+	currentTarget: HTMLCanvasElement
+	target: Element
+}
+
 const TheColourPicker: Component<{ class?: string; canvasSize?: number }> = (
 	props,
 ) => {
@@ -15,6 +20,8 @@ const TheColourPicker: Component<{ class?: string; canvasSize?: number }> = (
 	const [theme] = useTheme()
 
 	const [hue, setHue] = createSignal(0)
+	const [colourSelectorX, setColourSelectorX] = createSignal(0)
+	const [colourSelectorY, setColourSelectorY] = createSignal(0)
 
 	function _setHue(to: number) {
 		setHue(to)
@@ -59,6 +66,16 @@ const TheColourPicker: Component<{ class?: string; canvasSize?: number }> = (
 		context.fillRect(0, 0, context.canvas.width, context.canvas.height)
 	}
 
+	function handleCanvasPointerDown(event: CanvasPointerEvent) {
+		const { left, top } = event.target.getBoundingClientRect()
+
+		const x = event.clientX - left
+		const y = event.clientY - top
+
+		setColourSelectorX(x)
+		setColourSelectorY(y)
+	}
+
 	onMount(() => {
 		drawSpectrum()
 	})
@@ -71,9 +88,16 @@ const TheColourPicker: Component<{ class?: string; canvasSize?: number }> = (
 			<div class={css.spectrumContainer}>
 				<canvas
 					ref={spectrumRef}
+					onPointerDown={handleCanvasPointerDown}
+					onpointermove={handleCanvasPointerDown}
 					class={css.spectrum}
 				/>
-				<div class={css.colourSelector} />
+				<div
+					class={css.colourSelector}
+					style={{
+						transform: `translate(${colourSelectorX()}px, ${colourSelectorY()}px)`,
+					}}
+				/>
 			</div>
 			<div class={css.hueRangeContainer}>
 				<input
