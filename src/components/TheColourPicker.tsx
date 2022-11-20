@@ -1,5 +1,5 @@
-import { mergeProps, createSignal, onMount } from 'solid-js'
-import type { Component } from 'solid-js'
+import { mergeProps, createSignal, onMount, createEffect } from 'solid-js'
+import type { JSX, Component } from 'solid-js'
 import { useTheme } from '@/components/ProviderTheme'
 import * as css from './TheColourPicker.css'
 
@@ -8,17 +8,30 @@ const TheColourPicker: Component<{ class?: string; canvasSize?: number }> = (
 ) => {
 	const _props = mergeProps({ canvasSize: 180 }, props)
 
-	let canvasRef: HTMLCanvasElement | undefined
+	let spectrumRef: HTMLCanvasElement | undefined
+	let hueRangeRef: HTMLInputElement | undefined
 
 	const [theme] = useTheme()
 
 	const [hue, setHue] = createSignal(0)
 
+	function _setHue(to: number) {
+		setHue(to)
+		drawSpectrum()
+	}
+
+	const handleHueRangeInput: JSX.EventHandler<HTMLInputElement, InputEvent> = (
+		event,
+	) => {
+		const value = Number(event.currentTarget.value)
+		_setHue(value)
+	}
+
 	function drawSpectrum() {
-		const context = canvasRef?.getContext('2d')
+		const context = spectrumRef?.getContext('2d')
 		if (!context) return
 
-		// Create hue to white gradient
+		// Create white to hue gradient (base)
 
 		let gradientWhiteToHue = context.createLinearGradient(
 			0,
@@ -31,7 +44,7 @@ const TheColourPicker: Component<{ class?: string; canvasSize?: number }> = (
 		context.fillStyle = gradientWhiteToHue
 		context.fillRect(0, 0, context.canvas.width, context.canvas.height)
 
-		// Create transparent to black gradient
+		// Create transparent to black gradient (overlay)
 
 		let gradientTransparentToBlack = context.createLinearGradient(
 			0,
@@ -61,6 +74,8 @@ const TheColourPicker: Component<{ class?: string; canvasSize?: number }> = (
 			<div class={css.hueRangeContainer}>
 				<input
 					class={css.hueRange}
+					onInput={handleHueRangeInput}
+					ref={hueRangeRef}
 					type="range"
 					min="0"
 					max="360"
