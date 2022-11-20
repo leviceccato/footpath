@@ -17,14 +17,14 @@ export const spectrum = style({
 })
 
 export const colourSelector = style({
-	width: 13,
-	height: 13,
+	width: 11,
+	height: 11,
 	borderRadius: 1000,
 	position: 'absolute',
-	top: -6,
-	left: -6,
+	top: -5,
+	left: -5,
 	backgroundColor: themeCss.colourVar,
-	boxShadow: `0 0 0 1px ${themeCss.colour1000Var}, 0 0 0 3px rgba(${themeCss.colourBaseVar}, 0.3)`,
+	boxShadow: `0 0 0 1px ${themeCss.colour1000Var}`,
 })
 
 export const hueRangeContainer = style({
@@ -38,7 +38,7 @@ export const hueRange = style({
 	background:
 		'linear-gradient(to right, rgb(255, 0, 0), rgb(255, 255, 0), rgb(0, 255, 0), rgb(0, 255, 255), rgb(0, 0, 255), rgb(255, 0, 255), rgb(255, 0, 0))',
 	'::-webkit-slider-thumb': {
-		boxShadow: `0 0 0 0.5px ${themeCss.colour1000Var}, 0 0 0 1.5px rgba(${themeCss.colourBaseVar}, 0.3)`,
+		boxShadow: `0 0 0 0.5px ${themeCss.colour1000Var}`,
 		backgroundColor: `hsla(${hueVar} 100% 50%)`,
 		height: 6,
 		width: 6,
