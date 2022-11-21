@@ -23,6 +23,7 @@ export const colourSelector = style({
 	position: 'absolute',
 	top: -5,
 	left: -5,
+	pointerEvents: 'none',
 	backgroundColor: themeCss.colourVar,
 	boxShadow: `0 0 0 1px ${themeCss.colour1000Var}`,
 })
