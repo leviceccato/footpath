@@ -7,6 +7,7 @@ import {
 } from 'solid-js'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { clamp } from '@/scripts/utils'
+import { toColorString } from 'polished'
 import type { JSX, Component } from 'solid-js'
 import { useTheme } from '@/components/ProviderTheme'
 import * as css from './TheColourPicker.css'
@@ -42,8 +43,7 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 	const handleHueRangeInput: JSX.EventHandler<HTMLInputElement, InputEvent> = (
 		event,
 	) => {
-		const value = Number(event.currentTarget.value)
-		_setHue(value)
+		_setHue(event.currentTarget.valueAsNumber)
 	}
 
 	function drawSpectrum() {
@@ -128,6 +128,16 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 
 	createEffect(() => {
 		setSpectrumSize(_props.spectrumSize)
+	})
+
+	createEffect(() => {
+		const saturation = colourSelectorX() / (spectrumWidth() || 1)
+		const lightnessWithoutHue = 1 - colourSelectorY() / (spectrumHeight() || 1)
+		const lightness = clamp(0, lightnessWithoutHue - saturation / 2, 1)
+
+		const colour = toColorString({ hue: hue(), saturation, lightness })
+
+		theme().setColour(colour)
 	})
 
 	onMount(() => {
