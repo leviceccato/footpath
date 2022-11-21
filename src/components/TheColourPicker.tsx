@@ -83,9 +83,7 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 
 		registerWindowPointerMoveHandler()
 
-		setSpectrumSize()
 		setSpectrumRect()
-
 		setColourSelectorPosition(event)
 	}
 
@@ -110,11 +108,11 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 		setColourSelectorPosition(event)
 	}
 
-	function setSpectrumSize() {
+	function setSpectrumSize(size: number) {
 		if (!spectrumRef) return
 
-		spectrumRef.width = _props.spectrumSize
-		spectrumRef.height = _props.spectrumSize
+		spectrumRef.width = size
+		spectrumRef.height = size
 	}
 
 	function setSpectrumRect() {
@@ -128,8 +126,11 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 		setSpectrumHeight(rect.height)
 	}
 
+	createEffect(() => {
+		setSpectrumSize(_props.spectrumSize)
+	})
+
 	onMount(() => {
-		setSpectrumSize()
 		setSpectrumRect()
 		drawSpectrum()
 	})
