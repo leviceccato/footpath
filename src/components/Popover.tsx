@@ -152,11 +152,11 @@ const Popover: ParentComponent<{
 			],
 		}))
 		if (enabled) {
-			window.addEventListener('click', handleClickOutsideToClose)
+			window.addEventListener('pointerdown', handleClickOutsideToClose)
 			window.addEventListener('keydown', handleEscapeToClose)
 			return
 		}
-		window.removeEventListener('click', handleClickOutsideToClose)
+		window.removeEventListener('pointerdown', handleClickOutsideToClose)
 		window.removeEventListener('keydown', handleEscapeToClose)
 	}
 
