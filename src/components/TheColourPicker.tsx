@@ -1,5 +1,12 @@
-import { mergeProps, createSignal, onMount, createEffect } from 'solid-js'
+import {
+	mergeProps,
+	createSignal,
+	onMount,
+	createEffect,
+	onCleanup,
+} from 'solid-js'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
+import { clamp } from '@/scripts/utils'
 import type { JSX, Component } from 'solid-js'
 import { useTheme } from '@/components/ProviderTheme'
 import * as css from './TheColourPicker.css'
@@ -9,10 +16,10 @@ type CanvasPointerEvent = PointerEvent & {
 	target: Element
 }
 
-const TheColourPicker: Component<{ class?: string; canvasSize?: number }> = (
+const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 	props,
 ) => {
-	const _props = mergeProps({ canvasSize: 180 }, props)
+	const _props = mergeProps({ spectrumSize: 180 }, props)
 
 	let spectrumRef: HTMLCanvasElement | undefined
 	let hueRangeRef: HTMLInputElement | undefined
@@ -22,6 +29,10 @@ const TheColourPicker: Component<{ class?: string; canvasSize?: number }> = (
 	const [hue, setHue] = createSignal(0)
 	const [colourSelectorX, setColourSelectorX] = createSignal(0)
 	const [colourSelectorY, setColourSelectorY] = createSignal(0)
+	const [spectrumLeft, setSpectrumLeft] = createSignal(0)
+	const [spectrumTop, setSpectrumTop] = createSignal(0)
+	const [spectrumWidth, setSpectrumWidth] = createSignal(0)
+	const [spectrumHeight, setSpectrumHeight] = createSignal(0)
 
 	function _setHue(to: number) {
 		setHue(to)
@@ -67,17 +78,64 @@ const TheColourPicker: Component<{ class?: string; canvasSize?: number }> = (
 	}
 
 	function handleCanvasPointerDown(event: CanvasPointerEvent) {
-		const { left, top } = event.target.getBoundingClientRect()
+		event.preventDefault()
+		event.stopPropagation()
 
-		const x = event.clientX - left
-		const y = event.clientY - top
+		registerWindowPointerMoveHandler()
+
+		setSpectrumSize()
+		setSpectrumRect()
+
+		setColourSelectorPosition(event)
+	}
+
+	function setColourSelectorPosition(event: PointerEvent) {
+		const x = clamp(0, event.clientX - spectrumLeft(), spectrumWidth())
+		const y = clamp(0, event.clientY - spectrumTop(), spectrumHeight())
 
 		setColourSelectorX(x)
 		setColourSelectorY(y)
 	}
 
+	function registerWindowPointerMoveHandler() {
+		window.addEventListener('pointermove', handlePointerMove)
+		window.addEventListener('pointerup', unregisterWindowPointerMoveHandler)
+	}
+
+	function unregisterWindowPointerMoveHandler() {
+		window.removeEventListener('pointermove', handlePointerMove)
+	}
+
+	function handlePointerMove(event: PointerEvent) {
+		setColourSelectorPosition(event)
+	}
+
+	function setSpectrumSize() {
+		if (!spectrumRef) return
+
+		spectrumRef.width = _props.spectrumSize
+		spectrumRef.height = _props.spectrumSize
+	}
+
+	function setSpectrumRect() {
+		if (!spectrumRef) return
+
+		const rect = spectrumRef.getBoundingClientRect()
+
+		setSpectrumLeft(rect.left)
+		setSpectrumTop(rect.top)
+		setSpectrumWidth(rect.width)
+		setSpectrumHeight(rect.height)
+	}
+
 	onMount(() => {
+		setSpectrumSize()
+		setSpectrumRect()
 		drawSpectrum()
+	})
+
+	onCleanup(() => {
+		unregisterWindowPointerMoveHandler()
 	})
 
 	return (
@@ -89,7 +147,6 @@ const TheColourPicker: Component<{ class?: string; canvasSize?: number }> = (
 				<canvas
 					ref={spectrumRef}
 					onPointerDown={handleCanvasPointerDown}
-					onpointermove={handleCanvasPointerDown}
 					class={css.spectrum}
 				/>
 				<div
