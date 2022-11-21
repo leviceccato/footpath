@@ -3,6 +3,7 @@ import {
 	lastSegmentFromPath,
 	decimalToPercentage,
 	createRandomColour,
+	clamp,
 } from './utils'
 
 describe('utils', () => {
@@ -40,5 +41,12 @@ describe('utils', () => {
 			?.forEach((pair) => {
 				expect(isNaN(parseInt(pair, 16))).toBe(false)
 			})
+	})
+
+	test('clamp', () => {
+		expect(clamp(0, 1, 2)).toBe(1)
+		expect(clamp(-5, -60, 3)).toBe(-5)
+		expect(clamp(20, 80, 60)).toBe(60)
+		expect(clamp(-1, -1, -1)).toBe(-1)
 	})
 })
