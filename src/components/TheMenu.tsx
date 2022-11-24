@@ -1,4 +1,4 @@
-import { createSignal, createUniqueId, Index } from 'solid-js'
+import { createEffect, createSignal, createUniqueId, Index } from 'solid-js'
 import type { Component } from 'solid-js'
 import * as css from './TheMenu.css'
 import { createRandomColour } from '@/scripts/utils'
@@ -21,6 +21,8 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 	const [t, language] = useI18n()
 	const [theme] = useTheme()
 	const [previousColour, setPreviousColour] = createSignal(theme().colour())
+
+	createEffect(() => console.log(theme().colour()))
 
 	const selectedThemeOption = (): ThemeOption => {
 		if (theme().shouldUseSystem()) {
@@ -228,7 +230,10 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 						</Button>
 					</div>
 					<div class={css.colourPickerContainer}>
-						<TheColourPicker class={css.colourPicker} />
+						<TheColourPicker
+							class={css.colourPicker}
+							spectrumSize={148}
+						/>
 					</div>
 				</div>
 			</Popover>

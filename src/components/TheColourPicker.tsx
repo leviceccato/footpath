@@ -59,6 +59,8 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 			0,
 		)
 		gradientWhiteToHue.addColorStop(0, 'hsla(0 0% 100%)')
+		gradientWhiteToHue.addColorStop(0.01, 'hsla(0 0% 100%)')
+		gradientWhiteToHue.addColorStop(0.99, `hsla(${hue()} 100% 50%)`)
 		gradientWhiteToHue.addColorStop(1, `hsla(${hue()} 100% 50%)`)
 		context.fillStyle = gradientWhiteToHue
 		context.fillRect(0, 0, context.canvas.width, context.canvas.height)
@@ -72,6 +74,8 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 			context.canvas.height,
 		)
 		gradientTransparentToBlack.addColorStop(0, 'hsla(0 0% 0% / 0)')
+		gradientTransparentToBlack.addColorStop(0.01, 'hsla(0 0% 0% / 0)')
+		gradientTransparentToBlack.addColorStop(0.99, 'hsla(0 0% 0% / 1)')
 		gradientTransparentToBlack.addColorStop(1, 'hsla(0 0% 0% / 1)')
 		context.fillStyle = gradientTransparentToBlack
 		context.fillRect(0, 0, context.canvas.width, context.canvas.height)
@@ -88,8 +92,8 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 	}
 
 	function setColourSelectorPosition(event: PointerEvent) {
-		const x = clamp(0, event.clientX - spectrumLeft(), spectrumWidth())
-		const y = clamp(0, event.clientY - spectrumTop(), spectrumHeight())
+		const x = clamp(0, event.clientX - spectrumLeft(), spectrumWidth() - 1)
+		const y = clamp(0, event.clientY - spectrumTop(), spectrumHeight() - 1)
 
 		setColourSelectorX(x)
 		setColourSelectorY(y)
@@ -131,11 +135,20 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 	})
 
 	createEffect(() => {
-		const saturation = colourSelectorX() / (spectrumWidth() || 1)
-		const lightness =
-			(1 - colourSelectorY() / (spectrumHeight() || 1)) / (1 + saturation)
+		const context = spectrumRef?.getContext('2d')
+		if (!context) return
 
-		const colour = toColorString({ hue: hue(), saturation, lightness })
+		const selectedPixel = context.getImageData(
+			colourSelectorX(),
+			colourSelectorY(),
+			1,
+			1,
+		).data
+
+		console.log(colourSelectorX(), colourSelectorY(), selectedPixel)
+
+		const [red, green, blue] = selectedPixel
+		const colour = toColorString({ red, green, blue })
 
 		theme().setColour(colour)
 	})
