@@ -145,10 +145,12 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 			1,
 		).data
 
-		console.log(colourSelectorX(), colourSelectorY(), selectedPixel)
-
 		const [red, green, blue] = selectedPixel
 		const colour = toColorString({ red, green, blue })
+
+		// Ensure this effect triggers when hue changes
+
+		hue()
 
 		theme().setColour(colour)
 	})
