@@ -51,6 +51,8 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 		if (!context) return
 
 		// Create white to hue gradient (base)
+		// Gradient is flattened at start and end to ensure extremity
+		// colours are always accessible
 
 		let gradientWhiteToHue = context.createLinearGradient(
 			0,
