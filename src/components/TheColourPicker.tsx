@@ -132,8 +132,8 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 
 	createEffect(() => {
 		const saturation = colourSelectorX() / (spectrumWidth() || 1)
-		const lightnessWithoutHue = 1 - colourSelectorY() / (spectrumHeight() || 1)
-		const lightness = clamp(0, lightnessWithoutHue - saturation / 2, 1)
+		const lightness =
+			(1 - colourSelectorY() / (spectrumHeight() || 1)) / (1 + saturation)
 
 		const colour = toColorString({ hue: hue(), saturation, lightness })
 
