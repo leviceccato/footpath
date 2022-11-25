@@ -1,5 +1,7 @@
 import { createEffect, createSignal, createUniqueId, Index } from 'solid-js'
 import type { Component } from 'solid-js'
+import { parseToHsl } from 'polished'
+import type { HslaColor, HslColor } from 'polished/lib/types/color'
 import * as css from './TheMenu.css'
 import { createRandomColour } from '@/scripts/utils'
 import { colourDark, colourLight } from '@/data/colours'
@@ -22,8 +24,6 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 	const [theme] = useTheme()
 	const [previousColour, setPreviousColour] = createSignal(theme().colour())
 
-	createEffect(() => console.log(theme().colour()))
-
 	const selectedThemeOption = (): ThemeOption => {
 		if (theme().shouldUseSystem()) {
 			return 'system'
@@ -37,10 +37,14 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 		return 'custom'
 	}
 
-	function getRandomColour() {
-		let colour = createRandomColour()
-		while (colour === colourDark || colour === colourLight) {
-			colour = getRandomColour()
+	function getRandomColour(): HslColor | HslaColor {
+		const colour = parseToHsl(createRandomColour())
+
+		const isDefaultColour = colour === colourDark || colour === colourLight
+		const isOutsideColourRange = colour.lightness * (colour.saturation + 1) > 1
+
+		if (isDefaultColour || isOutsideColourRange) {
+			return getRandomColour()
 		}
 		return colour
 	}
@@ -49,7 +53,7 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 		setColour(getRandomColour())
 	}
 
-	function setColour(colour: string) {
+	function setColour(colour: HslColor | HslaColor) {
 		setPreviousColour(theme().colour())
 		theme().setColour(colour)
 		theme().setShouldUseSystem(false)

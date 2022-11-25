@@ -1,5 +1,7 @@
-export const colourLight = '#FFFFFF'
+import { parseToHsl } from 'polished'
 
-export const colourDark = '#000000'
+export const colourLight = parseToHsl('#FFFFFF')
 
-export const colourBrand = '#FFB885'
+export const colourDark = parseToHsl('#000000')
+
+export const colourBrand = parseToHsl('#FFB885')

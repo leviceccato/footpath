@@ -6,7 +6,7 @@ import '@/base.css'
 
 import { render } from 'solid-js/web'
 import { lastSegmentFromPath } from '@/scripts/utils'
-import { parseToRgb } from 'polished'
+import { parseToRgb, parseToHsl } from 'polished'
 import { colourBrand } from '@/data/colours'
 import type { Translation, Translations } from './scripts/i18n'
 
@@ -33,7 +33,8 @@ const translations = Object.keys(translationModules).reduce<Translations>(
 
 // Initialise theme data
 
-const colour = localStorage.getItem('colour') || colourBrand
+const localStorageColour = localStorage.getItem('colour')
+const colour = localStorageColour ? parseToHsl(localStorageColour) : colourBrand
 const shouldUseSystem = localStorage.getItem('shouldUseSystem') || 'false'
 
 render(

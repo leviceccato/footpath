@@ -7,16 +7,17 @@ import {
 	onCleanup,
 } from 'solid-js'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
-import { readableColor, mix, parseToRgb } from 'polished'
+import { readableColor, mix, parseToRgb, hslToColorString } from 'polished'
 import { colourDark, colourLight } from '@/data/colours'
 import type { Styles } from 'polished/lib/types/style'
+import type { HslaColor, HslColor } from 'polished/lib/types/color'
 import type { ParentComponent } from 'solid-js'
 import * as css from './ProviderTheme.css'
 
 function createThemeContext() {
-	const [colour, _] = createSignal('')
+	const [colour, _] = createSignal(colourLight)
 	const [shouldUseSystem, __] = createSignal(false)
-	const setColour = (to: string) => {}
+	const setColour = (to: HslColor | HslaColor) => {}
 	const setShouldUseSystem = (to: boolean) => {}
 	const isColourLight = () => true
 	const theme = () => ({
@@ -40,7 +41,7 @@ export function useTheme() {
 // Component
 
 const ProviderTheme: ParentComponent<{
-	initialColour: string
+	initialColour: HslColor | HslaColor
 	initialShouldUseSystem: string
 }> = (props) => {
 	const _initialShouldUseSystem = () => {
@@ -75,12 +76,17 @@ const ProviderTheme: ParentComponent<{
 		return colourLight
 	}
 
-	const readable = () => readableColor(_colour(), colourDark, colourLight)
+	const readable = () =>
+		readableColor(
+			hslToColorString(_colour()),
+			hslToColorString(colourDark),
+			hslToColorString(colourLight),
+		)
 
-	const isColourLight = () => readable() === colourLight
+	const isColourLight = () => readable() === hslToColorString(colourLight)
 
 	function createColour(weight: number): string {
-		const mixed = mix(weight, _colour(), readable())
+		const mixed = mix(weight, hslToColorString(_colour()), readable())
 		const { red, green, blue } = parseToRgb(mixed)
 		return [red, green, blue].join()
 	}
@@ -90,7 +96,7 @@ const ProviderTheme: ParentComponent<{
 	}
 
 	createEffect(() => {
-		localStorage.setItem('colour', colour())
+		localStorage.setItem('colour', hslToColorString(colour()))
 	})
 
 	createEffect(() => {
