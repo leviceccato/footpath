@@ -38,6 +38,7 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 	function _setHue(to: number) {
 		setHue(to)
 		drawSpectrum()
+		updateColour()
 	}
 
 	const handleHueRangeInput: JSX.EventHandler<HTMLInputElement, InputEvent> = (
@@ -93,12 +94,31 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 		setColourSelectorPosition(event)
 	}
 
+	function updateColour() {
+		const context = spectrumRef?.getContext('2d')
+		if (!context) return
+
+		const selectedPixel = context.getImageData(
+			colourSelectorX(),
+			colourSelectorY(),
+			1,
+			1,
+		).data
+
+		const [red, green, blue] = selectedPixel
+		const colour = toColorString({ red, green, blue })
+
+		theme().setColour(colour)
+	}
+
 	function setColourSelectorPosition(event: PointerEvent) {
 		const x = clamp(0, event.clientX - spectrumLeft(), spectrumWidth() - 1)
 		const y = clamp(0, event.clientY - spectrumTop(), spectrumHeight() - 1)
 
 		setColourSelectorX(x)
 		setColourSelectorY(y)
+
+		updateColour()
 	}
 
 	function registerWindowPointerMoveHandler() {
@@ -134,27 +154,6 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 
 	createEffect(() => {
 		setSpectrumSize(_props.spectrumSize)
-	})
-
-	createEffect(() => {
-		const context = spectrumRef?.getContext('2d')
-		if (!context) return
-
-		const selectedPixel = context.getImageData(
-			colourSelectorX(),
-			colourSelectorY(),
-			1,
-			1,
-		).data
-
-		const [red, green, blue] = selectedPixel
-		const colour = toColorString({ red, green, blue })
-
-		// Ensure this effect triggers when hue changes
-
-		hue()
-
-		theme().setColour(colour)
 	})
 
 	onMount(() => {
