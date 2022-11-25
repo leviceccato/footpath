@@ -7,7 +7,8 @@ import {
 } from 'solid-js'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { clamp } from '@/scripts/utils'
-import { toColorString } from 'polished'
+import { toColorString, parseToHsl } from 'polished'
+import type { HslColor, HslaColor } from 'polished/lib/types/color'
 import type { JSX, Component } from 'solid-js'
 import { useTheme } from '@/components/ProviderTheme'
 import * as css from './TheColourPicker.css'
@@ -28,6 +29,7 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 	const [theme] = useTheme()
 
 	const [hue, setHue] = createSignal(0)
+	const [shouldEcho, setShouldEcho] = createSignal(true)
 	const [colourSelectorX, setColourSelectorX] = createSignal(0)
 	const [colourSelectorY, setColourSelectorY] = createSignal(0)
 	const [spectrumLeft, setSpectrumLeft] = createSignal(0)
@@ -35,10 +37,15 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 	const [spectrumWidth, setSpectrumWidth] = createSignal(0)
 	const [spectrumHeight, setSpectrumHeight] = createSignal(0)
 
-	function _setHue(to: number) {
+	function _setHue(to: number, shouldUpdate = true) {
 		setHue(to)
 		drawSpectrum()
-		updateColour()
+
+		if (shouldUpdate) {
+			updateColour()
+		} else if (hueRangeRef) {
+			hueRangeRef.value = String(to)
+		}
 	}
 
 	const handleHueRangeInput: JSX.EventHandler<HTMLInputElement, InputEvent> = (
@@ -52,8 +59,6 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 		if (!context) return
 
 		// Create white to hue gradient (base)
-		// Gradient is flattened at start and end to ensure extremity
-		// colours are always accessible
 
 		let gradientWhiteToHue = context.createLinearGradient(
 			0,
@@ -62,8 +67,6 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 			0,
 		)
 		gradientWhiteToHue.addColorStop(0, 'hsla(0 0% 100%)')
-		gradientWhiteToHue.addColorStop(0.01, 'hsla(0 0% 100%)')
-		gradientWhiteToHue.addColorStop(0.99, `hsla(${hue()} 100% 50%)`)
 		gradientWhiteToHue.addColorStop(1, `hsla(${hue()} 100% 50%)`)
 		context.fillStyle = gradientWhiteToHue
 		context.fillRect(0, 0, context.canvas.width, context.canvas.height)
@@ -77,8 +80,6 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 			context.canvas.height,
 		)
 		gradientTransparentToBlack.addColorStop(0, 'hsla(0 0% 0% / 0)')
-		gradientTransparentToBlack.addColorStop(0.01, 'hsla(0 0% 0% / 0)')
-		gradientTransparentToBlack.addColorStop(0.99, 'hsla(0 0% 0% / 1)')
 		gradientTransparentToBlack.addColorStop(1, 'hsla(0 0% 0% / 1)')
 		context.fillStyle = gradientTransparentToBlack
 		context.fillRect(0, 0, context.canvas.width, context.canvas.height)
@@ -95,30 +96,35 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 	}
 
 	function updateColour() {
-		const context = spectrumRef?.getContext('2d')
-		if (!context) return
+		const saturation = colourSelectorX() / (spectrumWidth() || 1)
+		const lightness =
+			(1 - colourSelectorY() / (spectrumHeight() || 1)) / (1 + saturation)
 
-		const selectedPixel = context.getImageData(
-			colourSelectorX(),
-			colourSelectorY(),
-			1,
-			1,
-		).data
-
-		const [red, green, blue] = selectedPixel
-		const colour = toColorString({ red, green, blue })
-
-		theme().setColour(colour)
+		theme().setColour({ hue: hue(), saturation, lightness })
 	}
 
 	function setColourSelectorPosition(event: PointerEvent) {
-		const x = clamp(0, event.clientX - spectrumLeft(), spectrumWidth() - 1)
-		const y = clamp(0, event.clientY - spectrumTop(), spectrumHeight() - 1)
+		const x = clamp(0, event.clientX - spectrumLeft(), spectrumWidth())
+		const y = clamp(0, event.clientY - spectrumTop(), spectrumHeight())
 
 		setColourSelectorX(x)
 		setColourSelectorY(y)
 
 		updateColour()
+	}
+
+	function setColourSelectorPositionFromColour(colour: HslColor | HslaColor) {
+		const { hue, saturation, lightness } = colour
+		const width = spectrumWidth() || 1
+		const height = spectrumHeight() || 1
+
+		const y = lightness * (saturation + 1)
+		const x = saturation
+
+		setColourSelectorX(clamp(0, x * width, width))
+		setColourSelectorY(clamp(0, height - y * height, height))
+
+		_setHue(hue, false)
 	}
 
 	function registerWindowPointerMoveHandler() {
@@ -154,6 +160,12 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 
 	createEffect(() => {
 		setSpectrumSize(_props.spectrumSize)
+	})
+
+	createEffect(() => {
+		if (!shouldEcho()) return
+
+		setColourSelectorPositionFromColour(theme().colour())
 	})
 
 	onMount(() => {
