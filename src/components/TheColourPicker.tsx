@@ -51,7 +51,9 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 	const handleHueRangeInput: JSX.EventHandler<HTMLInputElement, InputEvent> = (
 		event,
 	) => {
+		setShouldEcho(false)
 		_setHue(event.currentTarget.valueAsNumber)
+		setShouldEcho(true)
 	}
 
 	function drawSpectrum() {
