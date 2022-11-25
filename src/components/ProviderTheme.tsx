@@ -95,6 +95,11 @@ const ProviderTheme: ParentComponent<{
 		setPrefersColourSchemeDark(event.matches)
 	}
 
+	function _setColour(colour: HslColor | HslaColor) {
+		setShouldUseSystem(false)
+		setColour(colour)
+	}
+
 	createEffect(() => {
 		localStorage.setItem('colour', hslToColorString(colour()))
 	})
@@ -123,7 +128,7 @@ const ProviderTheme: ParentComponent<{
 	const theme = () => {
 		return {
 			colour: _colour,
-			setColour,
+			setColour: _setColour,
 			shouldUseSystem,
 			isColourLight,
 			setShouldUseSystem,

@@ -56,7 +56,6 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 	function setColour(colour: HslColor | HslaColor) {
 		setPreviousColour(theme().colour())
 		theme().setColour(colour)
-		theme().setShouldUseSystem(false)
 	}
 
 	return (
