@@ -1,10 +1,4 @@
-import {
-	mergeProps,
-	createSignal,
-	onMount,
-	createEffect,
-	onCleanup,
-} from 'solid-js'
+import { mergeProps, createSignal, createEffect, onCleanup } from 'solid-js'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { clamp } from '@/scripts/utils'
 import { toColorString, parseToHsl } from 'polished'
@@ -123,6 +117,8 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 		const y = lightness * (saturation + 1)
 		const x = saturation
 
+		console.log('getting here', x, y, width, height)
+
 		setColourSelectorX(clamp(0, x * width, width))
 		setColourSelectorY(clamp(0, height - y * height, height))
 
@@ -162,17 +158,14 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 
 	createEffect(() => {
 		setSpectrumSize(_props.spectrumSize)
+		setSpectrumRect()
+		drawSpectrum()
 	})
 
 	createEffect(() => {
 		if (!shouldEcho()) return
 
 		setColourSelectorPositionFromColour(theme().colour())
-	})
-
-	onMount(() => {
-		setSpectrumRect()
-		drawSpectrum()
 	})
 
 	onCleanup(() => {
