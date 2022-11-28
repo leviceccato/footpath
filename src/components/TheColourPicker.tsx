@@ -117,8 +117,6 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 		const y = lightness * (saturation + 1)
 		const x = saturation
 
-		console.log('getting here', x, y, width, height)
-
 		setColourSelectorX(clamp(0, x * width, width))
 		setColourSelectorY(clamp(0, height - y * height, height))
 
