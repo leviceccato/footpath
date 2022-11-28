@@ -14,6 +14,7 @@ import type { Translation, Translations } from './scripts/i18n'
 import ProviderI18n from '@/components/ProviderI18n'
 import ProviderTheme from '@/components/ProviderTheme'
 import ProviderIcons from '@/components/ProviderIcons'
+import ProviderPortal from '@/components/ProviderPortal'
 import TheApp from '@/components/TheApp'
 
 // Import translations and generate languageName -> importFunc map
@@ -38,6 +39,10 @@ const localStorageColour = localStorage.getItem('colour')
 const colour = localStorageColour ? parseToHsl(localStorageColour) : colourBrand
 const shouldUseSystem = localStorage.getItem('shouldUseSystem') || 'false'
 
+// Define portal mounts
+
+const mountIds = ['modal']
+
 render(
 	() => (
 		<ProviderI18n
@@ -48,11 +53,13 @@ render(
 				initialColour={colour}
 				initialShouldUseSystem={shouldUseSystem}
 			>
-				<ProviderIcons>
-					<Router>
-						<TheApp />
-					</Router>
-				</ProviderIcons>
+				<ProviderPortal mountIds={mountIds}>
+					<ProviderIcons>
+						<Router>
+							<TheApp />
+						</Router>
+					</ProviderIcons>
+				</ProviderPortal>
 			</ProviderTheme>
 		</ProviderI18n>
 	),
