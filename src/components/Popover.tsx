@@ -6,6 +6,7 @@ import {
 	createSignal,
 	createEffect,
 	createRoot,
+	Show,
 } from 'solid-js'
 import type {
 	ParentComponent,
@@ -231,7 +232,7 @@ const Popover: ParentComponent<{
 				id={id}
 				role="tooltip"
 			>
-				{_props.children}
+				<Show when={isShown()}>{_props.children}</Show>
 			</Dynamic>
 		</>
 	)
