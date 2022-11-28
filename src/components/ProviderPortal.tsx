@@ -1,0 +1,39 @@
+import {
+	createContext,
+	createSignal,
+	useContext,
+	For,
+	createUniqueId,
+} from 'solid-js'
+import type { ParentComponent } from 'solid-js'
+
+const context = createContext([
+	{
+		get: (key: string): HTMLDivElement | undefined => undefined,
+	},
+])
+
+export function usePortal() {
+	return useContext(context)
+}
+
+const ProviderPortal: ParentComponent<{
+	mountIds: string[]
+}> = (props) => {
+	let mountRefs = new Map<string, HTMLDivElement>()
+
+	const value = {
+		get: mountRefs.get,
+	}
+
+	return (
+		<>
+			<context.Provider value={[value]}>{props.children}</context.Provider>
+			<For each={props.mountIds}>
+				{(id) => <div ref={(ref) => mountRefs.set(id, ref)} />}
+			</For>
+		</>
+	)
+}
+
+export default ProviderPortal
