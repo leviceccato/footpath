@@ -16,6 +16,7 @@
 	},
 	"dependencies": {
 		"@popperjs/core": "^2.11.6",
+		"@solidjs/router": "^0.5.1",
 		"@vanilla-extract/css": "^1.9.1",
 		"@vanilla-extract/dynamic": "^2.0.2",
 		"lodash-es": "^4.17.21",
