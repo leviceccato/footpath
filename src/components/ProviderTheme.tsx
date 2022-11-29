@@ -9,7 +9,6 @@ import {
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { readableColor, mix, parseToRgb, hslToColorString } from 'polished'
 import { colourDark, colourLight } from '@/data/colours'
-import type { Styles } from 'polished/lib/types/style'
 import type { HslaColor, HslColor } from 'polished/lib/types/color'
 import type { ParentComponent } from 'solid-js'
 import * as css from './ProviderTheme.css'
@@ -17,8 +16,8 @@ import * as css from './ProviderTheme.css'
 function createThemeContext() {
 	const [colour, _] = createSignal(colourLight)
 	const [shouldUseSystem, __] = createSignal(false)
-	const setColour = (to: HslColor | HslaColor) => {}
-	const setShouldUseSystem = (to: boolean) => {}
+	const setColour = (_: HslColor | HslaColor) => {}
+	const setShouldUseSystem = (_: boolean) => {}
 	const isColourLight = () => true
 	const theme = () => ({
 		colour,

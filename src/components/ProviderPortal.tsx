@@ -1,15 +1,9 @@
-import {
-	createContext,
-	createSignal,
-	useContext,
-	For,
-	createUniqueId,
-} from 'solid-js'
+import { createContext, useContext, For } from 'solid-js'
 import type { ParentComponent } from 'solid-js'
 
 const context = createContext([
 	{
-		get: (key: string): HTMLDivElement | undefined => undefined,
+		get: (_: string): HTMLDivElement | undefined => undefined,
 	},
 ])
 

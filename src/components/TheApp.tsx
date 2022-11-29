@@ -1,9 +1,5 @@
-import { For, Show } from 'solid-js'
 import { Routes, Route } from '@solidjs/router'
-import { createStore } from 'solid-js/store'
-import { useI18n } from '@/components/ProviderI18n'
 import { useTheme } from '@/components/ProviderTheme'
-import { useIcons } from '@/components/ProviderIcons'
 import type { Component } from 'solid-js'
 import * as css from './TheApp.css'
 

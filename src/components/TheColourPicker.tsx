@@ -1,7 +1,6 @@
 import { mergeProps, createSignal, createEffect, onCleanup } from 'solid-js'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { clamp } from '@/scripts/utils'
-import { toColorString, parseToHsl } from 'polished'
 import type { HslColor, HslaColor } from 'polished/lib/types/color'
 import type { JSX, Component } from 'solid-js'
 import { useTheme } from '@/components/ProviderTheme'

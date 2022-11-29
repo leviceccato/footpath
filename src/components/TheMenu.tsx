@@ -1,4 +1,4 @@
-import { createEffect, createSignal, createUniqueId, Index } from 'solid-js'
+import { createSignal, createUniqueId, Index } from 'solid-js'
 import type { Component } from 'solid-js'
 import { parseToHsl } from 'polished'
 import type { HslaColor, HslColor } from 'polished/lib/types/color'
@@ -22,7 +22,7 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 	const [Icon] = useIcons()
 	const [t, language] = useI18n()
 	const [theme] = useTheme()
-	const [previousColour, setPreviousColour] = createSignal(theme().colour())
+	const [_, setPreviousColour] = createSignal(theme().colour())
 
 	const selectedThemeOption = (): ThemeOption => {
 		if (theme().shouldUseSystem()) {

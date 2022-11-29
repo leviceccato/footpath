@@ -1,4 +1,4 @@
-import { style, fontFace, styleVariants } from '@vanilla-extract/css'
+import { style, styleVariants } from '@vanilla-extract/css'
 import * as baseCss from '@/base.css'
 import type { Font } from '@/base.css'
 

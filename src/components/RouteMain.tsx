@@ -1,8 +1,6 @@
 import { For, Show } from 'solid-js'
-import { Routes, Route } from '@solidjs/router'
 import { createStore } from 'solid-js/store'
 import { useI18n } from '@/components/ProviderI18n'
-import { useTheme } from '@/components/ProviderTheme'
 import { useIcons } from '@/components/ProviderIcons'
 import type { Component } from 'solid-js'
 import * as css from './RouteMain.css'
@@ -12,7 +10,6 @@ import Text from '@/components/Text'
 import VisuallyHidden from '@/components/VisuallyHidden'
 import ScrollArea from '@/components/ScrollArea'
 import TheMenu from '@/components/TheMenu'
-import ErrorDisplay from '@/components/ErrorDisplay'
 
 type Tab = {
 	id: number
@@ -22,7 +19,6 @@ type Tab = {
 }
 
 const RouteMain: Component = () => {
-	const [theme] = useTheme()
 	const [Icon] = useIcons()
 	const [t] = useI18n()
 
@@ -57,7 +53,7 @@ const RouteMain: Component = () => {
 		setTabs(
 			(tab) => tab.id === id,
 			'deletedAt',
-			(deletedAt) => new Date(),
+			(_) => new Date(),
 		)
 	}
 

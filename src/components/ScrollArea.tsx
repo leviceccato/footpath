@@ -26,8 +26,6 @@ const ScrollArea: ParentComponent<{
 
 	// Reactive scroll data
 
-	const [scrollTop, setScrollTop] = createSignal(0)
-	const [scrollLeft, setScrollLeft] = createSignal(0)
 	const [isOverflowingTop, setIsOverflowingTop] = createSignal(false)
 	const [isOverflowingBottom, setIsOverflowingBottom] = createSignal(false)
 	const [isOverflowingLeft, setIsOverflowingLeft] = createSignal(false)
@@ -37,9 +35,6 @@ const ScrollArea: ParentComponent<{
 		if (!scrollElement) {
 			return
 		}
-
-		setScrollTop(scrollElement.scrollTop)
-		setScrollLeft(scrollElement.scrollLeft)
 
 		// Set overflow booleans for each side based on minimum distance values
 

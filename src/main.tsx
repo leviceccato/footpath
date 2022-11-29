@@ -7,7 +7,7 @@ import '@/base.css'
 import { render } from 'solid-js/web'
 import { Router } from '@solidjs/router'
 import { lastSegmentFromPath } from '@/scripts/utils'
-import { parseToRgb, parseToHsl } from 'polished'
+import { parseToHsl } from 'polished'
 import { colourBrand } from '@/data/colours'
 import type { Translation, Translations } from './scripts/i18n'
 

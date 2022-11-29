@@ -1,4 +1,4 @@
-import { describe, assert, expect, test } from 'vitest'
+import { describe, expect, test } from 'vitest'
 import {
 	lastSegmentFromPath,
 	decimalToPercentage,

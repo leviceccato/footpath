@@ -8,13 +8,7 @@ import {
 	createRoot,
 	Show,
 } from 'solid-js'
-import type {
-	ParentComponent,
-	JSX,
-	FlowProps,
-	Accessor,
-	Setter,
-} from 'solid-js'
+import type { ParentComponent, JSX, Accessor, Setter } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
 import type { StrictModifiers, Options, Instance } from '@popperjs/core'
 import * as css from './Popover.css'
