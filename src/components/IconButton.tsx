@@ -4,15 +4,17 @@ import { useIcons } from '@/components/ProviderIcons'
 import type { IconName } from '@/components/ProviderIcons'
 
 import Button from '@/components/Button'
+import type { ButtonProps } from '@/components/Button'
 import Popover from '@/components/Popover'
 import Text from '@/components/Text'
 import VisuallyHidden from '@/components/VisuallyHidden'
 
-const IconButton: Component<{
-	class?: string
-	name: IconName
-	tooltip: string
-}> = (props) => {
+const IconButton: Component<
+	ButtonProps & {
+		name: IconName
+		tooltip: string
+	}
+> = (props) => {
 	const [Icon] = useIcons()
 
 	return (
@@ -24,7 +26,7 @@ const IconButton: Component<{
 				modifiers: [{ name: 'offset', options: { offset: [0, 9] } }],
 			}}
 			reference={({ isShown }) => (
-				<Button class={props.class}>
+				<Button {...props}>
 					<Show when={!isShown()}>
 						<VisuallyHidden>{props.tooltip}</VisuallyHidden>
 					</Show>
