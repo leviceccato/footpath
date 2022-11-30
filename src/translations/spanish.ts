@@ -21,4 +21,5 @@ export default createTranslation({
 	untitled: 'Intitulado',
 	preferences: 'Preferencias',
 	about: 'Sobre',
+	close: 'Cerrar',
 })

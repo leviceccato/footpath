@@ -19,4 +19,5 @@ export default {
 	untitled: 'Untitled',
 	preferences: 'Preferences',
 	about: 'About',
+	close: 'Close',
 }
