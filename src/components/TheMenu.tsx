@@ -121,10 +121,10 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 										class={css.dropdownButtonText}
 										variant="bodyXs"
 									>
-										{item()[1]._}{' '}
-										{item()[1]._ === item()[1].untranslated
+										{item()[1].untranslated}{' '}
+										{item()[1].untranslated === item()[1]._
 											? ''
-											: `/ ${item()[1].untranslated}`}
+											: `/ ${item()[1]._}`}
 									</Text>
 								</Button>
 							)}
