@@ -10,6 +10,7 @@ import Text from '@/components/Text'
 import VisuallyHidden from '@/components/VisuallyHidden'
 import ScrollArea from '@/components/ScrollArea'
 import TheMenu from '@/components/TheMenu'
+import IconButton from '@/components/IconButton'
 
 type Tab = {
 	id: number
@@ -88,19 +89,16 @@ const RouteMain: Component = () => {
 										>
 											<Text variant="bodyXs">{tab.name}</Text>
 										</Button>
-										<Button
+										<IconButton
+											name="close"
+											tooltip={t().close}
 											onClick={[deleteTab, tab.id]}
 											class={
 												css.closeTabButtonVariant[
 													tab.isActive ? 'active' : 'inactive'
 												]
 											}
-										>
-											<Icon
-												class={css.closeTabIcon}
-												name="close"
-											/>
-										</Button>
+										/>
 									</div>
 								</Show>
 							)}
