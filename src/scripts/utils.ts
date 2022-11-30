@@ -27,16 +27,21 @@ export function clamp(min: number, value: number, max: number): number {
 export function hslToHsv(colour: HslColor): HsvColour {
 	let { hue, saturation, lightness } = colour
 	const value = lightness + saturation * Math.min(lightness, 1 - lightness)
-	saturation = value === 0 ? saturation : 2 * (1 - lightness / value)
+
+	if (value !== 0) {
+		saturation = 2 * (1 - lightness / value)
+	}
+
 	return { hue, saturation, value }
 }
 
 export function hsvToHsl(colour: HsvColour): HslColor {
 	let { hue, saturation, value } = colour
 	const lightness = value * (1 - saturation / 2)
-	saturation =
-		lightness === 1 || lightness === 0
-			? saturation
-			: (value - lightness) / Math.min(lightness, 1 - lightness)
+
+	if (lightness !== 1 && lightness !== 0) {
+		saturation = (value - lightness) / Math.min(lightness, 1 - lightness)
+	}
+
 	return { hue, saturation, lightness }
 }
