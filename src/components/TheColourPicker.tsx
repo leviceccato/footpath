@@ -1,6 +1,6 @@
 import { mergeProps, createSignal, createEffect, onCleanup } from 'solid-js'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
-import { clamp } from '@/scripts/utils'
+import { clamp, hslToHsv, hsvToHsl } from '@/scripts/utils'
 import type { HslColor, HslaColor } from 'polished/lib/types/color'
 import type { JSX, Component } from 'solid-js'
 import { useTheme } from '@/components/ProviderTheme'
@@ -91,11 +91,18 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 	}
 
 	function updateColour() {
-		const saturation = colourSelectorX() / (spectrumWidth() || 1)
-		const lightness =
-			(1 - colourSelectorY() / (spectrumHeight() || 1)) / (1 + saturation)
+		const height = spectrumHeight() || 1
+		const width = spectrumWidth() || 1
 
-		theme().setColour({ hue: hue(), saturation, lightness })
+		const saturation = colourSelectorX() / width
+		const value = (height - colourSelectorY()) / height
+
+		const colour = hsvToHsl({ hue: hue(), saturation, value })
+
+		console.log({ hue: hue(), saturation, value })
+		console.log(colour)
+
+		theme().setColour(colour)
 	}
 
 	function setColourSelectorPosition(event: PointerEvent) {
@@ -109,15 +116,16 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 	}
 
 	function setColourSelectorPositionFromColour(colour: HslColor | HslaColor) {
-		const { hue, saturation, lightness } = colour
+		const { hue, saturation, value } = hslToHsv(colour)
+
 		const width = spectrumWidth() || 1
 		const height = spectrumHeight() || 1
 
-		const y = lightness * (saturation + 1)
-		const x = saturation
+		const y = clamp(0, height - value * height, height)
+		const x = clamp(0, saturation * width, width)
 
-		setColourSelectorX(clamp(0, x * width, width))
-		setColourSelectorY(clamp(0, height - y * height, height))
+		setColourSelectorX(x)
+		setColourSelectorY(y)
 
 		_setHue(hue, false)
 	}
