@@ -5,13 +5,13 @@ import * as css from './Button.css'
 
 import Text from '@/components/Text'
 
-const Button: ParentComponent<
-	JSX.ButtonHTMLAttributes<HTMLButtonElement> & {
-		class?: string
-		href?: string
-		text?: string
-	}
-> = (props) => {
+export type ButtonProps = JSX.ButtonHTMLAttributes<HTMLButtonElement> & {
+	class?: string
+	href?: string
+	text?: string
+}
+
+const Button: ParentComponent<ButtonProps> = (props) => {
 	const tag = () => {
 		if (props.href) {
 			return 'a'
