@@ -5,12 +5,14 @@ import {
 	useContext,
 	onMount,
 	onCleanup,
+	children,
 } from 'solid-js'
+import type { JSX } from 'solid-js'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { readableColor, mix, parseToRgb, hslToColorString } from 'polished'
 import { colourDark, colourLight } from '@/data/colours'
 import type { HslaColor, HslColor } from 'polished/lib/types/color'
-import type { ParentComponent } from 'solid-js'
+import type { Component } from 'solid-js'
 import * as css from './ProviderTheme.css'
 
 function createThemeContext() {
@@ -39,9 +41,12 @@ export function useTheme() {
 
 // Component
 
-const ProviderTheme: ParentComponent<{
+const ProviderTheme: Component<{
 	initialColour: HslColor | HslaColor
 	initialShouldUseSystem: string
+	children:
+		| JSX.Element
+		| ((theme: ReturnType<typeof createThemeContext>) => JSX.Element)
 }> = (props) => {
 	const _initialShouldUseSystem = () => {
 		if (props.initialShouldUseSystem === 'false') {
@@ -150,7 +155,14 @@ const ProviderTheme: ParentComponent<{
 		}
 	}
 
-	return <context.Provider value={[theme]}>{props.children}</context.Provider>
+	const resolved = children(() => {
+		if (typeof props.children !== 'function') {
+			return props.children
+		}
+		return props.children([theme])
+	})
+
+	return <context.Provider value={[theme]}>{resolved()}</context.Provider>
 }
 
 export default ProviderTheme

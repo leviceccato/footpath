@@ -17,7 +17,7 @@ const ProviderPortal: ParentComponent<{
 	let mountRefs = new Map<string, HTMLDivElement>()
 
 	const value = {
-		get: mountRefs.get,
+		get: (key: string) => mountRefs.get(key),
 	}
 
 	return (
