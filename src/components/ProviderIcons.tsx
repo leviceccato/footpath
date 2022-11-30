@@ -5,7 +5,7 @@ import * as css from './ProviderIcons.css'
 
 type Icons = typeof iconConstants
 
-type IconName = keyof Icons
+export type IconName = keyof Icons
 
 const iconNames = Object.keys(iconConstants) as IconName[]
 
