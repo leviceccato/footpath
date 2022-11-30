@@ -12,6 +12,8 @@ import type { ParentComponent, JSX, Accessor, Setter } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
 import type { StrictModifiers, Options, Instance } from '@popperjs/core'
 import * as css from './Popover.css'
+import { Portal } from 'solid-js/web'
+import { usePortal } from '@/components/ProviderPortal'
 
 type PopoverState = {
 	isShown: () => boolean
@@ -93,6 +95,8 @@ const Popover: ParentComponent<{
 	options?: Partial<Options>
 }> = (props) => {
 	const _props = mergeProps({ referenceTag: 'div', contentTag: 'div' }, props)
+
+	const [portal] = usePortal()
 
 	const id = createUniqueId()
 
@@ -219,15 +223,17 @@ const Popover: ParentComponent<{
 			>
 				{reference()}
 			</Dynamic>
-			<Dynamic
-				class={css.contentVariants[contentVariant()]}
-				component={_props.contentTag}
-				ref={contentRef}
-				id={id}
-				role="tooltip"
-			>
-				<Show when={isShown()}>{_props.children}</Show>
-			</Dynamic>
+			<Portal mount={portal.get('modal')}>
+				<Dynamic
+					class={css.contentVariants[contentVariant()]}
+					component={_props.contentTag}
+					ref={contentRef}
+					id={id}
+					role="tooltip"
+				>
+					<Show when={isShown()}>{_props.children}</Show>
+				</Dynamic>
+			</Portal>
 		</>
 	)
 }
