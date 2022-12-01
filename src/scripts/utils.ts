@@ -46,3 +46,7 @@ export function hsvToHsl(colour: HsvColour): HslColor {
 
 	return { hue, saturation, lightness }
 }
+
+export function sleep(duration: number): Promise<void> {
+	return new Promise((resolve) => setTimeout(resolve, duration))
+}
