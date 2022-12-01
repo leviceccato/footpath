@@ -2,6 +2,7 @@ import type { Component } from 'solid-js'
 import { Show, splitProps } from 'solid-js'
 import { useIcons } from '@/components/ProviderIcons'
 import type { IconName } from '@/components/ProviderIcons'
+import * as css from './IconButton.css'
 
 import Button from '@/components/Button'
 import type { ButtonProps } from '@/components/Button'
@@ -11,13 +12,20 @@ import VisuallyHidden from '@/components/VisuallyHidden'
 
 const IconButton: Component<
 	ButtonProps & {
+		class?: string
 		name: IconName
 		tooltip: string
+		iconClass?: string
 	}
 > = (props) => {
 	const [Icon] = useIcons()
 
-	const [_props, buttonProps] = splitProps(props, ['name', 'tooltip', 'class'])
+	const [_props, buttonProps] = splitProps(props, [
+		'class',
+		'name',
+		'tooltip',
+		'iconClass',
+	])
 
 	return (
 		<Popover
@@ -32,7 +40,10 @@ const IconButton: Component<
 					<Show when={!isShown()}>
 						<VisuallyHidden>{_props.tooltip}</VisuallyHidden>
 					</Show>
-					<Icon name={_props.name} />
+					<Icon
+						class={`${css.icon} ${_props.iconClass ?? ''}`}
+						name={_props.name}
+					/>
 				</Button>
 			)}
 		>
