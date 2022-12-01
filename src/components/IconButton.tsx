@@ -1,8 +1,9 @@
-import type { Component } from 'solid-js'
+import { Component, createSignal, onCleanup } from 'solid-js'
 import { Show, splitProps } from 'solid-js'
 import { useIcons } from '@/components/ProviderIcons'
 import type { IconName } from '@/components/ProviderIcons'
 import * as css from './IconButton.css'
+import type { VirtualElement, Instance } from '@popperjs/core'
 
 import Button from '@/components/Button'
 import type { ButtonProps } from '@/components/Button'
@@ -27,6 +28,49 @@ const IconButton: Component<
 		'iconClass',
 	])
 
+	const [popover, setPopover] = createSignal<Instance>()
+
+	let virtualReference: VirtualElement = {
+		getBoundingClientRect: createGetBoundingClientRect(0, 0),
+	}
+
+	function createGetBoundingClientRect(
+		x: number,
+		y: number,
+	): VirtualElement['getBoundingClientRect'] {
+		return () => ({
+			x,
+			y,
+			width: 0,
+			height: 0,
+			top: y,
+			right: x,
+			bottom: y,
+			left: x,
+			toJSON: () => {},
+		})
+	}
+
+	function updateVirtualReference(event: MouseEvent): void {
+		virtualReference.getBoundingClientRect = createGetBoundingClientRect(
+			event.clientX,
+			event.clientY,
+		)
+		popover()?.update()
+	}
+
+	function addMousemoveListener(): void {
+		document.addEventListener('mousemove', updateVirtualReference)
+	}
+
+	function removeMousemoveListener(): void {
+		document.removeEventListener('mousemove', updateVirtualReference)
+	}
+
+	onCleanup(() => {
+		removeMousemoveListener()
+	})
+
 	return (
 		<Popover
 			class={_props.class}
@@ -35,6 +79,10 @@ const IconButton: Component<
 				placement: 'bottom-end',
 				modifiers: [{ name: 'offset', options: { offset: [0, 9] } }],
 			}}
+			onShown={addMousemoveListener}
+			onHidden={removeMousemoveListener}
+			onUpdateInstance={setPopover}
+			virtualReference={virtualReference}
 			reference={({ isShown }) => (
 				<Button {...buttonProps}>
 					<Show when={!isShown()}>
@@ -47,7 +95,9 @@ const IconButton: Component<
 				</Button>
 			)}
 		>
-			<Text variant="bodyXs">{_props.tooltip}</Text>
+			<div class={css.tooltip}>
+				<Text variant="bodyXs">{_props.tooltip}</Text>
+			</div>
 		</Popover>
 	)
 }
