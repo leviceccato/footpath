@@ -9,7 +9,12 @@ import {
 } from 'solid-js'
 import type { ParentComponent, JSX, Accessor, Setter } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
-import type { StrictModifiers, Options, Instance } from '@popperjs/core'
+import type {
+	StrictModifiers,
+	Options,
+	Instance,
+	VirtualElement,
+} from '@popperjs/core'
 import * as css from './Popover.css'
 import { Portal } from 'solid-js/web'
 import { sleep } from '@/scripts/utils'
@@ -91,8 +96,12 @@ const Popover: ParentComponent<{
 	groupId?: string
 	referenceTag?: string
 	reference?: JSX.Element | ((state: PopoverState) => JSX.Element)
+	virtualReference?: VirtualElement
 	options?: Partial<Options>
 	hoverDelay?: number
+	onShown?: () => void
+	onHidden?: () => void
+	onUpdateInstance?: (_: Instance) => void
 }> = (props) => {
 	const _props = mergeProps({ referenceTag: 'div', hoverDelay: 400 }, props)
 
@@ -189,21 +198,20 @@ const Popover: ParentComponent<{
 
 	async function initPopper() {
 		const _contentRef = contentRef()
+		const reference = _props.virtualReference || referenceRef
 
-		if (
-			!(referenceRef instanceof Element) ||
-			!(_contentRef instanceof HTMLElement)
-		) {
+		if (!reference || !(_contentRef instanceof HTMLElement)) {
 			return
 		}
 
 		const { createPopper } = await import('@popperjs/core')
 
 		popper = createPopper<StrictModifiers>(
-			referenceRef,
+			reference,
 			_contentRef,
-			_props.options,
+			_props.virtualReference ? {} : _props.options,
 		)
+		_props.onUpdateInstance?.(popper)
 	}
 
 	createEffect(() => {
@@ -215,8 +223,10 @@ const Popover: ParentComponent<{
 	createEffect(() => {
 		if (isShown()) {
 			toggleEventListeners(true)
+			_props.onShown?.()
 			return popper?.update()
 		}
+		_props.onHidden?.()
 		toggleEventListeners(false)
 	})
 
