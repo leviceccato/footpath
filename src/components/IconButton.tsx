@@ -1,5 +1,5 @@
 import type { Component } from 'solid-js'
-import { Show } from 'solid-js'
+import { Show, splitProps } from 'solid-js'
 import { useIcons } from '@/components/ProviderIcons'
 import type { IconName } from '@/components/ProviderIcons'
 
@@ -17,24 +17,26 @@ const IconButton: Component<
 > = (props) => {
 	const [Icon] = useIcons()
 
+	const [_props, buttonProps] = splitProps(props, ['name', 'tooltip', 'class'])
+
 	return (
 		<Popover
-			class={props.class}
+			class={_props.class}
 			when="hover"
 			options={{
 				placement: 'bottom-end',
 				modifiers: [{ name: 'offset', options: { offset: [0, 9] } }],
 			}}
 			reference={({ isShown }) => (
-				<Button {...props}>
+				<Button {...buttonProps}>
 					<Show when={!isShown()}>
-						<VisuallyHidden>{props.tooltip}</VisuallyHidden>
+						<VisuallyHidden>{_props.tooltip}</VisuallyHidden>
 					</Show>
-					<Icon name={props.name} />
+					<Icon name={_props.name} />
 				</Button>
 			)}
 		>
-			<Text variant="bodyXs">{props.tooltip}</Text>
+			<Text variant="bodyXs">{_props.tooltip}</Text>
 		</Popover>
 	)
 }
