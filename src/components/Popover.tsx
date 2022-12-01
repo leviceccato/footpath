@@ -1,6 +1,5 @@
 import {
 	createUniqueId,
-	onMount,
 	onCleanup,
 	mergeProps,
 	createSignal,
@@ -13,6 +12,7 @@ import { Dynamic } from 'solid-js/web'
 import type { StrictModifiers, Options, Instance } from '@popperjs/core'
 import * as css from './Popover.css'
 import { Portal } from 'solid-js/web'
+import { sleep } from '@/scripts/utils'
 import { usePortal } from '@/components/ProviderPortal'
 
 type PopoverState = {
@@ -92,6 +92,7 @@ const Popover: ParentComponent<{
 	referenceTag?: string
 	reference?: JSX.Element | ((state: PopoverState) => JSX.Element)
 	options?: Partial<Options>
+	hoverDelay?: number
 }> = (props) => {
 	const _props = mergeProps({ referenceTag: 'div', hoverDelay: 400 }, props)
 
@@ -113,6 +114,7 @@ const Popover: ParentComponent<{
 	let referenceRef: HTMLDivElement | undefined
 
 	const [contentRef, setContentRef] = createSignal<HTMLDivElement>()
+	const [isHovered, setIsHovered] = createSignal(false)
 
 	const isShown = () => isPopoverShown(id)()
 
@@ -135,11 +137,16 @@ const Popover: ParentComponent<{
 		}
 	}
 
-	function handleHover(isIn: boolean) {
+	async function handleHover(isIn: boolean) {
+		setIsHovered(isIn)
+
 		if (_props.when === 'hover') {
-			return setPopoverShown(id, isIn)
+			await sleep(isHovered() ? _props.hoverDelay : 0)
+
+			return setPopoverShown(id, isHovered())
 		}
-		if (isIn && getOpenGroupMembers(_props.groupId).length) {
+
+		if (isHovered() && getOpenGroupMembers(_props.groupId).length) {
 			return setPopoverShown(id, true)
 		}
 	}
