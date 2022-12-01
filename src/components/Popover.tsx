@@ -90,13 +90,12 @@ const Popover: ParentComponent<{
 	class?: string
 	groupId?: string
 	referenceTag?: string
-	contentTag?: string
 	reference?: JSX.Element | ((state: PopoverState) => JSX.Element)
 	options?: Partial<Options>
 }> = (props) => {
-	const _props = mergeProps({ referenceTag: 'div', contentTag: 'div' }, props)
+	const _props = mergeProps({ referenceTag: 'div', hoverDelay: 400 }, props)
 
-	const [portal] = usePortal()
+	const [mounts] = usePortal()
 
 	const id = createUniqueId()
 
@@ -112,7 +111,8 @@ const Popover: ParentComponent<{
 
 	let popper: Instance | undefined
 	let referenceRef: HTMLDivElement | undefined
-	let contentRef: HTMLDivElement | undefined
+
+	const [contentRef, setContentRef] = createSignal<HTMLDivElement>()
 
 	const isShown = () => isPopoverShown(id)()
 
@@ -126,6 +126,8 @@ const Popover: ParentComponent<{
 	const contentVariant = (): keyof typeof css.contentVariants => {
 		return isShown() ? 'shown' : 'hidden'
 	}
+
+	const modal = () => mounts().get('modal')
 
 	function handleClick() {
 		if (_props.when === 'click') {
@@ -165,7 +167,7 @@ const Popover: ParentComponent<{
 		}
 
 		const isOutsideReference = !referenceRef?.contains(target)
-		const isOutsideContent = !contentRef?.contains(target)
+		const isOutsideContent = !contentRef()?.contains(target)
 
 		if (isOutsideReference && isOutsideContent) {
 			setPopoverShown(id, false)
@@ -178,18 +180,12 @@ const Popover: ParentComponent<{
 		}
 	}
 
-	createEffect(() => {
-		if (isShown()) {
-			toggleEventListeners(true)
-			return popper?.update()
-		}
-		toggleEventListeners(false)
-	})
+	async function initPopper() {
+		const _contentRef = contentRef()
 
-	onMount(async () => {
 		if (
 			!(referenceRef instanceof Element) ||
-			!(contentRef instanceof HTMLElement)
+			!(_contentRef instanceof HTMLElement)
 		) {
 			return
 		}
@@ -198,9 +194,23 @@ const Popover: ParentComponent<{
 
 		popper = createPopper<StrictModifiers>(
 			referenceRef,
-			contentRef,
+			_contentRef,
 			_props.options,
 		)
+	}
+
+	createEffect(() => {
+		if (mounts().get('modal') && contentRef() && !popper) {
+			initPopper()
+		}
+	})
+
+	createEffect(() => {
+		if (isShown()) {
+			toggleEventListeners(true)
+			return popper?.update()
+		}
+		toggleEventListeners(false)
 	})
 
 	onCleanup(() => {
@@ -223,17 +233,18 @@ const Popover: ParentComponent<{
 			>
 				{reference()}
 			</Dynamic>
-			<Portal mount={portal.get('modal')}>
-				<Dynamic
-					class={css.contentVariants[contentVariant()]}
-					component={_props.contentTag}
-					ref={contentRef}
-					id={id}
-					role="tooltip"
-				>
-					<Show when={isShown()}>{_props.children}</Show>
-				</Dynamic>
-			</Portal>
+			<Show when={modal()}>
+				<Portal mount={modal()}>
+					<div
+						class={css.contentVariants[contentVariant()]}
+						ref={(ref) => setContentRef(ref)}
+						id={id}
+						role="tooltip"
+					>
+						<Show when={isShown()}>{_props.children}</Show>
+					</div>
+				</Portal>
+			</Show>
 		</>
 	)
 }

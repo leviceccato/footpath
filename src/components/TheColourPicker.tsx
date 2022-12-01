@@ -99,9 +99,6 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 
 		const colour = hsvToHsl({ hue: hue(), saturation, value })
 
-		console.log({ hue: hue(), saturation, value })
-		console.log(colour)
-
 		theme().setColour(colour)
 	}
 

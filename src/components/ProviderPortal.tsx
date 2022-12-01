@@ -1,11 +1,19 @@
-import { createContext, useContext, For } from 'solid-js'
+import {
+	createContext,
+	createSignal,
+	useContext,
+	Index,
+	onMount,
+} from 'solid-js'
+import * as css from './ProviderPortal.css'
 import type { ParentComponent } from 'solid-js'
 
-const context = createContext([
-	{
-		get: (_: string): HTMLDivElement | undefined => undefined,
-	},
-])
+function createPortalContext() {
+	const [mounts, setMounts] = createSignal(new Map<string, HTMLDivElement>())
+	return [mounts, setMounts] as const
+}
+
+const context = createContext(createPortalContext())
 
 export function usePortal() {
 	return useContext(context)
@@ -16,16 +24,25 @@ const ProviderPortal: ParentComponent<{
 }> = (props) => {
 	let mountRefs = new Map<string, HTMLDivElement>()
 
-	const value = {
-		get: (key: string) => mountRefs.get(key),
-	}
+	const [mounts, setMounts] = createPortalContext()
+
+	onMount(() => {
+		setMounts(mountRefs)
+	})
 
 	return (
 		<>
-			<context.Provider value={[value]}>{props.children}</context.Provider>
-			<For each={props.mountIds}>
-				{(id) => <div ref={(ref) => mountRefs.set(id, ref)} />}
-			</For>
+			<context.Provider value={[mounts, setMounts]}>
+				{props.children}
+			</context.Provider>
+			<Index each={props.mountIds}>
+				{(id) => (
+					<div
+						class={css.mount}
+						ref={(ref) => mountRefs.set(id(), ref)}
+					/>
+				)}
+			</Index>
 		</>
 	)
 }

@@ -5,7 +5,6 @@ import {
 	useContext,
 	onMount,
 	onCleanup,
-	children,
 } from 'solid-js'
 import type { JSX } from 'solid-js'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
@@ -155,14 +154,14 @@ const ProviderTheme: Component<{
 		}
 	}
 
-	const resolved = children(() => {
+	const children = () => {
 		if (typeof props.children !== 'function') {
 			return props.children
 		}
 		return props.children([theme])
-	})
+	}
 
-	return <context.Provider value={[theme]}>{resolved()}</context.Provider>
+	return <context.Provider value={[theme]}>{children()}</context.Provider>
 }
 
 export default ProviderTheme
