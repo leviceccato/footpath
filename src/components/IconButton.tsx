@@ -1,4 +1,4 @@
-import { Component, createSignal, onCleanup } from 'solid-js'
+import { Component, createSignal } from 'solid-js'
 import { Show, splitProps } from 'solid-js'
 import { useIcons } from '@/components/ProviderIcons'
 import type { IconName } from '@/components/ProviderIcons'
@@ -10,6 +10,9 @@ import type { ButtonProps } from '@/components/Button'
 import Popover from '@/components/Popover'
 import Text from '@/components/Text'
 import VisuallyHidden from '@/components/VisuallyHidden'
+
+const tooltipOffsetX = 0
+const tooltipOffsetY = 0
 
 const IconButton: Component<
 	ButtonProps & {
@@ -38,15 +41,17 @@ const IconButton: Component<
 		x: number,
 		y: number,
 	): VirtualElement['getBoundingClientRect'] {
+		const _x = x + tooltipOffsetX
+		const _y = y + tooltipOffsetY
 		return () => ({
-			x,
-			y,
+			x: _x,
+			y: _y,
 			width: 0,
 			height: 0,
-			top: y,
-			right: x,
-			bottom: y,
-			left: x,
+			top: _y,
+			right: _x,
+			bottom: _y,
+			left: _x,
 			toJSON: () => {},
 		})
 	}
@@ -59,32 +64,22 @@ const IconButton: Component<
 		popover()?.update()
 	}
 
-	function addMousemoveListener(): void {
-		document.addEventListener('mousemove', updateVirtualReference)
-	}
-
-	function removeMousemoveListener(): void {
-		document.removeEventListener('mousemove', updateVirtualReference)
-	}
-
-	onCleanup(() => {
-		removeMousemoveListener()
-	})
-
 	return (
 		<Popover
 			class={_props.class}
+			tooltipClass={css.tooltip}
 			when="hover"
 			options={{
-				placement: 'bottom-end',
-				modifiers: [{ name: 'offset', options: { offset: [0, 9] } }],
+				placement: 'top-start',
+				modifiers: [{ name: 'offset', options: { offset: [14, 14] } }],
 			}}
-			onShown={addMousemoveListener}
-			onHidden={removeMousemoveListener}
 			onUpdateInstance={setPopover}
 			virtualReference={virtualReference}
 			reference={({ isShown }) => (
-				<Button {...buttonProps}>
+				<Button
+					{...buttonProps}
+					onMouseMove={updateVirtualReference}
+				>
 					<Show when={!isShown()}>
 						<VisuallyHidden>{_props.tooltip}</VisuallyHidden>
 					</Show>
@@ -95,8 +90,8 @@ const IconButton: Component<
 				</Button>
 			)}
 		>
-			<div class={css.tooltip}>
-				<Text variant="bodyXs">{_props.tooltip}</Text>
+			<div class={css.tooltipInner}>
+				<Text variant="bodyXxs">{_props.tooltip}</Text>
 			</div>
 		</Popover>
 	)
