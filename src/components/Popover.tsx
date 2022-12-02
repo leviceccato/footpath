@@ -127,6 +127,7 @@ const Popover: ParentComponent<{
 	let popper: Instance | undefined
 	let referenceRef: HTMLDivElement | undefined
 	let arrowRef: HTMLDivElement | undefined
+	let contentObserver: ResizeObserver | undefined
 
 	const [contentRef, setContentRef] = createSignal<HTMLDivElement>()
 	const [isHovered, setIsHovered] = createSignal(false)
@@ -210,6 +211,8 @@ const Popover: ParentComponent<{
 			return
 		}
 
+		// Create popper instance
+
 		const { createPopper } = await import('@popperjs/core')
 
 		const options = {
@@ -230,6 +233,12 @@ const Popover: ParentComponent<{
 
 		popper = createPopper<StrictModifiers>(reference, _contentRef, options)
 		_props.onUpdateInstance?.(popper)
+
+		// Setup resize observer to update popper when content changes
+
+		contentObserver = new ResizeObserver(() => popper?.update())
+
+		contentObserver.observe(_contentRef)
 	}
 
 	createEffect(() => {
@@ -249,6 +258,7 @@ const Popover: ParentComponent<{
 	})
 
 	onCleanup(() => {
+		contentObserver?.disconnect()
 		toggleEventListeners(false)
 		removePopover(id)
 	})
