@@ -117,6 +117,11 @@ export const closeTabVariant = styleVariants({
 		closeTab,
 		{
 			opacity: 0,
+			selectors: {
+				[`${tabButton}:hover + &, ${tabButton}:focus-visible + &`]: {
+					opacity: 1,
+				},
+			},
 		},
 	],
 })
