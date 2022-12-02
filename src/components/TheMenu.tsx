@@ -84,9 +84,10 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 				class={css.buttonWrapper}
 				when="click"
 				groupId={popoverGroupId}
+				hasArrow={true}
 				options={{
 					placement: 'bottom-end',
-					modifiers: [{ name: 'offset', options: { offset: [0, 9] } }],
+					modifiers: [{ name: 'offset', options: { offset: [0, 12] } }],
 				}}
 				reference={(state) => (
 					<Button
@@ -136,9 +137,10 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 				class={css.buttonWrapper}
 				when="click"
 				groupId={popoverGroupId}
+				hasArrow={true}
 				options={{
 					placement: 'bottom-end',
-					modifiers: [{ name: 'offset', options: { offset: [0, 9] } }],
+					modifiers: [{ name: 'offset', options: { offset: [0, 12] } }],
 				}}
 				reference={(state) => (
 					<Button
