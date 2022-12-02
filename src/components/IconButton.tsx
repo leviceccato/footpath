@@ -77,7 +77,7 @@ const IconButton: Component<
 			}}
 			onUpdateInstance={setPopover}
 			virtualReference={virtualReference}
-			reference={({ isShown }) => (
+			reference={() => (
 				<Button
 					{...buttonProps}
 					class={_props.buttonClass}
