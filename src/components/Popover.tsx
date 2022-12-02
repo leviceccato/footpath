@@ -98,13 +98,17 @@ const Popover: ParentComponent<{
 	reference?: JSX.Element | ((state: PopoverState) => JSX.Element)
 	virtualReference?: VirtualElement
 	options?: Partial<Options>
+	hasArrow?: boolean
 	hoverDelay?: number
 	tooltipClass?: string
 	onShown?: () => void
 	onHidden?: () => void
 	onUpdateInstance?: (_: Instance) => void
 }> = (props) => {
-	const _props = mergeProps({ referenceTag: 'div', hoverDelay: 400 }, props)
+	const _props = mergeProps(
+		{ referenceTag: 'div', hoverDelay: 400, hasArrow: false },
+		props,
+	)
 
 	const [mounts] = usePortal()
 
@@ -122,6 +126,7 @@ const Popover: ParentComponent<{
 
 	let popper: Instance | undefined
 	let referenceRef: HTMLDivElement | undefined
+	let arrowRef: HTMLDivElement | undefined
 
 	const [contentRef, setContentRef] = createSignal<HTMLDivElement>()
 	const [isHovered, setIsHovered] = createSignal(false)
@@ -207,11 +212,23 @@ const Popover: ParentComponent<{
 
 		const { createPopper } = await import('@popperjs/core')
 
-		popper = createPopper<StrictModifiers>(
-			reference,
-			_contentRef,
-			_props.options,
-		)
+		const options = {
+			..._props.options,
+		}
+
+		if (_props.hasArrow) {
+			options.modifiers = [
+				...(options.modifiers || []),
+				{
+					name: 'arrow',
+					options: {
+						element: arrowRef,
+					},
+				},
+			]
+		}
+
+		popper = createPopper<StrictModifiers>(reference, _contentRef, options)
 		_props.onUpdateInstance?.(popper)
 	}
 
@@ -261,6 +278,14 @@ const Popover: ParentComponent<{
 						id={id}
 						role="tooltip"
 					>
+						<Show when={_props.hasArrow}>
+							<div
+								ref={arrowRef}
+								class={css.arrow}
+							>
+								<div class={css.arrowInner} />
+							</div>
+						</Show>
 						<Show when={isShown()}>{_props.children}</Show>
 					</div>
 				</Portal>
