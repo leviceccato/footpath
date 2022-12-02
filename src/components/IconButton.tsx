@@ -91,7 +91,10 @@ const IconButton: Component<
 				</Button>
 			)}
 		>
-			<div class={css.tooltipInner}>
+			<div
+				aria-hidden
+				class={css.tooltipInner}
+			>
 				<Text variant="bodyXxs">{_props.tooltip}</Text>
 			</div>
 		</Popover>
