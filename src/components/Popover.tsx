@@ -99,6 +99,7 @@ const Popover: ParentComponent<{
 	virtualReference?: VirtualElement
 	options?: Partial<Options>
 	hoverDelay?: number
+	tooltipClass?: string
 	onShown?: () => void
 	onHidden?: () => void
 	onUpdateInstance?: (_: Instance) => void
@@ -253,7 +254,9 @@ const Popover: ParentComponent<{
 			<Show when={modal()}>
 				<Portal mount={modal()}>
 					<div
-						class={css.contentVariants[contentVariant()]}
+						class={`${css.contentVariants[contentVariant()]} ${
+							_props.tooltipClass ?? ''
+						}`}
 						ref={(ref) => setContentRef(ref)}
 						id={id}
 						role="tooltip"
