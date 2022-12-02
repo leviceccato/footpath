@@ -93,8 +93,9 @@ const RouteMain: Component = () => {
 											name="close"
 											tooltip={t().close}
 											onClick={[deleteTab, tab.id]}
+											buttonClass={css.closeTabButton}
 											class={
-												css.closeTabButtonVariant[
+												css.closeTabVariant[
 													tab.isActive ? 'active' : 'inactive'
 												]
 											}

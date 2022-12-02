@@ -89,7 +89,7 @@ export const tabButtonVariant = styleVariants({
 	],
 })
 
-export const closeTabButton = style({
+export const closeTab = style({
 	position: 'absolute',
 	right: 6,
 	top: '50%',
@@ -106,19 +106,23 @@ export const closeTabButton = style({
 	},
 })
 
-export const closeTabButtonVariant = styleVariants({
+export const closeTabVariant = styleVariants({
 	active: [
-		closeTabButton,
+		closeTab,
 		{
 			opacity: 1,
 		},
 	],
 	inactive: [
-		closeTabButton,
+		closeTab,
 		{
 			opacity: 0,
 		},
 	],
+})
+
+export const closeTabButton = style({
+	padding: 2,
 })
 
 export const closeTabIcon = style({
