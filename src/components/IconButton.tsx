@@ -17,6 +17,7 @@ const tooltipOffsetY = 0
 const IconButton: Component<
 	ButtonProps & {
 		class?: string
+		buttonClass?: string
 		name: IconName
 		tooltip: string
 		iconClass?: string
@@ -26,6 +27,7 @@ const IconButton: Component<
 
 	const [_props, buttonProps] = splitProps(props, [
 		'class',
+		'buttonClass',
 		'name',
 		'tooltip',
 		'iconClass',
@@ -78,6 +80,7 @@ const IconButton: Component<
 			reference={({ isShown }) => (
 				<Button
 					{...buttonProps}
+					class={_props.buttonClass}
 					onMouseMove={updateVirtualReference}
 				>
 					<Show when={!isShown()}>
