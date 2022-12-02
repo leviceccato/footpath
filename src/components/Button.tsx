@@ -1,19 +1,20 @@
 import { Dynamic } from 'solid-js/web'
-import { Show } from 'solid-js'
+import { Show, splitProps } from 'solid-js'
 import type { ParentComponent, JSX } from 'solid-js'
 import * as css from './Button.css'
 
 import Text from '@/components/Text'
 
 export type ButtonProps = JSX.ButtonHTMLAttributes<HTMLButtonElement> & {
-	class?: string
 	href?: string
 	text?: string
 }
 
 const Button: ParentComponent<ButtonProps> = (props) => {
+	const [_props, buttonProps] = splitProps(props, ['text', 'href', 'children'])
+
 	const tag = () => {
-		if (props.href) {
+		if (_props.href) {
 			return 'a'
 		}
 		return 'button'
@@ -22,15 +23,14 @@ const Button: ParentComponent<ButtonProps> = (props) => {
 	return (
 		<Dynamic
 			component={tag()}
-			class={`${css.root} ${props.class ?? ''}`}
-			href={props.href}
-			onClick={props.onClick}
+			{...buttonProps}
+			class={`${css.root} ${buttonProps.class ?? ''}`}
 		>
 			<Show
-				when={props.text}
-				fallback={props.children}
+				when={_props.text}
+				fallback={_props.children}
 			>
-				<Text variant="bodyXs">{props.text}</Text>
+				<Text variant="bodyXs">{_props.text}</Text>
 			</Show>
 		</Dynamic>
 	)
