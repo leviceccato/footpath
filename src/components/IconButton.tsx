@@ -1,5 +1,5 @@
 import { Component, createSignal } from 'solid-js'
-import { Show, splitProps } from 'solid-js'
+import { splitProps } from 'solid-js'
 import { useIcons } from '@/components/ProviderIcons'
 import type { IconName } from '@/components/ProviderIcons'
 import * as css from './IconButton.css'
@@ -83,9 +83,7 @@ const IconButton: Component<
 					class={_props.buttonClass}
 					onMouseMove={updateVirtualReference}
 				>
-					<Show when={!isShown()}>
-						<VisuallyHidden>{_props.tooltip}</VisuallyHidden>
-					</Show>
+					<VisuallyHidden>{_props.tooltip}</VisuallyHidden>
 					<Icon
 						class={`${css.icon} ${_props.iconClass ?? ''}`}
 						name={_props.name}
