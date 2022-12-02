@@ -210,7 +210,7 @@ const Popover: ParentComponent<{
 		popper = createPopper<StrictModifiers>(
 			reference,
 			_contentRef,
-			_props.virtualReference ? {} : _props.options,
+			_props.options,
 		)
 		_props.onUpdateInstance?.(popper)
 	}
