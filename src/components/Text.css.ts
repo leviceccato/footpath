@@ -45,6 +45,12 @@ export const heading = style([
 ])
 
 export const variant = styleVariants({
+	bodyXxs: [
+		body,
+		{
+			fontSize: 12,
+		},
+	],
 	bodyXs: [
 		body,
 		{
