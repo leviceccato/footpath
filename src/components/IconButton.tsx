@@ -71,6 +71,7 @@ const IconButton: Component<
 			class={_props.class}
 			tooltipClass={css.tooltip}
 			when="hover"
+			mount="tooltip"
 			options={{
 				placement: 'top-start',
 				modifiers: [{ name: 'offset', options: { offset: [14, 14] } }],

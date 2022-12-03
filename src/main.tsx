@@ -41,7 +41,7 @@ const shouldUseSystem = localStorage.getItem('shouldUseSystem') || 'false'
 
 // Define portal mounts
 
-const mountIds = ['modal']
+const mountIds = ['modal', 'tooltip']
 
 render(
 	() => (
