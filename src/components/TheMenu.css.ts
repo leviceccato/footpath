@@ -13,13 +13,9 @@ export const icon = style({
 	height: 18,
 })
 
-export const buttonWrapper = style({
-	height: 'calc(100% - 8px)',
-})
-
 export const button = style({
 	minWidth: 32,
-	height: '100%',
+	height: 'calc(100% - 8px)',
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'center',

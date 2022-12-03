@@ -60,28 +60,25 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 
 	return (
 		<div class={`${css.root} ${props.class ?? ''}`}>
-			<div class={css.buttonWrapper}>
-				<Button class={css.button}>
-					<Text
-						class={css.buttonText}
-						variant="bodyXs"
-					>
-						{t().preferences}
-					</Text>
-				</Button>
-			</div>
-			<div class={css.buttonWrapper}>
-				<Button class={css.button}>
-					<Text
-						class={css.buttonText}
-						variant="bodyXs"
-					>
-						{t().about}
-					</Text>
-				</Button>
-			</div>
+			<Button class={css.buttonVariant.default}>
+				<Text
+					class={css.buttonText}
+					variant="bodyXs"
+				>
+					{t().preferences}
+				</Text>
+			</Button>
+			<Button class={css.buttonVariant.default}>
+				<Text
+					class={css.buttonText}
+					variant="bodyXs"
+				>
+					{t().about}
+				</Text>
+			</Button>
 			<Popover
-				class={css.buttonWrapper}
+				class={css.buttonVariant.default}
+				isShownClass={css.buttonVariant.dropdownOpen}
 				when="click"
 				groupId={popoverGroupId}
 				hasArrow={true}
@@ -89,17 +86,11 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 					placement: 'bottom-end',
 					modifiers: [{ name: 'offset', options: { offset: [0, 12] } }],
 				}}
-				reference={(state) => (
-					<Button
-						class={
-							css.buttonVariant[state.isShown() ? 'dropdownOpen' : 'default']
-						}
-					>
-						<Icon
-							class={css.icon}
-							name="i18n"
-						/>
-					</Button>
+				reference={() => (
+					<Icon
+						class={css.icon}
+						name="i18n"
+					/>
 				)}
 			>
 				<div class={css.dropdown}>
@@ -134,7 +125,8 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 				</div>
 			</Popover>
 			<Popover
-				class={css.buttonWrapper}
+				class={css.buttonVariant.default}
+				isShownClass={css.buttonVariant.dropdownOpen}
 				when="click"
 				groupId={popoverGroupId}
 				hasArrow={true}
@@ -142,17 +134,11 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 					placement: 'bottom-end',
 					modifiers: [{ name: 'offset', options: { offset: [0, 12] } }],
 				}}
-				reference={(state) => (
-					<Button
-						class={
-							css.buttonVariant[state.isShown() ? 'dropdownOpen' : 'default']
-						}
-					>
-						<Icon
-							class={css.icon}
-							name="palette"
-						/>
-					</Button>
+				reference={() => (
+					<Icon
+						class={css.icon}
+						name="palette"
+					/>
 				)}
 			>
 				<div class={css.dropdown}>
