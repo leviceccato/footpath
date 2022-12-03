@@ -101,12 +101,13 @@ const Popover: ParentComponent<{
 	hasArrow?: boolean
 	hoverDelay?: number
 	tooltipClass?: string
+	mount?: string
 	onShown?: () => void
 	onHidden?: () => void
 	onUpdateInstance?: (_: Instance) => void
 }> = (props) => {
 	const _props = mergeProps(
-		{ referenceTag: 'div', hoverDelay: 400, hasArrow: false },
+		{ referenceTag: 'div', hoverDelay: 400, hasArrow: false, mount: 'modal' },
 		props,
 	)
 
@@ -145,7 +146,7 @@ const Popover: ParentComponent<{
 		return isShown() ? 'shown' : 'hidden'
 	}
 
-	const modal = () => mounts().get('modal')
+	const mount = () => mounts().get(_props.mount)
 
 	function handleClick() {
 		if (_props.when === 'click') {
@@ -278,8 +279,8 @@ const Popover: ParentComponent<{
 			>
 				{reference()}
 			</Dynamic>
-			<Show when={modal()}>
-				<Portal mount={modal()}>
+			<Show when={mount()}>
+				<Portal mount={mount()}>
 					<div
 						class={`${css.contentVariants[contentVariant()]} ${
 							_props.tooltipClass ?? ''
