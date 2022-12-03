@@ -22,4 +22,7 @@ export default createTranslation({
 	preferences: 'Preferencias',
 	about: 'Sobre',
 	close: 'Cerrar',
+	document: {
+		new: 'Nuevo documento',
+	},
 })

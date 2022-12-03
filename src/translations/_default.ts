@@ -20,4 +20,7 @@ export default {
 	preferences: 'Preferences',
 	about: 'About',
 	close: 'Close',
+	document: {
+		new: 'New document',
+	},
 }
