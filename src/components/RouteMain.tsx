@@ -106,15 +106,12 @@ const RouteMain: Component = () => {
 						</For>
 					</div>
 				</ScrollArea>
-				<Button
+				<IconButton
+					name="add"
+					tooltip={t().document.new}
 					onClick={addTab}
 					class={css.addTabButton}
-				>
-					<Icon
-						class={css.addTabIcon}
-						name="add"
-					/>
-				</Button>
+				/>
 				<TheMenu class={css.menuContainer} />
 			</header>
 			<main class={css.main}></main>
