@@ -8,7 +8,6 @@ import {
 	Show,
 } from 'solid-js'
 import type { ParentComponent, JSX, Accessor, Setter } from 'solid-js'
-import { Dynamic } from 'solid-js/web'
 import type {
 	StrictModifiers,
 	Options,
@@ -19,6 +18,8 @@ import * as css from './Popover.css'
 import { Portal } from 'solid-js/web'
 import { sleep } from '@/scripts/utils'
 import { usePortal } from '@/components/ProviderPortal'
+
+import Button from '@/components/Button'
 
 type PopoverState = {
 	isShown: () => boolean
@@ -93,9 +94,9 @@ const store = createRoot(() => {
 const Popover: ParentComponent<{
 	when?: boolean | InteractionMethod
 	class?: string
+	isShownClass?: string
 	groupId?: string
-	referenceTag?: string
-	reference?: JSX.Element | ((state: PopoverState) => JSX.Element)
+	reference: (state: PopoverState) => JSX.Element
 	virtualReference?: VirtualElement
 	options?: Partial<Options>
 	hasArrow?: boolean
@@ -107,7 +108,7 @@ const Popover: ParentComponent<{
 	onUpdateInstance?: (_: Instance) => void
 }> = (props) => {
 	const _props = mergeProps(
-		{ referenceTag: 'div', hoverDelay: 400, hasArrow: false, mount: 'modal' },
+		{ hoverDelay: 400, hasArrow: false, mount: 'modal' },
 		props,
 	)
 
@@ -126,7 +127,7 @@ const Popover: ParentComponent<{
 	addPopover(id, _props.groupId)
 
 	let popper: Instance | undefined
-	let referenceRef: HTMLDivElement | undefined
+	let referenceRef: HTMLButtonElement | undefined
 	let arrowRef: HTMLDivElement | undefined
 	let contentObserver: ResizeObserver | undefined
 
@@ -134,13 +135,6 @@ const Popover: ParentComponent<{
 	const [isHovered, setIsHovered] = createSignal(false)
 
 	const isShown = () => isPopoverShown(id)()
-
-	const reference = () => {
-		if (typeof _props.reference === 'function') {
-			return _props.reference({ isShown })
-		}
-		return props.reference
-	}
 
 	const contentVariant = (): keyof typeof css.contentVariants => {
 		return isShown() ? 'shown' : 'hidden'
@@ -266,9 +260,10 @@ const Popover: ParentComponent<{
 
 	return (
 		<>
-			<Dynamic
-				component={_props.referenceTag}
-				class={_props.class ?? ''}
+			<Button
+				class={`${_props.class ?? ''} ${
+					(isShown() && _props.isShownClass) || ''
+				}`}
 				ref={referenceRef}
 				aria-describedby={id}
 				onClick={handleClick}
@@ -277,8 +272,8 @@ const Popover: ParentComponent<{
 				onMouseEnter={[handleHover, true]}
 				onMouseLeave={[handleHover, false]}
 			>
-				{reference()}
-			</Dynamic>
+				{_props.reference({ isShown })}
+			</Button>
 			<Show when={mount()}>
 				<Portal mount={mount()}>
 					<div
