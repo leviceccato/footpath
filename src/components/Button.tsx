@@ -3,6 +3,7 @@ import { Show, splitProps } from 'solid-js'
 import type { ParentComponent, JSX } from 'solid-js'
 import * as css from './Button.css'
 
+import { useFocus } from '@/components/ProviderFocus'
 import Text from '@/components/Text'
 
 export type ButtonProps = JSX.ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -12,6 +13,8 @@ export type ButtonProps = JSX.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const Button: ParentComponent<ButtonProps> = (props) => {
 	const [_props, buttonProps] = splitProps(props, ['text', 'href', 'children'])
+
+	const [focusProps] = useFocus()
 
 	const tag = () => {
 		if (_props.href) {
@@ -23,6 +26,7 @@ const Button: ParentComponent<ButtonProps> = (props) => {
 	return (
 		<Dynamic
 			component={tag()}
+			{...focusProps}
 			{...buttonProps}
 			class={`${css.root} ${buttonProps.class ?? ''}`}
 		>
