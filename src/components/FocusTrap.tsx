@@ -1,9 +1,10 @@
 import { createEffect } from 'solid-js'
+import { Show } from 'solid-js'
 import type { ParentComponent } from 'solid-js'
 
 import { useFocus } from '@/components/ProviderFocus'
 
-export const FocusTrap: ParentComponent<{
+const FocusTrap: ParentComponent<{
 	when: boolean
 }> = (props) => {
 	let rootRef: HTMLDivElement | undefined
@@ -85,5 +86,11 @@ export const FocusTrap: ParentComponent<{
 		untrap()
 	})
 
-	return <div ref={rootRef}>{props.children}</div>
+	return (
+		<Show when={props.when}>
+			<div ref={rootRef}>{props.children}</div>
+		</Show>
+	)
 }
+
+export default FocusTrap
