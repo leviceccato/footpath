@@ -19,6 +19,7 @@ import { Portal } from 'solid-js/web'
 import { sleep } from '@/scripts/utils'
 import { usePortal } from '@/components/ProviderPortal'
 
+import type { ButtonProps } from '@/components/Button'
 import Button from '@/components/Button'
 
 type PopoverState = {
@@ -91,22 +92,24 @@ const store = createRoot(() => {
 	}
 })
 
-const Popover: ParentComponent<{
-	when?: boolean | InteractionMethod
-	class?: string
-	isShownClass?: string
-	groupId?: string
-	reference: (state: PopoverState) => JSX.Element
-	virtualReference?: VirtualElement
-	options?: Partial<Options>
-	hasArrow?: boolean
-	hoverDelay?: number
-	tooltipClass?: string
-	mount?: string
-	onShown?: () => void
-	onHidden?: () => void
-	onUpdateInstance?: (_: Instance) => void
-}> = (props) => {
+const Popover: ParentComponent<
+	ButtonProps & {
+		when?: boolean | InteractionMethod
+		class?: string
+		isShownClass?: string
+		groupId?: string
+		reference: (state: PopoverState) => JSX.Element
+		virtualReference?: VirtualElement
+		options?: Partial<Options>
+		hasArrow?: boolean
+		hoverDelay?: number
+		tooltipClass?: string
+		mount?: string
+		onShown?: () => void
+		onHidden?: () => void
+		onUpdateInstance?: (_: Instance) => void
+	}
+> = (props) => {
 	const _props = mergeProps(
 		{ hoverDelay: 400, hasArrow: false, mount: 'modal' },
 		props,
@@ -142,7 +145,15 @@ const Popover: ParentComponent<{
 
 	const mount = () => mounts().get(_props.mount)
 
-	function handleClick() {
+	function handleClick(
+		event: MouseEvent & {
+			currentTarget: HTMLButtonElement
+			target: Element
+		},
+	) {
+		if (typeof _props.onClick === 'function') {
+			_props.onClick(event)
+		}
 		if (_props.when === 'click') {
 			return setPopoverShown(id, !isShown())
 		}
@@ -271,6 +282,7 @@ const Popover: ParentComponent<{
 				onFocusOut={[handleHover, false]}
 				onMouseEnter={[handleHover, true]}
 				onMouseLeave={[handleHover, false]}
+				onMouseMove={_props.onMouseMove}
 			>
 				{_props.reference({ isShown })}
 			</Button>
