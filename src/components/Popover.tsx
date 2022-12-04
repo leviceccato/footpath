@@ -21,6 +21,7 @@ import { usePortal } from '@/components/ProviderPortal'
 
 import type { ButtonProps } from '@/components/Button'
 import Button from '@/components/Button'
+import FocusTrap from '@/components/FocusTrap'
 
 type PopoverState = {
 	isShown: () => boolean
@@ -304,7 +305,7 @@ const Popover: ParentComponent<
 								<div class={css.arrowInner} />
 							</div>
 						</Show>
-						<Show when={isShown()}>{_props.children}</Show>
+						<FocusTrap when={isShown()}>{_props.children}</FocusTrap>
 					</div>
 				</Portal>
 			</Show>
