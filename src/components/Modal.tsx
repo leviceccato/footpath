@@ -5,7 +5,7 @@ import { usePortal } from '@/components/ProviderPortal'
 const Modal: ParentComponent = (props) => {
 	const [portal] = usePortal()
 
-	return <Portal mount={portal.get('modal')}>{props.children}</Portal>
+	return <Portal mount={portal().get('modal')}>{props.children}</Portal>
 }
 
 export default Modal
