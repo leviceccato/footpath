@@ -93,6 +93,7 @@ export const closeTab = style({
 	position: 'absolute',
 	right: 6,
 	top: '50%',
+	padding: 2,
 	width: 20,
 	height: 20,
 	alignItems: 'center',
@@ -138,6 +139,7 @@ export const closeTabIcon = style({
 export const addTabButton = style({
 	margin: 4,
 	borderRadius: 4,
+	padding: 6,
 	minWidth: `calc(${headerHeight} - 8px)`,
 	display: 'flex',
 	justifyContent: 'center',
