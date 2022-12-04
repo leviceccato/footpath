@@ -5,7 +5,6 @@ import type { IconName } from '@/components/ProviderIcons'
 import * as css from './IconButton.css'
 import type { VirtualElement, Instance } from '@popperjs/core'
 
-import Button from '@/components/Button'
 import type { ButtonProps } from '@/components/Button'
 import Popover from '@/components/Popover'
 import Text from '@/components/Text'
@@ -16,8 +15,6 @@ const tooltipOffsetY = 0
 
 const IconButton: Component<
 	ButtonProps & {
-		class?: string
-		buttonClass?: string
 		name: IconName
 		tooltip: string
 		iconClass?: string
@@ -26,8 +23,6 @@ const IconButton: Component<
 	const [Icon] = useIcons()
 
 	const [_props, buttonProps] = splitProps(props, [
-		'class',
-		'buttonClass',
 		'name',
 		'tooltip',
 		'iconClass',
@@ -45,6 +40,9 @@ const IconButton: Component<
 	): VirtualElement['getBoundingClientRect'] {
 		const _x = x + tooltipOffsetX
 		const _y = y + tooltipOffsetY
+
+		// Satisfy DOMRect
+
 		return () => ({
 			x: _x,
 			y: _y,
@@ -68,7 +66,7 @@ const IconButton: Component<
 
 	return (
 		<Popover
-			class={_props.class}
+			{...buttonProps}
 			tooltipClass={css.tooltip}
 			when="hover"
 			mount="tooltip"
@@ -78,18 +76,15 @@ const IconButton: Component<
 			}}
 			onUpdateInstance={setPopover}
 			virtualReference={virtualReference}
+			onMouseMove={updateVirtualReference}
 			reference={() => (
-				<Button
-					{...buttonProps}
-					class={_props.buttonClass}
-					onMouseMove={updateVirtualReference}
-				>
+				<>
 					<VisuallyHidden>{_props.tooltip}</VisuallyHidden>
 					<Icon
 						class={`${css.icon} ${_props.iconClass ?? ''}`}
 						name={_props.name}
 					/>
-				</Button>
+				</>
 			)}
 		>
 			<div
