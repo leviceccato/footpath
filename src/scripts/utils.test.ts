@@ -52,17 +52,17 @@ describe('utils', () => {
 	})
 
 	test('sleep', async () => {
-		const example = {
-			stub() {},
+		const obj = {
+			spyable() {},
 		}
 
-		const spy = vi.spyOn(example, 'stub')
+		const spy = vi.spyOn(obj, 'spyable')
 
-		sleep(500).then(example.stub)
-		sleep(1000).then(example.stub)
-		sleep(-1337).then(example.stub)
-		sleep(0).then(example.stub)
-		sleep(3.141).then(example.stub)
+		sleep(500).then(obj.spyable)
+		sleep(1000).then(obj.spyable)
+		sleep(-1337).then(obj.spyable)
+		sleep(0).then(obj.spyable)
+		sleep(3.141).then(obj.spyable)
 
 		setTimeout(() => expect(spy).toHaveBeenCalledTimes(2), 0)
 		setTimeout(() => expect(spy).toHaveBeenCalledTimes(3), 10)
