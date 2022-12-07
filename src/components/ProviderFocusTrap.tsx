@@ -127,7 +127,7 @@ const ProviderFocusTrap: Component<ProviderFocusTrapProps> = (props) => {
 	}, false)
 
 	onCleanup(() => {
-		rootRef?.removeEventListener('keydown', handleTab)
+		releaseFocus()
 	})
 
 	return (
