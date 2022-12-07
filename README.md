@@ -32,7 +32,7 @@ npm run build
 
 ## Deployment
 
-This site is hosted on Netlify. Commits to `main` will trigger a deploy.
+This app is hosted on Netlify. Commits to `main` will trigger a deploy.
 
 ## Licenses
 
