@@ -8,7 +8,7 @@ type HsvColour = {
 
 export function lastSegmentFromPath(path: string): string {
 	const lastSegment = path.substring(path.lastIndexOf('/') + 1)
-	const lastSegmentWithoutExtension = lastSegment.split('.')[0]
+	const [lastSegmentWithoutExtension, ..._] = lastSegment.split('.')
 
 	return lastSegmentWithoutExtension
 }
