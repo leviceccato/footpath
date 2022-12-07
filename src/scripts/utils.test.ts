@@ -5,6 +5,7 @@ import {
 	createRandomColour,
 	clamp,
 	sleep,
+	hslToHsv,
 } from './utils'
 
 describe('utils', () => {
@@ -49,6 +50,32 @@ describe('utils', () => {
 		expect(clamp(-5, -60, 3)).toBe(-5)
 		expect(clamp(20, 80, 60)).toBe(60)
 		expect(clamp(-1, -1, -1)).toBe(-1)
+	})
+
+	test('hslToHsv', () => {
+		expect(
+			hslToHsv({
+				hue: 0,
+				saturation: 1,
+				lightness: 1,
+			}),
+		).toMatchObject({
+			hue: 0,
+			saturation: 0,
+			value: 1,
+		})
+
+		expect(
+			hslToHsv({
+				hue: 180,
+				saturation: 1,
+				lightness: 0.5,
+			}),
+		).toMatchObject({
+			hue: 180,
+			saturation: 1,
+			value: 1,
+		})
 	})
 
 	test('sleep', async () => {
