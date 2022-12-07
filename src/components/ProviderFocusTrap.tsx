@@ -61,7 +61,7 @@ const ProviderFocusTrap: Component<ProviderFocusTrapProps> = (props) => {
 
 		return {
 			first: focusables[0] as HTMLElement,
-			last: focusables[1] as HTMLElement,
+			last: focusables[focusables.length - 1] as HTMLElement,
 		}
 	}
 
