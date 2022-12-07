@@ -6,6 +6,7 @@ import {
 	clamp,
 	sleep,
 	hslToHsv,
+	hsvToHsl,
 } from './utils'
 
 describe('utils', () => {
@@ -75,6 +76,32 @@ describe('utils', () => {
 			hue: 180,
 			saturation: 1,
 			value: 1,
+		})
+	})
+
+	test('hsvToHsl', () => {
+		expect(
+			hsvToHsl({
+				hue: 0,
+				saturation: 1,
+				value: 1,
+			}),
+		).toMatchObject({
+			hue: 0,
+			saturation: 1,
+			lightness: 0.5,
+		})
+
+		expect(
+			hsvToHsl({
+				hue: 180,
+				saturation: 1,
+				value: 1,
+			}),
+		).toMatchObject({
+			hue: 180,
+			saturation: 1,
+			lightness: 0.5,
 		})
 	})
 
