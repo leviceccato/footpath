@@ -10,18 +10,27 @@ type ProviderFocusTrapProps = ParentProps & {
 	when: boolean
 }
 
-function createFocusTrapContext(
-	props: ProviderFocusTrapProps,
-	rootRef?: HTMLDivElement,
-) {
+type FocusableProps = {
+	[x: string]: string | boolean
+	tabindex: string
+}
+
+const context = createContext<[FocusableProps]>([{ tabindex: '0' }])
+
+export function useFocus() {
+	return useContext(context)
+}
+
+const ProviderFocusTrap: Component<ProviderFocusTrapProps> = (props) => {
 	const id = createUniqueId()
 	const attr = `data-focusable-${id}`
 
-	const focusableProps = {
+	const focusableProps: FocusableProps = {
 		[attr]: true,
 		tabindex: '0',
 	}
 
+	let rootRef: HTMLDivElement | undefined
 	let previousActiveElement: HTMLElement | null = null
 
 	function getFocusables(): NodeListOf<Element> | [] {
@@ -83,6 +92,7 @@ function createFocusTrapContext(
 
 	function trapFocus(): void {
 		if (!rootRef) return
+		console.log('trapFocus')
 
 		setFocusablesActive(true)
 
@@ -113,20 +123,8 @@ function createFocusTrapContext(
 		releaseFocus()
 	})
 
-	return [focusableProps] as const
-}
-
-const context = createContext(createFocusTrapContext({ when: false }))
-
-export function useFocus() {
-	return useContext(context)
-}
-
-const ProviderFocusTrap: Component<ProviderFocusTrapProps> = (props) => {
-	let rootRef: HTMLDivElement | undefined
-
 	return (
-		<context.Provider value={createFocusTrapContext(props, rootRef)}>
+		<context.Provider value={[focusableProps]}>
 			<div ref={rootRef}>{props.children}</div>
 		</context.Provider>
 	)
