@@ -37,6 +37,8 @@ const icons = {
 	},
 } as const
 
+// Ensure property inference works for icons
+
 export const _iconsTypeCheck: {
 	[key: string]: Icon
 } = icons
