@@ -24,7 +24,7 @@ Run development server on [http://localhost:5173](http://localhost:5173).
 npm start
 ```
 
-Build site into `dist` folder.
+Build app into `dist` folder.
 
 ```shell
 npm run build
