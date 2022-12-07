@@ -5,6 +5,7 @@ import type { HslColor, HslaColor } from 'polished/lib/types/color'
 import type { JSX, Component } from 'solid-js'
 import { useTheme } from '@/components/ProviderTheme'
 import * as css from './TheColourPicker.css'
+import { useFocus } from '@/components/ProviderFocusTrap'
 
 type CanvasPointerEvent = PointerEvent & {
 	currentTarget: HTMLCanvasElement
@@ -20,8 +21,10 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 	let hueRangeRef: HTMLInputElement | undefined
 
 	const [theme] = useTheme()
+	const [focusableProps] = useFocus()
 
 	const [hue, setHue] = createSignal(0)
+	const [isSpectrumFocused, setIsSpectrumFocused] = createSignal(false)
 	const [shouldEcho, setShouldEcho] = createSignal(true)
 	const [colourSelectorX, setColourSelectorX] = createSignal(0)
 	const [colourSelectorY, setColourSelectorY] = createSignal(0)
@@ -87,7 +90,9 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 		registerWindowPointerMoveHandler()
 
 		setSpectrumRect()
-		setColourSelectorPosition(event)
+
+		const { clientX, clientY } = event
+		setColourSelectorPosition(clientX, clientY)
 	}
 
 	function updateColour() {
@@ -102,12 +107,23 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 		theme().setColour(colour)
 	}
 
-	function setColourSelectorPosition(event: PointerEvent) {
-		const x = clamp(0, event.clientX - spectrumLeft(), spectrumWidth())
-		const y = clamp(0, event.clientY - spectrumTop(), spectrumHeight())
+	function setColourSelectorPosition(x: number, y: number) {
+		const _x = clamp(0, x - spectrumLeft(), spectrumWidth())
+		const _y = clamp(0, y - spectrumTop(), spectrumHeight())
 
-		setColourSelectorX(x)
-		setColourSelectorY(y)
+		// console.table({
+		// 	_x,
+		// 	_y,
+		// 	x,
+		// 	y,
+		// 	h: spectrumHeight(),
+		// 	w: spectrumWidth(),
+		// 	t: spectrumTop(),
+		// 	l: spectrumLeft(),
+		// })
+
+		setColourSelectorX(_x)
+		setColourSelectorY(_y)
 
 		updateColour()
 	}
@@ -137,7 +153,8 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 	}
 
 	function handlePointerMove(event: PointerEvent) {
-		setColourSelectorPosition(event)
+		const { clientX, clientY } = event
+		setColourSelectorPosition(clientX, clientY)
 	}
 
 	function setSpectrumSize(size: number) {
@@ -158,6 +175,27 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 		setSpectrumHeight(rect.height)
 	}
 
+	function handleSpectrumArrowKeydown({ key }: KeyboardEvent) {
+		let x = spectrumLeft() + colourSelectorX()
+		let y = spectrumTop() + colourSelectorY()
+
+		switch (key) {
+			case 'ArrowUp':
+				y--
+				break
+			case 'ArrowDown':
+				y++
+				break
+			case 'ArrowLeft':
+				x--
+				break
+			case 'ArrowRight':
+				x++
+		}
+
+		setColourSelectorPosition(x, y)
+	}
+
 	createEffect(() => {
 		setSpectrumSize(_props.spectrumSize)
 		setSpectrumRect()
@@ -170,8 +208,17 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 		setColourSelectorPositionFromColour(theme().colour())
 	})
 
+	createEffect(() => {
+		if (isSpectrumFocused()) {
+			document.addEventListener('keydown', handleSpectrumArrowKeydown)
+			return
+		}
+		document.removeEventListener('keydown', handleSpectrumArrowKeydown)
+	})
+
 	onCleanup(() => {
 		unregisterWindowPointerMoveHandler()
+		document.removeEventListener('keydown', handleSpectrumArrowKeydown)
 	})
 
 	return (
@@ -179,7 +226,12 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 			class={`${css.root} ${_props.class ?? ''}`}
 			style={assignInlineVars({ [css.hueVar]: String(hue()) })}
 		>
-			<div class={css.spectrumContainer}>
+			<div
+				class={css.spectrumContainer}
+				{...focusableProps}
+				onFocus={[setIsSpectrumFocused, true]}
+				onBlur={[setIsSpectrumFocused, false]}
+			>
 				<canvas
 					ref={spectrumRef}
 					onPointerDown={handleCanvasPointerDown}

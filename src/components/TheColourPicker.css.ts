@@ -8,6 +8,10 @@ export const root = style({})
 export const spectrumContainer = style({
 	position: 'relative',
 	border: `1px solid ${themeCss.colour1000Var}`,
+	':focus-visible': {
+		outlineOffset: 2,
+		outline: `2px dashed ${themeCss.colour1000Var}`,
+	},
 })
 
 export const spectrum = style({
