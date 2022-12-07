@@ -305,9 +305,11 @@ const Popover: ParentComponent<
 								<div class={css.arrowInner} />
 							</div>
 						</Show>
-						<ProviderFocusTrap when={isShown()}>
-							{_props.children}
-						</ProviderFocusTrap>
+						<Show when={isShown()}>
+							<ProviderFocusTrap when={isShown()}>
+								{_props.children}
+							</ProviderFocusTrap>
+						</Show>
 					</div>
 				</Portal>
 			</Show>
