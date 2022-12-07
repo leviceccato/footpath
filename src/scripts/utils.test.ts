@@ -1,9 +1,10 @@
-import { describe, expect, test } from 'vitest'
+import { describe, expect, test, vi } from 'vitest'
 import {
 	lastSegmentFromPath,
 	decimalToPercentage,
 	createRandomColour,
 	clamp,
+	sleep,
 } from './utils'
 
 describe('utils', () => {
@@ -48,5 +49,26 @@ describe('utils', () => {
 		expect(clamp(-5, -60, 3)).toBe(-5)
 		expect(clamp(20, 80, 60)).toBe(60)
 		expect(clamp(-1, -1, -1)).toBe(-1)
+	})
+
+	test('sleep', async () => {
+		const example = {
+			stub() {},
+		}
+
+		const spy = vi.spyOn(example, 'stub')
+
+		sleep(500).then(example.stub)
+		sleep(1000).then(example.stub)
+		sleep(-1337).then(example.stub)
+		sleep(0).then(example.stub)
+		sleep(3.141).then(example.stub)
+
+		setTimeout(() => expect(spy).toHaveBeenCalledTimes(2), 0)
+		setTimeout(() => expect(spy).toHaveBeenCalledTimes(3), 10)
+		setTimeout(() => expect(spy).toHaveBeenCalledTimes(4), 750)
+		setTimeout(() => expect(spy).toHaveBeenCalledTimes(5), 1250)
+
+		await new Promise((resolve) => setTimeout(resolve, 1500))
 	})
 })
