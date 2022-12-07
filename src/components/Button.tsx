@@ -3,7 +3,7 @@ import { Show, splitProps } from 'solid-js'
 import type { ParentComponent, JSX } from 'solid-js'
 import * as css from './Button.css'
 
-import { useFocus } from '@/components/ProviderFocus'
+import { useFocus } from '@/components/ProviderFocusTrap'
 import Text from '@/components/Text'
 
 export type ButtonProps = JSX.ButtonHTMLAttributes<HTMLButtonElement> & {
