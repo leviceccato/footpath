@@ -37,7 +37,7 @@ const ProviderFocusTrap: Component<ProviderFocusTrapProps> = (props) => {
 		if (!rootRef) {
 			return []
 		}
-		return rootRef.querySelectorAll(attr)
+		return rootRef.querySelectorAll(`[${attr}]`)
 	}
 
 	function setFocusablesActive(to: boolean): void {
@@ -92,7 +92,7 @@ const ProviderFocusTrap: Component<ProviderFocusTrapProps> = (props) => {
 
 	function trapFocus(): void {
 		if (!rootRef) return
-		console.log('trapFocus')
+		console.log('trapFocus', getFocusables())
 
 		setFocusablesActive(true)
 
