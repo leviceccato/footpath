@@ -20,10 +20,8 @@ export const button = style({
 	alignItems: 'center',
 	justifyContent: 'center',
 	borderRadius: 4,
-	selectors: {
-		'&:hover, &:focus-visible': {
-			backgroundColor: themeCss.colour100Var,
-		},
+	':hover': {
+		backgroundColor: themeCss.colour100Var,
 	},
 })
 
@@ -61,10 +59,8 @@ export const dropdownButton = style({
 	display: 'flex',
 	width: '100%',
 	padding: '8px 16px 8px 0',
-	selectors: {
-		'&:hover, &:focus-visible': {
-			backgroundColor: themeCss.colour100Var,
-		},
+	':hover': {
+		backgroundColor: themeCss.colour100Var,
 	},
 })
 

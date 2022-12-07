@@ -32,10 +32,8 @@ export const logoLink = style({
 	borderRadius: 4,
 	display: 'flex',
 	alignItems: 'center',
-	selectors: {
-		'&:hover, &:focus-visible': {
-			backgroundColor: themeCss.colour100Var,
-		},
+	':hover': {
+		backgroundColor: themeCss.colour100Var,
 	},
 })
 
@@ -67,10 +65,8 @@ export const tabButton = style({
 	alignItems: 'center',
 	width: '100%',
 	paddingLeft: 16,
-	selectors: {
-		'&:hover, &:focus-visible': {
-			backgroundColor: themeCss.colour50Var,
-		},
+	':hover': {
+		backgroundColor: themeCss.colour50Var,
 	},
 })
 
@@ -100,10 +96,8 @@ export const closeTab = style({
 	justifyContent: 'center',
 	borderRadius: 4,
 	transform: 'translateY(-50%)',
-	selectors: {
-		'&:hover, &:focus-visible': {
-			backgroundColor: themeCss.colour100Var,
-		},
+	':hover': {
+		backgroundColor: themeCss.colour100Var,
 	},
 })
 
@@ -144,10 +138,8 @@ export const addTabButton = style({
 	display: 'flex',
 	justifyContent: 'center',
 	alignItems: 'center',
-	selectors: {
-		'&:hover, &:focus-visible': {
-			backgroundColor: themeCss.colour100Var,
-		},
+	':hover': {
+		backgroundColor: themeCss.colour100Var,
 	},
 })
 
