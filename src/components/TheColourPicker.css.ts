@@ -42,6 +42,10 @@ export const hueRange = style({
 	borderRadius: 1000,
 	background:
 		'linear-gradient(to right, rgb(255, 0, 0), rgb(255, 255, 0), rgb(0, 255, 0), rgb(0, 255, 255), rgb(0, 0, 255), rgb(255, 0, 255), rgb(255, 0, 0))',
+	':focus-visible': {
+		outlineOffset: 2,
+		outline: `2px dashed ${themeCss.colour1000Var}`,
+	},
 	'::-webkit-slider-thumb': {
 		boxShadow: `0 0 0 0.5px ${themeCss.colour1000Var}`,
 		backgroundColor: `hsla(${hueVar} 100% 50%)`,

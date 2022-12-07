@@ -108,7 +108,7 @@ g('input[type=range]::-webkit-slider-thumb', {
 	WebkitAppearance: 'none',
 })
 
-g('input[type=range]:focus', {
+g(':where(input[type=range]:focus)', {
 	outline: 'none',
 })
 

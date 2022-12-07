@@ -247,6 +247,7 @@ const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
 			<div class={css.hueRangeContainer}>
 				<input
 					class={css.hueRange}
+					{...focusableProps}
 					onInput={handleHueRangeInput}
 					ref={hueRangeRef}
 					type="range"
