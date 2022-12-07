@@ -84,7 +84,7 @@ const ProviderFocusTrap: Component<ProviderFocusTrapProps> = (props) => {
 
 		// Handle cycling at end
 
-		if (document.activeElement === focusables.last) {
+		if (!event.shiftKey && document.activeElement === focusables.last) {
 			focusables.first.focus()
 			event.preventDefault()
 		}
