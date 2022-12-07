@@ -94,10 +94,12 @@ const ProviderFocusTrap: Component<ProviderFocusTrapProps> = (props) => {
 	function trapFocus(): void {
 		if (!rootRef) return
 
+		const focusables = getFirstAndLastFocusables()
+		if (!focusables) return
+
 		setFocusablesActive(true)
 
 		previousActiveElement = document.activeElement as HTMLElement
-		const focusables = getFirstAndLastFocusables()
 		focusables?.first.focus()
 
 		rootRef?.addEventListener('keydown', handleTab)
