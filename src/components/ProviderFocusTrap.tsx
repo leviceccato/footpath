@@ -3,6 +3,7 @@ import {
 	useContext,
 	createUniqueId,
 	createEffect,
+	onCleanup,
 } from 'solid-js'
 import type { ParentProps, Component } from 'solid-js'
 
@@ -124,6 +125,10 @@ const ProviderFocusTrap: Component<ProviderFocusTrapProps> = (props) => {
 		}
 		return props.when
 	}, false)
+
+	onCleanup(() => {
+		rootRef?.removeEventListener('keydown', handleTab)
+	})
 
 	return (
 		<context.Provider value={[focusableProps]}>
