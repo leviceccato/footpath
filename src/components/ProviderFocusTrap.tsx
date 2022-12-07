@@ -92,7 +92,6 @@ const ProviderFocusTrap: Component<ProviderFocusTrapProps> = (props) => {
 
 	function trapFocus(): void {
 		if (!rootRef) return
-		console.log('trapFocus', getFocusables())
 
 		setFocusablesActive(true)
 
@@ -105,7 +104,6 @@ const ProviderFocusTrap: Component<ProviderFocusTrapProps> = (props) => {
 
 	function releaseFocus(): void {
 		if (!rootRef) return
-		console.log('releaseFocus')
 
 		rootRef.removeEventListener('keydown', handleTab)
 
