@@ -18,7 +18,7 @@ export function decimalToPercentage(decimal: number): string {
 }
 
 export function createRandomColour(): string {
-	return '#' + (Math.random() * 0xfffff * 1000000).toString(16).slice(0, 6)
+	return `#${(Math.random() * 0xfffff * 1000000).toString(16).slice(0, 6)}`
 }
 
 export function clamp(min: number, value: number, max: number): number {
