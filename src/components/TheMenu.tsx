@@ -13,6 +13,7 @@ import Button from '@/components/Button'
 import Text from '@/components/Text'
 import Popover from '@/components/Popover'
 import TheColourPicker from '@/components/TheColourPicker'
+import ModalAbout from '@/components/ModalAbout'
 
 type ThemeOption = 'light' | 'dark' | 'system' | 'custom'
 
@@ -23,6 +24,7 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 	const [t, language] = useI18n()
 	const [theme] = useTheme()
 	const [_, setPreviousColour] = createSignal(theme().colour())
+	const [isAboutModalShown, setIsAboutModalShown] = createSignal(false)
 
 	const selectedThemeOption = (): ThemeOption => {
 		if (theme().shouldUseSystem()) {
@@ -68,7 +70,10 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 					{t().preferences}
 				</Text>
 			</Button>
-			<Button class={css.buttonVariant.default}>
+			<Button
+				onClick={[setIsAboutModalShown, true]}
+				class={css.buttonVariant.default}
+			>
 				<Text
 					class={css.buttonText}
 					variant="bodyXs"
@@ -76,6 +81,7 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 					{t().about}
 				</Text>
 			</Button>
+			<ModalAbout modal={{ isShown: isAboutModalShown() }} />
 			<Popover
 				class={css.buttonVariant.default}
 				isShownClass={css.buttonVariant.dropdownOpen}
