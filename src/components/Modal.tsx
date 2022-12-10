@@ -6,14 +6,18 @@ import * as css from './Modal.css'
 
 import ProviderFocusTrap from '@/components/ProviderFocusTrap'
 
-const Modal: ParentComponent<{
+export type ModalProps = {
 	isShown: boolean
-	onShow: () => void
-	onHide: () => void
-}> = (props) => {
-	const [portal] = usePortal()
+	onShow?: () => void
+	onHide?: () => void
+}
+
+const Modal: ParentComponent<ModalProps> = (props) => {
+	const [mounts] = usePortal()
 
 	const [isShown, setIsShown] = createSignal(props.isShown)
+
+	const modal = () => mounts().get('modal')
 
 	createEffect(() => {
 		setIsShown(props.isShown)
@@ -21,20 +25,20 @@ const Modal: ParentComponent<{
 
 	createEffect(() => {
 		if (isShown()) {
-			return props?.onShow()
+			return props.onShow?.()
 		}
-		props?.onHide()
+		props.onHide?.()
 	})
 
 	return (
-		<Portal mount={portal().get('modal')}>
-			<Show when={isShown()}>
+		<Show when={isShown() && modal()}>
+			<Portal mount={modal()}>
 				<ProviderFocusTrap when={isShown()}>
 					<div class={css.header}>Modal</div>
 					{props.children}
 				</ProviderFocusTrap>
-			</Show>
-		</Portal>
+			</Portal>
+		</Show>
 	)
 }
 
