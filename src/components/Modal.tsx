@@ -34,8 +34,15 @@ const Modal: ParentComponent<ModalProps> = (props) => {
 		<Show when={isShown() && modal()}>
 			<Portal mount={modal()}>
 				<ProviderFocusTrap when={isShown()}>
-					<div class={css.header}>Modal</div>
-					{props.children}
+					<div
+						onClick={[setIsShown, false]}
+						class={css.root}
+					>
+						<div class={css.main}>
+							<div class={css.header}>Modal</div>
+							{props.children}
+						</div>
+					</div>
 				</ProviderFocusTrap>
 			</Portal>
 		</Show>
