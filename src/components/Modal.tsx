@@ -21,10 +21,18 @@ const Modal: ParentComponent<ModalProps> = (props) => {
 
 	createEffect(() => {
 		if (isShown()) {
+			window.addEventListener('keydown', handleEscapeToClose)
 			return props.onShow?.()
 		}
+		window.removeEventListener('keydown', handleEscapeToClose)
 		props.onHide?.()
 	})
+
+	function handleEscapeToClose({ key }: KeyboardEvent) {
+		if (key === 'Escape') {
+			setIsShown(false)
+		}
+	}
 
 	return (
 		<Show when={isShown() && modal()}>
