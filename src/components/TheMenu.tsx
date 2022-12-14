@@ -81,7 +81,9 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 					{t().about}
 				</Text>
 			</Button>
-			<ModalAbout modal={{ isShown: isAboutModalShown() }} />
+			<ModalAbout
+				modal={{ isShown: [isAboutModalShown, setIsAboutModalShown] }}
+			/>
 			<Popover
 				class={css.buttonVariant.default}
 				isShownClass={css.buttonVariant.dropdownOpen}

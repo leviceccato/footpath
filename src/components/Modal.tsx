@@ -1,5 +1,5 @@
-import { Show, createSignal, createEffect } from 'solid-js'
-import type { ParentComponent } from 'solid-js'
+import { Show, createEffect } from 'solid-js'
+import type { ParentComponent, Signal } from 'solid-js'
 import { Portal } from 'solid-js/web'
 import { usePortal } from '@/components/ProviderPortal'
 import * as css from './Modal.css'
@@ -7,21 +7,17 @@ import * as css from './Modal.css'
 import ProviderFocusTrap from '@/components/ProviderFocusTrap'
 
 export type ModalProps = {
-	isShown: boolean
+	isShown: Signal<boolean>
 	onShow?: () => void
 	onHide?: () => void
 }
 
 const Modal: ParentComponent<ModalProps> = (props) => {
+	const [isShown, setIsShown] = props.isShown
+
 	const [mounts] = usePortal()
 
-	const [isShown, setIsShown] = createSignal(props.isShown)
-
 	const modal = () => mounts().get('modal')
-
-	createEffect(() => {
-		setIsShown(props.isShown)
-	})
 
 	createEffect(() => {
 		if (isShown()) {
