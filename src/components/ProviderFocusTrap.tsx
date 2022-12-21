@@ -56,7 +56,7 @@ const ProviderFocusTrap: Component<ProviderFocusTrapProps> = (props) => {
 		}
 
 		const focusables = getFocusables()
-		if (focusables.length < 2) {
+		if (!focusables.length) {
 			return null
 		}
 
