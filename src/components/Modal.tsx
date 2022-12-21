@@ -17,6 +17,8 @@ const Modal: ParentComponent<ModalProps> = (props) => {
 
 	const [mounts] = usePortal()
 
+	let mainRef: HTMLDivElement | undefined
+
 	const modal = () => mounts().get('modal')
 
 	createEffect(() => {
@@ -27,6 +29,15 @@ const Modal: ParentComponent<ModalProps> = (props) => {
 		window.removeEventListener('keydown', handleEscapeToClose)
 		props.onHide?.()
 	})
+
+	function handleRootClick({ target }: MouseEvent) {
+		// Ignore clicks inside main modal content
+		if (target instanceof Node && mainRef?.contains(target)) {
+			return
+		}
+
+		setIsShown(false)
+	}
 
 	function handleEscapeToClose({ key }: KeyboardEvent) {
 		if (key === 'Escape') {
@@ -39,10 +50,13 @@ const Modal: ParentComponent<ModalProps> = (props) => {
 			<Portal mount={modal()}>
 				<ProviderFocusTrap when={isShown()}>
 					<div
-						onClick={[setIsShown, false]}
+						onClick={handleRootClick}
 						class={css.root}
 					>
-						<div class={css.main}>
+						<div
+							ref={mainRef}
+							class={css.main}
+						>
 							<div class={css.header}>Modal</div>
 							{props.children}
 						</div>
