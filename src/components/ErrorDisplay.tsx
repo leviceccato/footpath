@@ -9,8 +9,12 @@ const ErrorDisplay: ParentComponent = (props) => {
 		<ErrorBoundary
 			fallback={(error) => (
 				<div class={css.root}>
-					<Text variant="bodyS">An error has occured in script execution:</Text>
-					<Text variant="bodyXs">{error.stack}</Text>
+					<Text variant="bodyS">An error has occured in script execution</Text>
+					<Text variant="bodyXs">See console for error output</Text>
+					{() => {
+						console.error(error)
+						return null
+					}}
 				</div>
 			)}
 		>
