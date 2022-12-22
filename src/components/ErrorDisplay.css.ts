@@ -10,3 +10,8 @@ export const root = style({
 	padding: 20,
 	height: '100%',
 })
+
+export const icon = style({
+	width: 32,
+	height: 32,
+})
