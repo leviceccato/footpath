@@ -121,11 +121,13 @@ const RouteMain: Component = () => {
 				<div class={css.viewContainer}>
 					<div class={css.view}></div>
 					<div class={css.view}>
-						<iframe
-							title={t().preview}
-							class={css.viewSvg}
-							src="/svg"
-						></iframe>
+						<div class={css.viewSvg}>
+							<iframe
+								title={t().preview}
+								class={css.viewSvgInner}
+								src="/svg"
+							/>
+						</div>
 					</div>
 				</div>
 			</main>
