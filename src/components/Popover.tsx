@@ -150,6 +150,10 @@ const Popover: ParentComponent<
 
 	const mount = () => mounts().get(_props.mount)
 
+	function _setPopoverShown(to: boolean): void {
+		setPopoverShown(id, to)
+	}
+
 	function handleClick(
 		event: MouseEvent & {
 			currentTarget: HTMLButtonElement
@@ -160,7 +164,7 @@ const Popover: ParentComponent<
 			_props.onClick(event)
 		}
 		if (_props.when === 'click') {
-			return setPopoverShown(id, !isShown())
+			return _setPopoverShown(!isShown())
 		}
 	}
 
@@ -170,11 +174,11 @@ const Popover: ParentComponent<
 		if (_props.when === 'hover') {
 			await sleep(isHovered() ? _props.hoverDelay : 0)
 
-			return setPopoverShown(id, isHovered())
+			return _setPopoverShown(isHovered())
 		}
 
 		if (isHovered() && getOpenGroupMembers(_props.groupId).length) {
-			return setPopoverShown(id, true)
+			return _setPopoverShown(true)
 		}
 	}
 
@@ -210,7 +214,7 @@ const Popover: ParentComponent<
 
 	function handleEscapeToClose({ key }: KeyboardEvent): void {
 		if (key === 'Escape') {
-			setPopoverShown(id, false)
+			_setPopoverShown(false)
 		}
 	}
 
