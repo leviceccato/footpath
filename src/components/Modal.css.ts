@@ -10,14 +10,21 @@ export const root = style({
 	backgroundColor: `rgba(${themeCss.colourBase700Var}, 0.1)`,
 })
 
-export const main = style({
+export const container = style({
 	maxWidth: 720,
+	margin: '0 40px',
 	width: '100%',
 	backgroundColor: themeCss.colourVar,
 	borderRadius: 8,
-	padding: 20,
 	border: `1px solid ${themeCss.colour200Var}`,
 	boxShadow: ' 0px 10px 15px -3px rgba(0,0,0,0.1)',
 })
 
-export const header = style({})
+export const header = style({
+	padding: 20,
+	borderBottom: `1px solid ${themeCss.colour150Var}`,
+})
+
+export const main = style({
+	padding: 20,
+})

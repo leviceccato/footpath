@@ -17,7 +17,7 @@ const Modal: ParentComponent<ModalProps> = (props) => {
 
 	const [mounts] = usePortal()
 
-	let mainRef: HTMLDivElement | undefined
+	let containerRef: HTMLDivElement | undefined
 
 	const modal = () => mounts().get('modal')
 
@@ -32,7 +32,7 @@ const Modal: ParentComponent<ModalProps> = (props) => {
 
 	function handleRootClick({ target }: MouseEvent) {
 		// Ignore clicks inside main modal content
-		if (target instanceof Node && mainRef?.contains(target)) {
+		if (target instanceof Node && containerRef?.contains(target)) {
 			return
 		}
 
@@ -54,11 +54,11 @@ const Modal: ParentComponent<ModalProps> = (props) => {
 						class={css.root}
 					>
 						<div
-							ref={mainRef}
-							class={css.main}
+							ref={containerRef}
+							class={css.container}
 						>
 							<div class={css.header}>Modal</div>
-							{props.children}
+							<div class={css.main}>{props.children}</div>
 						</div>
 					</div>
 				</ProviderFocusTrap>
