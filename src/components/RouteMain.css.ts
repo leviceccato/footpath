@@ -189,3 +189,7 @@ export const view = style({
 		},
 	},
 })
+
+export const viewSvg = style({
+	height: '100%',
+})
