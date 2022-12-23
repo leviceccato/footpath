@@ -14,7 +14,7 @@ const icons = iconNames.map((name) => {
 	return {
 		...icon,
 		id: `icon_${name}`,
-		viewBox: icon.viewBox,
+		viewBox: icon.viewBox.join(' '),
 	}
 })
 
