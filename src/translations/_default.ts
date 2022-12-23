@@ -23,4 +23,5 @@ export default {
 	document: {
 		new: 'New document',
 	},
+	preview: 'Preview',
 }

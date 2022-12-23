@@ -25,4 +25,5 @@ export default createTranslation({
 	document: {
 		new: 'Nuevo documento',
 	},
+	preview: 'Previsualizar',
 })
