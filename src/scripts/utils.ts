@@ -50,3 +50,7 @@ export function hsvToHsl(colour: HsvColour): HslColor {
 export function sleep(duration: number): Promise<void> {
 	return new Promise((resolve) => setTimeout(resolve, duration))
 }
+
+export function isInIframe(): boolean {
+	return window.location !== window.parent.location
+}
