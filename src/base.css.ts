@@ -59,6 +59,11 @@ g('blockquote, dl, dd, h1, h2, h3, h4, h5, h6, hr, figure, p, pre', {
 	margin: 0,
 })
 
+g('iframe', {
+	border: 'none',
+	width: '100%',
+})
+
 g('ol, ul', {
 	listStyle: 'none',
 	margin: 0,
