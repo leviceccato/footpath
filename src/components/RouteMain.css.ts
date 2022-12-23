@@ -2,11 +2,15 @@ import { style, createVar, styleVariants } from '@vanilla-extract/css'
 import * as themeCss from '@/components/ProviderTheme.css'
 
 export const headerHeight = createVar()
+export const viewBarHeight = createVar()
 
 export const root = style({
 	height: '100%',
+	display: 'flex',
+	flexDirection: 'column',
 	vars: {
 		[headerHeight]: '40px',
+		[viewBarHeight]: '40px',
 	},
 })
 
@@ -151,4 +155,37 @@ export const menuContainer = style({})
 
 export const main = style({
 	borderTop: `1px solid ${themeCss.colour150Var}`,
+	height: '100%',
+	display: 'flex',
+	flexDirection: 'column',
+})
+
+export const viewBar = style({
+	height: viewBarHeight,
+	display: 'flex',
+	borderBottom: `1px solid ${themeCss.colour150Var}`,
+})
+
+export const viewBarSection = style({
+	width: '50%',
+	selectors: {
+		'&:not(:first-of-type)': {
+			borderLeft: `1px solid ${themeCss.colour150Var}`,
+		},
+	},
+})
+
+export const viewContainer = style({
+	display: 'flex',
+	height: '100%',
+})
+
+export const view = style({
+	width: '50%',
+	height: '100%',
+	selectors: {
+		'&:not(:first-of-type)': {
+			borderLeft: `1px solid ${themeCss.colour150Var}`,
+		},
+	},
 })

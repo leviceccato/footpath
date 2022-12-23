@@ -113,7 +113,16 @@ const RouteMain: Component = () => {
 				/>
 				<TheMenu class={css.menuContainer} />
 			</header>
-			<main class={css.main}></main>
+			<main class={css.main}>
+				<div class={css.viewBar}>
+					<div class={css.viewBarSection}></div>
+					<div class={css.viewBarSection}></div>
+				</div>
+				<div class={css.viewContainer}>
+					<div class={css.view}></div>
+					<div class={css.view}></div>
+				</div>
+			</main>
 		</div>
 	)
 }
