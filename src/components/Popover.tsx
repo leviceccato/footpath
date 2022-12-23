@@ -336,7 +336,7 @@ const Popover: ParentComponent<
 						</Show>
 						<Show when={isShown()}>
 							<ProviderFocusTrap when={isShown()}>
-								{_props.children}
+								{() => _props.children}
 							</ProviderFocusTrap>
 						</Show>
 					</div>

@@ -5,18 +5,22 @@ import {
 	createEffect,
 	onCleanup,
 } from 'solid-js'
-import type { ParentProps, Component } from 'solid-js'
-
-type ProviderFocusTrapProps = ParentProps & {
-	when: boolean
-}
+import type { JSX, Component } from 'solid-js'
+import * as css from './ProviderFocusTrap.css'
 
 type FocusableProps = {
 	[x: string]: string | boolean
 	tabindex: string
 }
 
-const context = createContext<[FocusableProps]>([{ tabindex: '0' }])
+type Focus = [FocusableProps, FocusableProps]
+
+type ProviderFocusTrapProps = {
+	children?: (_: Focus) => JSX.Element
+	when: boolean
+}
+
+const context = createContext<Focus>([{ tabindex: '0' }, { tabindex: '-1' }])
 
 export function useFocus() {
 	return useContext(context)
@@ -24,46 +28,35 @@ export function useFocus() {
 
 const ProviderFocusTrap: Component<ProviderFocusTrapProps> = (props) => {
 	const id = createUniqueId()
-	const attr = `data-focusable-${id}`
+	const focusableAttr = `data-focusable-${id}`
+	const reachableFocusableAttr = `data-reachable-focusable-${id}`
 
-	const focusableProps: FocusableProps = {
-		[attr]: true,
+	const reachableFocusableProps: FocusableProps = {
+		[focusableAttr]: true,
+		[reachableFocusableAttr]: true,
 		tabindex: '0',
+	}
+
+	const unreachableFocusableProps: FocusableProps = {
+		[focusableAttr]: true,
+		class: css.unreachableFocusable,
+		tabindex: '-1',
 	}
 
 	let rootRef: HTMLDivElement | undefined
 	let previousActiveElement: HTMLElement | null = null
 
-	function getFocusables(): NodeListOf<Element> | [] {
+	function getFocusables(attr: string): HTMLElement[] {
 		if (!rootRef) {
 			return []
 		}
-		return rootRef.querySelectorAll(`[${attr}]`)
+		return Array.from(rootRef.querySelectorAll(`[${attr}]`)) as HTMLElement[]
 	}
 
 	function setFocusablesActive(to: boolean): void {
-		getFocusables().forEach((el) => {
+		getFocusables(reachableFocusableAttr).forEach((el) => {
 			el.setAttribute('tabindex', to ? '0' : '-1')
 		})
-	}
-
-	function getFirstAndLastFocusables(): {
-		first: HTMLElement
-		last: HTMLElement
-	} | null {
-		if (!rootRef) {
-			return null
-		}
-
-		const focusables = getFocusables()
-		if (!focusables.length) {
-			return null
-		}
-
-		return {
-			first: focusables[0] as HTMLElement,
-			last: focusables[focusables.length - 1] as HTMLElement,
-		}
 	}
 
 	function handleTab(event: KeyboardEvent): void {
@@ -72,21 +65,24 @@ const ProviderFocusTrap: Component<ProviderFocusTrapProps> = (props) => {
 		// Detect focusables every keypress in case there have
 		// been changes
 
-		const focusables = getFirstAndLastFocusables()
-		if (!focusables) return
+		const focusables = getFocusables(reachableFocusableAttr)
+		if (!focusables.length) return
+
+		const firstFocusable = focusables[0]
+		const lastFocusable = focusables[focusables.length - 1]
 
 		// Handle cycling at start
 
-		if (event.shiftKey && document.activeElement === focusables.first) {
-			focusables.last.focus()
+		if (event.shiftKey && document.activeElement === firstFocusable) {
+			lastFocusable.focus()
 			event.preventDefault()
 			return
 		}
 
 		// Handle cycling at end
 
-		if (!event.shiftKey && document.activeElement === focusables.last) {
-			focusables.first.focus()
+		if (!event.shiftKey && document.activeElement === lastFocusable) {
+			firstFocusable.focus()
 			event.preventDefault()
 		}
 	}
@@ -94,13 +90,13 @@ const ProviderFocusTrap: Component<ProviderFocusTrapProps> = (props) => {
 	function trapFocus(): void {
 		if (!rootRef) return
 
-		const focusables = getFirstAndLastFocusables()
-		if (!focusables) return
+		const [firstFocusable] = getFocusables(focusableAttr)
+		if (!firstFocusable) return
 
 		setFocusablesActive(true)
 
 		previousActiveElement = document.activeElement as HTMLElement
-		focusables?.first.focus()
+		firstFocusable.focus()
 
 		rootRef?.addEventListener('keydown', handleTab)
 	}
@@ -133,8 +129,12 @@ const ProviderFocusTrap: Component<ProviderFocusTrapProps> = (props) => {
 	})
 
 	return (
-		<context.Provider value={[focusableProps]}>
-			<div ref={rootRef}>{props.children}</div>
+		<context.Provider
+			value={[reachableFocusableProps, unreachableFocusableProps]}
+		>
+			<div ref={rootRef}>
+				{props.children?.([reachableFocusableProps, unreachableFocusableProps])}
+			</div>
 		</context.Provider>
 	)
 }

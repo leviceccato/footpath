@@ -53,25 +53,30 @@ const Modal: ParentComponent<ModalProps> = (props) => {
 		<Show when={isShown() && modal()}>
 			<Portal mount={modal()}>
 				<ProviderFocusTrap when={isShown()}>
-					<div
-						onClick={handleRootClick}
-						class={css.root}
-					>
+					{([_, unreachableFocusableProps]) => (
 						<div
-							ref={containerRef}
-							class={css.container}
+							onClick={handleRootClick}
+							class={css.root}
 						>
-							<div class={css.header}>
-								<Text variant="bodyS">Modal</Text>
-								<IconButton
-									onClick={() => setIsShown(false)}
-									name="close"
-									tooltip={t().close}
-								/>
+							<div
+								ref={containerRef}
+								class={css.container}
+							>
+								<div
+									{...unreachableFocusableProps}
+									class={`${css.header} ${unreachableFocusableProps.class}`}
+								>
+									<Text variant="bodyS">Modal</Text>
+									<IconButton
+										onClick={() => setIsShown(false)}
+										name="close"
+										tooltip={t().close}
+									/>
+								</div>
+								<div class={css.main}>{props.children}</div>
 							</div>
-							<div class={css.main}>{props.children}</div>
 						</div>
-					</div>
+					)}
 				</ProviderFocusTrap>
 			</Portal>
 		</Show>
