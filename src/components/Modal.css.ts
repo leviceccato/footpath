@@ -21,8 +21,9 @@ export const container = style({
 })
 
 export const header = style({
-	padding: 20,
+	padding: '16px 20px',
 	display: 'flex',
+	alignItems: 'center',
 	justifyContent: 'space-between',
 	borderBottom: `1px solid ${themeCss.colour150Var}`,
 })
