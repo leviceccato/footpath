@@ -3,8 +3,11 @@ import type { ParentComponent, Signal } from 'solid-js'
 import { Portal } from 'solid-js/web'
 import { usePortal } from '@/components/ProviderPortal'
 import * as css from './Modal.css'
+import { useI18n } from '@/components/ProviderI18n'
 
 import ProviderFocusTrap from '@/components/ProviderFocusTrap'
+import Text from '@/components/Text'
+import IconButton from '@/components/IconButton'
 
 export type ModalProps = {
 	isShown: Signal<boolean>
@@ -16,6 +19,7 @@ const Modal: ParentComponent<ModalProps> = (props) => {
 	const [isShown, setIsShown] = props.isShown
 
 	const [mounts] = usePortal()
+	const [t] = useI18n()
 
 	let containerRef: HTMLDivElement | undefined
 
@@ -57,7 +61,13 @@ const Modal: ParentComponent<ModalProps> = (props) => {
 							ref={containerRef}
 							class={css.container}
 						>
-							<div class={css.header}>Modal</div>
+							<div class={css.header}>
+								<Text variant="bodyS">Modal</Text>
+								<IconButton
+									name="close"
+									tooltip={t().close}
+								/>
+							</div>
 							<div class={css.main}>{props.children}</div>
 						</div>
 					</div>
