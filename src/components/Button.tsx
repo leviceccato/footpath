@@ -28,6 +28,7 @@ const Button: ParentComponent<ButtonProps> = (props) => {
 			component={tag()}
 			{...focusProps}
 			{...buttonProps}
+			href={_props.href}
 			class={`${css.root} ${buttonProps.class ?? ''}`}
 		>
 			<Show
