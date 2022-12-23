@@ -64,6 +64,7 @@ const Modal: ParentComponent<ModalProps> = (props) => {
 							<div class={css.header}>
 								<Text variant="bodyS">Modal</Text>
 								<IconButton
+									onClick={() => setIsShown(false)}
 									name="close"
 									tooltip={t().close}
 								/>
