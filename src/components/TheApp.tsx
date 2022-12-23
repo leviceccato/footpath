@@ -4,6 +4,7 @@ import * as css from './TheApp.css'
 
 import ErrorDisplay from '@/components/ErrorDisplay'
 import RouteMain from '@/components/RouteMain'
+import RouteSvg from '@/components/RouteSvg'
 
 const TheApp: Component = () => {
 	return (
@@ -13,6 +14,10 @@ const TheApp: Component = () => {
 					<Route
 						path="/"
 						component={RouteMain}
+					/>
+					<Route
+						path="/svg"
+						component={RouteSvg}
 					/>
 				</Routes>
 			</ErrorDisplay>
