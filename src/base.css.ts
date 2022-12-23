@@ -1,4 +1,5 @@
 import { fontFace, globalStyle as g } from '@vanilla-extract/css'
+import * as themeCss from '@/components/ProviderTheme.css'
 
 export type Font = {
 	weight: number
@@ -47,6 +48,10 @@ g('body', {
 	MozOsxFontSmoothing: 'grayscale',
 	lineHeight: 1.4,
 	fontFamily: 'inherit',
+})
+
+g('::selection', {
+	backgroundColor: `rgba(${themeCss.colourBase1000Var}, 0.2)`,
 })
 
 g('blockquote, dl, dd, h1, h2, h3, h4, h5, h6, hr, figure, p, pre', {
