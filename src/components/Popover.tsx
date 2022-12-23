@@ -93,6 +93,8 @@ const store = createRoot(() => {
 	}
 })
 
+const defaultRect = new DOMRect()
+
 const Popover: ParentComponent<
 	ButtonProps & {
 		when?: boolean | InteractionMethod
@@ -100,7 +102,9 @@ const Popover: ParentComponent<
 		isShownClass?: string
 		groupId?: string
 		reference: (state: PopoverState) => JSX.Element
-		virtualReference?: VirtualElement
+		virtualReference?: {
+			getBoundingClientRect: VirtualElement['getBoundingClientRect'] | null
+		}
 		options?: Partial<Options>
 		hasArrow?: boolean
 		hoverDelay?: number
@@ -210,11 +214,21 @@ const Popover: ParentComponent<
 		}
 	}
 
+	function getReferenceRect(): DOMRect {
+		const getRect = _props.virtualReference?.getBoundingClientRect
+		if (getRect) {
+			return getRect()
+		}
+		if (referenceRef) {
+			return referenceRef.getBoundingClientRect()
+		}
+		return defaultRect
+	}
+
 	async function initPopper() {
 		const _contentRef = contentRef()
-		const reference = _props.virtualReference || referenceRef
 
-		if (!reference || !(_contentRef instanceof HTMLElement)) {
+		if (!(_contentRef instanceof HTMLElement)) {
 			return
 		}
 
@@ -238,7 +252,13 @@ const Popover: ParentComponent<
 			]
 		}
 
-		popper = createPopper<StrictModifiers>(reference, _contentRef, options)
+		popper = createPopper<StrictModifiers>(
+			{
+				getBoundingClientRect: getReferenceRect,
+			},
+			_contentRef,
+			options,
+		)
 		_props.onUpdateInstance?.(popper)
 
 		// Setup resize observer to update popper when content changes
@@ -246,6 +266,15 @@ const Popover: ParentComponent<
 		contentObserver = new ResizeObserver(() => popper?.update())
 
 		contentObserver.observe(_contentRef)
+	}
+
+	function handleMouseLeave(
+		event: MouseEvent & { currentTarget: HTMLButtonElement; target: Element },
+	) {
+		if (typeof _props.onMouseLeave === 'function') {
+			_props.onMouseLeave(event)
+		}
+		handleHover(false)
 	}
 
 	createEffect(() => {
@@ -282,7 +311,7 @@ const Popover: ParentComponent<
 				onFocusIn={[handleHover, true]}
 				onFocusOut={[handleHover, false]}
 				onMouseEnter={[handleHover, true]}
-				onMouseLeave={[handleHover, false]}
+				onMouseLeave={handleMouseLeave}
 				onMouseMove={_props.onMouseMove}
 			>
 				{_props.reference({ isShown })}

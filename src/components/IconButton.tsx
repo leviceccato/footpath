@@ -1,6 +1,7 @@
 import { Component, createSignal } from 'solid-js'
 import { splitProps } from 'solid-js'
 import { useIcons } from '@/components/ProviderIcons'
+import { sleep } from '@/scripts/utils'
 import type { IconName } from '@/components/ProviderIcons'
 import * as css from './IconButton.css'
 import type { VirtualElement, Instance } from '@popperjs/core'
@@ -30,20 +31,19 @@ const IconButton: Component<
 
 	const [popover, setPopover] = createSignal<Instance>()
 
-	let virtualReference: VirtualElement = {
-		getBoundingClientRect: createGetBoundingClientRect(0, 0),
+	let virtualReference: {
+		getBoundingClientRect: VirtualElement['getBoundingClientRect'] | null
+	} = {
+		getBoundingClientRect: null,
 	}
 
-	function createGetBoundingClientRect(
-		x: number,
-		y: number,
-	): VirtualElement['getBoundingClientRect'] {
-		const _x = x + tooltipOffsetX
-		const _y = y + tooltipOffsetY
+	function updateVirtualReference(event: MouseEvent): void {
+		const _x = event.clientX + tooltipOffsetX
+		const _y = event.clientY + tooltipOffsetY
 
 		// Satisfy DOMRect
 
-		return () => ({
+		virtualReference.getBoundingClientRect = () => ({
 			x: _x,
 			y: _y,
 			width: 0,
@@ -54,13 +54,16 @@ const IconButton: Component<
 			left: _x,
 			toJSON: () => {},
 		})
+
+		popover()?.update()
 	}
 
-	function updateVirtualReference(event: MouseEvent): void {
-		virtualReference.getBoundingClientRect = createGetBoundingClientRect(
-			event.clientX,
-			event.clientY,
-		)
+	async function clearVirtualReference() {
+		// Delay before resetting to avoid any visual glitches
+		await sleep(150)
+
+		virtualReference.getBoundingClientRect = null
+
 		popover()?.update()
 	}
 
@@ -77,6 +80,7 @@ const IconButton: Component<
 			onUpdateInstance={setPopover}
 			virtualReference={virtualReference}
 			onMouseMove={updateVirtualReference}
+			onMouseLeave={clearVirtualReference}
 			reference={() => (
 				<>
 					<VisuallyHidden>{_props.tooltip}</VisuallyHidden>
