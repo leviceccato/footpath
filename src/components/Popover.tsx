@@ -155,7 +155,7 @@ const Popover: ParentComponent<
 			currentTarget: HTMLButtonElement
 			target: Element
 		},
-	) {
+	): void {
 		if (typeof _props.onClick === 'function') {
 			_props.onClick(event)
 		}
@@ -164,7 +164,7 @@ const Popover: ParentComponent<
 		}
 	}
 
-	async function handleHover(isIn: boolean) {
+	async function handleHover(isIn: boolean): Promise<void> {
 		setIsHovered(isIn)
 
 		if (_props.when === 'hover') {
@@ -178,7 +178,7 @@ const Popover: ParentComponent<
 		}
 	}
 
-	function toggleEventListeners(enabled: boolean) {
+	function toggleEventListeners(enabled: boolean): void {
 		popper?.setOptions((options) => ({
 			...options,
 			modifiers: [
@@ -208,7 +208,7 @@ const Popover: ParentComponent<
 		}
 	}
 
-	function handleEscapeToClose({ key }: KeyboardEvent) {
+	function handleEscapeToClose({ key }: KeyboardEvent): void {
 		if (key === 'Escape') {
 			setPopoverShown(id, false)
 		}
@@ -225,7 +225,7 @@ const Popover: ParentComponent<
 		return defaultRect
 	}
 
-	async function initPopper() {
+	async function initPopper(): Promise<void> {
 		const _contentRef = contentRef()
 
 		if (!(_contentRef instanceof HTMLElement)) {
@@ -270,7 +270,7 @@ const Popover: ParentComponent<
 
 	function handleMouseLeave(
 		event: MouseEvent & { currentTarget: HTMLButtonElement; target: Element },
-	) {
+	): void {
 		if (typeof _props.onMouseLeave === 'function') {
 			_props.onMouseLeave(event)
 		}
