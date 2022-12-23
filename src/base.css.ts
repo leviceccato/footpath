@@ -52,6 +52,7 @@ g('body', {
 
 g('::selection', {
 	backgroundColor: `rgba(${themeCss.colourBase1000Var}, 0.2)`,
+	color: themeCss.colour1000Var,
 })
 
 g('blockquote, dl, dd, h1, h2, h3, h4, h5, h6, hr, figure, p, pre', {
