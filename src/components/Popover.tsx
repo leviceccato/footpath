@@ -192,24 +192,40 @@ const Popover: ParentComponent<
 		}))
 		if (enabled) {
 			window.addEventListener('pointerdown', handleClickOutsideToClose)
+			toggleIframeClickListeners(true)
 			window.addEventListener('keydown', handleEscapeToClose)
 			return
 		}
 		window.removeEventListener('pointerdown', handleClickOutsideToClose)
+		toggleIframeClickListeners(false)
 		window.removeEventListener('keydown', handleEscapeToClose)
 	}
 
-	function handleClickOutsideToClose({ target }: Event) {
-		if (!(target instanceof Node)) {
-			return
-		}
-
+	function hideIfTargetOutside(target: Node): void {
 		const isOutsideReference = !referenceRef?.contains(target)
 		const isOutsideContent = !contentRef()?.contains(target)
 
 		if (isOutsideReference && isOutsideContent) {
-			setPopoverShown(id, false)
+			_setPopoverShown(false)
 		}
+	}
+
+	function toggleIframeClickListeners(to: boolean): void {
+		const method = to ? 'addEventListener' : 'removeEventListener'
+
+		document.querySelectorAll('iframe').forEach((iframe) => {
+			iframe.contentWindow?.document[method]('click', () => {
+				hideIfTargetOutside(iframe)
+			})
+		})
+	}
+
+	function handleClickOutsideToClose({ target }: Event): void {
+		if (!(target instanceof Node)) {
+			return
+		}
+
+		hideIfTargetOutside(target)
 	}
 
 	function handleEscapeToClose({ key }: KeyboardEvent): void {
