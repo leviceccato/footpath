@@ -7,7 +7,7 @@ export const root = style({
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'center',
-	backgroundColor: `rgba(${themeCss.colourBase700Var}, 0.1)`,
+	backgroundColor: 'rgba(0 0 0 / 0.15)',
 })
 
 export const container = style({
