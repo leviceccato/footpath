@@ -5,12 +5,34 @@ import {
 	Index,
 	onMount,
 } from 'solid-js'
+import type { ParentComponent, Component } from 'solid-js'
 import * as css from './ProviderPortal.css'
-import type { ParentComponent } from 'solid-js'
+
+const Mounts: Component = () => {
+	let mountRefs = new Map<string, HTMLDivElement>()
+
+	const portal = usePortal()
+
+	onMount(() => {
+		portal.setMounts(mountRefs)
+	})
+
+	return (
+		<Index each={portal.mountIds}>
+			{(id) => (
+				<div
+					class={css.mount}
+					ref={(ref) => mountRefs.set(id(), ref)}
+				/>
+			)}
+		</Index>
+	)
+}
 
 function createPortalContext() {
 	const [mounts, setMounts] = createSignal(new Map<string, HTMLDivElement>())
-	return [mounts, setMounts] as const
+	const mountIds: string[] = []
+	return { mounts, setMounts, Mounts, mountIds } as const
 }
 
 const context = createContext(createPortalContext())
@@ -22,28 +44,14 @@ export function usePortal() {
 const ProviderPortal: ParentComponent<{
 	mountIds: string[]
 }> = (props) => {
-	let mountRefs = new Map<string, HTMLDivElement>()
-
-	const [mounts, setMounts] = createPortalContext()
-
-	onMount(() => {
-		setMounts(mountRefs)
-	})
+	const [mounts, setMounts] = createSignal(new Map<string, HTMLDivElement>())
 
 	return (
-		<>
-			<context.Provider value={[mounts, setMounts]}>
-				{props.children}
-			</context.Provider>
-			<Index each={props.mountIds}>
-				{(id) => (
-					<div
-						class={css.mount}
-						ref={(ref) => mountRefs.set(id(), ref)}
-					/>
-				)}
-			</Index>
-		</>
+		<context.Provider
+			value={{ mounts, setMounts, Mounts, mountIds: props.mountIds }}
+		>
+			{props.children}
+		</context.Provider>
 	)
 }
 

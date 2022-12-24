@@ -2,6 +2,8 @@ import { For, Show } from 'solid-js'
 import { createStore } from 'solid-js/store'
 import { useI18n } from '@/components/ProviderI18n'
 import { useIcons } from '@/components/ProviderIcons'
+import { usePortal } from '@/components/ProviderPortal'
+import { useTheme } from '@/components/ProviderTheme'
 import type { Component } from 'solid-js'
 import * as css from './RouteMain.css'
 
@@ -20,8 +22,10 @@ type Tab = {
 }
 
 const RouteMain: Component = () => {
-	const [Icon] = useIcons()
+	const [Icon, Symbols] = useIcons()
 	const [t] = useI18n()
+	const { Mounts } = usePortal()
+	const [theme] = useTheme()
 
 	let tabId = 0
 
@@ -59,7 +63,11 @@ const RouteMain: Component = () => {
 	}
 
 	return (
-		<div class={css.root}>
+		<div
+			class={`${theme().class} ${css.root}`}
+			style={theme().vars}
+		>
+			<Symbols />
 			<header class={css.header}>
 				<div class={css.logoContainer}>
 					<Button
@@ -114,12 +122,12 @@ const RouteMain: Component = () => {
 				<TheMenu class={css.menuContainer} />
 			</header>
 			<main class={css.main}>
-				<div class={css.viewBar}>
-					<div class={css.viewBarSection}></div>
-					<div class={css.viewBarSection}></div>
+				<div class={css.viewContainer}>
+					<div class={css.viewBar} />
+					<div class={css.view} />
 				</div>
 				<div class={css.viewContainer}>
-					<div class={css.view}></div>
+					<div class={css.viewBar} />
 					<div class={css.view}>
 						<div class={css.viewSvg}>
 							<iframe
@@ -131,6 +139,7 @@ const RouteMain: Component = () => {
 					</div>
 				</div>
 			</main>
+			<Mounts />
 		</div>
 	)
 }

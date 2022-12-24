@@ -33,7 +33,23 @@ const Icon: Component<{ class?: string; name: IconName }> = (props) => {
 	)
 }
 
-const context = createContext([Icon])
+const Symbols: Component = () => {
+	return (
+		<svg class={css.root}>
+			<For each={icons}>
+				{(icon) => (
+					<symbol
+						id={icon.id}
+						viewBox={icon.viewBox}
+						innerHTML={icon.content}
+					/>
+				)}
+			</For>
+		</svg>
+	)
+}
+
+const context = createContext([Icon, Symbols] as const)
 
 export function useIcons() {
 	return useContext(context)
@@ -43,20 +59,9 @@ export function useIcons() {
 
 const ProviderIcons: ParentComponent = (props) => {
 	return (
-		<>
-			<svg class={css.root}>
-				<For each={icons}>
-					{(icon) => (
-						<symbol
-							id={icon.id}
-							viewBox={icon.viewBox}
-							innerHTML={icon.content}
-						/>
-					)}
-				</For>
-			</svg>
-			<context.Provider value={[Icon]}>{props.children}</context.Provider>
-		</>
+		<context.Provider value={[Icon, Symbols]}>
+			{props.children}
+		</context.Provider>
 	)
 }
 

@@ -42,6 +42,7 @@ g('html', {
 g('body', {
 	margin: 0,
 	height: '100%',
+	backgroundColor: 'transparent',
 	// Fixes bold looking fonts on macOS in Chrome & Safari
 	WebkitFontSmoothing: 'antialiased',
 	// Fixes bold looking fonts on macOS in Firefox

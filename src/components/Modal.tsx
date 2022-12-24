@@ -18,7 +18,7 @@ export type ModalProps = {
 const Modal: ParentComponent<ModalProps> = (props) => {
 	const [isShown, setIsShown] = props.isShown
 
-	const [mounts] = usePortal()
+	const { mounts } = usePortal()
 	const [t] = useI18n()
 
 	let containerRef: HTMLDivElement | undefined

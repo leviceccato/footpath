@@ -53,20 +53,13 @@ render(
 				initialColour={colour}
 				initialShouldUseSystem={shouldUseSystem}
 			>
-				{([theme]) => (
-					<div
-						class={theme().class}
-						style={theme().vars}
-					>
-						<ProviderPortal mountIds={mountIds}>
-							<ProviderIcons>
-								<Router>
-									<TheApp />
-								</Router>
-							</ProviderIcons>
-						</ProviderPortal>
-					</div>
-				)}
+				<ProviderPortal mountIds={mountIds}>
+					<ProviderIcons>
+						<Router>
+							<TheApp />
+						</Router>
+					</ProviderIcons>
+				</ProviderPortal>
 			</ProviderTheme>
 		</ProviderI18n>
 	),

@@ -120,7 +120,7 @@ const Popover: ParentComponent<
 		props,
 	)
 
-	const [mounts] = usePortal()
+	const { mounts } = usePortal()
 
 	const id = createUniqueId()
 

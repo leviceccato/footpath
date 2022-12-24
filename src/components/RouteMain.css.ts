@@ -8,6 +8,8 @@ export const root = style({
 	height: '100%',
 	display: 'flex',
 	flexDirection: 'column',
+	backgroundColor: themeCss.colourVar,
+	color: themeCss.colour1000Var,
 	vars: {
 		[headerHeight]: '40px',
 		[viewBarHeight]: '40px',
@@ -157,7 +159,18 @@ export const main = style({
 	borderTop: `1px solid ${themeCss.colour150Var}`,
 	height: '100%',
 	display: 'flex',
+})
+
+export const viewContainer = style({
+	display: 'flex',
 	flexDirection: 'column',
+	width: '100%',
+	height: '100%',
+	selectors: {
+		'&:not(:first-of-type)': {
+			borderLeft: `1px solid ${themeCss.colour150Var}`,
+		},
+	},
 })
 
 export const viewBar = style({
@@ -166,28 +179,8 @@ export const viewBar = style({
 	borderBottom: `1px solid ${themeCss.colour150Var}`,
 })
 
-export const viewBarSection = style({
-	width: '50%',
-	selectors: {
-		'&:not(:first-of-type)': {
-			borderLeft: `1px solid ${themeCss.colour150Var}`,
-		},
-	},
-})
-
-export const viewContainer = style({
-	display: 'flex',
-	height: '100%',
-})
-
 export const view = style({
-	width: '50%',
 	height: '100%',
-	selectors: {
-		'&:not(:first-of-type)': {
-			borderLeft: `1px solid ${themeCss.colour150Var}`,
-		},
-	},
 })
 
 const checkerSize = 60
