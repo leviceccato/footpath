@@ -298,7 +298,7 @@ const Popover: ParentComponent<
 	}
 
 	createEffect(() => {
-		if (mounts().get('modal') && contentRef() && !popper) {
+		if (mount() && contentRef() && !popper) {
 			initPopper()
 		}
 	})
