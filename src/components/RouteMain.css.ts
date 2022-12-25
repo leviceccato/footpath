@@ -165,10 +165,27 @@ export const viewContainer = style({
 	display: 'flex',
 	flexDirection: 'column',
 	width: '100%',
-	height: '100%',
+})
+
+export const viewResizer = style({
+	width: 2,
+	position: 'relative',
+	'::before': {
+		content: '',
+		position: 'absolute',
+		inset: 0,
+		backgroundColor: themeCss.colour150Var,
+	},
+	'::after': {
+		content: '',
+		position: 'absolute',
+		inset: '0 -3px',
+		cursor: 'ew-resize',
+	},
 	selectors: {
-		'&:not(:first-of-type)': {
-			borderLeft: `1px solid ${themeCss.colour150Var}`,
+		'&:hover::before': {
+			backgroundColor: themeCss.colour300Var,
+			transform: 'scaleX(4)',
 		},
 	},
 })

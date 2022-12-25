@@ -126,6 +126,7 @@ const RouteMain: Component = () => {
 					<div class={css.viewBar} />
 					<div class={css.view} />
 				</div>
+				<div class={css.viewResizer} />
 				<div class={css.viewContainer}>
 					<div class={css.viewBar} />
 					<div class={css.view}>
