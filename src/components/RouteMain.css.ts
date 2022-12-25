@@ -174,7 +174,6 @@ export const viewResizer = style({
 		content: '',
 		position: 'absolute',
 		inset: 0,
-		transition: 'transform 150ms, background-color 150ms',
 		backgroundColor: themeCss.colour150Var,
 	},
 	'::after': {
