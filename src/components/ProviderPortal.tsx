@@ -4,6 +4,7 @@ import {
 	useContext,
 	Index,
 	onMount,
+	onCleanup,
 } from 'solid-js'
 import type { ParentComponent, Component } from 'solid-js'
 import * as css from './ProviderPortal.css'
@@ -15,6 +16,10 @@ const Mounts: Component = () => {
 
 	onMount(() => {
 		portal.setMounts(mountRefs)
+	})
+
+	onCleanup(() => {
+		mountRefs.clear()
 	})
 
 	return (
