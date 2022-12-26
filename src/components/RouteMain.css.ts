@@ -168,19 +168,19 @@ export const viewContainer = style({
 })
 
 export const viewResizer = style({
-	width: 2,
+	width: 1,
 	position: 'relative',
 	backgroundColor: themeCss.colour150Var,
 	'::before': {
 		content: '',
 		position: 'absolute',
-		inset: '0 -3px',
+		inset: '0 -2px',
 		cursor: 'col-resize',
 	},
 	'::after': {
 		content: '',
 		position: 'absolute',
-		inset: '0 -3px',
+		inset: '0 -2px',
 		cursor: 'col-resize',
 		opacity: 0,
 		transitionDelay: '300ms',
