@@ -93,6 +93,10 @@ const RouteMain: Component = () => {
 		window.addEventListener('mousemove', handleResizerDrag)
 	}
 
+	function resetResizer(): void {
+		setWidth(0.5)
+	}
+
 	return (
 		<div
 			class={`${theme().class} ${css.root}`}
@@ -166,11 +170,10 @@ const RouteMain: Component = () => {
 					<div class={css.view} />
 				</div>
 				<div
-					// draggable={true}
 					class={css.viewResizer}
 					onMouseDown={addDragHandler}
 					onMouseUp={removeDragHandler}
-					// onDragStart={handleResizerDragStart}
+					onDblClick={resetResizer}
 				/>
 				<div
 					class={css.viewContainer}
