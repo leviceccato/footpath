@@ -82,8 +82,6 @@ const RouteMain: Component = () => {
 
 		const x = (event.x - mainDOMRect.left) / mainDOMRect.width
 
-		console.log(x, event.x, mainDOMRect)
-
 		setWidth(clamp(0, x, 1))
 	}
 
