@@ -14,7 +14,7 @@ export function lastSegmentFromPath(path: string): string {
 }
 
 export function decimalToPercentage(decimal: number): string {
-	return `${Math.round(decimal * 100)}%`
+	return `${decimal * 100}%`
 }
 
 export function createRandomColour(): string {
