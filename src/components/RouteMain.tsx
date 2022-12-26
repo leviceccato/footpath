@@ -4,7 +4,7 @@ import { useI18n } from '@/components/ProviderI18n'
 import { useIcons } from '@/components/ProviderIcons'
 import { usePortal } from '@/components/ProviderPortal'
 import { useTheme } from '@/components/ProviderTheme'
-import { decimalToPercentage } from '@/scripts/utils'
+import { decimalToPercentage, clamp } from '@/scripts/utils'
 import type { Component } from 'solid-js'
 import * as css from './RouteMain.css'
 
@@ -29,6 +29,7 @@ const RouteMain: Component = () => {
 	const [theme] = useTheme()
 
 	let tabId = 0
+	let mainRef: HTMLDivElement | undefined
 	let mainDOMRect: DOMRect | undefined
 
 	const [tabs, setTabs] = createStore<Tab[]>([])
@@ -73,7 +74,17 @@ const RouteMain: Component = () => {
 	}
 
 	function handleResizerDrag(event: MouseEvent): void {
-		if (!mainDOMRect) return
+		if (!mainRef) return
+
+		if (!mainDOMRect) {
+			mainDOMRect = mainRef.getBoundingClientRect()
+		}
+
+		const x = (event.x - mainDOMRect.left) / mainDOMRect.width
+
+		console.log(x, event.x, mainDOMRect)
+
+		setWidth(clamp(0, x, 1))
 	}
 
 	function removeDragHandler(): void {
@@ -144,7 +155,7 @@ const RouteMain: Component = () => {
 				<TheMenu class={css.menuContainer} />
 			</header>
 			<main
-				ref={(ref) => (mainDOMRect = ref.getBoundingClientRect())}
+				ref={mainRef}
 				class={css.main}
 			>
 				<div
