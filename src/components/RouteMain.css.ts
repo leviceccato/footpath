@@ -170,23 +170,29 @@ export const viewContainer = style({
 export const viewResizer = style({
 	width: 2,
 	position: 'relative',
+	backgroundColor: themeCss.colour150Var,
 	'::before': {
 		content: '',
 		position: 'absolute',
-		inset: 0,
-		transitionDelay: '300ms',
-		backgroundColor: themeCss.colour150Var,
+		inset: '0 -3px',
+		cursor: 'col-resize',
 	},
 	'::after': {
 		content: '',
 		position: 'absolute',
 		inset: '0 -3px',
 		cursor: 'col-resize',
+		opacity: 0,
+		transitionDelay: '300ms',
+		backgroundColor: themeCss.colour300Var,
 	},
 	selectors: {
-		'&:hover::before': {
-			backgroundColor: themeCss.colour300Var,
-			transform: 'scaleX(4)',
+		'&:active::before': {
+			position: 'fixed',
+			inset: 0,
+		},
+		'&:hover::after': {
+			opacity: 1,
 		},
 	},
 })
