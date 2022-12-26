@@ -174,13 +174,14 @@ export const viewResizer = style({
 		content: '',
 		position: 'absolute',
 		inset: 0,
+		transitionDelay: '300ms',
 		backgroundColor: themeCss.colour150Var,
 	},
 	'::after': {
 		content: '',
 		position: 'absolute',
 		inset: '0 -3px',
-		cursor: 'ew-resize',
+		cursor: 'col-resize',
 	},
 	selectors: {
 		'&:hover::before': {
