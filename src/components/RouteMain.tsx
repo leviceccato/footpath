@@ -1,9 +1,10 @@
-import { For, Show } from 'solid-js'
+import { For, Show, createSignal } from 'solid-js'
 import { createStore } from 'solid-js/store'
 import { useI18n } from '@/components/ProviderI18n'
 import { useIcons } from '@/components/ProviderIcons'
 import { usePortal } from '@/components/ProviderPortal'
 import { useTheme } from '@/components/ProviderTheme'
+import { decimalToPercentage } from '@/scripts/utils'
 import type { Component } from 'solid-js'
 import * as css from './RouteMain.css'
 
@@ -28,9 +29,18 @@ const RouteMain: Component = () => {
 	const [theme] = useTheme()
 
 	let tabId = 0
+	let mainDOMRect: DOMRect | undefined
 
 	const [tabs, setTabs] = createStore<Tab[]>([])
 	addTab()
+
+	const [width, setWidth] = createSignal(0.5)
+
+	const widthPercentage = () => decimalToPercentage(width())
+
+	const oppositeWidth = () => 1 - width()
+
+	const oppositeWidthPercentage = () => decimalToPercentage(oppositeWidth())
 
 	function createTab(): Tab {
 		return { id: ++tabId, name: t().untitled, isActive: false, deletedAt: null }
@@ -60,6 +70,18 @@ const RouteMain: Component = () => {
 			'deletedAt',
 			(_) => new Date(),
 		)
+	}
+
+	function handleResizerDrag(event: MouseEvent): void {
+		if (!mainDOMRect) return
+	}
+
+	function removeDragHandler(): void {
+		window.removeEventListener('mousemove', handleResizerDrag)
+	}
+
+	function addDragHandler(): void {
+		window.addEventListener('mousemove', handleResizerDrag)
 	}
 
 	return (
@@ -121,15 +143,30 @@ const RouteMain: Component = () => {
 				/>
 				<TheMenu class={css.menuContainer} />
 			</header>
-			<main class={css.main}>
-				<div class={css.viewContainer}>
+			<main
+				ref={(ref) => (mainDOMRect = ref.getBoundingClientRect())}
+				class={css.main}
+			>
+				<div
+					class={css.viewContainer}
+					style={{ width: widthPercentage() }}
+				>
 					<div class={css.viewBar}>
 						<Button text="Code" />
 					</div>
 					<div class={css.view} />
 				</div>
-				<div class={css.viewResizer} />
-				<div class={css.viewContainer}>
+				<div
+					// draggable={true}
+					class={css.viewResizer}
+					onMouseDown={addDragHandler}
+					onMouseUp={removeDragHandler}
+					// onDragStart={handleResizerDragStart}
+				/>
+				<div
+					class={css.viewContainer}
+					style={{ width: oppositeWidthPercentage() }}
+				>
 					<div class={css.viewBar} />
 					<div class={css.view}>
 						<div class={css.viewSvg}>
