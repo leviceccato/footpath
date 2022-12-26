@@ -183,7 +183,6 @@ export const viewResizer = style({
 		inset: '0 -2px',
 		cursor: 'col-resize',
 		opacity: 0,
-		transitionDelay: '300ms',
 		backgroundColor: themeCss.colour300Var,
 	},
 	selectors: {
@@ -193,6 +192,7 @@ export const viewResizer = style({
 		},
 		'&:hover::after': {
 			opacity: 1,
+			transitionDelay: '300ms',
 		},
 	},
 })
