@@ -171,6 +171,7 @@ export const viewResizer = style({
 	width: 1,
 	position: 'relative',
 	backgroundColor: themeCss.colour150Var,
+	userSelect: 'none',
 	'::before': {
 		content: '',
 		position: 'absolute',
