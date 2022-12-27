@@ -92,7 +92,7 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 				hasArrow={true}
 				options={{
 					placement: 'bottom-end',
-					modifiers: [{ name: 'offset', options: { offset: [0, 12] } }],
+					modifiers: [{ name: 'offset', options: { offset: [0, 13] } }],
 				}}
 				reference={() => (
 					<Icon
@@ -140,7 +140,7 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 				hasArrow={true}
 				options={{
 					placement: 'bottom-end',
-					modifiers: [{ name: 'offset', options: { offset: [0, 12] } }],
+					modifiers: [{ name: 'offset', options: { offset: [0, 13] } }],
 				}}
 				reference={() => (
 					<Icon
