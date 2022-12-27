@@ -74,11 +74,7 @@ const RouteMain: Component = () => {
 	}
 
 	function handleResizerDrag(event: MouseEvent): void {
-		if (!mainRef) return
-
-		if (!mainDOMRect) {
-			mainDOMRect = mainRef.getBoundingClientRect()
-		}
+		if (!mainDOMRect) return
 
 		const x = (event.x - mainDOMRect.left) / mainDOMRect.width
 
@@ -90,6 +86,8 @@ const RouteMain: Component = () => {
 	}
 
 	function addDragHandler(): void {
+		mainDOMRect = mainRef?.getBoundingClientRect()
+
 		window.addEventListener('mousemove', handleResizerDrag)
 	}
 
