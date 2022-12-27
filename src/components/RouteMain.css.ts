@@ -198,13 +198,47 @@ export const viewResizer = style({
 })
 
 export const viewBar = style({
+	minHeight: viewBarHeight,
+	display: 'flex',
+})
+
+export const viewBarInner = style({
 	height: viewBarHeight,
 	display: 'flex',
-	borderBottom: `1px solid ${themeCss.colour150Var}`,
+	padding: '4px 6px',
+})
+
+export const viewBarButton = style({
+	minWidth: 32,
+	display: 'flex',
+	padding: '0 8px',
+	alignItems: 'center',
+	justifyContent: 'center',
+	borderRadius: 4,
+	':hover': {
+		backgroundColor: themeCss.colour100Var,
+		color: themeCss.colour1000Var,
+	},
+})
+
+export const viewBarButtonVariant = styleVariants({
+	inactive: [
+		viewBarButton,
+		{
+			color: themeCss.colour400Var,
+		},
+	],
+	active: [
+		viewBarButton,
+		{
+			color: themeCss.colour1000Var,
+		},
+	],
 })
 
 export const view = style({
 	height: '100%',
+	borderTop: `1px solid ${themeCss.colour150Var}`,
 })
 
 const checkerSize = 60

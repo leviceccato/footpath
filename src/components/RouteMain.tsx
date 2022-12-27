@@ -164,9 +164,18 @@ const RouteMain: Component = () => {
 					class={css.viewContainer}
 					style={{ width: widthPercentage() }}
 				>
-					<div class={css.viewBar}>
-						<Button text="Code" />
-					</div>
+					<ScrollArea class={css.viewBar}>
+						<div class={css.viewBarInner}>
+							<Button
+								class={css.viewBarButtonVariant.active}
+								text="Code"
+							/>
+							<Button
+								class={css.viewBarButtonVariant.inactive}
+								text="Optimize"
+							/>
+						</div>
+					</ScrollArea>
 					<div class={css.view} />
 				</div>
 				<div
@@ -179,7 +188,22 @@ const RouteMain: Component = () => {
 					class={css.viewContainer}
 					style={{ width: oppositeWidthPercentage() }}
 				>
-					<div class={css.viewBar} />
+					<ScrollArea class={css.viewBar}>
+						<div class={css.viewBarInner}>
+							<Button
+								class={css.viewBarButtonVariant.active}
+								text="SVG"
+							/>
+							<Button
+								class={css.viewBarButtonVariant.inactive}
+								text="Symbols"
+							/>
+							<Button
+								class={css.viewBarButtonVariant.inactive}
+								text="Data"
+							/>
+						</div>
+					</ScrollArea>
 					<div class={css.view}>
 						<div class={css.viewSvg}>
 							<iframe
