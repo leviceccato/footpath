@@ -35,6 +35,8 @@ type Popover = PopoverState & {
 
 type InteractionMethod = 'hover' | 'click'
 
+type _Window = Window & typeof globalThis
+
 const store = createRoot(() => {
 	const [popovers, setPopovers] = createSignal<Popover[]>([])
 
@@ -191,17 +193,22 @@ const Popover: ParentComponent<
 			],
 		}))
 		if (enabled) {
-			window.addEventListener('pointerdown', handleClickOutsideToClose)
-			toggleIframeClickListeners(true)
+			window.addEventListener('pointerdown', handleClickToClose)
+			addIframeListeners()
 			window.addEventListener('keydown', handleEscapeToClose)
 			return
 		}
-		window.removeEventListener('pointerdown', handleClickOutsideToClose)
-		toggleIframeClickListeners(false)
+		window.removeEventListener('pointerdown', handleClickToClose)
 		window.removeEventListener('keydown', handleEscapeToClose)
 	}
 
-	function hideIfTargetOutside(target: Node): void {
+	function hideIfTargetOutside(
+		target: EventTarget | null,
+		_window: _Window | null,
+	): void {
+		if (!_window) return
+		if (!(target instanceof _window.Node)) return
+
 		const isOutsideReference = !referenceRef?.contains(target)
 		const isOutsideContent = !contentRef()?.contains(target)
 
@@ -210,22 +217,24 @@ const Popover: ParentComponent<
 		}
 	}
 
-	function toggleIframeClickListeners(to: boolean): void {
-		const method = to ? 'addEventListener' : 'removeEventListener'
-
+	function addIframeListeners(): void {
 		document.querySelectorAll('iframe').forEach((iframe) => {
-			iframe.contentWindow?.document[method]('click', () => {
-				hideIfTargetOutside(iframe)
-			})
+			if (!iframe.contentWindow) return
+
+			iframe.contentWindow.document.addEventListener(
+				'click',
+				({ target }: Event) => {
+					hideIfTargetOutside(target, iframe.contentWindow as _Window)
+				},
+				{
+					once: true,
+				},
+			)
 		})
 	}
 
-	function handleClickOutsideToClose({ target }: Event): void {
-		if (!(target instanceof Node)) {
-			return
-		}
-
-		hideIfTargetOutside(target)
+	function handleClickToClose({ target }: Event): void {
+		hideIfTargetOutside(target, window)
 	}
 
 	function handleEscapeToClose({ key }: KeyboardEvent): void {
