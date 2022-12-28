@@ -14,6 +14,7 @@ import VisuallyHidden from '@/components/VisuallyHidden'
 import ScrollArea from '@/components/ScrollArea'
 import TheMenu from '@/components/TheMenu'
 import IconButton from '@/components/IconButton'
+import CodeEditor from '@/components/CodeEditor'
 
 type Tab = {
 	id: number
@@ -174,7 +175,9 @@ const RouteMain: Component = () => {
 							/>
 						</div>
 					</ScrollArea>
-					<div class={css.view} />
+					<div class={css.view}>
+						<CodeEditor />
+					</div>
 				</div>
 				<div
 					class={css.viewResizer}
