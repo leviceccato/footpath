@@ -74,12 +74,16 @@ const RouteMain: Component = () => {
 		)
 	}
 
+	function _setWidth(newWidth: number): void {
+		setWidth(clamp(0, newWidth, 1))
+	}
+
 	function handleResizerDrag(event: MouseEvent): void {
 		if (!mainDOMRect) return
 
 		const x = (event.x - mainDOMRect.left) / mainDOMRect.width
 
-		setWidth(clamp(0, x, 1))
+		_setWidth(x)
 	}
 
 	function removeDragHandler(): void {
