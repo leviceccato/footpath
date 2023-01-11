@@ -165,7 +165,7 @@ const RouteMain: Component = () => {
 			>
 				<div
 					class={css.viewContainer}
-					style={{ width: widthPercentage() }}
+					style={{ width: `calc(${widthPercentage()} - 0.5px` }}
 				>
 					<ScrollArea class={css.viewBar}>
 						<div class={css.viewBarInner}>
@@ -191,7 +191,7 @@ const RouteMain: Component = () => {
 				/>
 				<div
 					class={css.viewContainer}
-					style={{ width: oppositeWidthPercentage() }}
+					style={{ width: `calc(${widthPercentage()} - 0.5px` }}
 				>
 					<ScrollArea class={css.viewBar}>
 						<div class={css.viewBarInner}>
