@@ -243,6 +243,10 @@ export const view = style({
 	borderTop: `1px solid ${themeCss.colour150Var}`,
 })
 
+export const codeEditor = style({
+	height: `calc(100vh - ${headerHeight} - ${viewBarHeight})`,
+})
+
 const checkerSize = 60
 const halfCheckerSize = checkerSize / 2
 
