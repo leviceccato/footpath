@@ -1,4 +1,4 @@
-import { onMount } from 'solid-js'
+import { onMount, onCleanup } from 'solid-js'
 import type { Component } from 'solid-js'
 import * as css from './CodeEditor.css'
 import { EditorView, basicSetup } from 'codemirror'
@@ -17,6 +17,10 @@ const CodeEditor: Component = () => {
 
 	onMount(() => {
 		initView()
+	})
+
+	onCleanup(() => {
+		view?.destroy()
 	})
 
 	return (
