@@ -4,7 +4,7 @@ import * as css from './CodeEditor.css'
 import { EditorView, basicSetup } from 'codemirror'
 import { gutter } from '@codemirror/view'
 
-const CodeEditor: Component = () => {
+const CodeEditor: Component<{ class?: string }> = (props) => {
 	let rootRef: HTMLDivElement | undefined
 	let view: EditorView | undefined
 
@@ -25,7 +25,7 @@ const CodeEditor: Component = () => {
 
 	return (
 		<div
-			class={css.root}
+			class={`${css.root} ${props.class ?? ''}`}
 			ref={rootRef}
 		/>
 	)
