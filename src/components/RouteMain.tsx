@@ -179,9 +179,9 @@ const RouteMain: Component = () => {
 							/>
 						</div>
 					</ScrollArea>
-					<div class={css.view}>
-						<CodeEditor />
-					</div>
+					<ScrollArea class={css.view}>
+						<CodeEditor class={css.codeEditor} />
+					</ScrollArea>
 				</div>
 				<div
 					class={css.viewResizer}
