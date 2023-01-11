@@ -7,6 +7,7 @@ export const viewBarHeight = createVar()
 export const root = style({
 	height: '100%',
 	display: 'flex',
+	overflow: 'hidden',
 	flexDirection: 'column',
 	backgroundColor: themeCss.colourVar,
 	color: themeCss.colour1000Var,
