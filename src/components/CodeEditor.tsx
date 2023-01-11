@@ -3,11 +3,10 @@ import type { Component } from 'solid-js'
 import * as css from './CodeEditor.css'
 import { EditorView, basicSetup } from 'codemirror'
 import { gutter } from '@codemirror/view'
-import type { EditorView as _EditorView } from 'codemirror'
 
 const CodeEditor: Component = () => {
 	let rootRef: HTMLDivElement | undefined
-	let view: _EditorView | undefined
+	let view: EditorView | undefined
 
 	function initView(): void {
 		view = new EditorView({
