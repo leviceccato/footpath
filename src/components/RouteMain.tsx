@@ -171,11 +171,11 @@ const RouteMain: Component = () => {
 						<div class={css.viewBarInner}>
 							<Button
 								class={css.viewBarButtonVariant.active}
-								text="Code"
+								text={t().code}
 							/>
 							<Button
 								class={css.viewBarButtonVariant.inactive}
-								text="Optimize"
+								text={t().optimize}
 							/>
 						</div>
 					</ScrollArea>
@@ -197,15 +197,15 @@ const RouteMain: Component = () => {
 						<div class={css.viewBarInner}>
 							<Button
 								class={css.viewBarButtonVariant.active}
-								text="SVG"
+								text={t().svg}
 							/>
 							<Button
 								class={css.viewBarButtonVariant.inactive}
-								text="Symbols"
+								text={t().symbols}
 							/>
 							<Button
 								class={css.viewBarButtonVariant.inactive}
-								text="Data"
+								text={t().data}
 							/>
 						</div>
 					</ScrollArea>
