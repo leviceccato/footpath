@@ -1,5 +1,5 @@
 {
-	"name": "lacey",
+	"name": "lacey-client",
 	"private": true,
 	"scripts": {
 		"start": "vite",
@@ -22,6 +22,7 @@
 		"codemirror": "^6.0.1",
 		"lodash-es": "^4.17.21",
 		"modern-normalize": "^1.1.0",
+		"pocketbase": "^0.10.0",
 		"polished": "^4.2.2",
 		"simplebar": "^5.3.9",
 		"solid-js": "^1.5.1"
