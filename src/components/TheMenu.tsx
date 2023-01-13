@@ -14,6 +14,8 @@ import Text from '@/components/Text'
 import Popover from '@/components/Popover'
 import TheColourPicker from '@/components/TheColourPicker'
 import ModalAbout from '@/components/ModalAbout'
+import ModalLogin from '@/components/ModalLogin'
+import IconButton from '@/components/IconButton'
 
 type ThemeOption = 'light' | 'dark' | 'system' | 'custom'
 
@@ -25,6 +27,7 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 	const [theme] = useTheme()
 	const [_, setPreviousColour] = createSignal(theme().colour())
 	const [isAboutModalShown, setIsAboutModalShown] = createSignal(false)
+	const [isLoginModalShown, setIsLoginModalShown] = createSignal(false)
 
 	const selectedThemeOption = (): ThemeOption => {
 		if (theme().shouldUseSystem()) {
@@ -236,6 +239,14 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 					</div>
 				</div>
 			</Popover>
+			<IconButton
+				name="login"
+				tooltip="asd"
+				onclick={[setIsLoginModalShown, !isLoginModalShown()]}
+			/>
+			<ModalLogin
+				modal={{ isShown: [isLoginModalShown, setIsLoginModalShown] }}
+			/>
 		</div>
 	)
 }
