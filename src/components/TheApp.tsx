@@ -5,11 +5,12 @@ import { lastSegmentFromPath } from '@/scripts/utils'
 import { parseToHsl } from 'polished'
 import { colourBrand } from '@/data/colours'
 import type { Translation, Translations } from '@/scripts/i18n'
-
 import ProviderI18n from '@/components/ProviderI18n'
 import ProviderTheme from '@/components/ProviderTheme'
 import ProviderIcons from '@/components/ProviderIcons'
 import ProviderPortal from '@/components/ProviderPortal'
+import RouteMain from '@/components/RouteMain'
+import RouteSvg from '@/components/RouteSvg'
 
 // Import translations and generate languageName -> importFunc map
 
@@ -36,8 +37,6 @@ const shouldUseSystem = localStorage.getItem('shouldUseSystem') || 'false'
 // Define portal mounts
 
 const mountIds = ['modal', 'tooltip']
-import RouteMain from '@/components/RouteMain'
-import RouteSvg from '@/components/RouteSvg'
 
 const TheApp: Component = () => {
 	return (
