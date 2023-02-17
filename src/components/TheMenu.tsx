@@ -239,11 +239,6 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 					</div>
 				</div>
 			</Popover>
-			<IconButton
-				name="login"
-				tooltip="asd"
-				onclick={[setIsLoginModalShown, !isLoginModalShown()]}
-			/>
 			<ModalLogin
 				modal={{ isShown: [isLoginModalShown, setIsLoginModalShown] }}
 			/>
