@@ -18,6 +18,7 @@ import * as css from './Popover.css'
 import { Portal } from 'solid-js/web'
 import { sleep } from '@/scripts/utils'
 import { usePortal } from '@/components/ProviderPortal'
+import type { GlobalWindow } from '@/scripts/types'
 
 import type { ButtonProps } from '@/components/Button'
 import Button from '@/components/Button'
@@ -34,8 +35,6 @@ type Popover = PopoverState & {
 }
 
 type InteractionMethod = 'hover' | 'click'
-
-type _Window = Window & typeof globalThis
 
 const store = createRoot(() => {
 	const [popovers, setPopovers] = createSignal<Popover[]>([])
@@ -204,7 +203,7 @@ const Popover: ParentComponent<
 
 	function hideIfTargetOutside(
 		target: EventTarget | null,
-		_window: _Window | null,
+		_window: GlobalWindow | null,
 	): void {
 		if (!_window) return
 		if (!(target instanceof _window.Node)) return
@@ -224,7 +223,7 @@ const Popover: ParentComponent<
 			iframe.contentWindow.document.addEventListener(
 				'click',
 				({ target }: Event) => {
-					hideIfTargetOutside(target, iframe.contentWindow as _Window)
+					hideIfTargetOutside(target, iframe.contentWindow as GlobalWindow)
 				},
 				{
 					once: true,
