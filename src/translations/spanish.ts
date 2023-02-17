@@ -1,4 +1,4 @@
-import { createTranslation } from '@/scripts/i18n'
+import { createTranslation } from '@/utils/i18n'
 
 export default createTranslation({
 	language: {

@@ -1,7 +1,7 @@
 import { Component, createSignal } from 'solid-js'
 import { splitProps } from 'solid-js'
 import { useIcons } from '@/components/ProviderIcons'
-import { sleep } from '@/scripts/utils'
+import { sleep } from '@/utils/misc'
 import type { IconName } from '@/components/ProviderIcons'
 import * as css from './IconButton.css'
 import type { VirtualElement, Instance } from '@popperjs/core'

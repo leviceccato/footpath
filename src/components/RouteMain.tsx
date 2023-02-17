@@ -4,7 +4,7 @@ import { useI18n } from '@/components/ProviderI18n'
 import { useIcons } from '@/components/ProviderIcons'
 import { usePortal } from '@/components/ProviderPortal'
 import { useTheme } from '@/components/ProviderTheme'
-import { decimalToPercentage, clamp } from '@/scripts/utils'
+import { decimalToPercentage, clamp } from '@/utils/misc'
 import type { Component } from 'solid-js'
 import * as css from './RouteMain.css'
 

@@ -7,7 +7,7 @@ import {
 	sleep,
 	hslToHsv,
 	hsvToHsl,
-} from './utils'
+} from './misc'
 
 describe('utils', () => {
 	test('lastSegmentFromPath', () => {
