@@ -5,7 +5,9 @@ type Storage = {
 
 export function createStorage(): Storage {
 	const instance = new Promise<LocalForage>((resolve) => {
-		import('localforage').then(resolve)
+		import('localforage').then((localforage) => {
+			resolve(localforage.createInstance({}))
+		})
 	})
 
 	return {
