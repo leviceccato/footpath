@@ -17,8 +17,8 @@ import type {
 import * as css from './Popover.css'
 import { Portal } from 'solid-js/web'
 import { sleep } from '@/utils/misc'
+import type { GlobalWindow } from '@/utils/misc'
 import { usePortal } from '@/components/ProviderPortal'
-import type { GlobalWindow } from '@/utils/types'
 
 import type { ButtonProps } from '@/components/Button'
 import Button from '@/components/Button'

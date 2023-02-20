@@ -1,5 +1,7 @@
 import type { HslColor } from 'polished/lib/types/color'
 
+export type GlobalWindow = Window & typeof globalThis
+
 type HsvColour = {
 	hue: number
 	saturation: number
