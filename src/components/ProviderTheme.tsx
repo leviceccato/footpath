@@ -8,10 +8,12 @@ import {
 } from 'solid-js'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { readableColor, mix, parseToRgb, hslToColorString } from 'polished'
-import { colourDark, colourLight } from '@/data/colours'
+import { colourDark, colourLight, colourBrand } from '@/data/colours'
+import { parseToHsl } from 'polished'
 import type { HslaColor, HslColor } from 'polished/lib/types/color'
 import type { ParentComponent } from 'solid-js'
 import * as css from './ProviderTheme.css'
+import { createStorage } from '@/utils/storage'
 
 function createThemeContext() {
 	const [colour, _] = createSignal(colourLight)
@@ -40,29 +42,27 @@ export function useTheme() {
 // Component
 
 const ProviderTheme: ParentComponent<{
-	initialColour: HslColor | HslaColor
-	initialShouldUseSystem: string
+	colour?: HslColor
 }> = (props) => {
-	const _initialShouldUseSystem = () => {
-		if (props.initialShouldUseSystem === 'false') {
-			return false
+	const storage = createStorage('theme')
+
+	const [colour, setColour] = createSignal(colourBrand)
+	storage.getItem('colour').then((c) => {
+		if (typeof c === 'string') {
+			setColour(parseToHsl(c))
 		}
-		if (props.initialShouldUseSystem === 'true') {
-			return true
-		}
-		return false
-	}
+	})
+
+	const [shouldUseSystem, setShouldUseSystem] = createSignal(false)
+	storage
+		.getItem('shouldUseSystem')
+		.then((s) => setShouldUseSystem(Boolean(JSON.parse(String(s)))))
 
 	const prefersColourSchemeDarkMedia = window.matchMedia(
 		'(prefers-color-scheme: dark)',
 	)
-
-	const [colour, setColour] = createSignal(props.initialColour)
 	const [prefersColourSchemeDark, setPrefersColourSchemeDark] = createSignal(
 		prefersColourSchemeDarkMedia.matches,
-	)
-	const [shouldUseSystem, setShouldUseSystem] = createSignal(
-		_initialShouldUseSystem(),
 	)
 
 	const _colour = () => {

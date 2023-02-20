@@ -2,8 +2,6 @@ import { Router, Routes, Route } from '@solidjs/router'
 import type { Component } from 'solid-js'
 import * as css from './TheApp.css'
 import { lastSegmentFromPath } from '@/utils/misc'
-import { parseToHsl } from 'polished'
-import { colourBrand } from '@/data/colours'
 import type { Translation, Translations } from '@/utils/i18n'
 import ProviderI18n from '@/components/ProviderI18n'
 import ProviderTheme from '@/components/ProviderTheme'
@@ -28,27 +26,14 @@ const translations = Object.keys(translationModules).reduce<Translations>(
 	{},
 )
 
-// Initialise theme data
-
-const localStorageColour = localStorage.getItem('colour')
-const colour = localStorageColour ? parseToHsl(localStorageColour) : colourBrand
-const shouldUseSystem = localStorage.getItem('shouldUseSystem') || 'false'
-
-// Define portal mounts
-
-const mountIds = ['modal', 'tooltip']
-
 const TheApp: Component = () => {
 	return (
 		<ProviderI18n
 			defaultLanguage="_default"
 			translations={translations}
 		>
-			<ProviderTheme
-				initialColour={colour}
-				initialShouldUseSystem={shouldUseSystem}
-			>
-				<ProviderPortal mountIds={mountIds}>
+			<ProviderTheme>
+				<ProviderPortal mountIds={['modal', 'tooltip']}>
 					<ProviderIcons>
 						<div class={css.root}>
 							<Router>
