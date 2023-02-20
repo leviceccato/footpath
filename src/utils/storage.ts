@@ -3,10 +3,14 @@ type Storage = {
 	setItem: (key: string, value: unknown) => Promise<unknown>
 }
 
-export function createStorage(): Storage {
+export function createStorage(name: string): Storage {
 	const instance = new Promise<LocalForage>((resolve) => {
 		import('localforage').then((localforage) => {
-			resolve(localforage.createInstance({}))
+			resolve(
+				localforage.createInstance({
+					storeName: name,
+				}),
+			)
 		})
 	})
 
