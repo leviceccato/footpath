@@ -57,10 +57,5 @@ export function createClientStore<T extends Identified>(
 		setPromises.push(db.put(storeName, item))
 	}
 
-	return [
-		{
-			state,
-			set,
-		},
-	] as const
+	return [state, set] as const
 }
