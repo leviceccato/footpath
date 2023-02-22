@@ -7,6 +7,7 @@ import {
 	sleep,
 	hslToHsv,
 	hsvToHsl,
+	sequence,
 } from './misc'
 
 describe('utils', () => {
@@ -124,5 +125,19 @@ describe('utils', () => {
 		setTimeout(() => expect(spy).toHaveBeenCalledTimes(5), 1250)
 
 		await new Promise((resolve) => setTimeout(resolve, 1500))
+	})
+
+	test('sequence', async () => {
+		let value = 0
+		const promises = [
+			new Promise((r) => r((value = 1))),
+			new Promise((r) => r((value = 2))),
+			new Promise((r) => r((value = 3))),
+			new Promise((r) => r((value = 4))),
+			new Promise((r) => r((value = 5))),
+		]
+
+		await sequence(promises)
+		expect(value).toBe(5)
 	})
 })
