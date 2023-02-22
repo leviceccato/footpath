@@ -19,7 +19,7 @@ export function createClientStore<T extends StoreNode>(
 	version: number,
 	initialValue: T,
 ) {
-	const [state, setState] = createStore(initialValue)
+	const [store, setStore] = createStore(initialValue)
 	const dbPromise = openDB<ClientStoreSchema<T>>(name, version, {
 		upgrade(db) {
 			db.createObjectStore(storeName)
@@ -27,7 +27,7 @@ export function createClientStore<T extends StoreNode>(
 	}).then(async (db) => {
 		const data = await db.get(storeName, keyName)
 		if (data) {
-			setState(data)
+			setStore(data)
 		}
 
 		return db
@@ -35,13 +35,13 @@ export function createClientStore<T extends StoreNode>(
 
 	let setPromises: Promise<string>[] = []
 
-	async function set(to: T): Promise<void> {
+	async function _setStore(to: T): Promise<void> {
 		const [db] = await Promise.all([dbPromise, sequence(setPromises)])
 		setPromises = []
 
-		setState(to)
+		setStore(to)
 		setPromises.push(db.put(storeName, to, keyName))
 	}
 
-	return [state, set] as const
+	return [store, _setStore] as const
 }
