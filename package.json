@@ -20,17 +20,15 @@
 		"@vanilla-extract/css": "^1.9.1",
 		"@vanilla-extract/dynamic": "^2.0.2",
 		"codemirror": "^6.0.1",
-		"localforage": "^1.10.0",
+		"idb": "^7.1.1",
 		"lodash-es": "^4.17.21",
 		"modern-normalize": "^1.1.0",
 		"polished": "^4.2.2",
 		"simplebar": "^5.3.9",
-		"solid-js": "^1.5.1",
-		"uuid": "^9.0.0"
+		"solid-js": "^1.5.1"
 	},
 	"devDependencies": {
 		"@types/node": "^18.11.9",
-		"@types/uuid": "^9.0.0",
 		"@vanilla-extract/vite-plugin": "^3.6.1",
 		"prettier": "^2.7.1",
 		"ts-node": "^10.9.1",
