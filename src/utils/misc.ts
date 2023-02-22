@@ -56,3 +56,11 @@ export function sleep(duration: number): Promise<void> {
 export function isInIframe(): boolean {
 	return window.location !== window.parent.location
 }
+
+export async function sequence<T>(promises: Promise<T>[]): Promise<T[]> {
+	let results: T[] = []
+	for (const promise of promises) {
+		results.push(await promise)
+	}
+	return results
+}
