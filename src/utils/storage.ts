@@ -1,60 +1,46 @@
 import { openDB } from 'idb'
 import type { DBSchema } from 'idb'
 import { createStore } from 'solid-js/store'
+import type { StoreNode } from 'solid-js/store'
 import { sequence } from '@/utils/misc'
 
-const storeName = 'items'
-const keyPath = 'id'
+const storeName = 'data'
+const keyName = 'key'
 
-type Identified = {
-	[keyPath]: number
-}
-
-type ClientStoreSchema<T extends Identified> = DBSchema & {
+type ClientStoreSchema<T> = DBSchema & {
 	[storeName]: {
 		key: string
 		value: T
 	}
 }
 
-export function createClientStore<T extends Identified>(
+export function createClientStore<T extends StoreNode>(
 	name: string,
 	version: number,
+	initialValue: T,
 ) {
-	const [state, setState] = createStore<Record<number, T>>({})
+	const [state, setState] = createStore(initialValue)
 	const dbPromise = openDB<ClientStoreSchema<T>>(name, version, {
 		upgrade(db) {
-			db.createObjectStore(storeName, {
-				keyPath,
-				autoIncrement: true,
-			})
+			db.createObjectStore(storeName)
 		},
 	}).then(async (db) => {
-		const items = await db.getAll(storeName)
+		const data = await db.get(storeName, keyName)
+		if (data) {
+			setState(data)
+		}
 
-		let itemsObj: Record<number, T> = {}
-		items.forEach((item) => {
-			itemsObj[item.id] = item
-		})
-
-		setState(itemsObj)
 		return db
 	})
 
 	let setPromises: Promise<string>[] = []
 
-	async function set(item: T): Promise<void> {
+	async function set(to: T): Promise<void> {
 		const [db] = await Promise.all([dbPromise, sequence(setPromises)])
 		setPromises = []
 
-		setState((from) => {
-			return {
-				...from,
-				[item.id]: item,
-			}
-		})
-
-		setPromises.push(db.put(storeName, item))
+		setState(to)
+		setPromises.push(db.put(storeName, to, keyName))
 	}
 
 	return [state, set] as const
