@@ -129,15 +129,21 @@ describe('utils', () => {
 
 	test('sequence', async () => {
 		let value = 0
-		const promises = [
-			new Promise((r) => r((value = 1))),
-			new Promise((r) => r((value = 2))),
-			new Promise((r) => r((value = 3))),
-			new Promise((r) => r((value = 4))),
-			new Promise((r) => r((value = 5))),
+
+		const items: [number, number][] = [
+			[1, 100],
+			[2, 80],
+			[3, 60],
+			[4, 40],
+			[5, 20],
 		]
 
-		await sequence(promises)
+		await sequence(items, async ([newValue, delay]) => {
+			await sleep(delay)
+
+			value = newValue
+		})
+
 		expect(value).toBe(5)
 	})
 })
