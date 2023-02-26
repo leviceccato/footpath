@@ -1,5 +1,5 @@
 import { createEffect } from 'solid-js'
-import { createStore } from 'solid-js/store'
+import { createStore, unwrap } from 'solid-js/store'
 import type { StoreNode } from 'solid-js/store'
 import StorageWorker from '@/utils/storage.worker?worker'
 import type { StorageRequest, StorageResponse } from '@/utils/storage.worker'
@@ -34,7 +34,7 @@ export function createClientStore<T extends StoreNode>(
 		request(worker, {
 			type: 'set',
 			payload: {
-				data: store,
+				data: unwrap(store),
 			},
 		})
 	})
