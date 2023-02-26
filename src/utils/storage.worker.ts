@@ -18,14 +18,12 @@ type RequestSet = {
 
 type RequestGet = {
 	type: 'get'
-	payload: {}
 }
 
 export type StorageRequest = RequestInit | RequestGet | RequestSet
 
 type ResponseInit = {
 	type: 'init'
-	payload: {}
 }
 
 type ResponseGet = {
@@ -37,7 +35,6 @@ type ResponseGet = {
 
 type ResponseSet = {
 	type: 'set'
-	payload: {}
 }
 
 export type StorageResponse = ResponseInit | ResponseGet | ResponseSet
@@ -65,10 +62,7 @@ function init(name: string, version: number): void {
 			db.createObjectStore(storeName)
 		},
 	}).then((db) => {
-		respond({
-			type: 'init',
-			payload: {},
-		})
+		respond({ type: 'init' })
 		return db
 	})
 	get()
@@ -91,10 +85,7 @@ function set(data: any): void {
 	dbPromise?.then(async (db) => {
 		await db.put(storeName, data, keyName)
 
-		respond({
-			type: 'set',
-			payload: {},
-		})
+		respond({ type: 'set' })
 	})
 }
 
