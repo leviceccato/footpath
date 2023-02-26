@@ -29,7 +29,7 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 	const [isLoginModalShown, setIsLoginModalShown] = createSignal(false)
 
 	const selectedThemeOption = (): ThemeOption => {
-		if (theme().shouldUseSystem()) {
+		if (theme().useSystem) {
 			return 'system'
 		}
 		if (theme().colour() === colourDark) {
@@ -192,7 +192,7 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 							</Text>
 						</Button>
 						<Button
-							onClick={[theme().setShouldUseSystem, true]}
+							onClick={[theme().setUseSystem, { value: true }]}
 							class={css.dropdownButton}
 						>
 							<Icon
