@@ -30,7 +30,7 @@ export function createClientStore<T extends StoreNode>(
 		},
 	})
 
-	async function _setStore(to: T): Promise<void> {
+	function _setStore(to: T): void {
 		setStore(to)
 		request(worker, {
 			type: 'set',
