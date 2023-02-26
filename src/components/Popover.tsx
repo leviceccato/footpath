@@ -24,6 +24,8 @@ import type { ButtonProps } from '@/components/Button'
 import Button from '@/components/Button'
 import ProviderFocusTrap from '@/components/ProviderFocusTrap'
 
+const popper = () => import('@popperjs/core')
+
 type PopoverState = {
 	isShown: () => boolean
 }
@@ -135,7 +137,7 @@ const Popover: ParentComponent<
 
 	addPopover(id, _props.groupId)
 
-	let popper: Instance | undefined
+	let popperInstance: Instance | undefined
 	let referenceRef: HTMLButtonElement | undefined
 	let arrowRef: HTMLDivElement | undefined
 	let contentObserver: ResizeObserver | undefined
@@ -184,7 +186,7 @@ const Popover: ParentComponent<
 	}
 
 	function toggleEventListeners(enabled: boolean): void {
-		popper?.setOptions((options) => ({
+		popperInstance?.setOptions((options) => ({
 			...options,
 			modifiers: [
 				...(options.modifiers || []),
@@ -262,7 +264,7 @@ const Popover: ParentComponent<
 
 		// Create popper instance
 
-		const { createPopper } = await import('@popperjs/core')
+		const { createPopper } = await popper()
 
 		const options = {
 			..._props.options,
@@ -280,18 +282,18 @@ const Popover: ParentComponent<
 			]
 		}
 
-		popper = createPopper<StrictModifiers>(
+		popperInstance = createPopper<StrictModifiers>(
 			{
 				getBoundingClientRect: getReferenceRect,
 			},
 			_contentRef,
 			options,
 		)
-		_props.onUpdateInstance?.(popper)
+		_props.onUpdateInstance?.(popperInstance)
 
 		// Setup resize observer to update popper when content changes
 
-		contentObserver = new ResizeObserver(() => popper?.update())
+		contentObserver = new ResizeObserver(() => popperInstance?.update())
 
 		contentObserver.observe(_contentRef)
 	}
@@ -306,7 +308,7 @@ const Popover: ParentComponent<
 	}
 
 	createEffect(() => {
-		if (mount() && contentRef() && !popper) {
+		if (mount() && contentRef() && !popperInstance) {
 			initPopper()
 		}
 	})
@@ -315,7 +317,7 @@ const Popover: ParentComponent<
 		if (isShown()) {
 			toggleEventListeners(true)
 			_props.onShown?.()
-			return popper?.update()
+			return popperInstance?.update()
 		}
 		_props.onHidden?.()
 		toggleEventListeners(false)

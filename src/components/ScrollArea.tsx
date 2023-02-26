@@ -4,6 +4,8 @@ import { onMount, onCleanup, createSignal, mergeProps } from 'solid-js'
 import type { ParentComponent } from 'solid-js'
 import * as css from './ScrollArea.css'
 
+const simpleBar = () => import('simplebar')
+
 const ScrollArea: ParentComponent<{
 	minDistanceForOverflowX?: number
 	minDistanceForOverflowY?: number
@@ -21,8 +23,7 @@ const ScrollArea: ParentComponent<{
 
 	let rootRef: HTMLDivElement | undefined
 	let scrollElement: HTMLElement | undefined
-
-	const [simpleBar, setSimpleBar] = createSignal<SimpleBar>()
+	let simpleBarInstance: SimpleBar | undefined
 
 	// Reactive scroll data
 
@@ -67,11 +68,11 @@ const ScrollArea: ParentComponent<{
 	onMount(async () => {
 		if (!rootRef) return
 
-		const SimpleBar = (await import('simplebar')).default
+		const SimpleBar = (await simpleBar()).default
 
-		setSimpleBar(new SimpleBar(rootRef, {}))
+		simpleBarInstance = new SimpleBar(rootRef, {})
 
-		scrollElement = simpleBar()?.getScrollElement()
+		scrollElement = simpleBarInstance?.getScrollElement()
 		scrollElement?.addEventListener('scroll', checkOverflow)
 		window.addEventListener('resize', checkOverflow)
 
