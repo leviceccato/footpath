@@ -15,7 +15,6 @@ import Popover from '@/components/Popover'
 import TheColourPicker from '@/components/TheColourPicker'
 import ModalAbout from '@/components/ModalAbout'
 import ModalLogin from '@/components/ModalLogin'
-import IconButton from '@/components/IconButton'
 
 type ThemeOption = 'light' | 'dark' | 'system' | 'custom'
 
