@@ -1,4 +1,4 @@
-# Lacey Client
+# Lacey
 
 This project is an alpha state. Many features are missing as the bulk of development is yet to be completed.
 
