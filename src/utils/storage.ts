@@ -1,45 +1,47 @@
-import { createEffect } from 'solid-js'
+import { createEffect, createRoot } from 'solid-js'
 import { createStore, unwrap } from 'solid-js/store'
-import type { StoreNode } from 'solid-js/store'
 import StorageWorker from '@/utils/storage.worker?worker'
 import type { StorageRequest, StorageResponse } from '@/utils/storage.worker'
 
-export function createClientStore<T extends StoreNode>(
+export function createClientStore<T>(
 	name: string,
 	version: number,
 	initialValue: T,
 ) {
-	const [store, setStore] = createStore<T>(initialValue)
-	const worker = new StorageWorker()
+	return createRoot(() => {
+		const [store, setStore] = createStore({ value: initialValue })
+		const worker = new StorageWorker()
 
-	worker.onmessage = ({ data }: MessageEvent<StorageResponse>) => {
-		if (data.type === 'get') {
-			setStore(data.payload.data)
+		worker.onmessage = ({ data }: MessageEvent<StorageResponse>) => {
+			if (data.type === 'get') {
+				setStore(data.payload.data)
+			}
 		}
-	}
 
-	worker.onerror = (error) => {
-		console.error('Error in storage worker', error)
-	}
+		worker.onerror = (error) => {
+			console.error('Error in storage worker', error)
+		}
 
-	request(worker, {
-		type: 'init',
-		payload: {
-			name,
-			version,
-		},
-	})
-
-	createEffect(() => {
 		request(worker, {
-			type: 'set',
+			type: 'init',
 			payload: {
-				data: unwrap(store),
+				name,
+				version,
 			},
 		})
-	})
 
-	return [store, setStore] as const
+		createEffect(() => {
+			console.log('store effect')
+			request(worker, {
+				type: 'set',
+				payload: {
+					data: unwrap(store.value),
+				},
+			})
+		})
+
+		return [store, setStore] as const
+	})
 }
 
 function request(worker: Worker, message: StorageRequest): void {

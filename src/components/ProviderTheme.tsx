@@ -17,16 +17,14 @@ import * as css from './ProviderTheme.css'
 function createThemeContext() {
 	return createRoot(() => {
 		const [colour, setColour] = createClientStore('colour', 1, colourBrand)
-		const [useSystem, setUseSystem] = createClientStore('use-system', 1, {
-			value: false,
-		})
+		const [useSystem, setUseSystem] = createClientStore('use-system', 1, false)
 
 		const prefersDarkMedia = window.matchMedia('(prefers-color-scheme: dark)')
 		const [prefersDark, setPrefersDark] = createSignal(prefersDarkMedia.matches)
 
 		const _colour = () => {
 			if (!useSystem.value) {
-				return colour
+				return colour.value
 			}
 			if (prefersDark()) {
 				return colourDark
@@ -55,7 +53,7 @@ function createThemeContext() {
 
 		function _setColour(colour: HslColor | HslaColor) {
 			setUseSystem({ value: false })
-			setColour(colour)
+			setColour({ value: colour })
 		}
 
 		onMount(() => {
