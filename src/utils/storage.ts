@@ -9,7 +9,7 @@ export function createClientStore<T extends StoreNode>(
 	version: number,
 	initialValue: T,
 ) {
-	const [store, setStore] = createStore(initialValue)
+	const [store, setStore] = createStore<T>(initialValue)
 	const worker = new StorageWorker()
 
 	worker.onmessage = ({ data }: MessageEvent<StorageResponse>) => {
