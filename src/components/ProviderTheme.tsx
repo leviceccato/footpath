@@ -1,6 +1,5 @@
 import {
 	createContext,
-	createEffect,
 	createSignal,
 	useContext,
 	onMount,
@@ -9,67 +8,25 @@ import {
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { readableColor, mix, parseToRgb, hslToColorString } from 'polished'
 import { colourDark, colourLight, colourBrand } from '@/data/colours'
-import { parseToHsl } from 'polished'
+import { createClientStore } from '@/utils/storage'
 import type { HslaColor, HslColor } from 'polished/lib/types/color'
 import type { ParentComponent } from 'solid-js'
 import * as css from './ProviderTheme.css'
-import { createStorage } from '@/utils/storage'
 
 function createThemeContext() {
-	const [colour, _] = createSignal(colourLight)
-	const [shouldUseSystem, __] = createSignal(false)
-	const setColour = (_: HslColor | HslaColor) => {}
-	const setShouldUseSystem = (_: boolean) => {}
-	const isColourLight = () => true
-	const theme = () => ({
-		colour,
-		setColour,
-		shouldUseSystem,
-		isColourLight,
-		setShouldUseSystem,
-		vars: assignInlineVars({}),
-		class: css.colours,
-	})
-	return [theme] as const
-}
-
-const context = createContext(createThemeContext())
-
-export function useTheme() {
-	return useContext(context)
-}
-
-// Component
-
-const ProviderTheme: ParentComponent<{
-	colour?: HslColor
-}> = (props) => {
-	const storage = createStorage('theme')
-
-	const [colour, setColour] = createSignal(colourBrand)
-	storage.getItem('colour').then((c) => {
-		if (typeof c === 'string') {
-			setColour(parseToHsl(c))
-		}
+	const [colour, setColour] = createClientStore('colour', 1, colourBrand)
+	const [useSystem, setUseSystem] = createClientStore('use-system', 1, {
+		value: false,
 	})
 
-	const [shouldUseSystem, setShouldUseSystem] = createSignal(false)
-	storage
-		.getItem('shouldUseSystem')
-		.then((s) => setShouldUseSystem(Boolean(JSON.parse(String(s)))))
-
-	const prefersColourSchemeDarkMedia = window.matchMedia(
-		'(prefers-color-scheme: dark)',
-	)
-	const [prefersColourSchemeDark, setPrefersColourSchemeDark] = createSignal(
-		prefersColourSchemeDarkMedia.matches,
-	)
+	const prefersDarkMedia = window.matchMedia('(prefers-color-scheme: dark)')
+	const [prefersDark, setPrefersDark] = createSignal(prefersDarkMedia.matches)
 
 	const _colour = () => {
-		if (!shouldUseSystem()) {
-			return colour()
+		if (!useSystem.value) {
+			return colour
 		}
-		if (prefersColourSchemeDark()) {
+		if (prefersDark()) {
 			return colourDark
 		}
 		return colourLight
@@ -90,47 +47,30 @@ const ProviderTheme: ParentComponent<{
 		return [red, green, blue].join()
 	}
 
-	function _setPrefersColourSchemeDark(event: MediaQueryListEvent) {
-		setPrefersColourSchemeDark(event.matches)
+	function handleMediaChange(event: MediaQueryListEvent) {
+		setPrefersDark(event.matches)
 	}
 
 	function _setColour(colour: HslColor | HslaColor) {
-		setShouldUseSystem(false)
+		setUseSystem({ value: false })
 		setColour(colour)
 	}
 
-	createEffect(() => {
-		localStorage.setItem('colour', hslToColorString(colour()))
-	})
-
-	createEffect(() => {
-		localStorage.setItem(
-			'shouldUseSystem',
-			shouldUseSystem() ? 'true' : 'false',
-		)
-	})
-
 	onMount(() => {
-		prefersColourSchemeDarkMedia.addEventListener(
-			'change',
-			_setPrefersColourSchemeDark,
-		)
+		prefersDarkMedia.addEventListener('change', handleMediaChange)
 	})
 
 	onCleanup(() => {
-		prefersColourSchemeDarkMedia.removeEventListener(
-			'change',
-			_setPrefersColourSchemeDark,
-		)
+		prefersDarkMedia.removeEventListener('change', handleMediaChange)
 	})
 
 	const theme = () => {
 		return {
 			colour: _colour,
 			setColour: _setColour,
-			shouldUseSystem,
+			useSystem,
 			isColourLight,
-			setShouldUseSystem,
+			setUseSystem,
 			class: css.colours,
 			vars: assignInlineVars({
 				[css.colourBaseVar]: createColour(1),
@@ -150,7 +90,21 @@ const ProviderTheme: ParentComponent<{
 		}
 	}
 
-	return <context.Provider value={[theme]}>{props.children}</context.Provider>
+	return [theme] as const
+}
+
+const context = createContext(createThemeContext())
+
+export function useTheme() {
+	return useContext(context)
+}
+
+const ProviderTheme: ParentComponent = (props) => {
+	return (
+		<context.Provider value={createThemeContext()}>
+			{props.children}
+		</context.Provider>
+	)
 }
 
 export default ProviderTheme
