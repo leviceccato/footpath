@@ -31,7 +31,6 @@ export function createClientStore<T>(
 		})
 
 		createEffect(() => {
-			console.log('store effect')
 			request(worker, {
 				type: 'set',
 				payload: {
