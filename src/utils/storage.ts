@@ -1,8 +1,8 @@
 // import type { DBSchema } from 'idb'
 import { createStore } from 'solid-js/store'
 import type { StoreNode } from 'solid-js/store'
-import StorageWorker from '@/workers/storage?worker'
-import type { StorageRequest, StorageResponse } from '@/workers/storage'
+import StorageWorker from '@/utils/storage.worker?worker'
+import type { StorageRequest, StorageResponse } from '@/utils/storage.worker'
 
 export function createClientStore<T extends StoreNode>(
 	name: string,
