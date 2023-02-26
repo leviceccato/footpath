@@ -1,4 +1,4 @@
-// import type { DBSchema } from 'idb'
+import { createEffect } from 'solid-js'
 import { createStore } from 'solid-js/store'
 import type { StoreNode } from 'solid-js/store'
 import StorageWorker from '@/utils/storage.worker?worker'
@@ -30,17 +30,16 @@ export function createClientStore<T extends StoreNode>(
 		},
 	})
 
-	function _setStore(to: T): void {
-		setStore(to)
+	createEffect(() => {
 		request(worker, {
 			type: 'set',
 			payload: {
-				data: to,
+				data: store,
 			},
 		})
-	}
+	})
 
-	return [store, _setStore] as const
+	return [store, setStore] as const
 }
 
 function request(worker: Worker, message: StorageRequest): void {
