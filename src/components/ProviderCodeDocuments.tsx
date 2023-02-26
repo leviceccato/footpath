@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'solid-js'
+import { createContext, useContext, createRoot } from 'solid-js'
 import type { ParentComponent } from 'solid-js'
 import { createClientStore } from '@/utils/storage'
 
@@ -14,39 +14,41 @@ type CodeDocument = {
 }
 
 function createCodeDocumentsContext() {
-	const [codeDocuments, setCodeDocuments] = createClientStore<
-		Record<string, CodeDocument>
-	>('code-documents', 1, {})
+	return createRoot(() => {
+		const [codeDocuments, setCodeDocuments] = createClientStore<
+			Record<string, CodeDocument>
+		>('code-documents', 1, {})
 
-	const codeDocumentCount = () => Object.keys(codeDocuments).length
+		const codeDocumentCount = () => Object.keys(codeDocuments).length
 
-	async function createCodeDocument(
-		name: string,
-		index: number,
-	): Promise<string> {
-		const { v4 } = await uuid()
-		const id = v4()
+		async function createCodeDocument(
+			name: string,
+			index: number,
+		): Promise<string> {
+			const { v4 } = await uuid()
+			const id = v4()
 
-		const document = {
-			id,
-			name,
-			index,
-			createdAt: new Date(),
-			deletedAt: null,
-			content: '',
+			const document = {
+				id,
+				name,
+				index,
+				createdAt: new Date(),
+				deletedAt: null,
+				content: '',
+			}
+
+			setCodeDocuments({
+				...codeDocuments,
+				[id]: document,
+			})
+			return id
 		}
 
-		setCodeDocuments({
-			...codeDocuments,
-			[id]: document,
-		})
-		return id
-	}
-
-	return [
-		codeDocuments,
-		{ setCodeDocuments, createCodeDocument, codeDocumentCount },
-	] as const
+		return [
+			codeDocuments,
+			{ setCodeDocuments, createCodeDocument, codeDocumentCount },
+		] as const
+	})
 }
 
 const context = createContext(createCodeDocumentsContext())
