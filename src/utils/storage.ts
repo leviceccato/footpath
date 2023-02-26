@@ -14,7 +14,7 @@ export function createClientStore<T>(
 
 		worker.onmessage = ({ data }: MessageEvent<StorageResponse>) => {
 			if (data.type === 'get') {
-				setStore(data.payload.data)
+				setStore({ value: data.payload.data })
 			}
 		}
 
