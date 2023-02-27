@@ -94,7 +94,8 @@ function createThemeContext() {
 	})
 }
 
-const context = createContext(createThemeContext())
+const themeContext = createThemeContext()
+const context = createContext(themeContext)
 
 export function useTheme() {
 	return useContext(context)
@@ -102,9 +103,7 @@ export function useTheme() {
 
 const ProviderTheme: ParentComponent = (props) => {
 	return (
-		<context.Provider value={createThemeContext()}>
-			{props.children}
-		</context.Provider>
+		<context.Provider value={themeContext}>{props.children}</context.Provider>
 	)
 }
 
