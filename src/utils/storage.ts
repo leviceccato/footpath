@@ -3,41 +3,61 @@ import { createStore, unwrap } from 'solid-js/store'
 import StorageWorker from '@/utils/storage.worker?worker'
 import type { StorageRequest, StorageResponse } from '@/utils/storage.worker'
 
-export function createClientStore<T>(
-	name: string,
-	version: number,
-	initialValue: T,
-) {
+export function createClientStore<T>({
+	name,
+	version,
+	initialValue,
+	onError = () => {},
+	shouldPersist = true,
+}: {
+	name: string
+	version: number
+	initialValue: T
+	onError?: (error: ErrorEvent) => void
+	shouldPersist?: boolean
+}) {
 	return createRoot(() => {
 		const [store, setStore] = createStore({ value: initialValue })
-		const worker = new StorageWorker()
 
-		worker.onmessage = ({ data }: MessageEvent<StorageResponse>) => {
-			if (data.type === 'get') {
-				setStore({ value: data.payload.data })
+		const workerPromise = new Promise<Worker>((resolve) => {
+			const worker = new StorageWorker()
+
+			worker.onmessage = ({ data }: MessageEvent<StorageResponse>) => {
+				if (data.type === 'init') {
+					return resolve(worker)
+				}
+				if (data.type === 'get') {
+					return setStore({ value: data.payload.data })
+				}
 			}
-		}
 
-		worker.onerror = (error) => {
-			console.error('Error in storage worker', error)
-		}
+			worker.onerror = onError
 
-		request(worker, {
-			type: 'init',
-			payload: {
-				name,
-				version,
-			},
-		})
-
-		createEffect(() => {
 			request(worker, {
-				type: 'set',
+				type: 'init',
 				payload: {
-					data: unwrap(store.value),
+					name,
+					version,
 				},
 			})
+
+			return worker
 		})
+
+		if (shouldPersist) {
+			createEffect(() => {
+				const data = unwrap(store.value)
+
+				workerPromise.then((worker) => {
+					request(worker, {
+						type: 'set',
+						payload: {
+							data,
+						},
+					})
+				})
+			})
+		}
 
 		return [store, setStore] as const
 	})
