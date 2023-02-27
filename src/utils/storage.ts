@@ -40,8 +40,6 @@ export function createClientStore<T>({
 					version,
 				},
 			})
-
-			return worker
 		})
 
 		if (shouldPersist) {
