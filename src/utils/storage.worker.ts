@@ -1,5 +1,6 @@
 import { openDB } from 'idb'
 import type { IDBPDatabase } from 'idb'
+import { debounce } from 'lodash-es'
 
 type RequestInit = {
 	type: 'init'
@@ -81,13 +82,13 @@ function get(): void {
 	})
 }
 
-function set(data: any): void {
+const set = debounce((data: any): void => {
 	dbPromise?.then(async (db) => {
 		await db.put(storeName, data, keyName)
 
 		respond({ type: 'set' })
 	})
-}
+}, 200)
 
 function respond(message: StorageResponse): void {
 	self.postMessage(message)
