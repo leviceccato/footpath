@@ -29,6 +29,7 @@
 		"uuid": "^9.0.0"
 	},
 	"devDependencies": {
+		"@types/lodash-es": "^4.17.6",
 		"@types/node": "^18.11.9",
 		"@types/uuid": "^9.0.1",
 		"@vanilla-extract/vite-plugin": "^3.6.1",
