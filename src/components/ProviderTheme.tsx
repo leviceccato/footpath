@@ -16,8 +16,16 @@ import * as css from './ProviderTheme.css'
 
 function createThemeContext() {
 	return createRoot(() => {
-		const [colour, setColour] = createClientStore('colour', 1, colourBrand)
-		const [useSystem, setUseSystem] = createClientStore('use-system', 1, false)
+		const [colour, setColour] = createClientStore({
+			name: 'colour',
+			version: 1,
+			initialValue: colourBrand,
+		})
+		const [useSystem, setUseSystem] = createClientStore({
+			name: 'use-system',
+			version: 1,
+			initialValue: false,
+		})
 
 		const prefersDarkMedia = window.matchMedia('(prefers-color-scheme: dark)')
 		const [prefersDark, setPrefersDark] = createSignal(prefersDarkMedia.matches)
