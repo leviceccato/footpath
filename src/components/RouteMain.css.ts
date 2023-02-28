@@ -28,8 +28,8 @@ export const logoContainer = style({
 })
 
 export const logo = style({
-	width: 66,
-	height: 17.26,
+	width: 54.916,
+	height: 18.47,
 	maxWidth: 'none',
 	color: themeCss.colour900Var,
 })
