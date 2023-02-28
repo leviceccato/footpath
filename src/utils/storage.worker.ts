@@ -40,8 +40,8 @@ type ResponseSet = {
 
 export type StorageResponse = ResponseInit | ResponseGet | ResponseSet
 
-const storeName = 'store'
-const keyName = 'key'
+const storeName = 'data'
+const keyName = 'value'
 
 let dbPromise: Promise<IDBPDatabase<unknown>> | undefined
 
