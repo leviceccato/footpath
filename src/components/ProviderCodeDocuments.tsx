@@ -61,7 +61,8 @@ function createCodeDocumentsContext() {
 	})
 }
 
-const context = createContext(createCodeDocumentsContext())
+const codeDocumentsContext = createCodeDocumentsContext()
+const context = createContext(codeDocumentsContext)
 
 export function useDocuments() {
 	return useContext(context)
@@ -69,7 +70,7 @@ export function useDocuments() {
 
 const ProviderCodeDocuments: ParentComponent = (props) => {
 	return (
-		<context.Provider value={createCodeDocumentsContext()}>
+		<context.Provider value={codeDocumentsContext}>
 			{props.children}
 		</context.Provider>
 	)
