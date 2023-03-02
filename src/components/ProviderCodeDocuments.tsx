@@ -17,7 +17,13 @@ function createCodeDocumentsContext() {
 	return createRoot(() => {
 		const [codeDocuments, setCodeDocuments] = createClientStore<
 			Record<string, CodeDocument>
-		>('code-documents', 1, {})
+		>({
+			name: 'code-documents',
+			version: 1,
+			initialValue: {},
+			onError: handleError,
+			shouldPersist: true,
+		})
 
 		const codeDocumentCount = () => Object.keys(codeDocuments).length
 
@@ -42,6 +48,10 @@ function createCodeDocumentsContext() {
 				[id]: document,
 			})
 			return id
+		}
+
+		function handleError(error: ErrorEvent): void {
+			console.log(error)
 		}
 
 		return [
