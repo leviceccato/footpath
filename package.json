@@ -1,5 +1,5 @@
 {
-	"name": "lacey-client",
+	"name": "lacey",
 	"private": true,
 	"scripts": {
 		"start": "vite",
