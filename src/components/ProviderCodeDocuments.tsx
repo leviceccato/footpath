@@ -51,9 +51,19 @@ function createCodeDocumentsContext() {
 			return id
 		}
 
+		function clearError() {
+			setError(undefined)
+		}
+
 		return [
 			codeDocuments,
-			{ setCodeDocuments, createCodeDocument, codeDocumentCount, error },
+			{
+				setCodeDocuments,
+				createCodeDocument,
+				codeDocumentCount,
+				error,
+				clearError,
+			},
 		] as const
 	})
 }
