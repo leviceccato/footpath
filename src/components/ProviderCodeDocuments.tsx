@@ -1,4 +1,4 @@
-import { createContext, useContext, createRoot } from 'solid-js'
+import { createContext, useContext, createRoot, createSignal } from 'solid-js'
 import type { ParentComponent } from 'solid-js'
 import { createClientStore } from '@/utils/storage'
 
@@ -15,13 +15,14 @@ type CodeDocument = {
 
 function createCodeDocumentsContext() {
 	return createRoot(() => {
+		const [error, setError] = createSignal<ErrorEvent>()
 		const [codeDocuments, setCodeDocuments] = createClientStore<
 			Record<string, CodeDocument>
 		>({
 			name: 'code-documents',
 			version: 1,
 			initialValue: {},
-			onError: handleError,
+			onError: setError,
 			shouldPersist: true,
 		})
 
@@ -50,13 +51,9 @@ function createCodeDocumentsContext() {
 			return id
 		}
 
-		function handleError(error: ErrorEvent): void {
-			console.log(error)
-		}
-
 		return [
 			codeDocuments,
-			{ setCodeDocuments, createCodeDocument, codeDocumentCount },
+			{ setCodeDocuments, createCodeDocument, codeDocumentCount, error },
 		] as const
 	})
 }
