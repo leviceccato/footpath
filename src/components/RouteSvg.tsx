@@ -4,6 +4,7 @@ import * as css from './RouteSvg.css'
 
 const RouteSvg: Component = () => {
 	if (!isInIframe()) {
+		// Redirect to main route
 		window.history.replaceState(null, '', window.location.origin)
 	}
 
