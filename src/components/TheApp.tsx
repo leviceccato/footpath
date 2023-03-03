@@ -7,6 +7,7 @@ import ProviderI18n from '@/components/ProviderI18n'
 import ProviderTheme from '@/components/ProviderTheme'
 import ProviderIcons from '@/components/ProviderIcons'
 import ProviderPortal from '@/components/ProviderPortal'
+import ProviderCodeDocuments from '@/components/ProviderCodeDocuments'
 import RouteMain from '@/components/RouteMain'
 import RouteSvg from '@/components/RouteSvg'
 
@@ -40,15 +41,17 @@ const TheApp: Component = () => {
 					defaultLanguage="_default"
 					translations={translations}
 				>
-					<ProviderTheme>
-						<ProviderPortal mountIds={['modal', 'tooltip']}>
-							<ProviderIcons>
-								<div class={css.root}>
-									<RouteMain />
-								</div>
-							</ProviderIcons>
-						</ProviderPortal>
-					</ProviderTheme>
+					<ProviderCodeDocuments>
+						<ProviderTheme>
+							<ProviderPortal mountIds={['modal', 'tooltip']}>
+								<ProviderIcons>
+									<div class={css.root}>
+										<RouteMain />
+									</div>
+								</ProviderIcons>
+							</ProviderPortal>
+						</ProviderTheme>
+					</ProviderCodeDocuments>
 				</ProviderI18n>
 			</Match>
 		</Switch>

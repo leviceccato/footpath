@@ -4,19 +4,22 @@ import { createClientStore } from '@/utils/storage'
 
 const uuid = () => import('uuid')
 
-type CodeDocument = {
+export type CodeDocument = {
 	id: string
 	index: number
 	name: string
+	isActive: boolean
 	createdAt: Date
 	deletedAt: Date | null
 	content: string
 }
 
+type CodeDocumentStore = Record<string, CodeDocument>
+
 function createCodeDocumentsContext() {
 	return createRoot(() => {
 		const [error, setError] = createSignal<ErrorEvent>()
-		const [store, setStore] = createClientStore<Record<string, CodeDocument>>({
+		const [store, setStore] = createClientStore<CodeDocumentStore>({
 			name: 'code-documents',
 			version: 1,
 			initialValue: {},
@@ -24,26 +27,52 @@ function createCodeDocumentsContext() {
 			shouldPersist: true,
 		})
 
-		const count = () => Object.keys(store).length
+		const count = () => Object.keys(store.value).length
 
-		async function create(name: string, index: number): Promise<string> {
+		async function create(name: string): Promise<string> {
 			const { v4 } = await uuid()
 			const id = v4()
 
 			const document = {
 				id,
 				name,
-				index,
+				index: count() + 1,
+				isActive: false,
 				createdAt: new Date(),
 				deletedAt: null,
 				content: '',
 			}
 
 			setStore({
-				...store,
+				...store.value,
 				[id]: document,
 			})
 			return id
+		}
+
+		function activate(id: string): void {
+			let newStore: CodeDocumentStore = {}
+
+			Object.values(store.value).forEach((doc) => {
+				const currentId = doc.id
+				newStore[currentId] = doc
+
+				if (newStore[currentId].id === id) {
+					newStore[currentId].isActive = true
+				} else {
+					newStore[currentId].isActive = false
+				}
+			})
+
+			setStore(newStore)
+		}
+
+		function _delete(id: string): void {
+			let newStore: CodeDocumentStore = { ...store.value }
+
+			newStore[id].deletedAt = new Date()
+
+			setStore(newStore)
 		}
 
 		function clearError() {
@@ -58,6 +87,8 @@ function createCodeDocumentsContext() {
 				codeDocumentCount: count,
 				codeDocumentsError: error,
 				clearCodeDocumentsError: clearError,
+				activateCodeDocument: activate,
+				deleteCodeDocument: _delete,
 			},
 		] as const
 	})
@@ -66,7 +97,7 @@ function createCodeDocumentsContext() {
 const codeDocumentsContext = createCodeDocumentsContext()
 const context = createContext(codeDocumentsContext)
 
-export function useDocuments() {
+export function useCodeDocuments() {
 	return useContext(context)
 }
 
