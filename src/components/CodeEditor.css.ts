@@ -15,6 +15,7 @@ g(editor, {
 
 g(`${editor} .cm-scroller`, {
 	fontFamily: baseCss.fontPlexMonoRegular.family,
+	cursor: 'text',
 	// overflowX: 'visible',
 })
 
@@ -23,6 +24,7 @@ g(`${editor}.cm-focused`, {
 })
 
 g(`${editor} .cm-gutters`, {
+	cursor: 'auto',
 	backgroundColor: 'transparent',
 	color: themeCss.colour400Var,
 	borderRight: `1px solid ${themeCss.colour150Var}`,
