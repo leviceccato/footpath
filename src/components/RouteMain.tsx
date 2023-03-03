@@ -214,7 +214,7 @@ const RouteMain: Component = () => {
 							<iframe
 								title={t().preview}
 								class={css.viewSvgInner}
-								src="/svg"
+								src="/?route=svg"
 							/>
 						</div>
 					</div>
