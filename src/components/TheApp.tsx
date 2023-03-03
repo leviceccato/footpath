@@ -27,7 +27,7 @@ const translations = Object.keys(translationModules).reduce<Translations>(
 
 // Parse search params to figure out if SVG or main view should be shown
 const params = new URLSearchParams(window.location.search)
-const route = params.has('svg') ? 'svg' : 'main'
+const route = params.get('route')
 
 const TheApp: Component = () => {
 	return (
@@ -35,7 +35,7 @@ const TheApp: Component = () => {
 			<Match when={route === 'svg'}>
 				<RouteSvg />
 			</Match>
-			<Match when={route === 'main'}>
+			<Match when={!route}>
 				<ProviderI18n
 					defaultLanguage="_default"
 					translations={translations}
