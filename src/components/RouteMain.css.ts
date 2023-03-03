@@ -244,7 +244,8 @@ export const view = style({
 })
 
 export const codeEditor = style({
-	height: `calc(100vh - ${headerHeight} - ${viewBarHeight})`,
+	// 2px must be removed to avoid layout shift when focus styles are shown
+	height: `calc(100vh - ${headerHeight} - ${viewBarHeight} - 2px)`,
 })
 
 const checkerSize = 60
