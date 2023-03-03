@@ -16,9 +16,7 @@ type CodeDocument = {
 function createCodeDocumentsContext() {
 	return createRoot(() => {
 		const [error, setError] = createSignal<ErrorEvent>()
-		const [codeDocuments, setCodeDocuments] = createClientStore<
-			Record<string, CodeDocument>
-		>({
+		const [store, setStore] = createClientStore<Record<string, CodeDocument>>({
 			name: 'code-documents',
 			version: 1,
 			initialValue: {},
@@ -26,12 +24,9 @@ function createCodeDocumentsContext() {
 			shouldPersist: true,
 		})
 
-		const codeDocumentCount = () => Object.keys(codeDocuments).length
+		const count = () => Object.keys(store).length
 
-		async function createCodeDocument(
-			name: string,
-			index: number,
-		): Promise<string> {
+		async function create(name: string, index: number): Promise<string> {
 			const { v4 } = await uuid()
 			const id = v4()
 
@@ -44,8 +39,8 @@ function createCodeDocumentsContext() {
 				content: '',
 			}
 
-			setCodeDocuments({
-				...codeDocuments,
+			setStore({
+				...store,
 				[id]: document,
 			})
 			return id
@@ -56,13 +51,13 @@ function createCodeDocumentsContext() {
 		}
 
 		return [
-			codeDocuments,
+			store,
 			{
-				setCodeDocuments,
-				createCodeDocument,
-				codeDocumentCount,
-				error,
-				clearError,
+				setCodeDocuments: setStore,
+				createCodeDocument: create,
+				codeDocumentCount: count,
+				codeDocumentsError: error,
+				clearCodeDocumentsError: clearError,
 			},
 		] as const
 	})
