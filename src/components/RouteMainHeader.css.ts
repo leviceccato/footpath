@@ -1,8 +1,6 @@
-import { style, createVar, styleVariants } from '@vanilla-extract/css'
+import { style, styleVariants } from '@vanilla-extract/css'
 import * as themeCss from '@/components/ProviderTheme.css'
-
-export const headerHeight = createVar()
-export const viewBarHeight = createVar()
+import { headerHeight } from '@/components/RouteMain.css'
 
 export const root = style({
 	display: 'flex',
