@@ -4,7 +4,7 @@ import { clamp, hslToHsv, hsvToHsl } from '@/utils/misc'
 import type { HslColor, HslaColor } from 'polished/lib/types/color'
 import type { JSX, Component } from 'solid-js'
 import { useTheme } from '@/components/ProviderTheme'
-import * as css from './TheColourPicker.css'
+import * as css from './ColourPicker.css'
 import { useFocus } from '@/components/ProviderFocusTrap'
 
 type CanvasPointerEvent = PointerEvent & {

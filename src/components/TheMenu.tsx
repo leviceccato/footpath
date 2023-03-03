@@ -12,7 +12,7 @@ import { useI18n } from '@/components/ProviderI18n'
 import Button from '@/components/Button'
 import Text from '@/components/Text'
 import Popover from '@/components/Popover'
-import TheColourPicker from '@/components/TheColourPicker'
+import ColourPicker from '@/components/ColourPicker'
 import ModalAbout from '@/components/ModalAbout'
 import ModalLogin from '@/components/ModalLogin'
 
@@ -231,7 +231,7 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 						</Button>
 					</div>
 					<div class={css.colourPickerContainer}>
-						<TheColourPicker
+						<ColourPicker
 							class={css.colourPicker}
 							spectrumSize={148}
 						/>
