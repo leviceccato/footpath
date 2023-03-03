@@ -1,5 +1,4 @@
-import { For, Show, createSignal } from 'solid-js'
-import { createStore } from 'solid-js/store'
+import { createSignal } from 'solid-js'
 import { useI18n } from '@/components/ProviderI18n'
 import { useIcons } from '@/components/ProviderIcons'
 import { usePortal } from '@/components/ProviderPortal'
@@ -7,34 +6,19 @@ import { useTheme } from '@/components/ProviderTheme'
 import { decimalToPercentage, clamp } from '@/utils/misc'
 import type { Component } from 'solid-js'
 import * as css from './RouteMain.css'
-
 import Button from '@/components/Button'
-import Text from '@/components/Text'
-import VisuallyHidden from '@/components/VisuallyHidden'
 import ScrollArea from '@/components/ScrollArea'
-import TheMenu from '@/components/TheMenu'
-import IconButton from '@/components/IconButton'
 import CodeEditor from '@/components/CodeEditor'
-
-type Tab = {
-	id: number
-	name: string
-	isActive: boolean
-	deletedAt: Date | null
-}
+import RouteMainHeader from '@/components/RouteMainHeader'
 
 const RouteMain: Component = () => {
-	const [Icon, Symbols] = useIcons()
+	const [_, Symbols] = useIcons()
 	const [t] = useI18n()
 	const { Mounts } = usePortal()
 	const [theme] = useTheme()
 
-	let tabId = 0
 	let mainRef: HTMLDivElement | undefined
 	let mainDOMRect: DOMRect | undefined
-
-	const [tabs, setTabs] = createStore<Tab[]>([])
-	addTab()
 
 	const [width, setWidth] = createSignal(0.5)
 
@@ -43,36 +27,6 @@ const RouteMain: Component = () => {
 	const oppositeWidth = () => 1 - width()
 
 	const oppositeWidthPercentage = () => decimalToPercentage(oppositeWidth())
-
-	function createTab(): Tab {
-		return { id: ++tabId, name: t().untitled, isActive: false, deletedAt: null }
-	}
-
-	function addTab() {
-		const tab = createTab()
-		setTabs([...tabs, tab])
-		activateTab(tab.id)
-	}
-
-	function activateTab(id: number) {
-		setTabs(
-			(tab) => tab.id === id || tab.isActive,
-			(tab) => {
-				if (tab.id === id && tab.isActive) {
-					return tab
-				}
-				return { ...tab, isActive: !tab.isActive }
-			},
-		)
-	}
-
-	function deleteTab(id: number) {
-		setTabs(
-			(tab) => tab.id === id,
-			'deletedAt',
-			(_) => new Date(),
-		)
-	}
 
 	function _setWidth(newWidth: number): void {
 		setWidth(clamp(0, newWidth, 1))
@@ -106,59 +60,7 @@ const RouteMain: Component = () => {
 			style={theme().vars}
 		>
 			<Symbols />
-			<header class={css.header}>
-				<div class={css.logoContainer}>
-					<Button
-						class={css.logoLink}
-						href="/"
-					>
-						<VisuallyHidden>Lacey</VisuallyHidden>
-						<Icon
-							class={css.logo}
-							name="logoMain"
-						/>
-					</Button>
-				</div>
-				<ScrollArea class={css.scrollArea}>
-					<div class={css.tabContainer}>
-						<For each={tabs}>
-							{(tab) => (
-								<Show when={!tab.deletedAt}>
-									<div class={css.tabButtonWrapper}>
-										<Button
-											onClick={[activateTab, tab.id]}
-											class={
-												css.tabButtonVariant[
-													tab.isActive ? 'active' : 'inactive'
-												]
-											}
-										>
-											<Text variant="bodyXs">{tab.name}</Text>
-										</Button>
-										<IconButton
-											name="close"
-											tooltip={t().close}
-											onClick={() => deleteTab(tab.id)}
-											class={
-												css.closeTabVariant[
-													tab.isActive ? 'active' : 'inactive'
-												]
-											}
-										/>
-									</div>
-								</Show>
-							)}
-						</For>
-					</div>
-				</ScrollArea>
-				<IconButton
-					name="add"
-					tooltip={t().document.new}
-					onClick={addTab}
-					class={css.addTabButton}
-				/>
-				<TheMenu class={css.menuContainer} />
-			</header>
+			<RouteMainHeader />
 			<main
 				ref={mainRef}
 				class={css.main}
