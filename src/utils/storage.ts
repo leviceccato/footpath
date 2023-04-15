@@ -1,5 +1,4 @@
-import { createEffect, createRoot } from 'solid-js'
-import { createStore, unwrap } from 'solid-js/store'
+import { createSignal, createEffect, createRoot } from 'solid-js'
 import StorageWorker from '@/utils/storage.worker?worker'
 import type { StorageRequest, StorageResponse } from '@/utils/storage.worker'
 
@@ -14,11 +13,12 @@ type CreateClientStoreOptions<TValue> = {
 export function createClientStore<TValue>(
 	options: CreateClientStoreOptions<TValue>,
 ) {
-	const onError = options.onError ?? (() => {})
-	const shouldPersist = options.shouldPersist ?? true
-
 	return createRoot(() => {
-		const [store, setStore] = createStore({ value: options.initialValue })
+		const [store, setStore] = createSignal({ value: options.initialValue })
+
+		// Worker is created in promise so it can resolve asynchronously while
+		// this function is created synchronously. The effect for updates to
+		// the store will wait until the worker is initialised.
 
 		const workerPromise = new Promise<Worker>((resolve) => {
 			const worker = new StorageWorker()
@@ -32,7 +32,7 @@ export function createClientStore<TValue>(
 				}
 			}
 
-			worker.onerror = onError
+			worker.onerror = options.onError ?? null
 
 			request(worker, {
 				type: 'init',
@@ -43,9 +43,9 @@ export function createClientStore<TValue>(
 			})
 		})
 
-		if (shouldPersist) {
+		if (options.shouldPersist ?? true) {
 			createEffect(() => {
-				const data = unwrap(store.value) || options.initialValue
+				const data = store().value || options.initialValue
 
 				workerPromise.then((worker) => {
 					request(worker, {
