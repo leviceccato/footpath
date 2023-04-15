@@ -5,12 +5,13 @@ A list of complete and incomplete tasks to track progress on Lacey.
 - Add syntax highlighting
 - Fix code documents/tabs
 - Add tooltips for language and colour picker buttons
-- Add hex input for colour picker
 - Fix modal background contrast for dark colours
 - Create favicon (dynamic ?)
 - Optimise computed values to potentially use createMemo across codebase
 
 ## Doing
+
+- Add hex input for colour picker
 
 ## Done (most recent to oldest)
 
