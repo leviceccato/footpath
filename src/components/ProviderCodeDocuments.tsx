@@ -27,7 +27,7 @@ function createCodeDocumentsContext() {
 			shouldPersist: true,
 		})
 
-		const count = () => Object.keys(store.value).length
+		const count = () => Object.keys(store().value).length
 
 		async function create(name: string): Promise<string> {
 			const { v4 } = await uuid()
@@ -44,16 +44,19 @@ function createCodeDocumentsContext() {
 			}
 
 			setStore({
-				...store.value,
-				[id]: document,
+				value: {
+					...store().value,
+					[id]: document,
+				},
 			})
+			console.log(1, document)
 			return id
 		}
 
 		function activate(id: string): void {
 			let newStore: CodeDocumentStore = {}
 
-			Object.values(store.value).forEach((doc) => {
+			Object.values(store().value).forEach((doc) => {
 				const currentId = doc.id
 				newStore[currentId] = doc
 
@@ -64,15 +67,15 @@ function createCodeDocumentsContext() {
 				}
 			})
 
-			setStore(newStore)
+			setStore({ value: newStore })
 		}
 
 		function _delete(id: string): void {
-			let newStore: CodeDocumentStore = { ...store.value }
+			let newStore: CodeDocumentStore = { ...store().value }
 
 			newStore[id].deletedAt = new Date()
 
-			setStore(newStore)
+			setStore({ value: newStore })
 		}
 
 		function clearError() {
