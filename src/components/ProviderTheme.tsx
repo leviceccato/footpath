@@ -31,8 +31,8 @@ function createThemeContext() {
 		const [prefersDark, setPrefersDark] = createSignal(prefersDarkMedia.matches)
 
 		const _colour = () => {
-			if (!useSystem.value) {
-				return colour.value
+			if (!useSystem().value) {
+				return colour().value
 			}
 			if (prefersDark()) {
 				return colourDark
