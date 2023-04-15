@@ -121,4 +121,5 @@ export const viewSvg = style({
 
 export const viewSvgInner = style({
 	height: '100%',
+	pointerEvents: 'none',
 })

@@ -4,7 +4,6 @@ A list of complete and incomplete tasks to track progress on Lacey.
 
 - Add syntax highlighting
 - Fix code documents/tabs
-- Allow dragging outside colour picker
 - Add tooltips for language and colour picker buttons
 - Add hex input for colour picker
 - Fix modal background contrast for dark colours
@@ -15,4 +14,5 @@ A list of complete and incomplete tasks to track progress on Lacey.
 
 ## Done (most recent to oldest)
 
+- Allow dragging outside colour picker
 - Prevent tabbing out of code editor
