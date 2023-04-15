@@ -29,7 +29,7 @@ const TheMenu: Component<{ class?: string }> = (props) => {
 	const [isLoginModalShown, setIsLoginModalShown] = createSignal(false)
 
 	const selectedThemeOption = (): ThemeOption => {
-		if (theme().useSystem) {
+		if (theme().useSystem().value) {
 			return 'system'
 		}
 		if (theme().colour() === colourDark) {
