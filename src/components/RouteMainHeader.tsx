@@ -23,7 +23,7 @@ const RouteMainHeader: Component = () => {
 	const shownCodeDocuments = () => {
 		let docs: CodeDocument[] = []
 
-		Object.values(codeDocuments.value).forEach((doc) => {
+		Object.values(codeDocuments().value).forEach((doc) => {
 			if (!doc.deletedAt) {
 				docs.push(doc)
 			}
@@ -77,7 +77,7 @@ const RouteMainHeader: Component = () => {
 			<IconButton
 				name="add"
 				tooltip={t().document.new}
-				onClick={[createCodeDocument, t().untitled]}
+				onClick={() => createCodeDocument(t().untitled)}
 				class={css.addTabButton}
 			/>
 			<TheMenu class={css.menuContainer} />
