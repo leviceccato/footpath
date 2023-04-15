@@ -2,7 +2,8 @@ import { onMount, onCleanup } from 'solid-js'
 import type { Component } from 'solid-js'
 import * as css from './CodeEditor.css'
 import { EditorView, basicSetup } from 'codemirror'
-import { gutter } from '@codemirror/view'
+import { indentWithTab } from '@codemirror/commands'
+import { gutter, keymap } from '@codemirror/view'
 
 const CodeEditor: Component<{ class?: string }> = (props) => {
 	let rootRef: HTMLDivElement | undefined
@@ -10,8 +11,12 @@ const CodeEditor: Component<{ class?: string }> = (props) => {
 
 	function initView(): void {
 		view = new EditorView({
-			extensions: [basicSetup, gutter({ renderEmptyElements: true })],
 			parent: rootRef,
+			extensions: [
+				basicSetup,
+				keymap.of([indentWithTab]),
+				gutter({ renderEmptyElements: true }),
+			],
 		})
 	}
 
