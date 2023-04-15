@@ -23,11 +23,11 @@ const ErrorDisplay: ParentComponent = (props) => {
 					<Text variant="bodyXs">
 						See console for error output (ID: {errorId})
 					</Text>
-					{() => {
+					{(() => {
 						console.log(`Error ID: ${errorId}`)
 						console.error(error)
 						return null
-					}}
+					})()}
 				</div>
 			)}
 		>
