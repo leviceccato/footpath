@@ -3,15 +3,17 @@ import { createStore, unwrap } from 'solid-js/store'
 import StorageWorker from '@/utils/storage.worker?worker'
 import type { StorageRequest, StorageResponse } from '@/utils/storage.worker'
 
-type CreateClientStoreOptions<T> = {
+type CreateClientStoreOptions<TValue> = {
 	name: string
 	version: number
-	initialValue: T
+	initialValue: TValue
 	onError?: (error: ErrorEvent) => void
 	shouldPersist?: boolean
 }
 
-export function createClientStore<T>(options: CreateClientStoreOptions<T>) {
+export function createClientStore<TValue>(
+	options: CreateClientStoreOptions<TValue>,
+) {
 	const onError = options.onError ?? (() => {})
 	const shouldPersist = options.shouldPersist ?? true
 

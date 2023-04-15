@@ -59,9 +59,9 @@ export function isInIframe(): boolean {
 }
 
 // Run promises in sequence
-export async function sequence<T>(
-	items: T[],
-	callback: (item: T) => Promise<void>,
+export async function sequence<TItem>(
+	items: TItem[],
+	callback: (item: TItem) => Promise<void>,
 ): Promise<void> {
 	return items.reduce(
 		(result, current) => result.then(() => callback(current)),
