@@ -6,15 +6,16 @@ import type { JSX, Component } from 'solid-js'
 import { useTheme } from '@/components/ProviderTheme'
 import * as css from './ColourPicker.css'
 import { useFocus } from '@/components/ProviderFocusTrap'
+import type { ClassedComponent } from '@/utils/misc'
 
 type CanvasPointerEvent = PointerEvent & {
 	currentTarget: HTMLCanvasElement
 	target: Element
 }
 
-const TheColourPicker: Component<{ class?: string; spectrumSize?: number }> = (
-	props,
-) => {
+const TheColourPicker: Component<
+	ClassedComponent & { spectrumSize?: number }
+> = (props) => {
 	const _props = mergeProps({ spectrumSize: 180 }, props)
 
 	let spectrumRef: HTMLCanvasElement | undefined

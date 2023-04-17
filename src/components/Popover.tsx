@@ -17,13 +17,13 @@ import type {
 import * as css from './Popover.css'
 import { Portal } from 'solid-js/web'
 import { sleep } from '@/utils/misc'
+import type { ClassedComponent } from '@/utils/misc'
 import type { GlobalWindow } from '@/utils/misc'
 import { usePortal } from '@/components/ProviderPortal'
 
 import type { ButtonProps } from '@/components/Button'
 import Button from '@/components/Button'
 import ProviderFocusTrap from '@/components/ProviderFocusTrap'
-
 const popper = () => import('@popperjs/core')
 
 type PopoverState = {
@@ -99,24 +99,24 @@ const store = createRoot(() => {
 const defaultRect = new DOMRect()
 
 const Popover: ParentComponent<
-	ButtonProps & {
-		when?: boolean | InteractionMethod
-		class?: string
-		isShownClass?: string
-		groupId?: string
-		reference: (state: PopoverState) => JSX.Element
-		virtualReference?: {
-			getBoundingClientRect: VirtualElement['getBoundingClientRect'] | null
+	ButtonProps &
+		ClassedComponent & {
+			when?: boolean | InteractionMethod
+			isShownClass?: string
+			groupId?: string
+			reference: (state: PopoverState) => JSX.Element
+			virtualReference?: {
+				getBoundingClientRect: VirtualElement['getBoundingClientRect'] | null
+			}
+			options?: Partial<Options>
+			hasArrow?: boolean
+			hoverDelay?: number
+			tooltipClass?: string
+			mount?: string
+			onShown?: () => void
+			onHidden?: () => void
+			onUpdateInstance?: (_: Instance) => void
 		}
-		options?: Partial<Options>
-		hasArrow?: boolean
-		hoverDelay?: number
-		tooltipClass?: string
-		mount?: string
-		onShown?: () => void
-		onHidden?: () => void
-		onUpdateInstance?: (_: Instance) => void
-	}
 > = (props) => {
 	const _props = mergeProps(
 		{ hoverDelay: 400, hasArrow: false, mount: 'modal' },

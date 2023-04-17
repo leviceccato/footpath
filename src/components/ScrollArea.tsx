@@ -3,15 +3,17 @@ import 'simplebar/dist/simplebar.css'
 import { onMount, onCleanup, createSignal, mergeProps } from 'solid-js'
 import type { ParentComponent } from 'solid-js'
 import * as css from './ScrollArea.css'
+import type { ClassedComponent } from '@/utils/misc'
 
 const simpleBar = () => import('simplebar')
 
-const ScrollArea: ParentComponent<{
-	minDistanceForOverflowX?: number
-	minDistanceForOverflowY?: number
-	shouldScrollHorizontally?: boolean
-	class?: string
-}> = (props) => {
+const ScrollArea: ParentComponent<
+	ClassedComponent & {
+		minDistanceForOverflowX?: number
+		minDistanceForOverflowY?: number
+		shouldScrollHorizontally?: boolean
+	}
+> = (props) => {
 	const _props = mergeProps(
 		{
 			minDistanceForOverflowX: 0,
