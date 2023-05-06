@@ -60,11 +60,7 @@ function createCodeDocumentsContext() {
 				const currentId = doc.id
 				newStore[currentId] = doc
 
-				if (newStore[currentId].id === id) {
-					newStore[currentId].isActive = true
-				} else {
-					newStore[currentId].isActive = false
-				}
+				newStore[currentId].isActive = newStore[currentId].id === id
 			})
 
 			setStore({ value: newStore })
