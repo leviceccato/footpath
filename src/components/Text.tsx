@@ -2,10 +2,10 @@ import { Dynamic } from 'solid-js/web'
 import { mergeProps } from 'solid-js'
 import type { ParentComponent } from 'solid-js'
 import * as css from './Text.css'
-import type { ClassedComponent } from '@/utils/misc'
+import type { ClassProps } from '@/utils/misc'
 
 const Text: ParentComponent<
-	ClassedComponent & {
+	ClassProps & {
 		tag?: string
 		variant: keyof typeof css.variant
 	}

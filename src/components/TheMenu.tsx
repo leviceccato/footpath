@@ -14,11 +14,11 @@ import Popover from '@/components/Popover'
 import ColourPicker from '@/components/ColourPicker'
 import ModalAbout from '@/components/ModalAbout'
 import ModalLogin from '@/components/ModalLogin'
-import type { ClassedComponent } from '@/utils/misc'
+import type { ClassProps } from '@/utils/misc'
 
 type ThemeOption = 'light' | 'dark' | 'system' | 'custom'
 
-const TheMenu: Component<ClassedComponent> = (props) => {
+const TheMenu: Component<ClassProps> = (props) => {
 	const popoverGroupId = createUniqueId()
 
 	const [Icon] = useIcons()

@@ -4,9 +4,9 @@ import * as css from './CodeEditor.css'
 import { EditorView, basicSetup } from 'codemirror'
 import { indentWithTab } from '@codemirror/commands'
 import { gutter, keymap } from '@codemirror/view'
-import type { ClassedComponent } from '@/utils/misc'
+import type { ClassProps } from '@/utils/misc'
 
-const CodeEditor: Component<ClassedComponent> = (props) => {
+const CodeEditor: Component<ClassProps> = (props) => {
 	let rootRef: HTMLDivElement | undefined
 	let view: EditorView | undefined
 

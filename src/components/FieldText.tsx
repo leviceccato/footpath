@@ -1,9 +1,9 @@
 import { createSignal, Show } from 'solid-js'
 import type { ParentComponent, JSX } from 'solid-js'
-import type { ClassedComponent } from '@/utils/misc'
+import type { ClassProps } from '@/utils/misc'
 import { Dynamic } from 'solid-js/web'
 
-type FieldTextProps = ClassedComponent & {
+type FieldTextProps = ClassProps & {
 	value: string
 	label: JSX.Element
 	placeholder?: string

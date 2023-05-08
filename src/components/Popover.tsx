@@ -17,7 +17,7 @@ import type {
 import * as css from './Popover.css'
 import { Portal } from 'solid-js/web'
 import { sleep } from '@/utils/misc'
-import type { ClassedComponent } from '@/utils/misc'
+import type { ClassProps } from '@/utils/misc'
 import type { GlobalWindow } from '@/utils/misc'
 import { usePortal } from '@/components/ProviderPortal'
 
@@ -100,7 +100,7 @@ const defaultRect = new DOMRect()
 
 const Popover: ParentComponent<
 	ButtonProps &
-		ClassedComponent & {
+		ClassProps & {
 			when?: boolean | InteractionMethod
 			isShownClass?: string
 			groupId?: string

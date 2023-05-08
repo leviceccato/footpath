@@ -3,7 +3,7 @@ import type { HslColor } from 'polished/lib/types/color'
 // For working with iframe.contentWindow
 export type GlobalWindow = Window & typeof globalThis
 
-export type ClassedComponent = { class?: string }
+export type ClassProps = { class?: string }
 
 type HsvColour = {
 	hue: number

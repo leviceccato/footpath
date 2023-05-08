@@ -2,7 +2,7 @@ import { createContext, useContext, For } from 'solid-js'
 import type { ParentComponent, Component } from 'solid-js'
 import iconConstants from '@/data/icons'
 import * as css from './ProviderIcons.css'
-import type { ClassedComponent } from '@/utils/misc'
+import type { ClassProps } from '@/utils/misc'
 
 type Icons = typeof iconConstants
 
@@ -21,7 +21,7 @@ const icons = iconNames.map((name) => {
 
 // Consumer component exposed with context
 
-const Icon: Component<ClassedComponent & { name: IconName }> = (props) => {
+const Icon: Component<ClassProps & { name: IconName }> = (props) => {
 	const icon = iconConstants[props.name]
 	return (
 		<svg
