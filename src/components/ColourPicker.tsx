@@ -112,17 +112,6 @@ const TheColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
 		const _x = clamp(0, x - spectrumLeft(), spectrumWidth())
 		const _y = clamp(0, y - spectrumTop(), spectrumHeight())
 
-		// console.table({
-		// 	_x,
-		// 	_y,
-		// 	x,
-		// 	y,
-		// 	h: spectrumHeight(),
-		// 	w: spectrumWidth(),
-		// 	t: spectrumTop(),
-		// 	l: spectrumLeft(),
-		// })
-
 		setColourSelectorX(_x)
 		setColourSelectorY(_y)
 
