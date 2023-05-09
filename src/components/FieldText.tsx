@@ -25,6 +25,13 @@ const FieldText: ParentComponent<FieldTextProps> = (props) => {
 		return 'input'
 	}
 
+	const handleInput: JSX.EventHandler<
+		HTMLInputElement | HTMLTextAreaElement,
+		InputEvent
+	> = (event) => {
+		setValue(event.currentTarget.value)
+	}
+
 	return (
 		<label class={props.class ?? ''}>
 			<Show when={props.label}>
@@ -32,6 +39,8 @@ const FieldText: ParentComponent<FieldTextProps> = (props) => {
 			</Show>
 			<Dynamic
 				component={tag()}
+				value={value()}
+				oninput={handleInput}
 				placeholder={_props.placeholder}
 				disabled={_props.isDisabled}
 				onfocus={[setIsFocused, true]}
