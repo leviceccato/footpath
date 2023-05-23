@@ -17,7 +17,7 @@ const FieldText: ParentComponent<FieldTextProps> = (props) => {
 	const _props = mergeProps({ rows: 1 }, props)
 	const [value, setValue] = _props.value
 
-	const [isFocused, setIsFocused] = createSignal(false)
+	const [_, setIsFocused] = createSignal(false)
 
 	const tag = () => {
 		if (_props.isResizable || _props.rows > 1) {
