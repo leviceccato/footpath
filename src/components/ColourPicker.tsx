@@ -7,6 +7,8 @@ import { useTheme } from '@/components/ProviderTheme'
 import * as css from './ColourPicker.css'
 import { useFocus } from '@/components/ProviderFocusTrap'
 import type { ClassProps } from '@/utils/misc'
+import { hslToColorString } from 'polished'
+import FieldText from '@/components/FieldText'
 
 type CanvasPointerEvent = PointerEvent & {
 	currentTarget: HTMLCanvasElement
@@ -33,6 +35,7 @@ const TheColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
 	const [spectrumTop, setSpectrumTop] = createSignal(0)
 	const [spectrumWidth, setSpectrumWidth] = createSignal(0)
 	const [spectrumHeight, setSpectrumHeight] = createSignal(0)
+	const hexColour = createSignal(hslToColorString(theme().colour()))
 
 	function _setHue(to: number, shouldUpdate = true) {
 		setHue(to)
@@ -246,6 +249,7 @@ const TheColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
 					value="10"
 				/>
 			</div>
+			<FieldText value={hexColour} />
 		</div>
 	)
 }
