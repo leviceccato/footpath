@@ -2,6 +2,7 @@ import { createSignal, Show, mergeProps } from 'solid-js'
 import type { ParentComponent, JSX, Signal } from 'solid-js'
 import type { ClassProps } from '@/utils/misc'
 import { Dynamic } from 'solid-js/web'
+import * as css from './FieldText.css'
 
 type FieldTextProps = ClassProps & {
 	value: Signal<string>
@@ -33,11 +34,12 @@ const FieldText: ParentComponent<FieldTextProps> = (props) => {
 	}
 
 	return (
-		<label class={props.class ?? ''}>
+		<label class={`${css.root} ${props.class ?? ''}`}>
 			<Show when={props.label}>
 				<div>{props.label}</div>
 			</Show>
 			<Dynamic
+				class={css.input}
 				component={tag()}
 				value={value()}
 				oninput={handleInput}
