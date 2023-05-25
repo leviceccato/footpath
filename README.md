@@ -32,7 +32,7 @@ npm run build
 
 ## Deployment
 
-This app is hosted on Netlify. Commits to `main` will trigger a deploy.
+This app is hosted on Render. Deploys must be manually triggered from the [Render dashboard](https://dashboard.render.com).
 
 ## Licenses
 
