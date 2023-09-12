@@ -1,7 +1,8 @@
 import { type UserConfig } from 'vite'
-import { resolve } from 'path'
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin'
 import solidPlugin from 'vite-plugin-solid'
+
+const src = new URL('./src', import.meta.url)
 
 export default {
 	clearScreen: false,
@@ -15,7 +16,7 @@ export default {
 	},
 	resolve: {
 		alias: {
-			'@': resolve(__dirname, './src'),
+			'@': src.pathname,
 		},
 	},
 } satisfies UserConfig
