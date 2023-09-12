@@ -1,9 +1,9 @@
-import { defineConfig } from 'vitest/config'
+import { type UserConfig } from 'vite'
 import { resolve } from 'path'
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin'
 import solidPlugin from 'vite-plugin-solid'
 
-export default defineConfig({
+export default {
 	clearScreen: false,
 	publicDir: 'src/static',
 	plugins: [solidPlugin(), vanillaExtractPlugin()],
@@ -18,4 +18,4 @@ export default defineConfig({
 			'@': resolve(__dirname, './src'),
 		},
 	},
-})
+} satisfies UserConfig
