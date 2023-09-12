@@ -19,7 +19,8 @@ type FieldTextProps = ClassProps & {
 }
 
 const FieldText: ParentComponent<FieldTextProps> = (rawProps) => {
-	const props = defaultProps(rawProps, { rows: 1 })
+	const props = defaultProps(rawProps, { rows: 1, class: '' })
+
 	const [value, setValue] = props.value
 
 	const [_, setIsFocused] = createSignal(false)
@@ -39,7 +40,7 @@ const FieldText: ParentComponent<FieldTextProps> = (rawProps) => {
 	}
 
 	return (
-		<label class={`${css.root} ${props.class ?? ''}`}>
+		<label class={`${css.root} ${props.class}`}>
 			<Show when={props.label}>
 				<div>{props.label}</div>
 			</Show>

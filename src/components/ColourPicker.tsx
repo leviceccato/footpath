@@ -28,7 +28,7 @@ type CanvasPointerEvent = PointerEvent & {
 const TheColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
 	rawProps,
 ) => {
-	const props = defaultProps(rawProps, { spectrumSize: 180 })
+	const props = defaultProps(rawProps, { spectrumSize: 180, class: '' })
 
 	let spectrumRef: HTMLCanvasElement | undefined
 	let hueRangeRef: HTMLInputElement | undefined
@@ -226,7 +226,7 @@ const TheColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
 
 	return (
 		<div
-			class={`${css.root} ${props.class ?? ''}`}
+			class={`${css.root} ${props.class}`}
 			style={assignInlineVars({ [css.hueVar]: String(hue()) })}
 		>
 			<div

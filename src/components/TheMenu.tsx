@@ -13,11 +13,13 @@ import Popover from '@/components/Popover'
 import ColourPicker from '@/components/ColourPicker'
 import ModalAbout from '@/components/ModalAbout'
 import ModalLogin from '@/components/ModalLogin'
-import { type ClassProps } from '@/utils/misc'
+import { type ClassProps, defaultProps } from '@/utils/misc'
 
 type ThemeOption = 'light' | 'dark' | 'system' | 'custom'
 
-const TheMenu: Component<ClassProps> = (props) => {
+const TheMenu: Component<ClassProps> = (rawProps) => {
+	const props = defaultProps(rawProps, { class: '' })
+
 	const popoverGroupId = createUniqueId()
 
 	const [Icon] = useIcons()
@@ -62,7 +64,7 @@ const TheMenu: Component<ClassProps> = (props) => {
 	}
 
 	return (
-		<div class={`${css.root} ${props.class ?? ''}`}>
+		<div class={`${css.root} ${props.class}`}>
 			<Button class={css.buttonVariant.default}>
 				<Text
 					class={css.buttonText}

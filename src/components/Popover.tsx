@@ -125,6 +125,9 @@ const Popover: ParentComponent<
 		hoverDelay: 400,
 		hasArrow: false,
 		mount: 'modal',
+		tooltipClass: '',
+		class: '',
+		isShownClass: '',
 	})
 
 	const { mounts } = usePortal()
@@ -336,9 +339,7 @@ const Popover: ParentComponent<
 	return (
 		<>
 			<Button
-				class={`${props.class ?? ''} ${
-					(isShown() && props.isShownClass) || ''
-				}`}
+				class={`${props.class} ${isShown() ? props.isShownClass : ''}`}
 				ref={referenceRef}
 				aria-describedby={id}
 				onClick={handleClick}
@@ -354,7 +355,7 @@ const Popover: ParentComponent<
 				<Portal mount={mount()}>
 					<div
 						class={`${css.contentVariants[contentVariant()]} ${
-							props.tooltipClass ?? ''
+							props.tooltipClass
 						}`}
 						ref={(ref) => setContentRef(ref)}
 						id={id}
