@@ -9,10 +9,11 @@ A list of complete and incomplete tasks to track progress on Lacey.
 - Create favicon (dynamic ?)
 - Optimise computed values to potentially use createMemo across codebase
 - Make code editor async
+- Add hex input for colour picker
 
 ## Doing
 
-- Add hex input for colour picker
+- Use '??=' for default prop values
 
 ## Done (most recent to oldest)
 
