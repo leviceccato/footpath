@@ -27,7 +27,7 @@ bun start
 Build app into `dist` folder.
 
 ```shell
-npm run build
+bun run build
 ```
 
 ## Deployment
