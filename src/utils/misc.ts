@@ -1,4 +1,5 @@
 import { type HslColor } from 'polished/lib/types/color'
+import { mergeProps } from 'solid-js'
 
 // For working with iframe.contentWindow
 export type GlobalWindow = Window & typeof globalThis
@@ -69,4 +70,12 @@ export async function sequence<TItem>(
 		(result, current) => result.then(() => callback(current)),
 		Promise.resolve(),
 	)
+}
+
+// Make default prop declarations cleaner and more type-safe
+export function defaultProps<TProps, TDefaults extends Partial<TProps>>(
+	props: TProps,
+	defaults: TDefaults,
+) {
+	return mergeProps(defaults, props)
 }
