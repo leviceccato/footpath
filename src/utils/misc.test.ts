@@ -1,13 +1,11 @@
-import { describe, expect, test, vi } from 'vitest'
+import { describe, expect, test } from 'bun:test'
 import {
 	lastSegmentFromPath,
 	decimalToPercentage,
 	createRandomColour,
 	clamp,
-	sleep,
 	hslToHsv,
 	hsvToHsl,
-	sequence,
 } from './misc'
 
 describe('utils', () => {
@@ -104,46 +102,5 @@ describe('utils', () => {
 			saturation: 1,
 			lightness: 0.5,
 		})
-	})
-
-	test('sleep', async () => {
-		const obj = {
-			spyable() {},
-		}
-
-		const spy = vi.spyOn(obj, 'spyable')
-
-		sleep(500).then(obj.spyable)
-		sleep(1000).then(obj.spyable)
-		sleep(-1337).then(obj.spyable)
-		sleep(0).then(obj.spyable)
-		sleep(3.141).then(obj.spyable)
-
-		setTimeout(() => expect(spy).toHaveBeenCalledTimes(2), 0)
-		setTimeout(() => expect(spy).toHaveBeenCalledTimes(3), 10)
-		setTimeout(() => expect(spy).toHaveBeenCalledTimes(4), 750)
-		setTimeout(() => expect(spy).toHaveBeenCalledTimes(5), 1250)
-
-		await new Promise((resolve) => setTimeout(resolve, 1500))
-	})
-
-	test('sequence', async () => {
-		let value = 0
-
-		const items: [number, number][] = [
-			[1, 100],
-			[2, 80],
-			[3, 60],
-			[4, 40],
-			[5, 20],
-		]
-
-		await sequence(items, async ([newValue, delay]) => {
-			await sleep(delay)
-
-			value = newValue
-		})
-
-		expect(value).toBe(5)
 	})
 })
