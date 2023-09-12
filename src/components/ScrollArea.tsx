@@ -6,7 +6,7 @@ import {
 	type ParentComponent,
 } from 'solid-js'
 import * as css from './ScrollArea.css'
-import { type ClassProps, defaultProps } from '@/utils/misc'
+import { type ClassProps, defaults } from '@/utils/misc'
 
 const simpleBar = () => import('simplebar')
 
@@ -17,7 +17,7 @@ const ScrollArea: ParentComponent<
 		shouldScrollHorizontally?: boolean
 	}
 > = (rawProps) => {
-	const props = defaultProps(rawProps, {
+	const props = defaults(rawProps, {
 		minDistanceForOverflowX: 0,
 		minDistanceForOverflowY: 0,
 		shouldScrollHorizontally: true,

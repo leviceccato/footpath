@@ -3,10 +3,10 @@ import * as css from './CodeEditor.css'
 import { EditorView, basicSetup } from 'codemirror'
 import { indentWithTab } from '@codemirror/commands'
 import { gutter, keymap } from '@codemirror/view'
-import { type ClassProps, defaultProps } from '@/utils/misc'
+import { type ClassProps, defaults } from '@/utils/misc'
 
 const CodeEditor: Component<ClassProps> = (rawProps) => {
-	const props = defaultProps(rawProps, { class: '' })
+	const props = defaults(rawProps, { class: '' })
 
 	let rootRef: HTMLDivElement | undefined
 	let view: EditorView | undefined

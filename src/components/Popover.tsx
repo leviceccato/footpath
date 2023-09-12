@@ -22,7 +22,7 @@ import {
 	sleep,
 	type ClassProps,
 	type GlobalWindow,
-	defaultProps,
+	defaults,
 } from '@/utils/misc'
 import { usePortal } from '@/components/ProviderPortal'
 import Button, { type ButtonProps } from '@/components/Button'
@@ -121,7 +121,7 @@ const Popover: ParentComponent<
 			onUpdateInstance?: (_: Instance) => void
 		}
 > = (rawProps) => {
-	const props = defaultProps(rawProps, {
+	const props = defaults(rawProps, {
 		hoverDelay: 400,
 		hasArrow: false,
 		mount: 'modal',

@@ -10,7 +10,7 @@ import {
 	clamp,
 	hslToHsv,
 	hsvToHsl,
-	defaultProps,
+	defaults,
 	type ClassProps,
 } from '@/utils/misc'
 import { type HslColor, type HslaColor } from 'polished/lib/types/color'
@@ -28,7 +28,7 @@ type CanvasPointerEvent = PointerEvent & {
 const TheColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
 	rawProps,
 ) => {
-	const props = defaultProps(rawProps, { spectrumSize: 180, class: '' })
+	const props = defaults(rawProps, { spectrumSize: 180, class: '' })
 
 	let spectrumRef: HTMLCanvasElement | undefined
 	let hueRangeRef: HTMLInputElement | undefined

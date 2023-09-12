@@ -73,7 +73,7 @@ export async function sequence<TItem>(
 }
 
 // Make default prop declarations cleaner and more type-safe
-export function defaultProps<TProps, TDefaults extends Partial<TProps>>(
+export function defaults<TProps, TDefaults extends Partial<TProps>>(
 	props: TProps,
 	defaults: TDefaults,
 ) {

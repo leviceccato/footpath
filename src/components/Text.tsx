@@ -1,7 +1,7 @@
 import { Dynamic } from 'solid-js/web'
 import { type ParentComponent } from 'solid-js'
 import * as css from './Text.css'
-import { type ClassProps, defaultProps } from '@/utils/misc'
+import { type ClassProps, defaults } from '@/utils/misc'
 
 const Text: ParentComponent<
 	ClassProps & {
@@ -9,7 +9,7 @@ const Text: ParentComponent<
 		variant: keyof typeof css.variant
 	}
 > = (rawProps) => {
-	const props = defaultProps(rawProps, { tag: 'span', class: '' })
+	const props = defaults(rawProps, { tag: 'span', class: '' })
 
 	return (
 		<Dynamic
