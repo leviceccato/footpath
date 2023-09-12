@@ -1,7 +1,6 @@
 import {
 	createUniqueId,
 	onCleanup,
-	mergeProps,
 	createSignal,
 	createEffect,
 	createRoot,
@@ -19,7 +18,12 @@ import {
 } from '@popperjs/core'
 import * as css from './Popover.css'
 import { Portal } from 'solid-js/web'
-import { sleep, type ClassProps, type GlobalWindow } from '@/utils/misc'
+import {
+	sleep,
+	type ClassProps,
+	type GlobalWindow,
+	defaultProps,
+} from '@/utils/misc'
 import { usePortal } from '@/components/ProviderPortal'
 import Button, { type ButtonProps } from '@/components/Button'
 import ProviderFocusTrap from '@/components/ProviderFocusTrap'
@@ -116,11 +120,12 @@ const Popover: ParentComponent<
 			onHidden?: () => void
 			onUpdateInstance?: (_: Instance) => void
 		}
-> = (props) => {
-	const _props = mergeProps(
-		{ hoverDelay: 400, hasArrow: false, mount: 'modal' },
-		props,
-	)
+> = (rawProps) => {
+	const props = defaultProps(rawProps, {
+		hoverDelay: 400,
+		hasArrow: false,
+		mount: 'modal',
+	})
 
 	const { mounts } = usePortal()
 
@@ -134,7 +139,7 @@ const Popover: ParentComponent<
 		getOpenGroupMembers,
 	} = store
 
-	addPopover(id, _props.groupId)
+	addPopover(id, props.groupId)
 
 	let popperInstance: Instance | undefined
 	let referenceRef: HTMLButtonElement | undefined
@@ -150,7 +155,7 @@ const Popover: ParentComponent<
 		return isShown() ? 'shown' : 'hidden'
 	}
 
-	const mount = () => mounts().get(_props.mount)
+	const mount = () => mounts().get(props.mount)
 
 	function _setPopoverShown(to: boolean): void {
 		setPopoverShown(id, to)
@@ -162,10 +167,10 @@ const Popover: ParentComponent<
 			target: Element
 		},
 	): void {
-		if (typeof _props.onClick === 'function') {
-			_props.onClick(event)
+		if (typeof props.onClick === 'function') {
+			props.onClick(event)
 		}
-		if (_props.when === 'click') {
+		if (props.when === 'click') {
 			return _setPopoverShown(!isShown())
 		}
 	}
@@ -173,13 +178,13 @@ const Popover: ParentComponent<
 	async function handleHover(isIn: boolean): Promise<void> {
 		setIsHovered(isIn)
 
-		if (_props.when === 'hover') {
-			await sleep(isHovered() ? _props.hoverDelay : 0)
+		if (props.when === 'hover') {
+			await sleep(isHovered() ? props.hoverDelay : 0)
 
 			return _setPopoverShown(isHovered())
 		}
 
-		if (isHovered() && getOpenGroupMembers(_props.groupId).length) {
+		if (isHovered() && getOpenGroupMembers(props.groupId).length) {
 			return _setPopoverShown(true)
 		}
 	}
@@ -244,7 +249,7 @@ const Popover: ParentComponent<
 	}
 
 	function getReferenceRect(): DOMRect {
-		const getRect = _props.virtualReference?.getBoundingClientRect
+		const getRect = props.virtualReference?.getBoundingClientRect
 		if (getRect) {
 			return getRect()
 		}
@@ -266,10 +271,10 @@ const Popover: ParentComponent<
 		const { createPopper } = await popper()
 
 		const options = {
-			..._props.options,
+			...props.options,
 		}
 
-		if (_props.hasArrow) {
+		if (props.hasArrow) {
 			options.modifiers = [
 				...(options.modifiers || []),
 				{
@@ -288,7 +293,7 @@ const Popover: ParentComponent<
 			_contentRef,
 			options,
 		)
-		_props.onUpdateInstance?.(popperInstance)
+		props.onUpdateInstance?.(popperInstance)
 
 		// Setup resize observer to update popper when content changes
 
@@ -300,8 +305,8 @@ const Popover: ParentComponent<
 	function handleMouseLeave(
 		event: MouseEvent & { currentTarget: HTMLButtonElement; target: Element },
 	): void {
-		if (typeof _props.onMouseLeave === 'function') {
-			_props.onMouseLeave(event)
+		if (typeof props.onMouseLeave === 'function') {
+			props.onMouseLeave(event)
 		}
 		handleHover(false)
 	}
@@ -315,10 +320,10 @@ const Popover: ParentComponent<
 	createEffect(() => {
 		if (isShown()) {
 			toggleEventListeners(true)
-			_props.onShown?.()
+			props.onShown?.()
 			return popperInstance?.update()
 		}
-		_props.onHidden?.()
+		props.onHidden?.()
 		toggleEventListeners(false)
 	})
 
@@ -331,8 +336,8 @@ const Popover: ParentComponent<
 	return (
 		<>
 			<Button
-				class={`${_props.class ?? ''} ${
-					(isShown() && _props.isShownClass) || ''
+				class={`${props.class ?? ''} ${
+					(isShown() && props.isShownClass) || ''
 				}`}
 				ref={referenceRef}
 				aria-describedby={id}
@@ -341,21 +346,21 @@ const Popover: ParentComponent<
 				onFocusOut={[handleHover, false]}
 				onMouseEnter={[handleHover, true]}
 				onMouseLeave={handleMouseLeave}
-				onMouseMove={_props.onMouseMove}
+				onMouseMove={props.onMouseMove}
 			>
-				{_props.reference({ isShown })}
+				{props.reference({ isShown })}
 			</Button>
 			<Show when={mount()}>
 				<Portal mount={mount()}>
 					<div
 						class={`${css.contentVariants[contentVariant()]} ${
-							_props.tooltipClass ?? ''
+							props.tooltipClass ?? ''
 						}`}
 						ref={(ref) => setContentRef(ref)}
 						id={id}
 						role="tooltip"
 					>
-						<Show when={_props.hasArrow}>
+						<Show when={props.hasArrow}>
 							<div
 								ref={arrowRef}
 								class={css.arrow}
@@ -365,7 +370,7 @@ const Popover: ParentComponent<
 						</Show>
 						<Show when={isShown()}>
 							<ProviderFocusTrap when={isShown()}>
-								{() => _props.children}
+								{() => props.children}
 							</ProviderFocusTrap>
 						</Show>
 					</div>

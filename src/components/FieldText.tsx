@@ -1,12 +1,11 @@
 import {
 	createSignal,
 	Show,
-	mergeProps,
 	type ParentComponent,
 	type JSX,
 	type Signal,
 } from 'solid-js'
-import { type ClassProps } from '@/utils/misc'
+import { type ClassProps, defaultProps } from '@/utils/misc'
 import { Dynamic } from 'solid-js/web'
 import * as css from './FieldText.css'
 
@@ -19,14 +18,14 @@ type FieldTextProps = ClassProps & {
 	isResizable?: boolean
 }
 
-const FieldText: ParentComponent<FieldTextProps> = (props) => {
-	const _props = mergeProps({ rows: 1 }, props)
-	const [value, setValue] = _props.value
+const FieldText: ParentComponent<FieldTextProps> = (rawProps) => {
+	const props = defaultProps(rawProps, { rows: 1 })
+	const [value, setValue] = props.value
 
 	const [_, setIsFocused] = createSignal(false)
 
 	const tag = () => {
-		if (_props.isResizable || _props.rows > 1) {
+		if (props.isResizable || props.rows > 1) {
 			return 'textarea'
 		}
 		return 'input'
@@ -49,8 +48,8 @@ const FieldText: ParentComponent<FieldTextProps> = (props) => {
 				component={tag()}
 				value={value()}
 				oninput={handleInput}
-				placeholder={_props.placeholder}
-				disabled={_props.isDisabled}
+				placeholder={props.placeholder}
+				disabled={props.isDisabled}
 				onfocus={[setIsFocused, true]}
 				onblur={[setIsFocused, false]}
 			/>

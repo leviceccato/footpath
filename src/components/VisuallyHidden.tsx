@@ -1,19 +1,20 @@
 import { Dynamic } from 'solid-js/web'
-import { mergeProps, type ParentComponent } from 'solid-js'
+import { type ParentComponent } from 'solid-js'
+import { defaultProps } from '@/utils/misc'
 import * as css from './VisuallyHidden.css'
 
 const VisuallyHidden: ParentComponent<{
 	tag?: string
 	isFocusable?: boolean
-}> = (props) => {
-	const _props = mergeProps({ tag: 'span' }, props)
+}> = (rawProps) => {
+	const props = defaultProps(rawProps, { tag: 'span' })
 
 	return (
 		<Dynamic
-			component={_props.tag}
-			classList={{ [css.root]: true, [css.focusable]: _props.isFocusable }}
+			component={props.tag}
+			classList={{ [css.root]: true, [css.focusable]: props.isFocusable }}
 		>
-			{_props.children}
+			{props.children}
 		</Dynamic>
 	)
 }

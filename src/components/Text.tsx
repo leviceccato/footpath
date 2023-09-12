@@ -1,22 +1,22 @@
 import { Dynamic } from 'solid-js/web'
-import { mergeProps, type ParentComponent } from 'solid-js'
+import { type ParentComponent } from 'solid-js'
 import * as css from './Text.css'
-import { type ClassProps } from '@/utils/misc'
+import { type ClassProps, defaultProps } from '@/utils/misc'
 
 const Text: ParentComponent<
 	ClassProps & {
 		tag?: string
 		variant: keyof typeof css.variant
 	}
-> = (props) => {
-	const _props = mergeProps({ tag: 'span' }, props)
+> = (rawProps) => {
+	const props = defaultProps(rawProps, { tag: 'span', class: '' })
 
 	return (
 		<Dynamic
-			class={`${css.root} ${css.variant[_props.variant]} ${_props.class ?? ''}`}
-			component={_props.tag}
+			class={`${css.root} ${css.variant[props.variant]} ${props.class}`}
+			component={props.tag}
 		>
-			{_props.children}
+			{props.children}
 		</Dynamic>
 	)
 }

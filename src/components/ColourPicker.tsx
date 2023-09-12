@@ -1,5 +1,4 @@
 import {
-	mergeProps,
 	createSignal,
 	createEffect,
 	onCleanup,
@@ -7,7 +6,13 @@ import {
 	type JSX,
 } from 'solid-js'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
-import { clamp, hslToHsv, hsvToHsl, type ClassProps } from '@/utils/misc'
+import {
+	clamp,
+	hslToHsv,
+	hsvToHsl,
+	defaultProps,
+	type ClassProps,
+} from '@/utils/misc'
 import { type HslColor, type HslaColor } from 'polished/lib/types/color'
 import { useTheme } from '@/components/ProviderTheme'
 import * as css from './ColourPicker.css'
@@ -21,9 +26,9 @@ type CanvasPointerEvent = PointerEvent & {
 }
 
 const TheColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
-	props,
+	rawProps,
 ) => {
-	const _props = mergeProps({ spectrumSize: 180 }, props)
+	const props = defaultProps(rawProps, { spectrumSize: 180 })
 
 	let spectrumRef: HTMLCanvasElement | undefined
 	let hueRangeRef: HTMLInputElement | undefined
@@ -195,7 +200,7 @@ const TheColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
 	}
 
 	createEffect(() => {
-		setSpectrumSize(_props.spectrumSize)
+		setSpectrumSize(props.spectrumSize)
 		setSpectrumRect()
 		drawSpectrum()
 	})
@@ -221,7 +226,7 @@ const TheColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
 
 	return (
 		<div
-			class={`${css.root} ${_props.class ?? ''}`}
+			class={`${css.root} ${props.class ?? ''}`}
 			style={assignInlineVars({ [css.hueVar]: String(hue()) })}
 		>
 			<div

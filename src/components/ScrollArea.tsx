@@ -3,11 +3,10 @@ import {
 	onMount,
 	onCleanup,
 	createSignal,
-	mergeProps,
 	type ParentComponent,
 } from 'solid-js'
 import * as css from './ScrollArea.css'
-import { type ClassProps } from '@/utils/misc'
+import { type ClassProps, defaultProps } from '@/utils/misc'
 
 const simpleBar = () => import('simplebar')
 
@@ -17,15 +16,13 @@ const ScrollArea: ParentComponent<
 		minDistanceForOverflowY?: number
 		shouldScrollHorizontally?: boolean
 	}
-> = (props) => {
-	const _props = mergeProps(
-		{
-			minDistanceForOverflowX: 0,
-			minDistanceForOverflowY: 0,
-			shouldScrollHorizontally: true,
-		},
-		props,
-	)
+> = (rawProps) => {
+	const props = defaultProps(rawProps, {
+		minDistanceForOverflowX: 0,
+		minDistanceForOverflowY: 0,
+		shouldScrollHorizontally: true,
+		class: '',
+	})
 
 	let rootRef: HTMLDivElement | undefined
 	let scrollElement: HTMLElement | undefined
@@ -45,23 +42,21 @@ const ScrollArea: ParentComponent<
 
 		// Set overflow booleans for each side based on minimum distance values
 
-		setIsOverflowingTop(
-			scrollElement.scrollTop > _props.minDistanceForOverflowY,
-		)
+		setIsOverflowingTop(scrollElement.scrollTop > props.minDistanceForOverflowY)
 		setIsOverflowingBottom(
 			scrollElement.scrollHeight -
 				scrollElement.scrollTop -
 				scrollElement.clientHeight >
-				_props.minDistanceForOverflowY,
+				props.minDistanceForOverflowY,
 		)
 		setIsOverflowingLeft(
-			scrollElement.scrollLeft > _props.minDistanceForOverflowX,
+			scrollElement.scrollLeft > props.minDistanceForOverflowX,
 		)
 		setIsOverflowingRight(
 			scrollElement.scrollWidth -
 				scrollElement.scrollLeft -
 				scrollElement.clientWidth >
-				_props.minDistanceForOverflowX,
+				props.minDistanceForOverflowX,
 		)
 	}
 
@@ -82,7 +77,7 @@ const ScrollArea: ParentComponent<
 		scrollElement?.addEventListener('scroll', checkOverflow)
 		window.addEventListener('resize', checkOverflow)
 
-		if (_props.shouldScrollHorizontally) {
+		if (props.shouldScrollHorizontally) {
 			scrollElement?.addEventListener('wheel', scrollHorizontally, {
 				passive: true,
 			})
@@ -101,7 +96,7 @@ const ScrollArea: ParentComponent<
 		<div
 			ref={rootRef}
 			data-simplebar
-			class={`${css.root} ${_props.class ?? ''}`}
+			class={`${css.root} ${props.class}`}
 		>
 			<div class="simplebar-wrapper">
 				<div class="simplebar-height-auto-observer-wrapper">
