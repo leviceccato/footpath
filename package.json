@@ -4,8 +4,8 @@
 	"scripts": {
 		"start": "vite",
 		"check": "tsc --noEmit",
-		"build": "npm run check && vite build",
-		"preview": "npm run build && vite preview"
+		"build": "bun run check && vite build",
+		"preview": "bun run build && vite preview"
 	},
 	"prettier": {
 		"useTabs": true,
