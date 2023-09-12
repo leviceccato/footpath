@@ -8,20 +8,20 @@ A tool to help with editing, viewing and optimising SVGs. It is an SPA built wit
 
 ### Requirements
 
-- Node 14
+- Bun 1
 
 ### Development
 
 Install dependencies.
 
 ```shell
-npm i
+bun install
 ```
 
 Run development server on [http://localhost:5173](http://localhost:5173).
 
 ```shell
-npm start
+bun start
 ```
 
 Build app into `dist` folder.
