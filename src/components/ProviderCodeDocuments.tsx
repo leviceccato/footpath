@@ -1,5 +1,10 @@
-import { createContext, useContext, createRoot, createSignal } from 'solid-js'
-import type { ParentComponent } from 'solid-js'
+import {
+	createContext,
+	useContext,
+	createRoot,
+	createSignal,
+	type ParentComponent,
+} from 'solid-js'
 import { createClientStore } from '@/utils/storage'
 
 const uuid = () => import('uuid')

@@ -1,6 +1,6 @@
-import type { ParentComponent } from 'solid-js'
+import { type ParentComponent } from 'solid-js'
 import * as css from './HeightExpander.css'
-import type { ClassProps } from '@/utils/misc'
+import { type ClassProps } from '@/utils/misc'
 
 const HeightExpander: ParentComponent<ClassProps & { when: boolean }> = (
 	props,

@@ -5,13 +5,13 @@ import {
 	useContext,
 	onMount,
 	onCleanup,
+	type ParentComponent,
 } from 'solid-js'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { readableColor, mix, parseToRgb, hslToColorString } from 'polished'
 import { colourDark, colourLight, colourBrand } from '@/data/colours'
 import { createClientStore } from '@/utils/storage'
-import type { HslaColor, HslColor } from 'polished/lib/types/color'
-import type { ParentComponent } from 'solid-js'
+import { type HslaColor, type HslColor } from 'polished/lib/types/color'
 import * as css from './ProviderTheme.css'
 
 function createThemeContext() {

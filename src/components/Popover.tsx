@@ -6,23 +6,22 @@ import {
 	createEffect,
 	createRoot,
 	Show,
+	type ParentComponent,
+	type JSX,
+	type Accessor,
+	type Setter,
 } from 'solid-js'
-import type { ParentComponent, JSX, Accessor, Setter } from 'solid-js'
-import type {
-	StrictModifiers,
-	Options,
-	Instance,
-	VirtualElement,
+import {
+	type StrictModifiers,
+	type Options,
+	type Instance,
+	type VirtualElement,
 } from '@popperjs/core'
 import * as css from './Popover.css'
 import { Portal } from 'solid-js/web'
-import { sleep } from '@/utils/misc'
-import type { ClassProps } from '@/utils/misc'
-import type { GlobalWindow } from '@/utils/misc'
+import { sleep, type ClassProps, type GlobalWindow } from '@/utils/misc'
 import { usePortal } from '@/components/ProviderPortal'
-
-import type { ButtonProps } from '@/components/Button'
-import Button from '@/components/Button'
+import Button, { type ButtonProps } from '@/components/Button'
 import ProviderFocusTrap from '@/components/ProviderFocusTrap'
 const popper = () => import('@popperjs/core')
 

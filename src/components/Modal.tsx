@@ -1,5 +1,4 @@
-import { Show, createEffect } from 'solid-js'
-import type { ParentComponent, Signal } from 'solid-js'
+import { Show, createEffect, type ParentComponent, type Signal } from 'solid-js'
 import { Portal } from 'solid-js/web'
 import { usePortal } from '@/components/ProviderPortal'
 import * as css from './Modal.css'

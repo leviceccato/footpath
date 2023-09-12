@@ -4,8 +4,9 @@ import {
 	createUniqueId,
 	createEffect,
 	onCleanup,
+	type JSX,
+	type Component,
 } from 'solid-js'
-import type { JSX, Component } from 'solid-js'
 import * as css from './ProviderFocusTrap.css'
 
 type FocusableProps = {

@@ -1,9 +1,13 @@
 import 'simplebar/dist/simplebar.css'
-
-import { onMount, onCleanup, createSignal, mergeProps } from 'solid-js'
-import type { ParentComponent } from 'solid-js'
+import {
+	onMount,
+	onCleanup,
+	createSignal,
+	mergeProps,
+	type ParentComponent,
+} from 'solid-js'
 import * as css from './ScrollArea.css'
-import type { ClassProps } from '@/utils/misc'
+import { type ClassProps } from '@/utils/misc'
 
 const simpleBar = () => import('simplebar')
 

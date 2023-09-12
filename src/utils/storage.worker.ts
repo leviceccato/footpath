@@ -1,5 +1,4 @@
-import { openDB } from 'idb'
-import type { IDBPDatabase } from 'idb'
+import { openDB, type IDBPDatabase } from 'idb'
 import { debounce } from 'lodash-es'
 
 type RequestInit = {

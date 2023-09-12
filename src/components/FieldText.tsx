@@ -1,6 +1,12 @@
-import { createSignal, Show, mergeProps } from 'solid-js'
-import type { ParentComponent, JSX, Signal } from 'solid-js'
-import type { ClassProps } from '@/utils/misc'
+import {
+	createSignal,
+	Show,
+	mergeProps,
+	type ParentComponent,
+	type JSX,
+	type Signal,
+} from 'solid-js'
+import { type ClassProps } from '@/utils/misc'
 import { Dynamic } from 'solid-js/web'
 import * as css from './FieldText.css'
 

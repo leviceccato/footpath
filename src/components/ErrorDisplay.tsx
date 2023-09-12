@@ -1,6 +1,5 @@
-import { createUniqueId } from 'solid-js'
+import { createUniqueId, type ParentComponent } from 'solid-js'
 import { ErrorBoundary } from 'solid-js/web'
-import type { ParentComponent } from 'solid-js'
 import * as css from './ErrorDisplay.css'
 import { useIcons } from '@/components/ProviderIcons'
 

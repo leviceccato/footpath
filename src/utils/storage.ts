@@ -1,6 +1,6 @@
 import { createSignal, createEffect, createRoot } from 'solid-js'
 import StorageWorker from '@/utils/storage.worker?worker'
-import type { StorageRequest, StorageResponse } from '@/utils/storage.worker'
+import { type StorageRequest, StorageResponse } from '@/utils/storage.worker'
 
 type CreateClientStoreOptions<TValue> = {
 	name: string

@@ -1,4 +1,4 @@
-import type { Component } from 'solid-js'
+import { type Component } from 'solid-js'
 import { isInIframe } from '@/utils/misc'
 import * as css from './RouteSvg.css'
 

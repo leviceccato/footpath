@@ -1,12 +1,17 @@
-import { mergeProps, createSignal, createEffect, onCleanup } from 'solid-js'
+import {
+	mergeProps,
+	createSignal,
+	createEffect,
+	onCleanup,
+	type Component,
+	type JSX,
+} from 'solid-js'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
-import { clamp, hslToHsv, hsvToHsl } from '@/utils/misc'
-import type { HslColor, HslaColor } from 'polished/lib/types/color'
-import type { JSX, Component } from 'solid-js'
+import { clamp, hslToHsv, hsvToHsl, type ClassProps } from '@/utils/misc'
+import { type HslColor, type HslaColor } from 'polished/lib/types/color'
 import { useTheme } from '@/components/ProviderTheme'
 import * as css from './ColourPicker.css'
 import { useFocus } from '@/components/ProviderFocusTrap'
-import type { ClassProps } from '@/utils/misc'
 import { hslToColorString } from 'polished'
 import FieldText from '@/components/FieldText'
 

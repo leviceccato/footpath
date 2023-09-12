@@ -1,6 +1,5 @@
 import { style, styleVariants } from '@vanilla-extract/css'
-import * as baseCss from '@/base.css'
-import type { Font } from '@/base.css'
+import { fontPlexSansMedium, type Font } from '@/base.css'
 
 function createCroppedFont(font: Font, lineHeight: number) {
 	return {
@@ -27,13 +26,13 @@ function createCroppedFont(font: Font, lineHeight: number) {
 export const root = style({
 	display: 'block',
 	fontSize: 'inherit',
-	...createCroppedFont(baseCss.fontPlexSansMedium, 1.4),
+	...createCroppedFont(fontPlexSansMedium, 1.4),
 })
 
 export const body = style([
 	root,
 	{
-		...createCroppedFont(baseCss.fontPlexSansMedium, 1.4),
+		...createCroppedFont(fontPlexSansMedium, 1.4),
 	},
 ])
 

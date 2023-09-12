@@ -1,10 +1,9 @@
-import { onMount, onCleanup } from 'solid-js'
-import type { Component } from 'solid-js'
+import { onMount, onCleanup, type Component } from 'solid-js'
 import * as css from './CodeEditor.css'
 import { EditorView, basicSetup } from 'codemirror'
 import { indentWithTab } from '@codemirror/commands'
 import { gutter, keymap } from '@codemirror/view'
-import type { ClassProps } from '@/utils/misc'
+import { type ClassProps } from '@/utils/misc'
 
 const CodeEditor: Component<ClassProps> = (props) => {
 	let rootRef: HTMLDivElement | undefined

@@ -1,8 +1,7 @@
 import { Dynamic } from 'solid-js/web'
-import { mergeProps } from 'solid-js'
-import type { ParentComponent } from 'solid-js'
+import { mergeProps, type ParentComponent } from 'solid-js'
 import * as css from './Text.css'
-import type { ClassProps } from '@/utils/misc'
+import { type ClassProps } from '@/utils/misc'
 
 const Text: ParentComponent<
 	ClassProps & {

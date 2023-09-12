@@ -1,8 +1,6 @@
-import type { Component } from 'solid-js'
+import { type Component } from 'solid-js'
 import * as css from './ModalAbout.css'
-
-import Modal from '@/components/Modal'
-import type { ModalProps } from '@/components/Modal'
+import Modal, { type ModalProps } from '@/components/Modal'
 
 const ModalAbout: Component<{
 	modal: ModalProps

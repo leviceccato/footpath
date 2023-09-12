@@ -1,7 +1,6 @@
-import { createSignal, createUniqueId, Index } from 'solid-js'
-import type { Component } from 'solid-js'
+import { createSignal, createUniqueId, Index, type Component } from 'solid-js'
 import { parseToHsl } from 'polished'
-import type { HslaColor, HslColor } from 'polished/lib/types/color'
+import { type HslaColor, type HslColor } from 'polished/lib/types/color'
 import * as css from './TheMenu.css'
 import { createRandomColour } from '@/utils/misc'
 import { colourDark, colourLight } from '@/data/colours'
@@ -14,7 +13,7 @@ import Popover from '@/components/Popover'
 import ColourPicker from '@/components/ColourPicker'
 import ModalAbout from '@/components/ModalAbout'
 import ModalLogin from '@/components/ModalLogin'
-import type { ClassProps } from '@/utils/misc'
+import { type ClassProps } from '@/utils/misc'
 
 type ThemeOption = 'light' | 'dark' | 'system' | 'custom'
 

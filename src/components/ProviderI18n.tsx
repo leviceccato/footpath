@@ -1,7 +1,15 @@
-import { createContext, createSignal, useContext, createEffect } from 'solid-js'
-import { defaultTranslation } from '@/utils/i18n'
-import type { ParentComponent } from 'solid-js'
-import type { Translation, Translations } from '@/utils/i18n'
+import {
+	createContext,
+	createSignal,
+	useContext,
+	createEffect,
+	type ParentComponent,
+} from 'solid-js'
+import {
+	defaultTranslation,
+	type Translation,
+	type Translations,
+} from '@/utils/i18n'
 
 function createI18nContext(
 	initialTranslation: Translation,

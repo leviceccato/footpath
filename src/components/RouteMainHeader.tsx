@@ -1,10 +1,11 @@
-import { For } from 'solid-js'
-import type { Component } from 'solid-js'
+import { For, type Component } from 'solid-js'
 import * as css from './RouteMainHeader.css'
 import { useI18n } from '@/components/ProviderI18n'
 import { useIcons } from '@/components/ProviderIcons'
-import { useCodeDocuments } from '@/components/ProviderCodeDocuments'
-import type { CodeDocument } from '@/components/ProviderCodeDocuments'
+import {
+	useCodeDocuments,
+	type CodeDocument,
+} from '@/components/ProviderCodeDocuments'
 import Button from '@/components/Button'
 import Text from '@/components/Text'
 import VisuallyHidden from '@/components/VisuallyHidden'

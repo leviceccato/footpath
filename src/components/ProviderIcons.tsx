@@ -1,8 +1,13 @@
-import { createContext, useContext, For } from 'solid-js'
-import type { ParentComponent, Component } from 'solid-js'
+import {
+	createContext,
+	useContext,
+	For,
+	type ParentComponent,
+	type Component,
+} from 'solid-js'
 import iconConstants from '@/data/icons'
 import * as css from './ProviderIcons.css'
-import type { ClassProps } from '@/utils/misc'
+import { type ClassProps } from '@/utils/misc'
 
 type Icons = typeof iconConstants
 

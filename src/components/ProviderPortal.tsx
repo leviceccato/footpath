@@ -5,8 +5,9 @@ import {
 	Index,
 	onMount,
 	onCleanup,
+	type ParentComponent,
+	type Component,
 } from 'solid-js'
-import type { ParentComponent, Component } from 'solid-js'
 import * as css from './ProviderPortal.css'
 
 const Mounts: Component = () => {
