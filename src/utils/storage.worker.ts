@@ -25,6 +25,9 @@ export type StorageRequest = RequestInit | RequestGet | RequestSet
 
 type ResponseInit = {
 	type: 'init'
+	payload?: {
+		data: any
+	}
 }
 
 type ResponseGet = {
@@ -62,11 +65,11 @@ function init(name: string, version: number): void {
 		upgrade(db) {
 			db.createObjectStore(storeName)
 		},
-	}).then((db) => {
-		respond({ type: 'init' })
+	}).then(async (db) => {
+		const data = await db.get(storeName, keyName)
+		respond({ type: 'init', payload: { data } })
 		return db
 	})
-	get()
 }
 
 function get(): void {
