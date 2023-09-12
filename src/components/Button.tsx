@@ -1,7 +1,6 @@
 import { Dynamic } from 'solid-js/web'
 import { Show, splitProps, type ParentComponent, type JSX } from 'solid-js'
 import * as css from './Button.css'
-
 import { useFocus } from '@/components/ProviderFocusTrap'
 import Text from '@/components/Text'
 
