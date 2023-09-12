@@ -25,9 +25,6 @@ export type StorageRequest = RequestInit | RequestGet | RequestSet
 
 type ResponseInit = {
 	type: 'init'
-	payload?: {
-		data: any
-	}
 }
 
 type ResponseGet = {
@@ -49,14 +46,16 @@ const keyName = 'value'
 let dbPromise: Promise<IDBPDatabase<unknown>> | undefined
 
 self.onmessage = ({ data }: MessageEvent<StorageRequest>) => {
-	if (data.type === 'init') {
-		return init(data.payload.name, data.payload.version)
-	}
-	if (data.type === 'get') {
-		return get()
-	}
-	if (data.type === 'set') {
-		return set(data.payload.data)
+	switch (data.type) {
+		case 'init':
+			init(data.payload.name, data.payload.version)
+			break
+		case 'get':
+			get()
+			break
+		case 'set':
+			set(data.payload.data)
+			break
 	}
 }
 
@@ -65,16 +64,19 @@ function init(name: string, version: number): void {
 		upgrade(db) {
 			db.createObjectStore(storeName)
 		},
-	}).then(async (db) => {
-		const data = await db.get(storeName, keyName)
-		respond({ type: 'init', payload: { data } })
+	}).then((db) => {
+		respond({ type: 'init' })
 		return db
 	})
+	get()
 }
 
 function get(): void {
 	dbPromise?.then(async (db) => {
 		const data = await db.get(storeName, keyName)
+		if (data === undefined) {
+			return
+		}
 
 		respond({
 			type: 'get',

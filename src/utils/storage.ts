@@ -24,11 +24,13 @@ export function createClientStore<TValue>(
 			const worker = new StorageWorker()
 
 			worker.onmessage = ({ data }: MessageEvent<StorageResponse>) => {
-				if (data.type === 'init') {
-					return resolve(worker)
-				}
-				if (data.type === 'get') {
-					return setStore({ value: data.payload.data })
+				switch (data.type) {
+					case 'init':
+						resolve(worker)
+						break
+					case 'get':
+						setStore({ value: data.payload.data })
+						break
 				}
 			}
 
