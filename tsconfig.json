@@ -14,6 +14,7 @@
 		"noEmit": true,
 		"isolatedModules": true,
 		"baseUrl": ".",
+		"skipLibCheck": true,
 		"paths": {
 			"@/*": ["./src/*"]
 		}
