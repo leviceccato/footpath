@@ -6,8 +6,7 @@ import {
 	type ParentComponent,
 } from 'solid-js'
 import { createClientStore } from '@/utils/storage'
-
-const uuid = () => import('uuid')
+const importUuid = () => import('uuid')
 
 export type CodeDocument = {
 	id: string
@@ -35,7 +34,7 @@ function createCodeDocumentsContext() {
 		const count = () => Object.keys(store().value).length
 
 		async function create(name: string): Promise<string> {
-			const { v4 } = await uuid()
+			const { v4 } = await importUuid()
 			const id = v4()
 
 			const document = {

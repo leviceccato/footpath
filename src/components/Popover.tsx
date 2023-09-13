@@ -27,7 +27,7 @@ import {
 import { usePortal } from '@/components/ProviderPortal'
 import Button, { type ButtonProps } from '@/components/Button'
 import ProviderFocusTrap from '@/components/ProviderFocusTrap'
-const popper = () => import('@popperjs/core')
+const importPopper = () => import('@popperjs/core')
 
 type PopoverState = {
 	isShown: () => boolean
@@ -271,7 +271,7 @@ const Popover: ParentComponent<
 
 		// Create popper instance
 
-		const { createPopper } = await popper()
+		const { createPopper } = await importPopper()
 
 		const options = {
 			...props.options,

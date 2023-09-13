@@ -7,8 +7,7 @@ import {
 } from 'solid-js'
 import * as css from './ScrollArea.css'
 import { type ClassProps, defaultProps } from '@/utils/misc'
-
-const simpleBar = () => import('simplebar')
+const importSimpleBar = () => import('simplebar')
 
 const ScrollArea: ParentComponent<
 	ClassProps & {
@@ -69,7 +68,7 @@ const ScrollArea: ParentComponent<
 	onMount(async () => {
 		if (!rootRef) return
 
-		const SimpleBar = (await simpleBar()).default
+		const SimpleBar = (await importSimpleBar()).default
 
 		simpleBarInstance = new SimpleBar(rootRef, {})
 

@@ -2,6 +2,9 @@ import { onMount, onCleanup, type Component } from 'solid-js'
 import * as css from './CodeEditor.css'
 import { type EditorView } from 'codemirror'
 import { type ClassProps, defaultProps } from '@/utils/misc'
+const importCm = () => import('codemirror')
+const importCmCommands = () => import('@codemirror/commands')
+const importCmView = () => import('@codemirror/view')
 
 const CodeEditor: Component<ClassProps> = (rawProps) => {
 	const props = defaultProps(rawProps, { class: '' })
@@ -11,9 +14,9 @@ const CodeEditor: Component<ClassProps> = (rawProps) => {
 
 	async function initEditor(): Promise<void> {
 		const [cm, commands, view] = await Promise.all([
-			import('codemirror'),
-			import('@codemirror/commands'),
-			import('@codemirror/view'),
+			importCm(),
+			importCmCommands(),
+			importCmView(),
 		])
 
 		editor = new cm.EditorView({
