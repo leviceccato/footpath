@@ -1,66 +1,70 @@
 import { createSignal, createEffect, createRoot } from 'solid-js'
 import StorageWorker from '@/utils/storage.worker?worker'
 import { type StorageRequest, StorageResponse } from '@/utils/storage.worker'
-import { defaults } from '@/utils/misc'
+import { defaultValues } from '@/utils/misc'
 
-type CreateClientStoreOptions<TValue> = {
+export function createClientStore<TValue>(rawProps: {
 	name: string
-	version: number
+	version?: number
+	strategy?: 'indexeddb' | 'localstorage'
 	initialValue: TValue
-	onError?: ((error: ErrorEvent) => void) | null
 	shouldPersist?: boolean
-}
-
-export function createClientStore<TValue>(
-	rawOptions: CreateClientStoreOptions<TValue>,
-) {
+	onError?: ((error: ErrorEvent) => void) | null
+}) {
 	return createRoot(() => {
-		const options = defaults(rawOptions, { shouldPersist: true, onError: null })
+		const props = defaultValues(rawProps, {
+			shouldPersist: true,
+			onError: null,
+			strategy: 'indexeddb',
+			version: 1,
+		})
 
-		const [store, setStore] = createSignal({ value: options.initialValue })
+		const [store, setStore] = createSignal({ value: props.initialValue })
 
 		// Worker is created in promise so it can resolve asynchronously while
 		// this function is created synchronously. The effect for updates to
 		// the store will wait until the worker is initialised.
 
-		const workerPromise = new Promise<Worker>((resolve) => {
-			const worker = new StorageWorker()
+		if (props.strategy === 'indexeddb') {
+			const workerPromise = new Promise<Worker>((resolve) => {
+				const worker = new StorageWorker()
 
-			worker.onerror = options.onError
+				worker.onerror = props.onError
 
-			worker.onmessage = ({ data }: MessageEvent<StorageResponse>) => {
-				switch (data.type) {
-					case 'init':
-						resolve(worker)
-						break
-					case 'get':
-						setStore({ value: data.payload.data })
-						break
+				worker.onmessage = ({ data }: MessageEvent<StorageResponse>) => {
+					switch (data.type) {
+						case 'init':
+							resolve(worker)
+							break
+						case 'get':
+							setStore({ value: data.payload.data })
+							break
+					}
 				}
-			}
 
-			request(worker, {
-				type: 'init',
-				payload: {
-					name: options.name,
-					version: options.version,
-				},
-			})
-		})
-
-		if (options.shouldPersist) {
-			createEffect(() => {
-				const data = store().value || options.initialValue
-
-				workerPromise.then((worker) => {
-					request(worker, {
-						type: 'set',
-						payload: {
-							data,
-						},
-					})
+				request(worker, {
+					type: 'init',
+					payload: {
+						name: props.name,
+						version: props.version,
+					},
 				})
 			})
+
+			if (props.shouldPersist) {
+				createEffect(() => {
+					const data = store().value || props.initialValue
+
+					workerPromise.then((worker) => {
+						request(worker, {
+							type: 'set',
+							payload: {
+								data,
+							},
+						})
+					})
+				})
+			}
 		}
 
 		return [store, setStore] as const
