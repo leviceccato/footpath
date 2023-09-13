@@ -8,7 +8,6 @@ A list of complete and incomplete tasks to track progress on Lacey.
 - Fix modal background contrast for dark colours
 - Create favicon (dynamic ?)
 - Optimise computed values to potentially use createMemo across codebase
-- Make code editor async
 
 ## Doing
 
@@ -16,6 +15,7 @@ A list of complete and incomplete tasks to track progress on Lacey.
 
 ## Done (most recent to oldest)
 
+- Make code editor async
 - Add new defaultProps utility
 - Allow dragging outside colour picker
 - Prevent tabbing out of code editor
