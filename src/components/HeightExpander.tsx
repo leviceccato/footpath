@@ -1,11 +1,11 @@
 import { type ParentComponent } from 'solid-js'
 import * as css from './HeightExpander.css'
-import { type ClassProps, defaults } from '@/utils/misc'
+import { type ClassProps, defaultProps } from '@/utils/misc'
 
 const HeightExpander: ParentComponent<ClassProps & { when: boolean }> = (
 	rawProps,
 ) => {
-	const props = defaults(rawProps, { class: '' })
+	const props = defaultProps(rawProps, { class: '' })
 
 	const variant = (): keyof typeof css.variant =>
 		props.when ? 'expanded' : 'unexpanded'

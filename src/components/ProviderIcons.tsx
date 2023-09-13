@@ -7,7 +7,7 @@ import {
 } from 'solid-js'
 import iconConstants from '@/data/icons'
 import * as css from './ProviderIcons.css'
-import { type ClassProps, defaults } from '@/utils/misc'
+import { type ClassProps, defaultProps } from '@/utils/misc'
 
 type Icons = typeof iconConstants
 
@@ -27,7 +27,7 @@ const icons = iconNames.map((name) => {
 // Consumer component exposed with context
 
 const Icon: Component<ClassProps & { name: IconName }> = (rawProps) => {
-	const props = defaults(rawProps, { class: '' })
+	const props = defaultProps(rawProps, { class: '' })
 
 	const icon = iconConstants[props.name]
 

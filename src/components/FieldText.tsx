@@ -5,7 +5,7 @@ import {
 	type JSX,
 	type Signal,
 } from 'solid-js'
-import { type ClassProps, defaults } from '@/utils/misc'
+import { type ClassProps, defaultProps } from '@/utils/misc'
 import { Dynamic } from 'solid-js/web'
 import * as css from './FieldText.css'
 
@@ -19,7 +19,7 @@ type FieldTextProps = ClassProps & {
 }
 
 const FieldText: ParentComponent<FieldTextProps> = (rawProps) => {
-	const props = defaults(rawProps, { rows: 1, class: '' })
+	const props = defaultProps(rawProps, { rows: 1, class: '' })
 
 	const [value, setValue] = props.value
 

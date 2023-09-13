@@ -16,6 +16,6 @@ A list of complete and incomplete tasks to track progress on Lacey.
 
 ## Done (most recent to oldest)
 
-- Add new defaults utility
+- Add new defaultProps utility
 - Allow dragging outside colour picker
 - Prevent tabbing out of code editor
