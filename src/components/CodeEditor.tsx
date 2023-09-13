@@ -1,33 +1,37 @@
 import { onMount, onCleanup, type Component } from 'solid-js'
 import * as css from './CodeEditor.css'
-import { EditorView, basicSetup } from 'codemirror'
-import { indentWithTab } from '@codemirror/commands'
-import { gutter, keymap } from '@codemirror/view'
+import { type EditorView } from 'codemirror'
 import { type ClassProps, defaultProps } from '@/utils/misc'
 
 const CodeEditor: Component<ClassProps> = (rawProps) => {
 	const props = defaultProps(rawProps, { class: '' })
 
 	let rootRef: HTMLDivElement | undefined
-	let view: EditorView | undefined
+	let editor: EditorView | undefined
 
-	function initView(): void {
-		view = new EditorView({
+	async function initEditor(): Promise<void> {
+		const [cm, commands, view] = await Promise.all([
+			import('codemirror'),
+			import('@codemirror/commands'),
+			import('@codemirror/view'),
+		])
+
+		editor = new cm.EditorView({
 			parent: rootRef,
 			extensions: [
-				basicSetup,
-				keymap.of([indentWithTab]),
-				gutter({ renderEmptyElements: true }),
+				cm.basicSetup,
+				view.keymap.of([commands.indentWithTab]),
+				view.gutter({ renderEmptyElements: true }),
 			],
 		})
 	}
 
 	onMount(() => {
-		initView()
+		initEditor()
 	})
 
 	onCleanup(() => {
-		view?.destroy()
+		editor?.destroy()
 	})
 
 	return (
