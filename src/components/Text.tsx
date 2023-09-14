@@ -20,5 +20,3 @@ export const Text: ParentComponent<
 		</Dynamic>
 	)
 }
-
-export default Text

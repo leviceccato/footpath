@@ -3,9 +3,9 @@ import { Portal } from 'solid-js/web'
 import { usePortal } from '@/components/ProviderPortal'
 import * as css from './Modal.css'
 import { useI18n } from '@/components/ProviderI18n'
-import ProviderFocusTrap from '@/components/ProviderFocusTrap'
-import Text from '@/components/Text'
-import IconButton from '@/components/IconButton'
+import { ProviderFocusTrap } from '@/components/ProviderFocusTrap'
+import { Text } from '@/components/Text'
+import { IconButton } from '@/components/IconButton'
 
 export type ModalProps = {
 	isShown: Signal<boolean>
@@ -80,5 +80,3 @@ export const Modal: ParentComponent<ModalProps> = (props) => {
 		</Show>
 	)
 }
-
-export default Modal

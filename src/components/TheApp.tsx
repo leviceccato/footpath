@@ -3,13 +3,13 @@ import { type Component } from 'solid-js'
 import * as css from './TheApp.css'
 import { lastSegmentFromPath } from '@/utils/misc'
 import { type Translation, type Translations } from '@/utils/i18n'
-import ProviderI18n from '@/components/ProviderI18n'
-import ProviderTheme from '@/components/ProviderTheme'
-import ProviderIcons from '@/components/ProviderIcons'
-import ProviderPortal from '@/components/ProviderPortal'
-import ProviderCodeDocuments from '@/components/ProviderCodeDocuments'
-import RouteMain from '@/components/RouteMain'
-import RouteSvg from '@/components/RouteSvg'
+import { ProviderI18n } from '@/components/ProviderI18n'
+import { ProviderTheme } from '@/components/ProviderTheme'
+import { ProviderIcons } from '@/components/ProviderIcons'
+import { ProviderPortal } from '@/components/ProviderPortal'
+import { ProviderCodeDocuments } from '@/components/ProviderCodeDocuments'
+import { RouteMain } from '@/components/RouteMain'
+import { RouteSvg } from '@/components/RouteSvg'
 
 // Import translations and generate languageName -> importFunc map
 const translationModules = import.meta.glob<Translation>(
@@ -57,5 +57,3 @@ export const TheApp: Component = () => {
 		</Switch>
 	)
 }
-
-export default TheApp

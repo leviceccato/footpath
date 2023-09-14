@@ -16,5 +16,3 @@ export const HeightExpander: ParentComponent<ClassProps & { when: boolean }> = (
 		</span>
 	)
 }
-
-export default HeightExpander

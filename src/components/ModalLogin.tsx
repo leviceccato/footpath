@@ -1,6 +1,6 @@
 import { type Component } from 'solid-js'
 import * as css from './ModalAbout.css'
-import Modal, { type ModalProps } from '@/components/Modal'
+import { Modal, type ModalProps } from '@/components/Modal'
 
 export const ModalLogin: Component<{
 	modal: ModalProps
@@ -11,5 +11,3 @@ export const ModalLogin: Component<{
 		</Modal>
 	)
 }
-
-export default ModalLogin

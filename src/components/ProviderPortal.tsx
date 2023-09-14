@@ -60,5 +60,3 @@ export const ProviderPortal: ParentComponent<{
 		</context.Provider>
 	)
 }
-
-export default ProviderPortal

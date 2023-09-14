@@ -18,7 +18,7 @@ import { useTheme } from '@/components/ProviderTheme'
 import * as css from './ColourPicker.css'
 import { useFocus } from '@/components/ProviderFocusTrap'
 import { hslToColorString } from 'polished'
-import FieldText from '@/components/FieldText'
+import { FieldText } from '@/components/FieldText'
 
 type CanvasPointerEvent = PointerEvent & {
 	currentTarget: HTMLCanvasElement
@@ -263,5 +263,3 @@ export const TheColourPicker: Component<
 		</div>
 	)
 }
-
-export default TheColourPicker

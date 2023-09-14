@@ -18,5 +18,3 @@ export const VisuallyHidden: ParentComponent<{
 		</Dynamic>
 	)
 }
-
-export default VisuallyHidden

@@ -10,5 +10,3 @@ export const RouteSvg: Component = () => {
 
 	return <div class={css.root}></div>
 }
-
-export default RouteSvg

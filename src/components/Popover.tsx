@@ -25,8 +25,8 @@ import {
 	defaultProps,
 } from '@/utils/misc'
 import { usePortal } from '@/components/ProviderPortal'
-import Button, { type ButtonProps } from '@/components/Button'
-import ProviderFocusTrap from '@/components/ProviderFocusTrap'
+import { Button, type ButtonProps } from '@/components/Button'
+import { ProviderFocusTrap } from '@/components/ProviderFocusTrap'
 const importPopper = () => import('@popperjs/core')
 
 type PopoverState = {
@@ -380,5 +380,3 @@ export const Popover: ParentComponent<
 		</>
 	)
 }
-
-export default Popover

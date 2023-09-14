@@ -7,12 +7,12 @@ import { colourDark, colourLight } from '@/data/colours'
 import { useIcons } from '@/components/ProviderIcons'
 import { useTheme } from '@/components/ProviderTheme'
 import { useI18n } from '@/components/ProviderI18n'
-import Button from '@/components/Button'
-import Text from '@/components/Text'
-import Popover from '@/components/Popover'
-import ColourPicker from '@/components/ColourPicker'
-import ModalAbout from '@/components/ModalAbout'
-import ModalLogin from '@/components/ModalLogin'
+import { Button } from '@/components/Button'
+import { Text } from '@/components/Text'
+import { Popover } from '@/components/Popover'
+import { TheColourPicker } from '@/components/ColourPicker'
+import { ModalAbout } from '@/components/ModalAbout'
+import { ModalLogin } from '@/components/ModalLogin'
 import { type ClassProps, defaultProps } from '@/utils/misc'
 
 type ThemeOption = 'light' | 'dark' | 'system' | 'custom'
@@ -232,7 +232,7 @@ export const TheMenu: Component<ClassProps> = (rawProps) => {
 						</Button>
 					</div>
 					<div class={css.colourPickerContainer}>
-						<ColourPicker
+						<TheColourPicker
 							class={css.colourPicker}
 							spectrumSize={148}
 						/>
@@ -245,5 +245,3 @@ export const TheMenu: Component<ClassProps> = (rawProps) => {
 		</div>
 	)
 }
-
-export default TheMenu

@@ -149,5 +149,3 @@ export const ScrollArea: ParentComponent<
 		</div>
 	)
 }
-
-export default ScrollArea

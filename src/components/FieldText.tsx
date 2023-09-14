@@ -57,5 +57,3 @@ export const FieldText: ParentComponent<FieldTextProps> = (rawProps) => {
 		</label>
 	)
 }
-
-export default FieldText

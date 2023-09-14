@@ -44,5 +44,3 @@ export const CodeEditor: Component<ClassProps> = (rawProps) => {
 		/>
 	)
 }
-
-export default CodeEditor

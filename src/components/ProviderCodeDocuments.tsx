@@ -111,5 +111,3 @@ export const ProviderCodeDocuments: ParentComponent = (props) => {
 		</context.Provider>
 	)
 }
-
-export default ProviderCodeDocuments

@@ -5,10 +5,10 @@ import { usePortal } from '@/components/ProviderPortal'
 import { useTheme } from '@/components/ProviderTheme'
 import { decimalToPercentage, clamp } from '@/utils/misc'
 import * as css from './RouteMain.css'
-import Button from '@/components/Button'
-import ScrollArea from '@/components/ScrollArea'
-import CodeEditor from '@/components/CodeEditor'
-import RouteMainHeader from '@/components/RouteMainHeader'
+import { Button } from '@/components/Button'
+import { ScrollArea } from '@/components/ScrollArea'
+import { CodeEditor } from '@/components/CodeEditor'
+import { RouteMainHeader } from '@/components/RouteMainHeader'
 
 export const RouteMain: Component = () => {
 	const [_, Symbols] = useIcons()
@@ -125,5 +125,3 @@ export const RouteMain: Component = () => {
 		</div>
 	)
 }
-
-export default RouteMain

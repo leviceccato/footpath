@@ -114,5 +114,3 @@ export const ProviderTheme: ParentComponent = (props) => {
 		<context.Provider value={themeContext}>{props.children}</context.Provider>
 	)
 }
-
-export default ProviderTheme

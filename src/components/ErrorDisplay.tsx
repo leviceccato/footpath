@@ -2,7 +2,7 @@ import { createUniqueId, type ParentComponent } from 'solid-js'
 import { ErrorBoundary } from 'solid-js/web'
 import * as css from './ErrorDisplay.css'
 import { useIcons } from '@/components/ProviderIcons'
-import Text from '@/components/Text'
+import { Text } from '@/components/Text'
 
 export const ErrorDisplay: ParentComponent = (props) => {
 	const [Icon] = useIcons()
@@ -33,5 +33,3 @@ export const ErrorDisplay: ParentComponent = (props) => {
 		</ErrorBoundary>
 	)
 }
-
-export default ErrorDisplay

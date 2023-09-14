@@ -1,4 +1,4 @@
-const icons = {
+export const icons = {
 	logoMain: {
 		viewBox: [0, 0, 27.458, 9.235],
 		content:
@@ -40,10 +40,8 @@ const icons = {
 	},
 } as const
 
-export default icons
-
 // Ensure property inference works for icons
-
+// export is required to prevent unused error
 export const _iconsTypeCheck: {
 	[key: string]: {
 		viewBox: readonly [number, number, number, number]

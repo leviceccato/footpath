@@ -5,9 +5,9 @@ import { sleep } from '@/utils/misc'
 import * as css from './IconButton.css'
 import { type VirtualElement, Instance } from '@popperjs/core'
 import { type ButtonProps } from '@/components/Button'
-import Popover from '@/components/Popover'
-import Text from '@/components/Text'
-import VisuallyHidden from '@/components/VisuallyHidden'
+import { Popover } from '@/components/Popover'
+import { Text } from '@/components/Text'
+import { VisuallyHidden } from '@/components/VisuallyHidden'
 
 const tooltipOffsetX = 0
 const tooltipOffsetY = 0
@@ -98,5 +98,3 @@ export const IconButton: Component<
 		</Popover>
 	)
 }
-
-export default IconButton

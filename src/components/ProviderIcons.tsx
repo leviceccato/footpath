@@ -5,7 +5,7 @@ import {
 	type ParentComponent,
 	type Component,
 } from 'solid-js'
-import iconConstants from '@/data/icons'
+import { icons as iconConstants } from '@/data/icons'
 import * as css from './ProviderIcons.css'
 import { type ClassProps, defaultProps } from '@/utils/misc'
 
@@ -73,5 +73,3 @@ export const ProviderIcons: ParentComponent = (props) => {
 		</context.Provider>
 	)
 }
-
-export default ProviderIcons

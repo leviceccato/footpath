@@ -6,12 +6,12 @@ import {
 	useCodeDocuments,
 	type CodeDocument,
 } from '@/components/ProviderCodeDocuments'
-import Button from '@/components/Button'
-import Text from '@/components/Text'
-import VisuallyHidden from '@/components/VisuallyHidden'
-import ScrollArea from '@/components/ScrollArea'
-import TheMenu from '@/components/TheMenu'
-import IconButton from '@/components/IconButton'
+import { Button } from '@/components/Button'
+import { Text } from '@/components/Text'
+import { VisuallyHidden } from '@/components/VisuallyHidden'
+import { ScrollArea } from '@/components/ScrollArea'
+import { TheMenu } from '@/components/TheMenu'
+import { IconButton } from '@/components/IconButton'
 
 export const RouteMainHeader: Component = () => {
 	const [Icon] = useIcons()
@@ -85,5 +85,3 @@ export const RouteMainHeader: Component = () => {
 		</header>
 	)
 }
-
-export default RouteMainHeader

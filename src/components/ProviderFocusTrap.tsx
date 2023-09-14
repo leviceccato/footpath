@@ -139,5 +139,3 @@ export const ProviderFocusTrap: Component<ProviderFocusTrapProps> = (props) => {
 		</context.Provider>
 	)
 }
-
-export default ProviderFocusTrap

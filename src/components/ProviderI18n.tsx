@@ -58,5 +58,3 @@ export const ProviderI18n: ParentComponent<{
 		</context.Provider>
 	)
 }
-
-export default ProviderI18n
