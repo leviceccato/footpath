@@ -8,6 +8,8 @@ A list of complete and incomplete tasks to track progress on Lacey.
 - Fix modal background contrast for dark colours
 - Create favicon (dynamic ?)
 - Optimise computed values to potentially use createMemo across codebase
+- Match scrollbar style to theme
+- Match mouse cursors to theme (ProviderPointer?)
 
 ## Doing
 
