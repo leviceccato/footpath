@@ -2,7 +2,7 @@ import { type Component } from 'solid-js'
 import * as css from './ModalAbout.css'
 import Modal, { type ModalProps } from '@/components/Modal'
 
-const ModalLogin: Component<{
+export const ModalLogin: Component<{
 	modal: ModalProps
 }> = (props) => {
 	return (

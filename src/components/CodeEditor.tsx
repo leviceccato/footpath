@@ -6,7 +6,7 @@ const importCm = () => import('codemirror')
 const importCmCommands = () => import('@codemirror/commands')
 const importCmView = () => import('@codemirror/view')
 
-const CodeEditor: Component<ClassProps> = (rawProps) => {
+export const CodeEditor: Component<ClassProps> = (rawProps) => {
 	const props = defaultProps(rawProps, { class: '' })
 
 	let rootRef: HTMLDivElement | undefined

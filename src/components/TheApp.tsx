@@ -30,7 +30,7 @@ const translations = Object.keys(translationModules).reduce<Translations>(
 const params = new URLSearchParams(window.location.search)
 const route = params.get('route')
 
-const TheApp: Component = () => {
+export const TheApp: Component = () => {
 	return (
 		<Switch>
 			<Match when={route === 'svg'}>

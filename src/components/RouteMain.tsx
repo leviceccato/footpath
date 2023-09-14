@@ -10,7 +10,7 @@ import ScrollArea from '@/components/ScrollArea'
 import CodeEditor from '@/components/CodeEditor'
 import RouteMainHeader from '@/components/RouteMainHeader'
 
-const RouteMain: Component = () => {
+export const RouteMain: Component = () => {
 	const [_, Symbols] = useIcons()
 	const [t] = useI18n()
 	const { Mounts } = usePortal()

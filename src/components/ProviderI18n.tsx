@@ -26,7 +26,7 @@ export function useI18n() {
 	return useContext(context)
 }
 
-const ProviderI18n: ParentComponent<{
+export const ProviderI18n: ParentComponent<{
 	defaultLanguage: string
 	translations?: Translations
 }> = (props) => {

@@ -12,7 +12,7 @@ import VisuallyHidden from '@/components/VisuallyHidden'
 const tooltipOffsetX = 0
 const tooltipOffsetY = 0
 
-const IconButton: Component<
+export const IconButton: Component<
 	ButtonProps & {
 		name: IconName
 		tooltip: string

@@ -101,7 +101,7 @@ const store = createRoot(() => {
 
 const defaultRect = new DOMRect()
 
-const Popover: ParentComponent<
+export const Popover: ParentComponent<
 	ButtonProps &
 		ClassProps & {
 			when?: boolean | InteractionMethod

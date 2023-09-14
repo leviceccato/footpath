@@ -18,7 +18,7 @@ type FieldTextProps = ClassProps & {
 	isResizable?: boolean
 }
 
-const FieldText: ParentComponent<FieldTextProps> = (rawProps) => {
+export const FieldText: ParentComponent<FieldTextProps> = (rawProps) => {
 	const props = defaultProps(rawProps, { rows: 1, class: '' })
 
 	const [value, setValue] = props.value

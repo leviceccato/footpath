@@ -27,7 +27,7 @@ export function useFocus() {
 	return useContext(context)
 }
 
-const ProviderFocusTrap: Component<ProviderFocusTrapProps> = (props) => {
+export const ProviderFocusTrap: Component<ProviderFocusTrapProps> = (props) => {
 	const id = createUniqueId()
 	const focusableAttr = `data-focusable-${id}`
 	const reachableFocusableAttr = `data-reachable-focusable-${id}`

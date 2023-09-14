@@ -13,7 +13,7 @@ import ScrollArea from '@/components/ScrollArea'
 import TheMenu from '@/components/TheMenu'
 import IconButton from '@/components/IconButton'
 
-const RouteMainHeader: Component = () => {
+export const RouteMainHeader: Component = () => {
 	const [Icon] = useIcons()
 	const [t] = useI18n()
 	const [

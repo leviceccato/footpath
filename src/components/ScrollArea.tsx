@@ -9,7 +9,7 @@ import * as css from './ScrollArea.css'
 import { type ClassProps, defaultProps } from '@/utils/misc'
 const importSimpleBar = () => import('simplebar')
 
-const ScrollArea: ParentComponent<
+export const ScrollArea: ParentComponent<
 	ClassProps & {
 		minDistanceForOverflowX?: number
 		minDistanceForOverflowY?: number

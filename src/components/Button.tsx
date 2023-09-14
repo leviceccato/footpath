@@ -9,7 +9,7 @@ export type ButtonProps = JSX.ButtonHTMLAttributes<HTMLButtonElement> & {
 	text?: string
 }
 
-const Button: ParentComponent<ButtonProps> = (props) => {
+export const Button: ParentComponent<ButtonProps> = (props) => {
 	const [_props, buttonProps] = splitProps(props, ['text', 'href', 'children'])
 
 	const [focusProps] = useFocus()

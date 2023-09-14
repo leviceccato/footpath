@@ -13,7 +13,7 @@ export type ModalProps = {
 	onHide?: () => void
 }
 
-const Modal: ParentComponent<ModalProps> = (props) => {
+export const Modal: ParentComponent<ModalProps> = (props) => {
 	const [isShown, setIsShown] = props.isShown
 
 	const { mounts } = usePortal()

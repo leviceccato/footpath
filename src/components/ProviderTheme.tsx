@@ -109,7 +109,7 @@ export function useTheme() {
 	return useContext(context)
 }
 
-const ProviderTheme: ParentComponent = (props) => {
+export const ProviderTheme: ParentComponent = (props) => {
 	return (
 		<context.Provider value={themeContext}>{props.children}</context.Provider>
 	)

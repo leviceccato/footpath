@@ -17,7 +17,7 @@ import { type ClassProps, defaultProps } from '@/utils/misc'
 
 type ThemeOption = 'light' | 'dark' | 'system' | 'custom'
 
-const TheMenu: Component<ClassProps> = (rawProps) => {
+export const TheMenu: Component<ClassProps> = (rawProps) => {
 	const props = defaultProps(rawProps, { class: '' })
 
 	const popoverGroupId = createUniqueId()

@@ -3,7 +3,7 @@ import { type ParentComponent } from 'solid-js'
 import * as css from './Text.css'
 import { type ClassProps, defaultProps } from '@/utils/misc'
 
-const Text: ParentComponent<
+export const Text: ParentComponent<
 	ClassProps & {
 		tag?: string
 		variant: keyof typeof css.variant

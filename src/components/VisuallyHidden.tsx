@@ -3,7 +3,7 @@ import { type ParentComponent } from 'solid-js'
 import { defaultProps } from '@/utils/misc'
 import * as css from './VisuallyHidden.css'
 
-const VisuallyHidden: ParentComponent<{
+export const VisuallyHidden: ParentComponent<{
 	tag?: string
 	isFocusable?: boolean
 }> = (rawProps) => {

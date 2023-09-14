@@ -4,7 +4,7 @@ import * as css from './ErrorDisplay.css'
 import { useIcons } from '@/components/ProviderIcons'
 import Text from '@/components/Text'
 
-const ErrorDisplay: ParentComponent = (props) => {
+export const ErrorDisplay: ParentComponent = (props) => {
 	const [Icon] = useIcons()
 
 	const errorId = createUniqueId()
