@@ -25,9 +25,9 @@ type CanvasPointerEvent = PointerEvent & {
 	target: Element
 }
 
-export const TheColourPicker: Component<
-	ClassProps & { spectrumSize?: number }
-> = (rawProps) => {
+export const ColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
+	rawProps,
+) => {
 	const props = defaultProps(rawProps, { spectrumSize: 180, class: '' })
 
 	let spectrumRef: HTMLCanvasElement | undefined

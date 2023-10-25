@@ -10,7 +10,7 @@ import { useI18n } from '@/components/ProviderI18n'
 import { Button } from '@/components/Button'
 import { Text } from '@/components/Text'
 import { Popover } from '@/components/Popover'
-import { TheColourPicker } from '@/components/ColourPicker'
+import { ColourPicker } from '@/components/ColourPicker'
 import { ModalAbout } from '@/components/ModalAbout'
 import { ModalLogin } from '@/components/ModalLogin'
 import { type ClassProps, defaultProps } from '@/utils/misc'
@@ -232,7 +232,7 @@ export const TheMenu: Component<ClassProps> = (rawProps) => {
 						</Button>
 					</div>
 					<div class={css.colourPickerContainer}>
-						<TheColourPicker
+						<ColourPicker
 							class={css.colourPicker}
 							spectrumSize={148}
 						/>
