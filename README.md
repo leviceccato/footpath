@@ -36,6 +36,12 @@ Build app into `dist` folder.
 bun run build
 ```
 
+Run tests.
+
+```shell
+bun test
+```
+
 ## Deployment
 
 This app is hosted on Render. Deploys must be manually triggered from the [Render dashboard](https://dashboard.render.com).
