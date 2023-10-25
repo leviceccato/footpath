@@ -5,7 +5,8 @@
 		"start": "vite",
 		"check": "tsc --noEmit",
 		"build": "bun run check && vite build",
-		"preview": "bun run build && vite preview"
+		"preview": "bun run build && vite preview",
+		"install-hooks": "bunx lefthook install"
 	},
 	"dependencies": {
 		"@popperjs/core": "^2.11.6",
@@ -25,6 +26,7 @@
 		"@types/uuid": "^9.0.1",
 		"@vanilla-extract/vite-plugin": "^3.6.1",
 		"bun-types": "^1.0.1",
+		"lefthook": "^1.5.2",
 		"prettier": "^3.0.3",
 		"typescript": "^4.8.2",
 		"vite": "^3.0.9",

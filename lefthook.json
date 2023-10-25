@@ -1,0 +1,9 @@
+{
+	"pre-commit": {
+		"commands": {
+			"format": {
+				"run": "bunx prettier {staged_files} --write"
+			}
+		}
+	}
+}
