@@ -17,8 +17,8 @@ import { type HslColor, type HslaColor } from 'polished/lib/types/color'
 import { useTheme } from '@/components/ProviderTheme'
 import * as css from './ColourPicker.css'
 import { useFocus } from '@/components/ProviderFocusTrap'
-import { hslToColorString } from 'polished'
-import { FieldText } from '@/components/FieldText'
+import { hslToColorString, parseToHsl } from 'polished'
+import { FieldText, type FieldTextOnInput } from '@/components/FieldText'
 
 type CanvasPointerEvent = PointerEvent & {
 	currentTarget: HTMLCanvasElement
@@ -45,7 +45,10 @@ export const ColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
 	const [spectrumTop, setSpectrumTop] = createSignal(0)
 	const [spectrumWidth, setSpectrumWidth] = createSignal(0)
 	const [spectrumHeight, setSpectrumHeight] = createSignal(0)
-	const hexColour = createSignal(hslToColorString(theme().colour()))
+
+	const hexColour = () => {
+		return hslToColorString(theme().colour())
+	}
 
 	function _setHue(to: number, shouldUpdate = true) {
 		setHue(to)
@@ -199,6 +202,18 @@ export const ColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
 		setColourSelectorPosition(x, y)
 	}
 
+	const handleHexColourFieldInput: FieldTextOnInput = (event) => {
+		let colour: HslColor | HslaColor
+		try {
+			colour = parseToHsl(event.currentTarget.value)
+		} catch {
+			// If this is an invalid colour just ignore it
+			return
+		}
+
+		theme().setColour(colour)
+	}
+
 	createEffect(() => {
 		setSpectrumSize(props.spectrumSize)
 		setSpectrumRect()
@@ -259,7 +274,10 @@ export const ColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
 					value="10"
 				/>
 			</div>
-			<FieldText value={hexColour} />
+			<FieldText
+				value={hexColour()}
+				onInput={handleHexColourFieldInput}
+			/>
 		</div>
 	)
 }
