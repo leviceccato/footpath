@@ -11,9 +11,6 @@ export default {
 	server: {
 		host: true,
 	},
-	build: {
-		target: 'esnext',
-	},
 	resolve: {
 		alias: {
 			'@': src.pathname,
