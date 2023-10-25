@@ -17,3 +17,9 @@ export default {
 		},
 	},
 } satisfies UserConfig
+
+// test pre-commit
+console.log({
+	a: 1,
+	b: 2
+})
