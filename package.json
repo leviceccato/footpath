@@ -1,6 +1,5 @@
 {
 	"name": "lacey",
-	"private": true,
 	"scripts": {
 		"start": "vite",
 		"check": "tsc --noEmit",
