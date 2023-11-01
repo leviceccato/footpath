@@ -1,36 +1,36 @@
 {
-  "name": "lacey",
-  "scripts": {
-    "start": "vite",
-    "lint-and-format": "eslint --fix .",
-    "type-check": "tsc",
-    "prebuild": "bun run lint-and-format && bun run type-check",
-    "build": "vite build",
-    "preview": "bun run build && vite preview",
-    "install-hooks": "lefthook install"
-  },
-  "dependencies": {
-    "@popperjs/core": "^2.11.6",
-    "@vanilla-extract/css": "^1.9.1",
-    "@vanilla-extract/dynamic": "^2.0.2",
-    "codemirror": "^6.0.1",
-    "idb": "^7.1.1",
-    "modern-normalize": "^1.1.0",
-    "polished": "^4.2.2",
-    "radash": "^11.0.0",
-    "simplebar": "^5.3.9",
-    "solid-js": "^1.5.1"
-  },
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^6.9.1",
-    "@typescript-eslint/parser": "^6.9.1",
-    "@vanilla-extract/vite-plugin": "^3.6.1",
-    "bun-types": "^1.0.1",
-    "eslint": "^8.52.0",
-    "eslint-plugin-jsonc": "^2.10.0",
-    "lefthook": "^1.5.2",
-    "typescript": "^4.8.2",
-    "vite": "^3.0.9",
-    "vite-plugin-solid": "^2.7.0"
-  }
+	"name": "lacey",
+	"scripts": {
+		"start": "vite",
+		"lint-and-format": "eslint --fix .",
+		"type-check": "tsc",
+		"prebuild": "bun run lint-and-format && bun run type-check",
+		"build": "vite build",
+		"preview": "bun run build && vite preview",
+		"install-hooks": "lefthook install"
+	},
+	"dependencies": {
+		"@popperjs/core": "^2.11.6",
+		"@vanilla-extract/dynamic": "^2.0.2",
+		"codemirror": "^6.0.1",
+		"idb": "^7.1.1",
+		"modern-normalize": "^1.1.0",
+		"polished": "^4.2.2",
+		"radash": "^11.0.0",
+		"simplebar": "^5.3.9",
+		"solid-js": "^1.5.1"
+	},
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^6.9.1",
+		"@typescript-eslint/parser": "^6.9.1",
+		"@vanilla-extract/css": "^1.13.0",
+		"@vanilla-extract/vite-plugin": "^3.6.1",
+		"bun-types": "^1.0.1",
+		"eslint": "^8.52.0",
+		"eslint-plugin-jsonc": "^2.10.0",
+		"lefthook": "^1.5.2",
+		"typescript": "^4.8.2",
+		"vite": "^3.0.9",
+		"vite-plugin-solid": "^2.7.0"
+	}
 }
