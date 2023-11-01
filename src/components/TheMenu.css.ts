@@ -29,7 +29,7 @@ export const buttonVariant = styleVariants({
 	default: [
 		button,
 		{
-			border: `1px solid transparent`,
+			border: '1px solid transparent',
 		},
 	],
 	dropdownOpen: [

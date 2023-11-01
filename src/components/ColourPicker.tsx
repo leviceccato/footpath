@@ -75,7 +75,7 @@ export const ColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
 
 		// Create white to hue gradient (base)
 
-		let gradientWhiteToHue = context.createLinearGradient(
+		const gradientWhiteToHue = context.createLinearGradient(
 			0,
 			0,
 			context.canvas.width,
@@ -88,7 +88,7 @@ export const ColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
 
 		// Create transparent to black gradient (overlay)
 
-		let gradientTransparentToBlack = context.createLinearGradient(
+		const gradientTransparentToBlack = context.createLinearGradient(
 			0,
 			0,
 			0,
@@ -186,17 +186,17 @@ export const ColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
 		let y = spectrumTop() + colourSelectorY()
 
 		switch (key) {
-			case 'ArrowUp':
-				y--
-				break
-			case 'ArrowDown':
-				y++
-				break
-			case 'ArrowLeft':
-				x--
-				break
-			case 'ArrowRight':
-				x++
+		case 'ArrowUp':
+			y--
+			break
+		case 'ArrowDown':
+			y++
+			break
+		case 'ArrowLeft':
+			x--
+			break
+		case 'ArrowRight':
+			x++
 		}
 
 		setColourSelectorPosition(x, y)

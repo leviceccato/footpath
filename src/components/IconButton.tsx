@@ -29,7 +29,7 @@ export const IconButton: Component<
 
 	const [popover, setPopover] = createSignal<Instance>()
 
-	let virtualReference: {
+	const virtualReference: {
 		getBoundingClientRect: VirtualElement['getBoundingClientRect'] | null
 	} = {
 		getBoundingClientRect: null,

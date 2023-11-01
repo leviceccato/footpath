@@ -22,7 +22,7 @@ export const RouteMainHeader: Component = () => {
 	] = useCodeDocuments()
 
 	const shownCodeDocuments = () => {
-		let docs: CodeDocument[] = []
+		const docs: CodeDocument[] = []
 
 		Object.values(codeDocuments().value).forEach((doc) => {
 			if (!doc.deletedAt) {

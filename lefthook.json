@@ -1,8 +1,8 @@
 {
 	"pre-push": {
 		"commands": {
-			"format": {
-				"run": "bunx prettier {push_files} --write"
+			"lint": {
+				"run": "bun run lint"
 			}
 		}
 	}

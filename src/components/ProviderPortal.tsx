@@ -11,7 +11,7 @@ import {
 import * as css from './ProviderPortal.css'
 
 const Mounts: Component = () => {
-	let mountRefs = new Map<string, HTMLDivElement>()
+	const mountRefs = new Map<string, HTMLDivElement>()
 
 	const portal = usePortal()
 

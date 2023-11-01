@@ -13,7 +13,7 @@ export const fontPlexSansMedium: Font = {
 	top: 0.85,
 	bottom: 0.85,
 	family: fontFace({
-		src: `local("IBM Plex Sans"), url("/fonts/IBMPlexSans-Medium.woff2") format("woff2")`,
+		src: 'local("IBM Plex Sans"), url("/fonts/IBMPlexSans-Medium.woff2") format("woff2")',
 	}),
 }
 
@@ -22,7 +22,7 @@ export const fontPlexMonoRegular: Font = {
 	top: 0.85,
 	bottom: 0.85,
 	family: fontFace({
-		src: `local("IBM Plex Sans"), url("/fonts/IBMPlexMono-Regular.woff2") format("woff2")`,
+		src: 'local("IBM Plex Sans"), url("/fonts/IBMPlexMono-Regular.woff2") format("woff2")',
 	}),
 }
 
@@ -31,7 +31,7 @@ export const fontPlexMonoBold: Font = {
 	top: 0.85,
 	bottom: 0.85,
 	family: fontFace({
-		src: `local("IBM Plex Sans"), url("/fonts/IBMPlexMono-Bold.woff2") format("woff2")`,
+		src: 'local("IBM Plex Sans"), url("/fonts/IBMPlexMono-Bold.woff2") format("woff2")',
 	}),
 }
 

@@ -14,7 +14,7 @@ type HsvColour = {
 
 export function lastSegmentFromPath(path: string): string {
 	const lastSegment = path.substring(path.lastIndexOf('/') + 1)
-	const [lastSegmentWithoutExtension, ..._] = lastSegment.split('.')
+	const [lastSegmentWithoutExtension] = lastSegment.split('.')
 
 	return lastSegmentWithoutExtension
 }
@@ -32,25 +32,23 @@ export function clamp(min: number, value: number, max: number): number {
 }
 
 export function hslToHsv(colour: HslColor): HsvColour {
-	let { hue, saturation, lightness } = colour
-	const value = lightness + saturation * Math.min(lightness, 1 - lightness)
+	const value = colour.lightness + colour.saturation * Math.min(colour.lightness, 1 - colour.lightness)
 
 	if (value !== 0) {
-		saturation = 2 * (1 - lightness / value)
+		colour.saturation = 2 * (1 - colour.lightness / value)
 	}
 
-	return { hue, saturation, value }
+	return { hue: colour.hue, saturation: colour.saturation, value }
 }
 
 export function hsvToHsl(colour: HsvColour): HslColor {
-	let { hue, saturation, value } = colour
-	const lightness = value * (1 - saturation / 2)
+	const lightness = colour.value * (1 - colour.saturation / 2)
 
 	if (lightness !== 1 && lightness !== 0) {
-		saturation = (value - lightness) / Math.min(lightness, 1 - lightness)
+		colour.saturation = (colour.value - lightness) / Math.min(lightness, 1 - lightness)
 	}
 
-	return { hue, saturation, lightness }
+	return { hue: colour.hue, saturation: colour.saturation, lightness }
 }
 
 export function sleep(duration: number): Promise<void> {

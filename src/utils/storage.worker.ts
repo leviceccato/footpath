@@ -12,7 +12,7 @@ type RequestInit = {
 type RequestSet = {
 	type: 'set'
 	payload: {
-		data: any
+		data: unknown
 	}
 }
 
@@ -29,7 +29,7 @@ type ResponseInit = {
 type ResponseGet = {
 	type: 'get'
 	payload: {
-		data: any
+		data: unknown
 	}
 }
 
@@ -46,15 +46,15 @@ let dbPromise: Promise<IDBPDatabase<unknown>> | undefined
 
 self.onmessage = ({ data }: MessageEvent<StorageRequest>) => {
 	switch (data.type) {
-		case 'init':
-			init(data.payload.name, data.payload.version)
-			break
-		case 'get':
-			get()
-			break
-		case 'set':
-			set(data.payload.data)
-			break
+	case 'init':
+		init(data.payload.name, data.payload.version)
+		break
+	case 'get':
+		get()
+		break
+	case 'set':
+		set(data.payload.data)
+		break
 	}
 }
 
@@ -86,7 +86,7 @@ function get(): void {
 	})
 }
 
-const set = debounce((data: any): void => {
+const set = debounce((data: unknown): void => {
 	dbPromise?.then(async (db) => {
 		await db.put(storeName, data, keyName)
 

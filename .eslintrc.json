@@ -1,0 +1,31 @@
+{
+	"root": true,
+	"parser": "@typescript-eslint/parser",
+	"plugins": ["@typescript-eslint"],
+	"ignorePatterns": ["dist", "node_modules"],
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:jsonc/recommended-with-jsonc"
+	],
+	"overrides": [
+		{
+			"files": ["*.json", "*.json5", "*.jsonc"],
+			"parser": "jsonc-eslint-parser"
+		}
+	],
+	"rules": {
+		"indent": ["error", "tab"],
+		"semi": ["error", "never"],
+		"quotes": ["error", "single"],
+		"comma-dangle": ["error", "always-multiline"],
+		"jsonc/indent": ["error", "tab"],
+		"@typescript-eslint/no-unused-vars": ["error", {
+			"vars": "all",
+			"args": "after-used",
+			"ignoreRestSiblings": false,
+			"varsIgnorePattern": "^_",
+			"argsIgnorePattern": "^_"
+		}]
+	}
+}

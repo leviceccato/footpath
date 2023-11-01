@@ -58,7 +58,7 @@ function createCodeDocumentsContext() {
 		}
 
 		function activate(id: string): void {
-			let newStore: CodeDocumentStore = {}
+			const newStore: CodeDocumentStore = {}
 
 			Object.values(store().value).forEach((doc) => {
 				const currentId = doc.id
@@ -71,7 +71,7 @@ function createCodeDocumentsContext() {
 		}
 
 		function _delete(id: string): void {
-			let newStore: CodeDocumentStore = { ...store().value }
+			const newStore: CodeDocumentStore = { ...store().value }
 
 			newStore[id].deletedAt = new Date()
 

@@ -29,16 +29,18 @@ export function createClientStore<TValue>(rawProps: {
 			const workerPromise = new Promise<Worker>((resolve) => {
 				const worker = new StorageWorker()
 
+				props.initialValue
+
 				worker.onerror = props.onError
 
 				worker.onmessage = ({ data }: MessageEvent<StorageResponse>) => {
 					switch (data.type) {
-						case 'init':
-							resolve(worker)
-							break
-						case 'get':
-							setStore({ value: data.payload.data })
-							break
+					case 'init':
+						resolve(worker)
+						break
+					case 'get':
+						setStore({ value: data.payload.data as TValue })
+						break
 					}
 				}
 
