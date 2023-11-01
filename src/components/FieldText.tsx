@@ -3,14 +3,12 @@ import { type ClassProps, defaultProps } from '@/utils/misc'
 import { Dynamic } from 'solid-js/web'
 import * as css from './FieldText.css'
 
-export type FieldTextOnInput = JSX.EventHandler<
-	HTMLInputElement | HTMLTextAreaElement,
-	InputEvent
->
-
-type FieldTextProps = ClassProps & {
+export type FieldTextProps = ClassProps & {
 	value: string
-	onInput?: FieldTextOnInput
+	onInput?: JSX.EventHandler<
+		HTMLInputElement | HTMLTextAreaElement,
+		InputEvent
+	>
 	label?: JSX.Element
 	placeholder?: string
 	isDisabled?: boolean

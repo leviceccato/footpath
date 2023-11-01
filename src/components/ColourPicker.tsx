@@ -18,7 +18,7 @@ import { useTheme } from '@/components/ProviderTheme'
 import * as css from './ColourPicker.css'
 import { useFocus } from '@/components/ProviderFocusTrap'
 import { hslToColorString, parseToHsl } from 'polished'
-import { FieldText, type FieldTextOnInput } from '@/components/FieldText'
+import { FieldText, type FieldTextProps } from '@/components/FieldText'
 
 type CanvasPointerEvent = PointerEvent & {
 	currentTarget: HTMLCanvasElement
@@ -61,9 +61,7 @@ export const ColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
 		}
 	}
 
-	const handleHueRangeInput: JSX.EventHandler<HTMLInputElement, InputEvent> = (
-		event,
-	) => {
+	function handleHueRangeInput(...[event]: Parameters<JSX.EventHandler<HTMLInputElement, InputEvent>>) {
 		setShouldEcho(false)
 		_setHue(event.currentTarget.valueAsNumber)
 		setShouldEcho(true)
@@ -202,7 +200,7 @@ export const ColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
 		setColourSelectorPosition(x, y)
 	}
 
-	const handleHexColourFieldInput: FieldTextOnInput = (event) => {
+	function handleHexColourFieldInput(...[event]: Parameters<NonNullable<FieldTextProps['onInput']>>) {
 		let colour: HslColor | HslaColor
 		try {
 			colour = parseToHsl(event.currentTarget.value)
