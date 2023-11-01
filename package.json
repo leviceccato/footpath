@@ -2,8 +2,8 @@
 	"name": "lacey",
 	"scripts": {
 		"start": "vite",
-		"check": "tsc",
 		"lint": "eslint .",
+		"check": "tsc",
 		"build": "bun run check && bun run lint && vite build",
 		"preview": "bun run build && vite preview",
 		"install-hooks": "lefthook install"

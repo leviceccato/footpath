@@ -3,6 +3,9 @@
 		"commands": {
 			"lint": {
 				"run": "bun run lint"
+			},
+			"check": {
+				"run": "bun run check"
 			}
 		}
 	}
