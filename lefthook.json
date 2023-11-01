@@ -1,11 +1,8 @@
 {
 	"pre-push": {
 		"commands": {
-			"lint": {
-				"run": "bun run lint"
-			},
-			"check": {
-				"run": "bun run check"
+			"lint-format-and-type-check": {
+				"run": "bun run prebuild"
 			}
 		}
 	}
