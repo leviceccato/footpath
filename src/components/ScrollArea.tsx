@@ -1,12 +1,12 @@
+import { type ClassProps, defaultProps } from '@/utils/misc'
 import 'simplebar/dist/simplebar.css'
 import {
-	onMount,
-	onCleanup,
-	createSignal,
 	type ParentComponent,
+	createSignal,
+	onCleanup,
+	onMount,
 } from 'solid-js'
 import * as css from './ScrollArea.css'
-import { type ClassProps, defaultProps } from '@/utils/misc'
 const importSimpleBar = () => import('simplebar')
 
 export const ScrollArea: ParentComponent<
@@ -92,11 +92,7 @@ export const ScrollArea: ParentComponent<
 	// Use expected SimpleBar markup
 
 	return (
-		<div
-			ref={rootRef}
-			data-simplebar
-			class={`${css.root} ${props.class}`}
-		>
+		<div ref={rootRef} data-simplebar class={`${css.root} ${props.class}`}>
 			<div class="simplebar-wrapper">
 				<div class="simplebar-height-auto-observer-wrapper">
 					<div class="simplebar-height-auto-observer" />

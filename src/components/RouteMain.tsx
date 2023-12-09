@@ -1,14 +1,14 @@
-import { createSignal, type Component } from 'solid-js'
+import { Button } from '@/components/Button'
+import { CodeEditor } from '@/components/CodeEditor'
 import { useI18n } from '@/components/ProviderI18n'
 import { useIcons } from '@/components/ProviderIcons'
 import { usePortal } from '@/components/ProviderPortal'
 import { useTheme } from '@/components/ProviderTheme'
-import { decimalToPercentage, clamp } from '@/utils/misc'
-import * as css from './RouteMain.css'
-import { Button } from '@/components/Button'
-import { ScrollArea } from '@/components/ScrollArea'
-import { CodeEditor } from '@/components/CodeEditor'
 import { RouteMainHeader } from '@/components/RouteMainHeader'
+import { ScrollArea } from '@/components/ScrollArea'
+import { clamp, decimalToPercentage } from '@/utils/misc'
+import { type Component, createSignal } from 'solid-js'
+import * as css from './RouteMain.css'
 
 export const RouteMain: Component = () => {
 	const [_, Symbols] = useIcons()
@@ -54,26 +54,17 @@ export const RouteMain: Component = () => {
 	}
 
 	return (
-		<div
-			class={`${theme().class} ${css.root}`}
-			style={theme().vars}
-		>
+		<div class={`${theme().class} ${css.root}`} style={theme().vars}>
 			<Symbols />
 			<RouteMainHeader />
-			<main
-				ref={mainRef}
-				class={css.main}
-			>
+			<main ref={mainRef} class={css.main}>
 				<div
 					class={css.viewContainer}
 					style={{ width: `calc(${widthPercentage()} - 0.5px` }}
 				>
 					<ScrollArea class={css.viewBar}>
 						<div class={css.viewBarInner}>
-							<Button
-								class={css.viewBarButtonVariant.active}
-								text={t().code}
-							/>
+							<Button class={css.viewBarButtonVariant.active} text={t().code} />
 							<Button
 								class={css.viewBarButtonVariant.inactive}
 								text={t().optimize}
@@ -96,10 +87,7 @@ export const RouteMain: Component = () => {
 				>
 					<ScrollArea class={css.viewBar}>
 						<div class={css.viewBarInner}>
-							<Button
-								class={css.viewBarButtonVariant.active}
-								text={t().svg}
-							/>
+							<Button class={css.viewBarButtonVariant.active} text={t().svg} />
 							<Button
 								class={css.viewBarButtonVariant.inactive}
 								text={t().symbols}

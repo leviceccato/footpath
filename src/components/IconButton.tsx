@@ -1,13 +1,13 @@
-import { Component, createSignal } from 'solid-js'
-import { splitProps } from 'solid-js'
-import { useIcons, type IconName } from '@/components/ProviderIcons'
-import { sleep } from '@/utils/misc'
-import * as css from './IconButton.css'
-import { type VirtualElement, Instance } from '@popperjs/core'
 import { type ButtonProps } from '@/components/Button'
 import { Popover } from '@/components/Popover'
+import { type IconName, useIcons } from '@/components/ProviderIcons'
 import { Text } from '@/components/Text'
 import { VisuallyHidden } from '@/components/VisuallyHidden'
+import { sleep } from '@/utils/misc'
+import { Instance, type VirtualElement } from '@popperjs/core'
+import { Component, createSignal } from 'solid-js'
+import { splitProps } from 'solid-js'
+import * as css from './IconButton.css'
 
 const tooltipOffsetX = 0
 const tooltipOffsetY = 0
@@ -89,10 +89,7 @@ export const IconButton: Component<
 				</>
 			)}
 		>
-			<div
-				aria-hidden
-				class={css.tooltipInner}
-			>
+			<div aria-hidden class={css.tooltipInner}>
 				<Text variant="bodyXxs">{_props.tooltip}</Text>
 			</div>
 		</Popover>

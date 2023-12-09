@@ -1,11 +1,11 @@
 import {
-	createContext,
-	useContext,
-	createUniqueId,
-	createEffect,
-	onCleanup,
-	type JSX,
 	type Component,
+	type JSX,
+	createContext,
+	createEffect,
+	createUniqueId,
+	onCleanup,
+	useContext,
 } from 'solid-js'
 import * as css from './ProviderFocusTrap.css'
 

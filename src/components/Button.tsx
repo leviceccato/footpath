@@ -1,8 +1,8 @@
-import { Dynamic } from 'solid-js/web'
-import { Show, splitProps, type ParentComponent, type JSX } from 'solid-js'
-import * as css from './Button.css'
 import { useFocus } from '@/components/ProviderFocusTrap'
 import { Text } from '@/components/Text'
+import { type JSX, type ParentComponent, Show, splitProps } from 'solid-js'
+import { Dynamic } from 'solid-js/web'
+import * as css from './Button.css'
 
 export type ButtonProps = JSX.ButtonHTMLAttributes<HTMLButtonElement> & {
 	href?: string
@@ -29,10 +29,7 @@ export const Button: ParentComponent<ButtonProps> = (props) => {
 			href={_props.href}
 			class={`${css.root} ${buttonProps.class ?? ''}`}
 		>
-			<Show
-				when={_props.text}
-				fallback={_props.children}
-			>
+			<Show when={_props.text} fallback={_props.children}>
 				<Text variant="bodyXs">{_props.text}</Text>
 			</Show>
 		</Dynamic>

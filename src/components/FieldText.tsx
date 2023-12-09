@@ -1,14 +1,11 @@
-import { createSignal, Show, type ParentComponent, type JSX } from 'solid-js'
 import { type ClassProps, defaultProps } from '@/utils/misc'
+import { type JSX, type ParentComponent, Show, createSignal } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
 import * as css from './FieldText.css'
 
 export type FieldTextProps = ClassProps & {
 	value: string
-	onInput?: JSX.EventHandler<
-		HTMLInputElement | HTMLTextAreaElement,
-		InputEvent
-	>
+	onInput?: JSX.EventHandler<HTMLInputElement | HTMLTextAreaElement, InputEvent>
 	label?: JSX.Element
 	placeholder?: string
 	isDisabled?: boolean

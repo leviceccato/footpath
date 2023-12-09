@@ -1,5 +1,5 @@
-import { style, createVar, styleVariants } from '@vanilla-extract/css'
 import * as themeCss from '@/components/ProviderTheme.css'
+import { createVar, style, styleVariants } from '@vanilla-extract/css'
 
 export const headerHeight = createVar()
 export const viewBarHeight = createVar()

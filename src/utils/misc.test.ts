@@ -1,11 +1,11 @@
 import { describe, expect, test } from 'bun:test'
 import {
-	lastSegmentFromPath,
-	decimalToPercentage,
-	createRandomColour,
 	clamp,
+	createRandomColour,
+	decimalToPercentage,
 	hslToHsv,
 	hsvToHsl,
+	lastSegmentFromPath,
 } from './misc'
 
 describe('utils', () => {
@@ -41,7 +41,7 @@ describe('utils', () => {
 			.join('')
 			.match(/.{1, 2}/g)
 			?.forEach((pair) => {
-				expect(isNaN(parseInt(pair, 16))).toBe(false)
+				expect(Number.isNaN(parseInt(pair, 16))).toBe(false)
 			})
 	})
 

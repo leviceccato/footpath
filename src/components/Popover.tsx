@@ -1,32 +1,32 @@
+import { Button, type ButtonProps } from '@/components/Button'
+import { ProviderFocusTrap } from '@/components/ProviderFocusTrap'
+import { usePortal } from '@/components/ProviderPortal'
 import {
-	createUniqueId,
-	onCleanup,
-	createSignal,
-	createEffect,
-	createRoot,
-	Show,
-	type ParentComponent,
-	type JSX,
-	type Accessor,
-	type Setter,
-} from 'solid-js'
-import {
-	type StrictModifiers,
-	type Options,
-	type Instance,
-	type VirtualElement,
-} from '@popperjs/core'
-import * as css from './Popover.css'
-import { Portal } from 'solid-js/web'
-import {
-	sleep,
 	type ClassProps,
 	type GlobalWindow,
 	defaultProps,
+	sleep,
 } from '@/utils/misc'
-import { usePortal } from '@/components/ProviderPortal'
-import { Button, type ButtonProps } from '@/components/Button'
-import { ProviderFocusTrap } from '@/components/ProviderFocusTrap'
+import {
+	type Instance,
+	type Options,
+	type StrictModifiers,
+	type VirtualElement,
+} from '@popperjs/core'
+import {
+	type Accessor,
+	type JSX,
+	type ParentComponent,
+	type Setter,
+	Show,
+	createEffect,
+	createRoot,
+	createSignal,
+	createUniqueId,
+	onCleanup,
+} from 'solid-js'
+import { Portal } from 'solid-js/web'
+import * as css from './Popover.css'
 const importPopper = () => import('@popperjs/core')
 
 type PopoverState = {
@@ -362,10 +362,7 @@ export const Popover: ParentComponent<
 						role="tooltip"
 					>
 						<Show when={props.hasArrow}>
-							<div
-								ref={arrowRef}
-								class={css.arrow}
-							>
+							<div ref={arrowRef} class={css.arrow}>
 								<div class={css.arrowInner} />
 							</div>
 						</Show>

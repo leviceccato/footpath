@@ -1,13 +1,13 @@
+import { icons as iconConstants } from '@/data/icons'
+import { type ClassProps, defaultProps } from '@/utils/misc'
 import {
-	createContext,
-	useContext,
+	type Component,
 	For,
 	type ParentComponent,
-	type Component,
+	createContext,
+	useContext,
 } from 'solid-js'
-import { icons as iconConstants } from '@/data/icons'
 import * as css from './ProviderIcons.css'
-import { type ClassProps, defaultProps } from '@/utils/misc'
 
 type Icons = typeof iconConstants
 

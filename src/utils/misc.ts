@@ -32,7 +32,9 @@ export function clamp(min: number, value: number, max: number): number {
 }
 
 export function hslToHsv(colour: HslColor): HsvColour {
-	const value = colour.lightness + colour.saturation * Math.min(colour.lightness, 1 - colour.lightness)
+	const value =
+		colour.lightness +
+		colour.saturation * Math.min(colour.lightness, 1 - colour.lightness)
 
 	if (value !== 0) {
 		colour.saturation = 2 * (1 - colour.lightness / value)
@@ -45,7 +47,8 @@ export function hsvToHsl(colour: HsvColour): HslColor {
 	const lightness = colour.value * (1 - colour.saturation / 2)
 
 	if (lightness !== 1 && lightness !== 0) {
-		colour.saturation = (colour.value - lightness) / Math.min(lightness, 1 - lightness)
+		colour.saturation =
+			(colour.value - lightness) / Math.min(lightness, 1 - lightness)
 	}
 
 	return { hue: colour.hue, saturation: colour.saturation, lightness }
@@ -71,9 +74,10 @@ export async function sequence<TItem>(
 }
 
 type PickOptionals<TValue> = {
-	[TKey in keyof TValue as TValue extends Record<TKey, TValue[TKey]>
-		? never
-		: TKey]-?: TValue[TKey]
+	[TKey in
+		keyof TValue as TValue extends Record<TKey, TValue[TKey]>
+			? never
+			: TKey]-?: TValue[TKey]
 }
 
 // Make default prop declarations cleaner and more type-safe

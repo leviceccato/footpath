@@ -1,6 +1,6 @@
-import { style, globalStyle as g } from '@vanilla-extract/css'
-import * as themeCss from '@/components/ProviderTheme.css'
 import * as baseCss from '@/base.css'
+import * as themeCss from '@/components/ProviderTheme.css'
+import { globalStyle as g, style } from '@vanilla-extract/css'
 
 export const root = style({
 	maxHeight: '100%',

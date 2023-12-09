@@ -1,11 +1,11 @@
-import { Show, createEffect, type ParentComponent, type Signal } from 'solid-js'
-import { Portal } from 'solid-js/web'
-import { usePortal } from '@/components/ProviderPortal'
-import * as css from './Modal.css'
-import { useI18n } from '@/components/ProviderI18n'
-import { ProviderFocusTrap } from '@/components/ProviderFocusTrap'
-import { Text } from '@/components/Text'
 import { IconButton } from '@/components/IconButton'
+import { ProviderFocusTrap } from '@/components/ProviderFocusTrap'
+import { useI18n } from '@/components/ProviderI18n'
+import { usePortal } from '@/components/ProviderPortal'
+import { Text } from '@/components/Text'
+import { type ParentComponent, Show, type Signal, createEffect } from 'solid-js'
+import { Portal } from 'solid-js/web'
+import * as css from './Modal.css'
 
 export type ModalProps = {
 	isShown: Signal<boolean>
@@ -52,14 +52,8 @@ export const Modal: ParentComponent<ModalProps> = (props) => {
 			<Portal mount={modal()}>
 				<ProviderFocusTrap when={isShown()}>
 					{([_, unreachableFocusableProps]) => (
-						<div
-							onClick={handleRootClick}
-							class={css.root}
-						>
-							<div
-								ref={containerRef}
-								class={css.container}
-							>
+						<div onClick={handleRootClick} class={css.root}>
+							<div ref={containerRef} class={css.container}>
 								<div
 									{...unreachableFocusableProps}
 									class={`${css.header} ${unreachableFocusableProps.class}`}

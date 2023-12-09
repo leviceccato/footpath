@@ -1,12 +1,12 @@
 import {
+	type Component,
+	Index,
+	type ParentComponent,
 	createContext,
 	createSignal,
-	useContext,
-	Index,
-	onMount,
 	onCleanup,
-	type ParentComponent,
-	type Component,
+	onMount,
+	useContext,
 } from 'solid-js'
 import * as css from './ProviderPortal.css'
 
@@ -26,10 +26,7 @@ const Mounts: Component = () => {
 	return (
 		<Index each={portal.mountIds}>
 			{(id) => (
-				<div
-					class={css.mount}
-					ref={(ref) => mountRefs.set(id(), ref)}
-				/>
+				<div class={css.mount} ref={(ref) => mountRefs.set(id(), ref)} />
 			)}
 		</Index>
 	)

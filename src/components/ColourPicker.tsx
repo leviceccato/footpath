@@ -1,24 +1,24 @@
+import { FieldText, type FieldTextProps } from '@/components/FieldText'
+import { useFocus } from '@/components/ProviderFocusTrap'
+import { useTheme } from '@/components/ProviderTheme'
 import {
-	createSignal,
-	createEffect,
-	onCleanup,
-	type Component,
-	type JSX,
-} from 'solid-js'
-import { assignInlineVars } from '@vanilla-extract/dynamic'
-import {
+	type ClassProps,
 	clamp,
+	defaultProps,
 	hslToHsv,
 	hsvToHsl,
-	defaultProps,
-	type ClassProps,
 } from '@/utils/misc'
-import { type HslColor, type HslaColor } from 'polished/lib/types/color'
-import { useTheme } from '@/components/ProviderTheme'
-import * as css from './ColourPicker.css'
-import { useFocus } from '@/components/ProviderFocusTrap'
+import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { hslToColorString, parseToHsl } from 'polished'
-import { FieldText, type FieldTextProps } from '@/components/FieldText'
+import { type HslColor, type HslaColor } from 'polished/lib/types/color'
+import {
+	type Component,
+	type JSX,
+	createEffect,
+	createSignal,
+	onCleanup,
+} from 'solid-js'
+import * as css from './ColourPicker.css'
 
 type CanvasPointerEvent = PointerEvent & {
 	currentTarget: HTMLCanvasElement
@@ -61,7 +61,9 @@ export const ColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
 		}
 	}
 
-	function handleHueRangeInput(...[event]: Parameters<JSX.EventHandler<HTMLInputElement, InputEvent>>) {
+	function handleHueRangeInput(
+		...[event]: Parameters<JSX.EventHandler<HTMLInputElement, InputEvent>>
+	) {
 		setShouldEcho(false)
 		_setHue(event.currentTarget.valueAsNumber)
 		setShouldEcho(true)
@@ -184,23 +186,25 @@ export const ColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
 		let y = spectrumTop() + colourSelectorY()
 
 		switch (key) {
-		case 'ArrowUp':
-			y--
-			break
-		case 'ArrowDown':
-			y++
-			break
-		case 'ArrowLeft':
-			x--
-			break
-		case 'ArrowRight':
-			x++
+			case 'ArrowUp':
+				y--
+				break
+			case 'ArrowDown':
+				y++
+				break
+			case 'ArrowLeft':
+				x--
+				break
+			case 'ArrowRight':
+				x++
 		}
 
 		setColourSelectorPosition(x, y)
 	}
 
-	function handleHexColourFieldInput(...[event]: Parameters<NonNullable<FieldTextProps['onInput']>>) {
+	function handleHexColourFieldInput(
+		...[event]: Parameters<NonNullable<FieldTextProps['onInput']>>
+	) {
 		let colour: HslColor | HslaColor
 		try {
 			colour = parseToHsl(event.currentTarget.value)
@@ -272,10 +276,7 @@ export const ColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
 					value="10"
 				/>
 			</div>
-			<FieldText
-				value={hexColour()}
-				onInput={handleHexColourFieldInput}
-			/>
+			<FieldText value={hexColour()} onInput={handleHexColourFieldInput} />
 		</div>
 	)
 }

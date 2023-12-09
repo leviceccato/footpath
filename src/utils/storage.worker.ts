@@ -1,4 +1,4 @@
-import { openDB, type IDBPDatabase } from 'idb'
+import { type IDBPDatabase, openDB } from 'idb'
 import { debounce } from 'radash'
 
 type RequestInit = {
@@ -46,15 +46,15 @@ let dbPromise: Promise<IDBPDatabase<unknown>> | undefined
 
 self.onmessage = ({ data }: MessageEvent<StorageRequest>) => {
 	switch (data.type) {
-	case 'init':
-		init(data.payload.name, data.payload.version)
-		break
-	case 'get':
-		get()
-		break
-	case 'set':
-		set(data.payload.data)
-		break
+		case 'init':
+			init(data.payload.name, data.payload.version)
+			break
+		case 'get':
+			get()
+			break
+		case 'set':
+			set(data.payload.data)
+			break
 	}
 }
 

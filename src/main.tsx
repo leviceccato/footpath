@@ -5,9 +5,9 @@
 // Solid Refresh pragma
 /* @refresh reload */
 
-import 'modern-normalize/modern-normalize.css'
 import '@/base.css'
-import { render } from 'solid-js/web'
 import { TheApp } from '@/components/TheApp'
+import 'modern-normalize/modern-normalize.css'
+import { render } from 'solid-js/web'
 
 render(() => <TheApp />, document.getElementById('root') as HTMLElement)

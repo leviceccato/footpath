@@ -1,7 +1,7 @@
-import { createSignal, createEffect, createRoot } from 'solid-js'
-import StorageWorker from '@/utils/storage.worker?worker'
-import { type StorageRequest, StorageResponse } from '@/utils/storage.worker'
 import { defaultValues } from '@/utils/misc'
+import { type StorageRequest, StorageResponse } from '@/utils/storage.worker'
+import StorageWorker from '@/utils/storage.worker?worker'
+import { createEffect, createRoot, createSignal } from 'solid-js'
 
 export function createClientStore<TValue>(rawProps: {
 	name: string
@@ -35,12 +35,12 @@ export function createClientStore<TValue>(rawProps: {
 
 				worker.onmessage = ({ data }: MessageEvent<StorageResponse>) => {
 					switch (data.type) {
-					case 'init':
-						resolve(worker)
-						break
-					case 'get':
-						setStore({ value: data.payload.data as TValue })
-						break
+						case 'init':
+							resolve(worker)
+							break
+						case 'get':
+							setStore({ value: data.payload.data as TValue })
+							break
 					}
 				}
 

@@ -1,8 +1,8 @@
-import { createUniqueId, type ParentComponent } from 'solid-js'
-import { ErrorBoundary } from 'solid-js/web'
-import * as css from './ErrorDisplay.css'
 import { useIcons } from '@/components/ProviderIcons'
 import { Text } from '@/components/Text'
+import { type ParentComponent, createUniqueId } from 'solid-js'
+import { ErrorBoundary } from 'solid-js/web'
+import * as css from './ErrorDisplay.css'
 
 export const ErrorDisplay: ParentComponent = (props) => {
 	const [Icon] = useIcons()
@@ -13,10 +13,7 @@ export const ErrorDisplay: ParentComponent = (props) => {
 		<ErrorBoundary
 			fallback={(error) => (
 				<div class={css.root}>
-					<Icon
-						class={css.icon}
-						name="warning"
-					/>
+					<Icon class={css.icon} name="warning" />
 					<Text variant="bodyS">An error has occured in script execution</Text>
 					<Text variant="bodyXs">
 						See console for error output (ID: {errorId})

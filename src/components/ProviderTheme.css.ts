@@ -1,4 +1,4 @@
-import { style, createVar } from '@vanilla-extract/css'
+import { createVar, style } from '@vanilla-extract/css'
 
 // Define vars for ramp from readable colour to theme colour
 // First create base RGB values for use with rgba function

@@ -1,5 +1,5 @@
-import { type Component } from 'solid-js'
 import { isInIframe } from '@/utils/misc'
+import { type Component } from 'solid-js'
 import * as css from './RouteSvg.css'
 
 export const RouteSvg: Component = () => {
@@ -8,5 +8,5 @@ export const RouteSvg: Component = () => {
 		window.history.replaceState(null, '', window.location.origin)
 	}
 
-	return <div class={css.root}></div>
+	return <div class={css.root} />
 }

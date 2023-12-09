@@ -1,7 +1,7 @@
-import { Dynamic } from 'solid-js/web'
-import { type ParentComponent } from 'solid-js'
-import * as css from './Text.css'
 import { type ClassProps, defaultProps } from '@/utils/misc'
+import { type ParentComponent } from 'solid-js'
+import { Dynamic } from 'solid-js/web'
+import * as css from './Text.css'
 
 export const Text: ParentComponent<
 	ClassProps & {

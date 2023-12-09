@@ -1,17 +1,17 @@
+import { colourBrand, colourDark, colourLight } from '@/data/colours'
+import { createClientStore } from '@/utils/storage'
+import { assignInlineVars } from '@vanilla-extract/dynamic'
+import { hslToColorString, mix, parseToRgb, readableColor } from 'polished'
+import { type HslColor, type HslaColor } from 'polished/lib/types/color'
 import {
+	type ParentComponent,
 	createContext,
 	createRoot,
 	createSignal,
-	useContext,
-	onMount,
 	onCleanup,
-	type ParentComponent,
+	onMount,
+	useContext,
 } from 'solid-js'
-import { assignInlineVars } from '@vanilla-extract/dynamic'
-import { readableColor, mix, parseToRgb, hslToColorString } from 'polished'
-import { colourDark, colourLight, colourBrand } from '@/data/colours'
-import { createClientStore } from '@/utils/storage'
-import { type HslaColor, type HslColor } from 'polished/lib/types/color'
 import * as css from './ProviderTheme.css'
 
 function createThemeContext() {

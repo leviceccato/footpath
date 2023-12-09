@@ -1,17 +1,17 @@
-import { For, type Component } from 'solid-js'
-import * as css from './RouteMainHeader.css'
+import { Button } from '@/components/Button'
+import { IconButton } from '@/components/IconButton'
+import {
+	type CodeDocument,
+	useCodeDocuments,
+} from '@/components/ProviderCodeDocuments'
 import { useI18n } from '@/components/ProviderI18n'
 import { useIcons } from '@/components/ProviderIcons'
-import {
-	useCodeDocuments,
-	type CodeDocument,
-} from '@/components/ProviderCodeDocuments'
-import { Button } from '@/components/Button'
-import { Text } from '@/components/Text'
-import { VisuallyHidden } from '@/components/VisuallyHidden'
 import { ScrollArea } from '@/components/ScrollArea'
+import { Text } from '@/components/Text'
 import { TheMenu } from '@/components/TheMenu'
-import { IconButton } from '@/components/IconButton'
+import { VisuallyHidden } from '@/components/VisuallyHidden'
+import { type Component, For } from 'solid-js'
+import * as css from './RouteMainHeader.css'
 
 export const RouteMainHeader: Component = () => {
 	const [Icon] = useIcons()
@@ -38,15 +38,9 @@ export const RouteMainHeader: Component = () => {
 	return (
 		<header class={css.root}>
 			<div class={css.logoContainer}>
-				<Button
-					class={css.logoLink}
-					href="/"
-				>
+				<Button class={css.logoLink} href="/">
 					<VisuallyHidden>Lacey</VisuallyHidden>
-					<Icon
-						class={css.logo}
-						name="logoMain"
-					/>
+					<Icon class={css.logo} name="logoMain" />
 				</Button>
 			</div>
 			<ScrollArea class={css.scrollArea}>

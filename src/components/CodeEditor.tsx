@@ -1,7 +1,7 @@
-import { onMount, onCleanup, type Component } from 'solid-js'
-import * as css from './CodeEditor.css'
-import { type EditorView } from 'codemirror'
 import { type ClassProps, defaultProps } from '@/utils/misc'
+import { type EditorView } from 'codemirror'
+import { type Component, onCleanup, onMount } from 'solid-js'
+import * as css from './CodeEditor.css'
 const importCm = () => import('codemirror')
 const importCmCommands = () => import('@codemirror/commands')
 const importCmView = () => import('@codemirror/view')
@@ -37,10 +37,5 @@ export const CodeEditor: Component<ClassProps> = (rawProps) => {
 		editor?.destroy()
 	})
 
-	return (
-		<div
-			class={`${css.root} ${props.class}`}
-			ref={rootRef}
-		/>
-	)
+	return <div class={`${css.root} ${props.class}`} ref={rootRef} />
 }

@@ -1,11 +1,11 @@
+import { createClientStore } from '@/utils/storage'
 import {
+	type ParentComponent,
 	createContext,
-	useContext,
 	createRoot,
 	createSignal,
-	type ParentComponent,
+	useContext,
 } from 'solid-js'
-import { createClientStore } from '@/utils/storage'
 
 export type CodeDocument = {
 	id: string

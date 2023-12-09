@@ -1,5 +1,5 @@
+import { type Font, fontPlexSansMedium } from '@/base.css'
 import { style, styleVariants } from '@vanilla-extract/css'
-import { fontPlexSansMedium, type Font } from '@/base.css'
 
 function createCroppedFont(font: Font, lineHeight: number) {
 	return {

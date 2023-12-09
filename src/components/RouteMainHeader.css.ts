@@ -1,6 +1,6 @@
-import { style, styleVariants } from '@vanilla-extract/css'
 import * as themeCss from '@/components/ProviderTheme.css'
 import { headerHeight } from '@/components/RouteMain.css'
+import { style, styleVariants } from '@vanilla-extract/css'
 
 export const root = style({
 	display: 'flex',

@@ -1,6 +1,6 @@
-import { Dynamic } from 'solid-js/web'
-import { type ParentComponent } from 'solid-js'
 import { defaultProps } from '@/utils/misc'
+import { type ParentComponent } from 'solid-js'
+import { Dynamic } from 'solid-js/web'
 import * as css from './VisuallyHidden.css'
 
 export const VisuallyHidden: ParentComponent<{
