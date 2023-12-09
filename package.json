@@ -2,7 +2,7 @@
 	"name": "lacey",
 	"scripts": {
 		"start": "vite",
-		"lint-and-format": "biome check --apply-unsafe",
+		"lint-and-format": "biome check --apply-unsafe .",
 		"type-check": "tsc",
 		"prebuild": "bun run lint-and-format && bun run type-check",
 		"build": "vite build",
