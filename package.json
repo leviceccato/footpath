@@ -2,9 +2,9 @@
 	"name": "lacey",
 	"scripts": {
 		"start": "vite",
-		"lint-and-format": "biome check --apply-unsafe .",
+		"format": "prettier . -w",
 		"type-check": "tsc",
-		"prebuild": "bun run lint-and-format && bun run type-check",
+		"prebuild": "bun run format && bun run type-check",
 		"build": "vite build",
 		"preview": "bun run build && vite preview",
 		"install-hooks": "lefthook install"
@@ -21,11 +21,11 @@
 		"solid-js": "^1.5.1"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "1.3.3",
 		"@vanilla-extract/css": "^1.13.0",
 		"@vanilla-extract/vite-plugin": "^3.6.1",
 		"bun-types": "^1.0.1",
 		"lefthook": "^1.5.2",
+		"prettier": "^3.1.0",
 		"typescript": "^5.2.2",
 		"vite": "^3.0.9",
 		"vite-plugin-solid": "^2.7.0"
