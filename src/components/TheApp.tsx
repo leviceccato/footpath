@@ -37,7 +37,10 @@ export const TheApp: Component = () => {
 				<RouteSvg />
 			</Match>
 			<Match when={!route}>
-				<ProviderI18n defaultLanguage="_default" translations={translations}>
+				<ProviderI18n
+					defaultLanguage="_default"
+					translations={translations}
+				>
 					<ProviderCodeDocuments>
 						<ProviderTheme>
 							<ProviderPortal mountIds={['modal', 'tooltip']}>

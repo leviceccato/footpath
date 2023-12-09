@@ -74,10 +74,9 @@ export async function sequence<TItem>(
 }
 
 type PickOptionals<TValue> = {
-	[TKey in
-		keyof TValue as TValue extends Record<TKey, TValue[TKey]>
-			? never
-			: TKey]-?: TValue[TKey]
+	[TKey in keyof TValue as TValue extends Record<TKey, TValue[TKey]>
+		? never
+		: TKey]-?: TValue[TKey]
 }
 
 // Make default prop declarations cleaner and more type-safe

@@ -89,7 +89,10 @@ export const IconButton: Component<
 				</>
 			)}
 		>
-			<div aria-hidden class={css.tooltipInner}>
+			<div
+				aria-hidden
+				class={css.tooltipInner}
+			>
 				<Text variant="bodyXxs">{_props.tooltip}</Text>
 			</div>
 		</Popover>

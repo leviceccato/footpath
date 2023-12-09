@@ -29,7 +29,10 @@ export const Button: ParentComponent<ButtonProps> = (props) => {
 			href={_props.href}
 			class={`${css.root} ${buttonProps.class ?? ''}`}
 		>
-			<Show when={_props.text} fallback={_props.children}>
+			<Show
+				when={_props.text}
+				fallback={_props.children}
+			>
 				<Text variant="bodyXs">{_props.text}</Text>
 			</Show>
 		</Dynamic>

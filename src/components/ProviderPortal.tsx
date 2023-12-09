@@ -26,7 +26,10 @@ const Mounts: Component = () => {
 	return (
 		<Index each={portal.mountIds}>
 			{(id) => (
-				<div class={css.mount} ref={(ref) => mountRefs.set(id(), ref)} />
+				<div
+					class={css.mount}
+					ref={(ref) => mountRefs.set(id(), ref)}
+				/>
 			)}
 		</Index>
 	)

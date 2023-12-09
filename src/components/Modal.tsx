@@ -52,8 +52,14 @@ export const Modal: ParentComponent<ModalProps> = (props) => {
 			<Portal mount={modal()}>
 				<ProviderFocusTrap when={isShown()}>
 					{([_, unreachableFocusableProps]) => (
-						<div onClick={handleRootClick} class={css.root}>
-							<div ref={containerRef} class={css.container}>
+						<div
+							onClick={handleRootClick}
+							class={css.root}
+						>
+							<div
+								ref={containerRef}
+								class={css.container}
+							>
 								<div
 									{...unreachableFocusableProps}
 									class={`${css.header} ${unreachableFocusableProps.class}`}

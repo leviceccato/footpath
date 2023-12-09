@@ -362,7 +362,10 @@ export const Popover: ParentComponent<
 						role="tooltip"
 					>
 						<Show when={props.hasArrow}>
-							<div ref={arrowRef} class={css.arrow}>
+							<div
+								ref={arrowRef}
+								class={css.arrow}
+							>
 								<div class={css.arrowInner} />
 							</div>
 						</Show>

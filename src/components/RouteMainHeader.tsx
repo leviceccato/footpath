@@ -38,9 +38,15 @@ export const RouteMainHeader: Component = () => {
 	return (
 		<header class={css.root}>
 			<div class={css.logoContainer}>
-				<Button class={css.logoLink} href="/">
+				<Button
+					class={css.logoLink}
+					href="/"
+				>
 					<VisuallyHidden>Lacey</VisuallyHidden>
-					<Icon class={css.logo} name="logoMain" />
+					<Icon
+						class={css.logo}
+						name="logoMain"
+					/>
 				</Button>
 			</div>
 			<ScrollArea class={css.scrollArea}>

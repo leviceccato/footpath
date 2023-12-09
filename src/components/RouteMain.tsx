@@ -54,17 +54,26 @@ export const RouteMain: Component = () => {
 	}
 
 	return (
-		<div class={`${theme().class} ${css.root}`} style={theme().vars}>
+		<div
+			class={`${theme().class} ${css.root}`}
+			style={theme().vars}
+		>
 			<Symbols />
 			<RouteMainHeader />
-			<main ref={mainRef} class={css.main}>
+			<main
+				ref={mainRef}
+				class={css.main}
+			>
 				<div
 					class={css.viewContainer}
 					style={{ width: `calc(${widthPercentage()} - 0.5px` }}
 				>
 					<ScrollArea class={css.viewBar}>
 						<div class={css.viewBarInner}>
-							<Button class={css.viewBarButtonVariant.active} text={t().code} />
+							<Button
+								class={css.viewBarButtonVariant.active}
+								text={t().code}
+							/>
 							<Button
 								class={css.viewBarButtonVariant.inactive}
 								text={t().optimize}
@@ -87,7 +96,10 @@ export const RouteMain: Component = () => {
 				>
 					<ScrollArea class={css.viewBar}>
 						<div class={css.viewBarInner}>
-							<Button class={css.viewBarButtonVariant.active} text={t().svg} />
+							<Button
+								class={css.viewBarButtonVariant.active}
+								text={t().svg}
+							/>
 							<Button
 								class={css.viewBarButtonVariant.inactive}
 								text={t().symbols}
