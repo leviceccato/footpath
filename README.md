@@ -1,8 +1,8 @@
 # Lacey
 
-This project is an alpha state. Many features are missing as the bulk of development is yet to be completed.
-
 A tool to help with editing, viewing and optimising SVGs. It is an SPA built with [SolidJS](https://www.solidjs.com), [vanilla-extract](https://vanilla-extract.style), [Vite](https://vitejs.dev) and [Bun](https://bun.sh). Check it out at [lacey.onrender.com](https://lacey.onrender.com).
+
+This project is an alpha state. Many features are missing as the bulk of development is yet to be completed.
 
 ## Usage
 
