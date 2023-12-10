@@ -5,6 +5,7 @@ import solidPlugin from 'vite-plugin-solid'
 const src = new URL('./src', import.meta.url)
 
 const a = 2
+const b = 2
 
 export default {
 	clearScreen: false,
