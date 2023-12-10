@@ -4,10 +4,6 @@ import solidPlugin from 'vite-plugin-solid'
 
 const src = new URL('./src', import.meta.url)
 
-const a = 2
-const b = 2
-const c = 2
-
 export default {
 	clearScreen: false,
 	publicDir: 'src/static',
