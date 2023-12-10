@@ -2,10 +2,10 @@
 	"pre-push": {
 		"commands": {
 			"lint": {
-				"run": "bunx eslint --fix {staged_files}"
+				"run": "bunx eslint --fix {push_files}"
 			},
 			"format": {
-				"run": "bunx prettier --write {staged_files}"
+				"run": "bunx prettier --write {push_files}"
 			}
 		}
 	}
