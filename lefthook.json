@@ -1,11 +1,14 @@
 {
 	"pre-push": {
 		"commands": {
+			"format": {
+				"run": "bunx prettier --write {push_files}"
+			},
 			"lint": {
 				"run": "bunx eslint --fix {push_files}"
 			},
-			"format": {
-				"run": "bunx prettier --write {push_files}"
+			"check": {
+				"run": "bunx tsc {push_files}"
 			}
 		}
 	}

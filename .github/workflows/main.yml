@@ -8,5 +8,7 @@ jobs:
       - uses: oven-sh/setup-bun@v1
 
       - run: bun install
-      - run: bun prebuild
+      - run: bun run format
+      - run: bun run lint
+      - run: bun run check
       - run: bun test
