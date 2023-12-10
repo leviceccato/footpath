@@ -1,8 +1,11 @@
 {
 	"pre-push": {
 		"commands": {
-			"prebuild": {
-				"run": "bun run prebuild"
+			"lint": {
+				"run": "bunx eslint --fix {staged_files}"
+			},
+			"format": {
+				"run": "bunx prettier --write {staged_files}"
 			}
 		}
 	}
