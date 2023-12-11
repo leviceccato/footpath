@@ -1,11 +1,12 @@
 {
 	"pre-push": {
+		"parallel": true,
 		"commands": {
 			"format": {
-				"run": "bunx prettier --write {push_files}"
+				"run": "bun run format"
 			},
 			"lint": {
-				"run": "bunx eslint --fix {push_files}"
+				"run": "bun run lint"
 			},
 			"check": {
 				"run": "bun run check"
