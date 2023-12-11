@@ -11,5 +11,22 @@
 				"run": "bun run check"
 			}
 		}
+	},
+	"ci": {
+		"parallel": true,
+		"commands": {
+			"format": {
+				"run": "bun run format"
+			},
+			"lint": {
+				"run": "bun run lint"
+			},
+			"check": {
+				"run": "bun run check"
+			},
+			"test": {
+				"run": "bun test"
+			}
+		}
 	}
 }
