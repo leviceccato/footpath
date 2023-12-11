@@ -8,7 +8,7 @@
 				"run": "bunx eslint --fix {push_files}"
 			},
 			"check": {
-				"run": "bunx tsc {push_files}"
+				"run": "bun run check"
 			}
 		}
 	}
