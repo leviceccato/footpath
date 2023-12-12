@@ -1,6 +1,6 @@
 import { Button, type ButtonProps } from '@/components/Button'
-import { ProviderFocusTrap } from '@/components/ProviderFocusTrap'
-import { usePortal } from '@/components/ProviderPortal'
+import { ProviderFocusTrap } from '@/providers/FocusTrap'
+import { usePortal } from '@/providers/Portal'
 import {
 	type ClassProps,
 	type GlobalWindow,

@@ -1,4 +1,4 @@
-import { useIcons } from '@/components/ProviderIcons'
+import { useIcons } from '@/providers/Icons'
 import { Text } from '@/components/Text'
 import { type ParentComponent, createUniqueId } from 'solid-js'
 import { ErrorBoundary } from 'solid-js/web'

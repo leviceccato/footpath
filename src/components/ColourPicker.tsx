@@ -1,6 +1,6 @@
 import { FieldText, type FieldTextProps } from '@/components/FieldText'
-import { useFocus } from '@/components/ProviderFocusTrap'
-import { useTheme } from '@/components/ProviderTheme'
+import { useFocus } from '@/providers/FocusTrap'
+import { useTheme } from '@/providers/Theme'
 import {
 	type ClassProps,
 	clamp,

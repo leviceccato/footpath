@@ -1,6 +1,6 @@
 import { type ButtonProps } from '@/components/Button'
 import { Popover } from '@/components/Popover'
-import { type IconName, useIcons } from '@/components/ProviderIcons'
+import { type IconName, useIcons } from '@/providers/Icons'
 import { Text } from '@/components/Text'
 import { VisuallyHidden } from '@/components/VisuallyHidden'
 import { sleep } from '@/utils/misc'

@@ -7,7 +7,7 @@ import {
 	onCleanup,
 	useContext,
 } from 'solid-js'
-import * as css from './ProviderFocusTrap.css'
+import * as css from './FocusTrap.css'
 
 type FocusableProps = {
 	[x: string]: string | boolean

@@ -1,4 +1,4 @@
-import * as themeCss from '@/components/ProviderTheme.css'
+import * as themeCss from '@/providers/Theme.css'
 import { fontFace, globalStyle as g } from '@vanilla-extract/css'
 
 export type Font = {

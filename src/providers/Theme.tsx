@@ -12,7 +12,7 @@ import {
 	onMount,
 	useContext,
 } from 'solid-js'
-import * as css from './ProviderTheme.css'
+import * as css from './Theme.css'
 
 function createThemeContext() {
 	return createRoot(() => {

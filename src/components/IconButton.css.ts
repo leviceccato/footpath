@@ -1,4 +1,4 @@
-import * as themeCss from '@/components/ProviderTheme.css'
+import * as themeCss from '@/providers/Theme.css'
 import { style } from '@vanilla-extract/css'
 
 export const icon = style({

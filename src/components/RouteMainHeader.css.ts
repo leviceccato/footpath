@@ -1,4 +1,4 @@
-import * as themeCss from '@/components/ProviderTheme.css'
+import * as themeCss from '@/providers/Theme.css'
 import { headerHeight } from '@/components/RouteMain.css'
 import { style, styleVariants } from '@vanilla-extract/css'
 

@@ -8,7 +8,7 @@ import {
 	onMount,
 	useContext,
 } from 'solid-js'
-import * as css from './ProviderPortal.css'
+import * as css from './Portal.css'
 
 const Mounts: Component = () => {
 	const mountRefs = new Map<string, HTMLDivElement>()

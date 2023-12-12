@@ -7,7 +7,7 @@ import {
 	createContext,
 	useContext,
 } from 'solid-js'
-import * as css from './ProviderIcons.css'
+import * as css from './Icons.css'
 
 type Icons = typeof iconConstants
 
