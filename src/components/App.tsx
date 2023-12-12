@@ -9,7 +9,7 @@ import { type Translation, type Translations } from '@/utils/i18n'
 import { lastSegmentFromPath } from '@/utils/misc'
 import { Match, Switch } from 'solid-js'
 import { type Component } from 'solid-js'
-import * as css from './TheApp.css'
+import * as css from './App.css'
 
 // Import translations and generate languageName -> importFunc map
 const translationModules = import.meta.glob<Translation>(
@@ -30,7 +30,7 @@ const translations = Object.keys(translationModules).reduce<Translations>(
 const params = new URLSearchParams(window.location.search)
 const route = params.get('route')
 
-export const TheApp: Component = () => {
+export const App: Component = () => {
 	return (
 		<Switch>
 			<Match when={route === 'svg'}>

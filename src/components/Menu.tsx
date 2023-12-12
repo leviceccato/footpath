@@ -13,11 +13,11 @@ import { type ClassProps, defaultProps } from '@/utils/misc'
 import { parseToHsl } from 'polished'
 import { type HslColor, type HslaColor } from 'polished/lib/types/color'
 import { type Component, Index, createSignal, createUniqueId } from 'solid-js'
-import * as css from './TheMenu.css'
+import * as css from './Menu.css'
 
 type ThemeOption = 'light' | 'dark' | 'system' | 'custom'
 
-export const TheMenu: Component<ClassProps> = (rawProps) => {
+export const Menu: Component<ClassProps> = (rawProps) => {
 	const props = defaultProps(rawProps, { class: '' })
 
 	const popoverGroupId = createUniqueId()

@@ -5,7 +5,7 @@ import { useI18n } from '@/providers/I18n'
 import { useIcons } from '@/providers/Icons'
 import { ScrollArea } from '@/components/ScrollArea'
 import { Text } from '@/components/Text'
-import { TheMenu } from '@/components/TheMenu'
+import { Menu } from '@/components/Menu'
 import { VisuallyHidden } from '@/components/VisuallyHidden'
 import { type Component, For } from 'solid-js'
 import * as css from './RouteMainHeader.css'
@@ -78,7 +78,7 @@ export const RouteMainHeader: Component = () => {
 				onClick={() => createCodeDocument(t().untitled)}
 				class={css.addTabButton}
 			/>
-			<TheMenu class={css.menuContainer} />
+			<Menu class={css.menuContainer} />
 		</header>
 	)
 }
