@@ -68,6 +68,7 @@ export const IconButton: Component<
 	return (
 		<Popover
 			{...buttonProps}
+			class={`${buttonProps.class || ''} ${css.button}`}
 			tooltipClass={css.tooltip}
 			when="hover"
 			mount="tooltip"
