@@ -7,28 +7,6 @@ export const root = style({
 	height: headerHeight,
 })
 
-export const logoContainer = style({
-	padding: 4,
-	display: 'flex',
-})
-
-export const logo = style({
-	width: 54.916,
-	height: 18.47,
-	maxWidth: 'none',
-	color: themeCss.colour900Var,
-})
-
-export const logoLink = style({
-	padding: '0 8px',
-	borderRadius: 4,
-	display: 'flex',
-	alignItems: 'center',
-	':hover': {
-		backgroundColor: themeCss.colour100Var,
-	},
-})
-
 export const scrollArea = style({
 	width: '100%',
 	height: '100%',
