@@ -33,7 +33,7 @@ export const RouteMainHeader: Component = () => {
 		<header class={css.root}>
 			<IconButton
 				name="menu"
-				tooltip="hello"
+				tooltip={t().menu}
 			/>
 			<ScrollArea class={css.scrollArea}>
 				<div class={css.tabContainer}>

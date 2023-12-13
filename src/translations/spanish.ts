@@ -27,6 +27,7 @@ export default createTranslation({
 	preferences: 'Preferencias',
 	about: 'Sobre',
 	close: 'Cerrar',
+	menu: 'Menú',
 	document: {
 		new: 'Nuevo documento',
 	},
