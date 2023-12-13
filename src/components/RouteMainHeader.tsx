@@ -51,7 +51,7 @@ export const RouteMainHeader: Component = () => {
 								<IconButton
 									name="close"
 									tooltip={t().close}
-									onClick={[deleteCodeDocument, doc.id]}
+									onClick={() => deleteCodeDocument(doc.id)}
 									class={
 										css.closeTabVariant[doc.isActive ? 'active' : 'inactive']
 									}
