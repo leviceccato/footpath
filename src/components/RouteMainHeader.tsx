@@ -2,16 +2,13 @@ import { Button } from '@/components/Button'
 import { IconButton } from '@/components/IconButton'
 import { type CodeDocument, useCodeDocuments } from '@/providers/CodeDocuments'
 import { useI18n } from '@/providers/I18n'
-import { useIcons } from '@/providers/Icons'
 import { ScrollArea } from '@/components/ScrollArea'
 import { Text } from '@/components/Text'
 import { Menu } from '@/components/Menu'
-import { VisuallyHidden } from '@/components/VisuallyHidden'
 import { type Component, For } from 'solid-js'
 import * as css from './RouteMainHeader.css'
 
 export const RouteMainHeader: Component = () => {
-	const [Icon] = useIcons()
 	const [t] = useI18n()
 	const [
 		codeDocuments,
@@ -34,18 +31,10 @@ export const RouteMainHeader: Component = () => {
 
 	return (
 		<header class={css.root}>
-			<div class={css.logoContainer}>
-				<Button
-					class={css.logoLink}
-					href="/"
-				>
-					<VisuallyHidden>Lacey</VisuallyHidden>
-					<Icon
-						class={css.logo}
-						name="logoMain"
-					/>
-				</Button>
-			</div>
+			<IconButton
+				name="menu"
+				tooltip="hello"
+			/>
 			<ScrollArea class={css.scrollArea}>
 				<div class={css.tabContainer}>
 					<For each={shownCodeDocuments()}>
