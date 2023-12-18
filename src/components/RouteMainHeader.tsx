@@ -4,7 +4,6 @@ import { type CodeDocument, useCodeDocuments } from '@/providers/CodeDocuments'
 import { useI18n } from '@/providers/I18n'
 import { ScrollArea } from '@/components/ScrollArea'
 import { Text } from '@/components/Text'
-import { Menu } from '@/components/Menu'
 import { type Component, For } from 'solid-js'
 import * as css from './RouteMainHeader.css'
 
@@ -67,7 +66,7 @@ export const RouteMainHeader: Component = () => {
 				onClick={() => createCodeDocument(t().untitled)}
 				class={css.addTabButton}
 			/>
-			<Menu class={css.menuContainer} />
+			{/* <Menu class={css.menuContainer} /> */}
 		</header>
 	)
 }
