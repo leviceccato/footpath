@@ -1,5 +1,5 @@
 import { Button, type ButtonProps } from '@/components/Button'
-import { ProviderFocusTrap } from '@/providers/FocusTrap'
+import { FocusTrap } from '@/providers/FocusTrap'
 import { usePortal } from '@/providers/Portal'
 import {
 	type ClassProps,
@@ -370,9 +370,7 @@ export const Popover: ParentComponent<
 							</div>
 						</Show>
 						<Show when={isShown()}>
-							<ProviderFocusTrap when={isShown()}>
-								{() => props.children}
-							</ProviderFocusTrap>
+							<FocusTrap when={isShown()}>{() => props.children}</FocusTrap>
 						</Show>
 					</div>
 				</Portal>

@@ -47,7 +47,7 @@ export function usePortal() {
 	return useContext(context)
 }
 
-export const ProviderPortal: ParentComponent<{
+export const Portal: ParentComponent<{
 	mountIds: string[]
 }> = (props) => {
 	const [mounts, setMounts] = createSignal(new Map<string, HTMLDivElement>())

@@ -102,7 +102,7 @@ export function useCodeDocuments() {
 	return useContext(context)
 }
 
-export const ProviderCodeDocuments: ParentComponent = (props) => {
+export const CodeDocuments: ParentComponent = (props) => {
 	return (
 		<context.Provider value={codeDocumentsContext}>
 			{props.children}

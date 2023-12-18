@@ -1,5 +1,5 @@
 import { IconButton } from '@/components/IconButton'
-import { ProviderFocusTrap } from '@/providers/FocusTrap'
+import { FocusTrap } from '@/providers/FocusTrap'
 import { useI18n } from '@/providers/I18n'
 import { usePortal } from '@/providers/Portal'
 import { Text } from '@/components/Text'
@@ -50,7 +50,7 @@ export const Modal: ParentComponent<ModalProps> = (props) => {
 	return (
 		<Show when={isShown() && modal()}>
 			<Portal mount={modal()}>
-				<ProviderFocusTrap when={isShown()}>
+				<FocusTrap when={isShown()}>
 					{([_, unreachableFocusableProps]) => (
 						<div
 							onClick={handleRootClick}
@@ -75,7 +75,7 @@ export const Modal: ParentComponent<ModalProps> = (props) => {
 							</div>
 						</div>
 					)}
-				</ProviderFocusTrap>
+				</FocusTrap>
 			</Portal>
 		</Show>
 	)

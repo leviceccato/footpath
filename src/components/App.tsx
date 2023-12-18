@@ -1,8 +1,8 @@
-import { ProviderCodeDocuments } from '@/providers/CodeDocuments'
-import { ProviderI18n } from '@/providers/I18n'
-import { ProviderIcons } from '@/providers/Icons'
-import { ProviderPortal } from '@/providers/Portal'
-import { ProviderTheme } from '@/providers/Theme'
+import { CodeDocuments } from '@/providers/CodeDocuments'
+import { I18n } from '@/providers/I18n'
+import { Icons } from '@/providers/Icons'
+import { Portal } from '@/providers/Portal'
+import { Theme } from '@/providers/Theme'
 import { RouteMain } from '@/components/RouteMain'
 import { RouteSvg } from '@/components/RouteSvg'
 import { type Translation, type Translations } from '@/utils/i18n'
@@ -37,22 +37,22 @@ export const App: Component = () => {
 				<RouteSvg />
 			</Match>
 			<Match when={!route}>
-				<ProviderI18n
+				<I18n
 					defaultLanguage="_default"
 					translations={translations}
 				>
-					<ProviderCodeDocuments>
-						<ProviderTheme>
-							<ProviderPortal mountIds={['modal', 'tooltip']}>
-								<ProviderIcons>
+					<CodeDocuments>
+						<Theme>
+							<Portal mountIds={['modal', 'tooltip']}>
+								<Icons>
 									<div class={css.root}>
 										<RouteMain />
 									</div>
-								</ProviderIcons>
-							</ProviderPortal>
-						</ProviderTheme>
-					</ProviderCodeDocuments>
-				</ProviderI18n>
+								</Icons>
+							</Portal>
+						</Theme>
+					</CodeDocuments>
+				</I18n>
 			</Match>
 		</Switch>
 	)

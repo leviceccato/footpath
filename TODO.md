@@ -9,7 +9,6 @@ A list of complete and incomplete tasks to track progress on Lacey.
 - Create favicon (dynamic ?)
 - Optimise computed values to potentially use createMemo across codebase
 - Match scrollbar style to theme
-- Match mouse cursors to theme (ProviderPointer?)
 
 ## Doing
 

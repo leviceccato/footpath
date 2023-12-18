@@ -16,7 +16,7 @@ type FocusableProps = {
 
 type Focus = [FocusableProps, FocusableProps]
 
-type ProviderFocusTrapProps = {
+type FocusTrapProps = {
 	children?: (_: Focus) => JSX.Element
 	when: boolean
 }
@@ -27,7 +27,7 @@ export function useFocus() {
 	return useContext(context)
 }
 
-export const ProviderFocusTrap: Component<ProviderFocusTrapProps> = (props) => {
+export const FocusTrap: Component<FocusTrapProps> = (props) => {
 	const id = createUniqueId()
 	const focusableAttr = `data-focusable-${id}`
 	const reachableFocusableAttr = `data-reachable-focusable-${id}`

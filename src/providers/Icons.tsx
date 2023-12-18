@@ -66,7 +66,7 @@ export function useIcons() {
 
 // Main component
 
-export const ProviderIcons: ParentComponent = (props) => {
+export const Icons: ParentComponent = (props) => {
 	return (
 		<context.Provider value={[Icon, Symbols]}>
 			{props.children}
