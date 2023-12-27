@@ -1,5 +1,5 @@
 import * as themeCss from '@/providers/Theme.css'
-import { headerHeight } from '@/components/RouteMain.css'
+import { headerHeight } from '@/routes/_Root.css'
 import { style, styleVariants } from '@vanilla-extract/css'
 
 export const root = style({

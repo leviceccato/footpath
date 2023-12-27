@@ -5,9 +5,9 @@ import { useI18n } from '@/providers/I18n'
 import { ScrollArea } from '@/components/ScrollArea'
 import { Text } from '@/components/Text'
 import { type Component, For } from 'solid-js'
-import * as css from './RouteMainHeader.css'
+import * as css from './Header.css'
 
-export const RouteMainHeader: Component = () => {
+export const Header: Component = () => {
 	const [t] = useI18n()
 	const [
 		codeDocuments,

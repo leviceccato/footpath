@@ -4,7 +4,7 @@ import { useI18n } from '@/providers/I18n'
 import { useIcons } from '@/providers/Icons'
 import { usePortal } from '@/providers/Portal'
 import { useTheme } from '@/providers/Theme'
-import { RouteMainHeader } from '@/components/RouteMainHeader'
+import { Header } from '@/routes/Header'
 import { ScrollArea } from '@/components/ScrollArea'
 import { clamp, decimalToPercentage } from '@/utils/misc'
 import { type Component, createSignal } from 'solid-js'
@@ -59,7 +59,7 @@ export const Root: Component = () => {
 			style={theme().vars}
 		>
 			<Symbols />
-			<RouteMainHeader />
+			<Header />
 			<main
 				ref={mainRef}
 				class={css.main}
