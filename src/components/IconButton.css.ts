@@ -5,7 +5,7 @@ export const button = style({
 	margin: 4,
 	borderRadius: 4,
 	padding: 6,
-	minWidth: `calc(${40} - 8px)`,
+	minWidth: 32,
 	display: 'flex',
 	justifyContent: 'center',
 	alignItems: 'center',
