@@ -8,9 +8,9 @@ import { RouteMainHeader } from '@/components/RouteMainHeader'
 import { ScrollArea } from '@/components/ScrollArea'
 import { clamp, decimalToPercentage } from '@/utils/misc'
 import { type Component, createSignal } from 'solid-js'
-import * as css from './RouteMain.css'
+import * as css from './_Root.css'
 
-export const RouteMain: Component = () => {
+export const Root: Component = () => {
 	const [_, Symbols] = useIcons()
 	const [t] = useI18n()
 	const { Mounts } = usePortal()

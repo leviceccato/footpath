@@ -3,8 +3,8 @@ import { I18n } from '@/providers/I18n'
 import { Icons } from '@/providers/Icons'
 import { Portal } from '@/providers/Portal'
 import { Theme } from '@/providers/Theme'
-import { RouteMain } from '@/components/RouteMain'
-import { RouteSvg } from '@/components/RouteSvg'
+import { Root } from '@/routes/_Root'
+import { Svg } from '@/routes/svg/_Svg'
 import { type Translation, type Translations } from '@/utils/i18n'
 import { lastSegmentFromPath } from '@/utils/misc'
 import { Match, Switch } from 'solid-js'
@@ -34,7 +34,7 @@ export const App: Component = () => {
 	return (
 		<Switch>
 			<Match when={route === 'svg'}>
-				<RouteSvg />
+				<Svg />
 			</Match>
 			<Match when={!route}>
 				<I18n
@@ -46,7 +46,7 @@ export const App: Component = () => {
 							<Portal mountIds={['modal', 'tooltip']}>
 								<Icons>
 									<div class={css.root}>
-										<RouteMain />
+										<Root />
 									</div>
 								</Icons>
 							</Portal>
