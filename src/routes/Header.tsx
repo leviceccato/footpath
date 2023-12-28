@@ -32,7 +32,7 @@ export const Header: Component = () => {
 		<header class={css.root}>
 			<IconButton
 				name="menu"
-				tooltip={t().menu}
+				tooltip={t('menu')}
 			/>
 			<ScrollArea class={css.scrollArea}>
 				<div class={css.tabContainer}>
@@ -49,7 +49,7 @@ export const Header: Component = () => {
 								</Button>
 								<IconButton
 									name="close"
-									tooltip={t().close}
+									tooltip={t('close')}
 									onClick={() => deleteCodeDocument(doc.id)}
 									class={
 										css.closeTabVariant[doc.isActive ? 'active' : 'inactive']
@@ -62,8 +62,8 @@ export const Header: Component = () => {
 			</ScrollArea>
 			<IconButton
 				name="add"
-				tooltip={t().document.new}
-				onClick={() => createCodeDocument(t().untitled)}
+				tooltip={t('documentNew')}
+				onClick={() => createCodeDocument(t('untitled'))}
 				class={css.addTabButton}
 			/>
 			{/* <Menu class={css.menuContainer} /> */}

@@ -1,17 +1,11 @@
-export default {
-	language: {
-		setTo: (language: string) => `Set language to ${language}`,
-		all: {
-			_default: {
-				_: 'English',
-				untranslated: 'English',
-			},
-			spanish: {
-				_: 'Spanish',
-				untranslated: 'Español',
-			},
-		},
-	},
+import { type TranslationRaw } from '@/utils/i18n'
+
+export const translation = {
+	languageSetTo: (language: string) => `Set language to ${language}`,
+	languageDefault: 'English',
+	languageDefaultUntranslated: 'English',
+	languageSpanish: 'Spanish',
+	languageSpanishUntranslated: 'Español',
 	code: 'Code',
 	optimize: 'Optimize',
 	svg: 'SVG',
@@ -26,8 +20,9 @@ export default {
 	about: 'About',
 	close: 'Close',
 	menu: 'Menu',
-	document: {
-		new: 'New document',
-	},
+	documentNew: 'New document',
 	preview: 'Preview',
-}
+} as const
+
+// Ensure translations type is correct
+const _translationsTypeCheck: TranslationRaw = translation

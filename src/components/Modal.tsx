@@ -56,6 +56,7 @@ export const Modal: ParentComponent<ModalProps> = (props) => {
 							onClick={handleRootClick}
 							class={css.root}
 						>
+							{t('languageSetTo', 'what')}
 							<div
 								ref={containerRef}
 								class={css.container}
@@ -68,7 +69,7 @@ export const Modal: ParentComponent<ModalProps> = (props) => {
 									<IconButton
 										onClick={() => setIsShown(false)}
 										name="close"
-										tooltip={t().close}
+										tooltip={t('close')}
 									/>
 								</div>
 								<div class={css.main}>{props.children}</div>

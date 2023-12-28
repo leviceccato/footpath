@@ -1,19 +1,11 @@
 import { createTranslation } from '@/utils/i18n'
 
 export default createTranslation({
-	language: {
-		setTo: (language: string) => `Establecer idioma en ${language}`,
-		all: {
-			_default: {
-				_: 'Inglés',
-				untranslated: 'English',
-			},
-			spanish: {
-				_: 'Español',
-				untranslated: 'Español',
-			},
-		},
-	},
+	languageSetTo: (language: string) => `Establecer idioma en ${language}`,
+	languageDefault: 'Inglés',
+	languageDefaultUntranslated: 'English',
+	languageSpanish: 'Español',
+	languageSpanishUntranslated: 'Español',
 	code: 'Código',
 	optimize: 'Optimizar',
 	svg: 'SVG',
@@ -28,8 +20,6 @@ export default createTranslation({
 	about: 'Sobre',
 	close: 'Cerrar',
 	menu: 'Menú',
-	document: {
-		new: 'Nuevo documento',
-	},
+	documentNew: 'Nuevo documento',
 	preview: 'Previsualizar',
 })

@@ -72,11 +72,11 @@ export const Root: Component = () => {
 						<div class={css.viewBarInner}>
 							<Button
 								class={css.viewBarButtonVariant.active}
-								text={t().code}
+								text={t('code')}
 							/>
 							<Button
 								class={css.viewBarButtonVariant.inactive}
-								text={t().optimize}
+								text={t('optimize')}
 							/>
 						</div>
 					</ScrollArea>
@@ -98,22 +98,22 @@ export const Root: Component = () => {
 						<div class={css.viewBarInner}>
 							<Button
 								class={css.viewBarButtonVariant.active}
-								text={t().svg}
+								text={t('svg')}
 							/>
 							<Button
 								class={css.viewBarButtonVariant.inactive}
-								text={t().symbols}
+								text={t('symbols')}
 							/>
 							<Button
 								class={css.viewBarButtonVariant.inactive}
-								text={t().data}
+								text={t('data')}
 							/>
 						</div>
 					</ScrollArea>
 					<div class={css.view}>
 						<div class={css.viewSvg}>
 							<iframe
-								title={t().preview}
+								title={t('preview')}
 								class={css.viewSvgInner}
 								src="/?route=svg"
 							/>

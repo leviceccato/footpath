@@ -38,7 +38,7 @@ export const App: Component = () => {
 			</Match>
 			<Match when={!route}>
 				<I18n
-					defaultLanguage="_default"
+					initialLanguage="_default"
 					translations={translations}
 				>
 					<CodeDocuments>

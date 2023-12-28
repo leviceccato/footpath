@@ -16,6 +16,8 @@ import * as css from './Menu.css'
 
 type ThemeOption = 'light' | 'dark' | 'system' | 'custom'
 
+const languages = ['languageDefault', 'languageSpanish'] as const
+
 export const Menu: Component<ClassProps> = (rawProps) => {
 	const props = defaultProps(rawProps, { class: '' })
 
@@ -68,7 +70,7 @@ export const Menu: Component<ClassProps> = (rawProps) => {
 					class={css.buttonText}
 					variant="bodyXs"
 				>
-					{t().preferences}
+					{t('preferences')}
 				</Text>
 			</Button>
 			<Button
@@ -79,7 +81,7 @@ export const Menu: Component<ClassProps> = (rawProps) => {
 					class={css.buttonText}
 					variant="bodyXs"
 				>
-					{t().about}
+					{t('about')}
 				</Text>
 			</Button>
 			<ModalAbout
@@ -104,7 +106,7 @@ export const Menu: Component<ClassProps> = (rawProps) => {
 			>
 				<div class={css.dropdown}>
 					<div class={css.dropdownButtonContainer}>
-						<Index each={Object.entries(t().language.all)}>
+						<Index each={languages}>
 							{(item) => (
 								<Button
 									onClick={[language.set, item()[0]]}
@@ -122,10 +124,10 @@ export const Menu: Component<ClassProps> = (rawProps) => {
 										class={css.dropdownButtonText}
 										variant="bodyXs"
 									>
-										{item()[1].untranslated}{' '}
-										{item()[1].untranslated === item()[1]._
+										{t(`${item()}Untranslated`)}{' '}
+										{t(`${item()}Untranslated`) === t(item())
 											? ''
-											: `/ ${item()[1]._}`}
+											: `/ ${t(item())}`}
 									</Text>
 								</Button>
 							)}
@@ -168,7 +170,7 @@ export const Menu: Component<ClassProps> = (rawProps) => {
 								class={css.dropdownButtonText}
 								variant="bodyXs"
 							>
-								{t().light}
+								{t('light')}
 							</Text>
 						</Button>
 						<Button
@@ -187,7 +189,7 @@ export const Menu: Component<ClassProps> = (rawProps) => {
 								class={css.dropdownButtonText}
 								variant="bodyXs"
 							>
-								{t().dark}
+								{t('dark')}
 							</Text>
 						</Button>
 						<Button
@@ -206,7 +208,7 @@ export const Menu: Component<ClassProps> = (rawProps) => {
 								class={css.dropdownButtonText}
 								variant="bodyXs"
 							>
-								{t().system}
+								{t('system')}
 							</Text>
 						</Button>
 						<Button
@@ -225,7 +227,7 @@ export const Menu: Component<ClassProps> = (rawProps) => {
 								class={css.dropdownButtonText}
 								variant="bodyXs"
 							>
-								{t().custom}
+								{t('custom')}
 							</Text>
 						</Button>
 					</div>
