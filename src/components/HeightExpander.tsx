@@ -1,4 +1,4 @@
-import { type ClassProps, defaultProps } from '@/utils/misc'
+import { type ClassProps, defaultProps } from '@/utils/solid'
 import { type ParentComponent } from 'solid-js'
 import * as css from './HeightExpander.css'
 

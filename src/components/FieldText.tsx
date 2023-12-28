@@ -1,4 +1,4 @@
-import { type ClassProps, defaultProps } from '@/utils/misc'
+import { type ClassProps, defaultProps } from '@/utils/solid'
 import { type JSX, type ParentComponent, Show, createSignal } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
 import * as css from './FieldText.css'

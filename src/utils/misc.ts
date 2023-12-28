@@ -1,10 +1,7 @@
 import { type HslColor } from 'polished/lib/types/color'
-import { mergeProps } from 'solid-js'
 
 // For working with iframe.contentWindow
 export type GlobalWindow = Window & typeof globalThis
-
-export type ClassProps = { class?: string }
 
 type HsvColour = {
 	hue: number
@@ -71,30 +68,4 @@ export async function sequence<TItem>(
 		(result, current) => result.then(() => callback(current)),
 		Promise.resolve(),
 	)
-}
-
-type PickOptionals<TValue> = {
-	[TKey in keyof TValue as TValue extends Record<TKey, TValue[TKey]>
-		? never
-		: TKey]-?: TValue[TKey]
-}
-
-// Make default prop declarations cleaner and more type-safe
-export function defaultProps<
-	TProps,
-	TdefaultProps extends Partial<PickOptionals<TProps>>,
->(props: TProps, defaultProps: TdefaultProps) {
-	return mergeProps(defaultProps, props)
-}
-
-// Similar to defaultProps, except it works for regular objects
-export function defaultValues<
-	TObject,
-	TDefaultProperties extends Partial<PickOptionals<TObject>>,
->(
-	object: TObject,
-	defaultProperties: TDefaultProperties,
-): Required<TDefaultProperties> & TObject {
-	return { ...object, ...defaultProperties } as Required<TDefaultProperties> &
-		TObject
 }

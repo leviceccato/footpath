@@ -1,12 +1,8 @@
 import { Button, type ButtonProps } from '@/components/Button'
 import { FocusTrap } from '@/providers/FocusTrap'
 import { usePortal } from '@/providers/Portal'
-import {
-	type ClassProps,
-	type GlobalWindow,
-	defaultProps,
-	sleep,
-} from '@/utils/misc'
+import { type GlobalWindow, sleep } from '@/utils/misc'
+import { type ClassProps, defaultProps } from '@/utils/solid'
 import {
 	type Instance,
 	type Options,

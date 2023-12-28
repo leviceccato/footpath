@@ -1,4 +1,4 @@
-import { type ClassProps, defaultProps } from '@/utils/misc'
+import { type ClassProps, defaultProps } from '@/utils/solid'
 import 'simplebar/dist/simplebar.css'
 import {
 	type ParentComponent,

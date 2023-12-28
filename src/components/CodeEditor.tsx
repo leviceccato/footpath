@@ -1,4 +1,4 @@
-import { type ClassProps, defaultProps } from '@/utils/misc'
+import { type ClassProps, defaultProps } from '@/utils/solid'
 import { type EditorView } from 'codemirror'
 import { type Component, onCleanup, onMount } from 'solid-js'
 import * as css from './CodeEditor.css'

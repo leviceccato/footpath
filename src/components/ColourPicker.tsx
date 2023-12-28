@@ -1,13 +1,8 @@
 import { FieldText, type FieldTextProps } from '@/components/FieldText'
 import { useFocus } from '@/providers/FocusTrap'
 import { useTheme } from '@/providers/Theme'
-import {
-	type ClassProps,
-	clamp,
-	defaultProps,
-	hslToHsv,
-	hsvToHsl,
-} from '@/utils/misc'
+import { clamp, hslToHsv, hsvToHsl } from '@/utils/misc'
+import { type ClassProps, defaultProps } from '@/utils/solid'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { hslToColorString, parseToHsl } from 'polished'
 import { type HslColor, type HslaColor } from 'polished/lib/types/color'
