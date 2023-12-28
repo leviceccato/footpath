@@ -1,6 +1,6 @@
 import { Button } from '@/components/Button'
 import { ColourPicker } from '@/components/ColourPicker'
-import { ModalAbout } from '@/components/ModalAbout'
+import { ModalAbout } from '@/routes/ModalAbout'
 import { ModalLogin } from '@/components/ModalLogin'
 import { Popover } from '@/components/Popover'
 import { useI18n } from '@/providers/I18n'
