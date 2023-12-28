@@ -1,7 +1,6 @@
 import { Button } from '@/components/Button'
 import { ColourPicker } from '@/components/ColourPicker'
 import { ModalAbout } from '@/routes/ModalAbout'
-import { ModalLogin } from '@/components/ModalLogin'
 import { Popover } from '@/components/Popover'
 import { useI18n } from '@/providers/I18n'
 import { useIcons } from '@/providers/Icons'
@@ -27,7 +26,6 @@ export const Menu: Component<ClassProps> = (rawProps) => {
 	const [theme] = useTheme()
 	const [_, setPreviousColour] = createSignal(theme().colour())
 	const [isAboutModalShown, setIsAboutModalShown] = createSignal(false)
-	const [isLoginModalShown, setIsLoginModalShown] = createSignal(false)
 
 	const selectedThemeOption = (): ThemeOption => {
 		if (theme().useSystem().value) {
@@ -239,9 +237,6 @@ export const Menu: Component<ClassProps> = (rawProps) => {
 					</div>
 				</div>
 			</Popover>
-			<ModalLogin
-				modal={{ isShown: [isLoginModalShown, setIsLoginModalShown] }}
-			/>
 		</div>
 	)
 }
