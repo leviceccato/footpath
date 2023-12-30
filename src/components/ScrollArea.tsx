@@ -111,12 +111,12 @@ export const ScrollArea: ParentComponent<
 				<div class="simplebar-placeholder" />
 			</div>
 			<div class="simplebar-track simplebar-horizontal">
-				<div class="simplebar-scrollbar">
+				<div class={`simplebar-scrollbar ${css.scrollbar}`}>
 					<div class="simplebar-scrollbar-inner" />
 				</div>
 			</div>
 			<div class="simplebar-track simplebar-vertical">
-				<div class="simplebar-scrollbar">
+				<div class={`simplebar-scrollbar ${css.scrollbar}`}>
 					<div class="simplebar-scrollbar-inner" />
 				</div>
 			</div>

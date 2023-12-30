@@ -1,5 +1,5 @@
 import * as themeCss from '@/providers/Theme.css'
-import { style } from '@vanilla-extract/css'
+import { style, globalStyle } from '@vanilla-extract/css'
 
 export const root = style({
 	maxHeight: '100%',
@@ -83,4 +83,17 @@ export const overflowShadowRight = style([
 export const shown = style({
 	opacity: 1,
 	transform: 'translate(0, 0)',
+})
+
+export const scrollbar = style({
+	'::before': {
+		border: `1px solid ${themeCss.colour400Var}`,
+		backgroundColor: themeCss.colourVar,
+		boxShadow: `0 1px 5px 0 rgba(${themeCss.colourBase700Var}, 0.1)`,
+		pointerEvents: 'all',
+	},
+})
+
+globalStyle(`${scrollbar}.simplebar-visible::before`, {
+	opacity: 1,
 })
