@@ -35,8 +35,6 @@ type Popover = PopoverState & {
 	setIsShown: Setter<boolean>
 }
 
-type InteractionMethod = 'hover' | 'click'
-
 const store = createRoot(() => {
 	const [popovers, setPopovers] = createSignal<Popover[]>([])
 
@@ -100,7 +98,7 @@ const defaultRect = new DOMRect()
 export const Popover: ParentComponent<
 	ButtonProps &
 		ClassProps & {
-			when?: boolean | InteractionMethod
+			when?: boolean | 'hover' | 'click'
 			isShownClass?: string
 			groupId?: string
 			reference: (state: PopoverState) => JSX.Element
