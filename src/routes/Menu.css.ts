@@ -1,4 +1,5 @@
 import * as themeCss from '@/providers/Theme.css'
+import { headerHeight } from '@/routes/_Root.css'
 import { style, styleVariants } from '@vanilla-extract/css'
 
 export const root = style({
@@ -14,7 +15,7 @@ export const icon = style({
 })
 
 export const button = style({
-	minWidth: 32,
+	minWidth: `calc(${headerHeight} - 8px)`,
 	height: 'calc(100% - 8px)',
 	display: 'flex',
 	alignItems: 'center',

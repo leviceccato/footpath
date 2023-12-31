@@ -7,6 +7,46 @@ export const root = style({
 	height: headerHeight,
 })
 
+export const menuButton = style({
+	minWidth: `calc(${headerHeight} - 8px)`,
+	height: 'calc(100% - 8px)',
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+	borderRadius: 4,
+	margin: 4,
+	padding: 6,
+	':hover': {
+		backgroundColor: themeCss.colour100Var,
+	},
+})
+
+export const menuButtonVariant = styleVariants({
+	default: [
+		menuButton,
+		{
+			border: '1px solid transparent',
+		},
+	],
+	dropdownOpen: [
+		menuButton,
+		{
+			border: `1px solid ${themeCss.colour200Var}`,
+		},
+	],
+})
+
+export const dropdown = style({
+	borderRadius: 4,
+	backgroundColor: themeCss.colourVar,
+	border: `1px solid ${themeCss.colour200Var}`,
+	boxShadow: ' 0px 10px 15px -3px rgba(0,0,0,0.1)',
+})
+
+export const dropdownButtonContainer = style({
+	padding: '8px 0 10px 0',
+})
+
 export const scrollArea = style({
 	width: '100%',
 	height: '100%',
