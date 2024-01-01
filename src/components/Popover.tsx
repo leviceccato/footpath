@@ -100,6 +100,7 @@ export const Popover: ParentComponent<
 		ClassProps & {
 			when?: boolean | 'hover' | 'click'
 			isShownClass?: string
+			shownOverride?: Accessor<boolean>
 			groupId?: string
 			reference: (state: PopoverState) => JSX.Element
 			virtualReference?: {
@@ -307,6 +308,13 @@ export const Popover: ParentComponent<
 		}
 		handleHover(false)
 	}
+
+	createEffect(() => {
+		if (!props.shownOverride) {
+			return
+		}
+		_setPopoverShown(props.shownOverride())
+	})
 
 	createEffect(() => {
 		if (mount() && contentRef() && !popperInstance) {
