@@ -4,18 +4,20 @@ import { type CodeDocument, useCodeDocuments } from '@/providers/CodeDocuments'
 import { useI18n } from '@/providers/I18n'
 import { ScrollArea } from '@/components/ScrollArea'
 import { Popover } from '@/components/Popover'
-import { useIcons } from '@/providers/Icons'
 import { Text } from '@/components/Text'
-import { type Component, For } from 'solid-js'
+import { type Component, For, createSignal } from 'solid-js'
 import * as css from './Header.css'
 
 export const Header: Component = () => {
-	const [Icon] = useIcons()
 	const [t] = useI18n()
 	const [
 		codeDocuments,
 		{ createCodeDocument, activateCodeDocument, deleteCodeDocument },
 	] = useCodeDocuments()
+
+	const [isMenuPopoverShown, setIsMenuPopoverShown] = createSignal(false)
+
+	let menuButtonRef: HTMLButtonElement | undefined
 
 	const shownCodeDocuments = () => {
 		const docs: CodeDocument[] = []
@@ -33,16 +35,22 @@ export const Header: Component = () => {
 
 	return (
 		<header class={css.root}>
+			<IconButton
+				ref={menuButtonRef}
+				name="menu"
+				tooltip={t('menu')}
+				onClick={() => setIsMenuPopoverShown(!isMenuPopoverShown())}
+			/>
 			<Popover
-				class={css.menuButtonVariant.default}
-				isShownClass={css.menuButtonVariant.dropdownOpen}
 				when="click"
 				hasArrow={true}
+				virtualReference={menuButtonRef}
+				shownOverride={isMenuPopoverShown}
 				options={{
 					placement: 'bottom-start',
 					modifiers: [{ name: 'offset', options: { offset: [0, 13] } }],
 				}}
-				reference={() => <Icon name="menu" />}
+				reference={() => <></>}
 			>
 				<div class={css.dropdown}>
 					<div class={css.dropdownButtonContainer}>Hello world</div>
