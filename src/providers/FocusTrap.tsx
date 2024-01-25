@@ -55,9 +55,9 @@ export const FocusTrap: Component<FocusTrapProps> = (props) => {
 	}
 
 	function setFocusablesActive(to: boolean): void {
-		getFocusables(reachableFocusableAttr).forEach((el) => {
+		for (const el of getFocusables(reachableFocusableAttr)) {
 			el.setAttribute('tabindex', to ? '0' : '-1')
-		})
+		}
 	}
 
 	function handleTab(event: KeyboardEvent): void {

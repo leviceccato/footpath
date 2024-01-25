@@ -58,12 +58,12 @@ function createCodeDocumentsContext() {
 		function activate(id: string): void {
 			const newStore: CodeDocumentStore = {}
 
-			Object.values(store().value).forEach((doc) => {
+			for (const doc of Object.values(store().value)) {
 				const currentId = doc.id
 				newStore[currentId] = doc
 
 				newStore[currentId].isActive = newStore[currentId].id === id
-			})
+			}
 
 			setStore({ value: newStore })
 		}

@@ -2,9 +2,8 @@
 	"name": "lacey",
 	"scripts": {
 		"start": "vite",
-		"format": "prettier --write .",
-		"lint": "eslint --fix .",
-		"check": "tsc",
+		"check": "biome check --apply .",
+		"type-check": "tsc",
 		"build": "vite build",
 		"preview": "vite preview",
 		"install-hooks": "lefthook install"
@@ -21,15 +20,11 @@
 		"solid-js": "^1.5.1"
 	},
 	"devDependencies": {
-		"@typescript-eslint/eslint-plugin": "^6.13.2",
-		"@typescript-eslint/parser": "^6.13.2",
+		"@biomejs/biome": "^1.5.3",
 		"@vanilla-extract/css": "^1.13.0",
 		"@vanilla-extract/vite-plugin": "^3.6.1",
 		"bun-types": "^1.0.1",
-		"eslint": "^8.55.0",
-		"eslint-config-prettier": "^9.1.0",
 		"lefthook": "^1.5.5",
-		"prettier": "^3.1.0",
 		"typescript": "^5.2.2",
 		"vite": "^3.0.9",
 		"vite-plugin-solid": "^2.7.0"

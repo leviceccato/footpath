@@ -77,9 +77,9 @@ const store = createRoot(() => {
 		const popover = getPopover(id)
 		if (!popover) return
 
-		getOpenGroupMembers(popover.groupId).forEach((p) => {
-			p.setIsShown(false)
-		})
+		for (const groupMember of getOpenGroupMembers(popover.groupId)) {
+			groupMember.setIsShown(false)
+		}
 
 		popover.setIsShown(isShown)
 	}
@@ -169,7 +169,8 @@ export const Popover: ParentComponent<
 			props.onClick(event)
 		}
 		if (props.when === 'click') {
-			return _setPopoverShown(!isShown())
+			_setPopoverShown(!isShown())
+			return
 		}
 	}
 
@@ -221,7 +222,7 @@ export const Popover: ParentComponent<
 	}
 
 	function addIframeListeners(): void {
-		document.querySelectorAll('iframe').forEach((iframe) => {
+		for (const iframe of document.querySelectorAll('iframe')) {
 			if (!iframe.contentWindow) return
 
 			iframe.contentWindow.document.addEventListener(
@@ -233,7 +234,7 @@ export const Popover: ParentComponent<
 					once: true,
 				},
 			)
-		})
+		}
 	}
 
 	function handleClickToClose({ target }: Event): void {
@@ -364,10 +365,7 @@ export const Popover: ParentComponent<
 						role="tooltip"
 					>
 						<Show when={props.hasArrow}>
-							<div
-								ref={arrowRef}
-								class={css.arrow}
-							>
+							<div ref={arrowRef} class={css.arrow}>
 								<div class={css.arrowInner} />
 							</div>
 						</Show>

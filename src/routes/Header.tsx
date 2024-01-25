@@ -22,11 +22,11 @@ export const Header: Component = () => {
 	const shownCodeDocuments = () => {
 		const docs: CodeDocument[] = []
 
-		Object.values(codeDocuments().value).forEach((doc) => {
+		for (const doc of Object.values(codeDocuments().value)) {
 			if (!doc.deletedAt) {
 				docs.push(doc)
 			}
-		})
+		}
 
 		docs.sort((a, b) => a.index - b.index)
 

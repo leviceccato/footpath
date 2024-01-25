@@ -37,10 +37,5 @@ export const CodeEditor: Component<ClassProps> = (rawProps) => {
 		editor?.destroy()
 	})
 
-	return (
-		<div
-			class={`${css.root} ${props.class}`}
-			ref={rootRef}
-		/>
-	)
+	return <div class={`${css.root} ${props.class}`} ref={rootRef} />
 }

@@ -37,10 +37,7 @@ export const App: Component = () => {
 				<Svg />
 			</Match>
 			<Match when={!route}>
-				<I18n
-					initialLanguage="_default"
-					translations={translations}
-				>
+				<I18n initialLanguage="_default" translations={translations}>
 					<CodeDocuments>
 						<Theme>
 							<Portal mountIds={['modal', 'tooltip']}>

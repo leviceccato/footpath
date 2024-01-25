@@ -37,12 +37,10 @@ describe('utils', () => {
 
 		// Assert each hexadecimal value to be valid
 
-		rest
-			.join('')
-			.match(/.{1, 2}/g)
-			?.forEach((pair) => {
-				expect(Number.isNaN(parseInt(pair, 16))).toBe(false)
-			})
+		const pairs = rest.join('').match(/.{1, 2}/g) ?? []
+		for (const pair of pairs) {
+			expect(Number.isNaN(parseInt(pair, 16))).toBe(false)
+		}
 	})
 
 	test('clamp', () => {

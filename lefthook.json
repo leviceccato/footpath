@@ -2,28 +2,22 @@
 	"pre-push": {
 		"parallel": true,
 		"commands": {
-			"format": {
-				"run": "bun run format"
-			},
-			"lint": {
-				"run": "bun run lint"
-			},
 			"check": {
-				"run": "bun run check"
+				"run": "bunx biome check --no-errors-on-unmatched --files-ignore-unknown=true {push_files}"
+			},
+			"typecheck": {
+				"run": "bun run type-check"
 			}
 		}
 	},
 	"ci": {
 		"parallel": true,
 		"commands": {
-			"format": {
-				"run": "bun run format"
-			},
-			"lint": {
-				"run": "bun run lint"
-			},
 			"check": {
 				"run": "bun run check"
+			},
+			"typecheck": {
+				"run": "bun run type-check"
 			},
 			"test": {
 				"run": "bun test"

@@ -271,10 +271,7 @@ export const ColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
 					value="10"
 				/>
 			</div>
-			<FieldText
-				value={hexColour()}
-				onInput={handleHexColourFieldInput}
-			/>
+			<FieldText value={hexColour()} onInput={handleHexColourFieldInput} />
 		</div>
 	)
 }

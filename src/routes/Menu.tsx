@@ -66,10 +66,7 @@ export const Menu: Component<ClassProps> = (rawProps) => {
 	return (
 		<div class={`${css.root} ${props.class}`}>
 			<Button class={css.buttonVariant.default}>
-				<Text
-					class={css.buttonText}
-					variant="bodyXs"
-				>
+				<Text class={css.buttonText} variant="bodyXs">
 					{t('preferences')}
 				</Text>
 			</Button>
@@ -77,10 +74,7 @@ export const Menu: Component<ClassProps> = (rawProps) => {
 				onClick={[setIsAboutModalShown, true]}
 				class={css.buttonVariant.default}
 			>
-				<Text
-					class={css.buttonText}
-					variant="bodyXs"
-				>
+				<Text class={css.buttonText} variant="bodyXs">
 					{t('about')}
 				</Text>
 			</Button>
@@ -97,12 +91,7 @@ export const Menu: Component<ClassProps> = (rawProps) => {
 					placement: 'bottom-end',
 					modifiers: [{ name: 'offset', options: { offset: [0, 13] } }],
 				}}
-				reference={() => (
-					<Icon
-						class={css.icon}
-						name="i18n"
-					/>
-				)}
+				reference={() => <Icon class={css.icon} name="i18n" />}
 			>
 				<div class={css.dropdown}>
 					<div class={css.dropdownButtonContainer}>
@@ -120,10 +109,7 @@ export const Menu: Component<ClassProps> = (rawProps) => {
 										}
 										name="check"
 									/>
-									<Text
-										class={css.dropdownButtonText}
-										variant="bodyXs"
-									>
+									<Text class={css.dropdownButtonText} variant="bodyXs">
 										{t(`${item()}Untranslated`)}{' '}
 										{t(`${item()}Untranslated`) === t(item())
 											? ''
@@ -145,12 +131,7 @@ export const Menu: Component<ClassProps> = (rawProps) => {
 					placement: 'bottom-end',
 					modifiers: [{ name: 'offset', options: { offset: [0, 13] } }],
 				}}
-				reference={() => (
-					<Icon
-						class={css.icon}
-						name="palette"
-					/>
-				)}
+				reference={() => <Icon class={css.icon} name="palette" />}
 			>
 				<div class={css.dropdown}>
 					<div class={css.dropdownButtonContainer}>
@@ -166,10 +147,7 @@ export const Menu: Component<ClassProps> = (rawProps) => {
 								}
 								name="check"
 							/>
-							<Text
-								class={css.dropdownButtonText}
-								variant="bodyXs"
-							>
+							<Text class={css.dropdownButtonText} variant="bodyXs">
 								{t('light')}
 							</Text>
 						</Button>
@@ -185,10 +163,7 @@ export const Menu: Component<ClassProps> = (rawProps) => {
 								}
 								name="check"
 							/>
-							<Text
-								class={css.dropdownButtonText}
-								variant="bodyXs"
-							>
+							<Text class={css.dropdownButtonText} variant="bodyXs">
 								{t('dark')}
 							</Text>
 						</Button>
@@ -204,17 +179,11 @@ export const Menu: Component<ClassProps> = (rawProps) => {
 								}
 								name="check"
 							/>
-							<Text
-								class={css.dropdownButtonText}
-								variant="bodyXs"
-							>
+							<Text class={css.dropdownButtonText} variant="bodyXs">
 								{t('system')}
 							</Text>
 						</Button>
-						<Button
-							onClick={setRandomColour}
-							class={css.dropdownButton}
-						>
+						<Button onClick={setRandomColour} class={css.dropdownButton}>
 							<Icon
 								class={
 									css.dropdownButtonIconVariant[
@@ -223,19 +192,13 @@ export const Menu: Component<ClassProps> = (rawProps) => {
 								}
 								name="check"
 							/>
-							<Text
-								class={css.dropdownButtonText}
-								variant="bodyXs"
-							>
+							<Text class={css.dropdownButtonText} variant="bodyXs">
 								{t('custom')}
 							</Text>
 						</Button>
 					</div>
 					<div class={css.colourPickerContainer}>
-						<ColourPicker
-							class={css.colourPicker}
-							spectrumSize={148}
-						/>
+						<ColourPicker class={css.colourPicker} spectrumSize={148} />
 					</div>
 				</div>
 			</Popover>
