@@ -3,8 +3,9 @@ import {
 	type StorageRequest,
 	type StorageResponse,
 } from '@/utils/storage.worker'
-import StorageWorker from '@/utils/storage.worker?worker'
 import { createEffect, createRoot, createSignal } from 'solid-js'
+
+const storageWorkerUrl = new URL('@/utils/storage.worker', import.meta.url)
 
 export function createClientStore<TValue>(rawProps: {
 	name: string
@@ -30,7 +31,7 @@ export function createClientStore<TValue>(rawProps: {
 
 		if (props.strategy === 'indexeddb') {
 			const workerPromise = new Promise<Worker>((resolve) => {
-				const worker = new StorageWorker()
+				const worker = new Worker(storageWorkerUrl, { type: 'module' })
 
 				props.initialValue
 
