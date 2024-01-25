@@ -1,7 +1,8 @@
 export const icons = {
 	menu: {
 		viewBox: [0, 0, 24, 24],
-		content: '<path d="M3 4h18v2H3V4Zm0 7h18v2H3v-2Zm0 7h18v2H3v-2Z"/>',
+		content:
+			'<path d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z"></path>',
 	},
 	i18n: {
 		viewBox: [0, 0, 24, 24],
@@ -40,8 +41,7 @@ export const icons = {
 } as const
 
 // Ensure property inference works for icons
-// export is required to prevent unused error
-export const _iconsTypeCheck: {
+const _iconsTypeCheck: {
 	[key: string]: {
 		viewBox: readonly [number, number, number, number]
 		content: string

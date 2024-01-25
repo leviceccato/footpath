@@ -1,6 +1,9 @@
 import { Button } from '@/components/Button'
 import { IconButton } from '@/components/IconButton'
-import { type CodeDocument, useCodeDocuments } from '@/providers/CodeDocuments'
+import {
+	type CodeDocument,
+	useCodeDocuments,
+} from '@/providers/CodeDocuments'
 import { useI18n } from '@/providers/I18n'
 import { ScrollArea } from '@/components/ScrollArea'
 import { Popover } from '@/components/Popover'
