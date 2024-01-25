@@ -25,7 +25,7 @@ export const fontPlexMonoRegular: Font = {
 		src: 'local("IBM Plex Sans"), url("/fonts/IBMPlexMono-Regular.woff2") format("woff2")',
 	}),
 }
-
+console.log('test gooks')
 export const fontPlexMonoBold: Font = {
 	weight: 700,
 	top: 0.85,
