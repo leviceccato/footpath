@@ -5,7 +5,7 @@
 			"check": {
 				"run": "bunx biome check --no-errors-on-unmatched --files-ignore-unknown=true {push_files}"
 			},
-			"typecheck": {
+			"type-check": {
 				"run": "bun run type-check"
 			}
 		}
@@ -16,7 +16,7 @@
 			"check": {
 				"run": "bun run check"
 			},
-			"typecheck": {
+			"type-check": {
 				"run": "bun run type-check"
 			},
 			"test": {
