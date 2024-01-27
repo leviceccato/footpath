@@ -6,8 +6,8 @@
 /* @refresh reload */
 
 import '@/base.css'
-import 'modern-normalize/modern-normalize.css'
 import { App } from '@/components/App'
+import 'modern-normalize/modern-normalize.css'
 import { render } from 'solid-js/web'
 
 render(() => <App />, document.getElementById('root') as HTMLElement)

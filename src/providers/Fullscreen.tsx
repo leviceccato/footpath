@@ -2,9 +2,9 @@ import {
 	type ParentComponent,
 	createContext,
 	createSignal,
-	useContext,
-	onMount,
 	onCleanup,
+	onMount,
+	useContext,
 } from 'solid-js'
 
 function createFullscreenContext() {

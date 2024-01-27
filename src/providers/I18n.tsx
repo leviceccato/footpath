@@ -1,16 +1,16 @@
 import {
 	type Translation,
-	type Translations,
 	type TranslationFunc,
+	type Translations,
 	defaultTranslation,
 } from '@/utils/i18n'
 import {
 	type ParentComponent,
 	createContext,
 	createEffect,
+	createRoot,
 	createSignal,
 	useContext,
-	createRoot,
 } from 'solid-js'
 
 function createI18nContext(

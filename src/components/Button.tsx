@@ -1,5 +1,5 @@
-import { useFocus } from '@/providers/FocusTrap'
 import { Text } from '@/components/Text'
+import { useFocus } from '@/providers/FocusTrap'
 import { type JSX, type ParentComponent, Show, splitProps } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
 import * as css from './Button.css'

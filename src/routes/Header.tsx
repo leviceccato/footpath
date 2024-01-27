@@ -1,13 +1,10 @@
 import { Button } from '@/components/Button'
 import { IconButton } from '@/components/IconButton'
-import {
-	type CodeDocument,
-	useCodeDocuments,
-} from '@/providers/CodeDocuments'
-import { useI18n } from '@/providers/I18n'
-import { ScrollArea } from '@/components/ScrollArea'
 import { Popover } from '@/components/Popover'
+import { ScrollArea } from '@/components/ScrollArea'
 import { Text } from '@/components/Text'
+import { type CodeDocument, useCodeDocuments } from '@/providers/CodeDocuments'
+import { useI18n } from '@/providers/I18n'
 import { type Component, For, createSignal } from 'solid-js'
 import * as css from './Header.css'
 
