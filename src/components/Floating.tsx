@@ -37,14 +37,14 @@ export const Floating: ParentComponent<{
 		<Show when={mount()}>
 			<Portal mount={mount()}>
 				<div ref={setContentRef} id={id} role="tooltip">
-					<Show when={props.hasArrow}>
+					{/* <Show when={props.hasArrow}>
 						<div ref={arrowRef} class={css.arrow}>
 							<div class={css.arrowInner} />
 						</div>
 					</Show>
 					<Show when={isShown()}>
 						<FocusTrap when={isShown()}>{() => props.children}</FocusTrap>
-					</Show>
+					</Show> */}
 				</div>
 			</Portal>
 		</Show>
