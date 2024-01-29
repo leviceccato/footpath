@@ -1,7 +1,7 @@
 import { FocusTrap } from '@/providers/FocusTrap'
 import { usePortal } from '@/providers/Portal'
 import { defaultProps } from '@/utils/solid'
-import { computePosition } from '@floating-ui/dom'
+import { type ReferenceElement, computePosition } from '@floating-ui/dom'
 import {
 	type ParentComponent,
 	Show,
@@ -10,41 +10,54 @@ import {
 	createUniqueId,
 } from 'solid-js'
 import { Portal } from 'solid-js/web'
+import * as css from './Floating.css'
 
 type State = {
 	a: number
 }
 
 export const Floating: ParentComponent<{
-	reference: HTMLButtonElement
+	reference: ReferenceElement
 	state: Signal<State>
 	mount?: string
 	showArrow?: boolean
+	tooltipClass?: string
 }> = (rawProps) => {
 	const props = defaultProps(rawProps, {
 		mount: 'modal',
 		showArrow: false,
+		tooltipClass: '',
 	})
 
 	const { mounts } = usePortal()
 	const id = createUniqueId()
 
-	const [contentRef, setContentRef] = createSignal<HTMLDivElement>()
+	let arrowRef: HTMLDivElement | undefined
+	let contentRef: HTMLDivElement | undefined
 
 	const mount = () => mounts().get(props.mount)
+	const isShown = () => true
+	const contentVariant = () => (isShown() ? 'shown' : 'hidden')
 
 	return (
 		<Show when={mount()}>
 			<Portal mount={mount()}>
-				<div ref={setContentRef} id={id} role="tooltip">
-					{/* <Show when={props.hasArrow}>
+				<div
+					class={`${css.contentVariants[contentVariant()]} ${
+						props.tooltipClass
+					}`}
+					ref={contentRef}
+					id={id}
+					role="tooltip"
+				>
+					<Show when={props.showArrow}>
 						<div ref={arrowRef} class={css.arrow}>
 							<div class={css.arrowInner} />
 						</div>
 					</Show>
 					<Show when={isShown()}>
 						<FocusTrap when={isShown()}>{() => props.children}</FocusTrap>
-					</Show> */}
+					</Show>
 				</div>
 			</Portal>
 		</Show>
