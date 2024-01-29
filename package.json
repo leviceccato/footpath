@@ -9,6 +9,7 @@
 		"install-hooks": "lefthook install"
 	},
 	"dependencies": {
+		"@floating-ui/dom": "^1.6.1",
 		"@popperjs/core": "^2.11.6",
 		"@vanilla-extract/dynamic": "^2.0.2",
 		"codemirror": "^6.0.1",
