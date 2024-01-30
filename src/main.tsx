@@ -6,4 +6,7 @@ import { App } from '@/components/App'
 import 'modern-normalize/modern-normalize.css'
 import { render } from 'solid-js/web'
 
-render(() => <App />, document.getElementById('root') as HTMLElement)
+const root = document.getElementById('root')
+if (root) {
+	render(() => <App />, root)
+}
