@@ -51,14 +51,16 @@ function createI18nContext(
 				return value
 			}
 			if (value) {
-				// @ts-expect-error Unsure what's going on here
+				/* Unsure what's going on here */
+				// @ts-expect-error
 				return value(...args)
 			}
 			const defaultValue = defaultTranslation[key]
 			if (typeof defaultValue === 'string') {
 				return defaultValue
 			}
-			// @ts-expect-error Unsure what's going on here
+			/* And here */
+			// @ts-expect-error
 			return defaultValue(...args)
 		}
 

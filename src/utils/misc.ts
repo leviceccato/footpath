@@ -1,6 +1,6 @@
 import { type HslColor } from 'polished/lib/types/color'
 
-// For working with iframe.contentWindow
+/* For working with iframe.contentWindow */
 export type GlobalWindow = Window & typeof globalThis
 
 type HsvColour = {
@@ -59,7 +59,7 @@ export function isInIframe(): boolean {
 	return window.location !== window.parent.location
 }
 
-// Run promises in sequence
+/* Run promises in sequence */
 export async function sequence<TItem>(
 	items: TItem[],
 	callback: (item: TItem) => Promise<void>,

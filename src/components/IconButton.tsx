@@ -39,7 +39,7 @@ export const IconButton: Component<
 		const _x = event.clientX + tooltipOffsetX
 		const _y = event.clientY + tooltipOffsetY
 
-		// Satisfy DOMRect
+		/* Satisfy DOMRect */
 
 		virtualReference.getBoundingClientRect = () => ({
 			x: _x,
@@ -57,7 +57,7 @@ export const IconButton: Component<
 	}
 
 	async function clearVirtualReference() {
-		// Delay before resetting to avoid any visual glitches
+		/* Delay before resetting to avoid any visual glitches */
 		await sleep(150)
 
 		virtualReference.getBoundingClientRect = null

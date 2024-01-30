@@ -40,7 +40,7 @@ export const icons = {
 	},
 } as const
 
-// Ensure property inference works for icons
+/* Ensure property inference works for icons */
 const _iconsTypeCheck: {
 	[key: string]: {
 		viewBox: readonly [number, number, number, number]

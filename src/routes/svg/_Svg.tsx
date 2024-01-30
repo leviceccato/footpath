@@ -4,7 +4,7 @@ import * as css from './_Svg.css'
 
 export const Svg: Component = () => {
 	if (!isInIframe()) {
-		// Redirect to main route
+		/* Redirect to main route */
 		window.history.replaceState(null, '', window.location.origin)
 	}
 

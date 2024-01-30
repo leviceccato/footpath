@@ -24,7 +24,7 @@ const icons = iconNames.map((name) => {
 	}
 })
 
-// Consumer component exposed with context
+/* Consumer component exposed with context */
 
 const Icon: Component<ClassProps & { name: IconName }> = (rawProps) => {
 	const props = defaultProps(rawProps, { class: '' })
@@ -64,7 +64,7 @@ export function useIcons() {
 	return useContext(context)
 }
 
-// Main component
+/* Main component */
 
 export const Icons: ParentComponent = (props) => {
 	return (

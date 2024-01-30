@@ -11,7 +11,7 @@ import { Match, Switch } from 'solid-js'
 import { type Component } from 'solid-js'
 import * as css from './App.css'
 
-// Import translations and generate languageName -> importFunc map
+/* Import translations and generate languageName -> importFunc map */
 const translationModules = import.meta.glob<Translation>(
 	['@/translations/*.ts', '!**/_default.ts'],
 	{ import: 'default' },
@@ -26,7 +26,7 @@ const translations = Object.keys(translationModules).reduce<Translations>(
 	{},
 )
 
-// Parse search params to figure out if SVG or main view should be shown
+/* Parse search params to figure out if SVG or main view should be shown */
 const params = new URLSearchParams(window.location.search)
 const route = params.get('route')
 

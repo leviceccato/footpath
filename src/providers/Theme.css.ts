@@ -1,7 +1,7 @@
 import { createVar, style } from '@vanilla-extract/css'
 
-// Define vars for ramp from readable colour to theme colour
-// First create base RGB values for use with rgba function
+/* Define vars for ramp from readable colour to theme colour
+First create base RGB values for use with rgba function */
 
 export const colourBaseVar = createVar()
 export const colourBase50Var = createVar()
@@ -17,7 +17,7 @@ export const colourBase800Var = createVar()
 export const colourBase900Var = createVar()
 export const colourBase1000Var = createVar()
 
-// Define opaque universal colours in class
+/* Define opaque universal colours in class */
 
 export const colourVar = createVar()
 export const colour50Var = createVar()
@@ -33,7 +33,7 @@ export const colour800Var = createVar()
 export const colour900Var = createVar()
 export const colour1000Var = createVar()
 
-// Create class
+/* Create class */
 
 export const colours = style({
 	vars: {

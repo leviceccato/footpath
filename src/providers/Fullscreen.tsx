@@ -14,14 +14,14 @@ function createFullscreenContext() {
 	function handleChange(): void {
 		setElement(document.fullscreenElement)
 
-		// If fullscreen was disabled for whatever reason, re-enable it
+		/* If fullscreen was disabled for whatever reason, re-enable it */
 		if (document.fullscreenElement) {
 			setIsEnabled(true)
 		}
 	}
 
 	function handleError(): void {
-		// Assume any error indicates that fullscreen is disabled
+		/* Assume any error indicates that fullscreen is disabled */
 		setIsEnabled(false)
 	}
 

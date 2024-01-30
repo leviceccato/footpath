@@ -8,7 +8,7 @@ type PickOptionals<TValue> = {
 		: TKey]-?: TValue[TKey]
 }
 
-// Make default prop declarations cleaner and more type-safe
+/* Make default prop declarations cleaner and more type-safe */
 export function defaultProps<
 	TProps,
 	TdefaultProps extends Partial<PickOptionals<TProps>>,
@@ -16,7 +16,7 @@ export function defaultProps<
 	return mergeProps(defaultProps, props)
 }
 
-// Similar to defaultProps, except it works for regular objects
+/* Similar to defaultProps, except it works for regular objects */
 export function defaultValues<
 	TObject,
 	TDefaultProperties extends Partial<PickOptionals<TObject>>,

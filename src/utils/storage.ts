@@ -25,9 +25,9 @@ export function createClientStore<TValue>(rawProps: {
 
 		const [store, setStore] = createSignal({ value: props.initialValue })
 
-		// Worker is created in promise so it can resolve asynchronously while
-		// this function is created synchronously. The effect for updates to
-		// the store will wait until the worker is initialised.
+		/* Worker is created in promise so it can resolve asynchronously while
+		this function is created synchronously. The effect for updates to
+		the store will wait until the worker is initialised. */
 
 		if (props.strategy === 'indexeddb') {
 			const workerPromise = new Promise<Worker>((resolve) => {

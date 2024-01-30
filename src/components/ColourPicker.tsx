@@ -68,7 +68,7 @@ export const ColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
 		const context = spectrumRef?.getContext('2d')
 		if (!context) return
 
-		// Create white to hue gradient (base)
+		/* Create white to hue gradient (base) */
 
 		const gradientWhiteToHue = context.createLinearGradient(
 			0,
@@ -81,7 +81,7 @@ export const ColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
 		context.fillStyle = gradientWhiteToHue
 		context.fillRect(0, 0, context.canvas.width, context.canvas.height)
 
-		// Create transparent to black gradient (overlay)
+		/* Create transparent to black gradient (overlay) */
 
 		const gradientTransparentToBlack = context.createLinearGradient(
 			0,
@@ -204,7 +204,7 @@ export const ColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
 		try {
 			colour = parseToHsl(event.currentTarget.value)
 		} catch {
-			// If this is an invalid colour just ignore it
+			/* If this is an invalid colour just ignore it */
 			return
 		}
 

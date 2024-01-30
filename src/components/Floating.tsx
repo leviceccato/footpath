@@ -19,6 +19,8 @@ type State = {
 export const Floating: ParentComponent<{
 	reference: ReferenceElement
 	state: Signal<State>
+	/* Override default mount location in case it needs to be
+	positioned on another layer */
 	mount?: string
 	showArrow?: boolean
 	tooltipClass?: string

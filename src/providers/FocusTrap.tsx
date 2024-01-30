@@ -63,8 +63,8 @@ export const FocusTrap: Component<FocusTrapProps> = (props) => {
 	function handleTab(event: KeyboardEvent): void {
 		if (!rootRef || event.key !== 'Tab') return
 
-		// Detect focusables every keypress in case there have
-		// been changes
+		/* Detect focusables every keypress in case there have
+		been changes */
 
 		const focusables = getFocusables(reachableFocusableAttr)
 		if (!focusables.length) return
@@ -72,7 +72,7 @@ export const FocusTrap: Component<FocusTrapProps> = (props) => {
 		const firstFocusable = focusables[0]
 		const lastFocusable = focusables[focusables.length - 1]
 
-		// Handle cycling at start
+		/* Handle cycling at start */
 
 		if (event.shiftKey && document.activeElement === firstFocusable) {
 			lastFocusable.focus()
@@ -80,7 +80,7 @@ export const FocusTrap: Component<FocusTrapProps> = (props) => {
 			return
 		}
 
-		// Handle cycling at end
+		/* Handle cycling at end */
 
 		if (!event.shiftKey && document.activeElement === lastFocusable) {
 			firstFocusable.focus()

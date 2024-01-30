@@ -24,5 +24,5 @@ export const translation = {
 	preview: 'Preview',
 } as const
 
-// Ensure translations type is correct
+/* Ensure translations type is correct */
 const _translationsTypeCheck: TranslationRaw = translation

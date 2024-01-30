@@ -33,7 +33,7 @@ export const Modal: ParentComponent<ModalProps> = (props) => {
 	})
 
 	function handleRootClick({ target }: MouseEvent) {
-		// Ignore clicks inside main modal content
+		/* Ignore clicks inside main modal content */
 		if (target instanceof Node && containerRef?.contains(target)) {
 			return
 		}

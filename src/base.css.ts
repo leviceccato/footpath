@@ -43,9 +43,9 @@ g('body', {
 	margin: 0,
 	height: '100%',
 	backgroundColor: 'transparent',
-	// Fixes bold looking fonts on macOS in Chrome & Safari
+	/* Fixes bold looking fonts on macOS in Chrome & Safari */
 	WebkitFontSmoothing: 'antialiased',
-	// Fixes bold looking fonts on macOS in Firefox
+	/* Fixes bold looking fonts on macOS in Firefox */
 	MozOsxFontSmoothing: 'grayscale',
 	lineHeight: 1.4,
 	fontFamily: 'inherit',
@@ -102,7 +102,7 @@ g('input::-ms-clear', {
 	height: 0,
 })
 
-// Clears the 'X' from Chrome
+/* Clears the 'X' from Chrome */
 g(
 	'input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-results-button, input[type="search"]::-webkit-search-results-decoration',
 	{

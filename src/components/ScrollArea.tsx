@@ -27,7 +27,7 @@ export const ScrollArea: ParentComponent<
 	let scrollElement: HTMLElement | undefined
 	let simpleBarInstance: SimpleBar | undefined
 
-	// Reactive scroll data
+	/* Reactive scroll data */
 
 	const [isOverflowingTop, setIsOverflowingTop] = createSignal(false)
 	const [isOverflowingBottom, setIsOverflowingBottom] = createSignal(false)
@@ -39,7 +39,7 @@ export const ScrollArea: ParentComponent<
 			return
 		}
 
-		// Set overflow booleans for each side based on minimum distance values
+		/* Set overflow booleans for each side based on minimum distance values */
 
 		setIsOverflowingTop(scrollElement.scrollTop > props.minDistanceForOverflowY)
 		setIsOverflowingBottom(
@@ -89,7 +89,7 @@ export const ScrollArea: ParentComponent<
 		window.removeEventListener('resize', checkOverflow)
 	})
 
-	// Use expected SimpleBar markup
+	/* Use expected SimpleBar markup */
 
 	return (
 		<div ref={rootRef} data-simplebar class={`${css.root} ${props.class}`}>

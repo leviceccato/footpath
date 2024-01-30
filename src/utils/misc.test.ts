@@ -25,7 +25,7 @@ describe('utils', () => {
 	})
 
 	test('createRandomColour', () => {
-		// Create hex colour with hash, e.g. '#FF00AA'
+		/* Create hex colour with hash, e.g. '#FF00AA' */
 
 		const got = createRandomColour()
 
@@ -35,7 +35,7 @@ describe('utils', () => {
 		const [first, ...rest] = got
 		expect(first).toBe('#')
 
-		// Assert each hexadecimal value to be valid
+		/* Assert each hexadecimal value to be valid */
 
 		const pairs = rest.join('').match(/.{1, 2}/g) ?? []
 		for (const pair of pairs) {

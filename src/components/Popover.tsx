@@ -265,7 +265,7 @@ export const Popover: ParentComponent<
 			return
 		}
 
-		// Create popper instance
+		/* Create popper instance */
 
 		const { createPopper } = await importPopper()
 
@@ -294,7 +294,7 @@ export const Popover: ParentComponent<
 		)
 		props.onUpdateInstance?.(popperInstance)
 
-		// Setup resize observer to update popper when content changes
+		/* Setup resize observer to update popper when content changes */
 
 		contentObserver = new ResizeObserver(() => popperInstance?.update())
 
