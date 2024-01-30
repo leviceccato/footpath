@@ -18,12 +18,6 @@ Install dependencies.
 bun install
 ```
 
-Install git hooks. See [https://github.com/evilmartians/lefthook/tree/master#readme](https://github.com/evilmartians/lefthook/tree/master#readme) for more information. This command should be re-run after making any changes to the lefthook configuration.
-
-```shell
-bun run install-hooks
-```
-
 Run development server on [http://localhost:5173](http://localhost:5173).
 
 ```shell
@@ -41,6 +35,10 @@ Run tests.
 ```shell
 bun test
 ```
+
+### Git hooks
+
+This project uses `lefthook` to manage git hooks. See [https://github.com/evilmartians/lefthook/tree/master#readme](https://github.com/evilmartians/lefthook/tree/master#readme) for more information. `bunx lefthook install` should be ran after making any changes to `lefthook.json`.
 
 ## Deployment
 

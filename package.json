@@ -6,7 +6,7 @@
 		"type-check": "tsc",
 		"build": "vite build",
 		"preview": "vite preview",
-		"install-hooks": "lefthook install"
+		"postinstall": "lefthook install"
 	},
 	"dependencies": {
 		"@floating-ui/dom": "^1.6.1",
