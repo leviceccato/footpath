@@ -17,6 +17,9 @@ type State = {
 }
 
 export const Floating: ParentComponent<{
+	/* The reference element and state must be supplied externally, this is
+	so we can support multiple floating elements using the same reference and 
+	so the state can be two-way bound */
 	reference: ReferenceElement
 	state: Signal<State>
 	/* Override default mount location in case it needs to be
