@@ -3,14 +3,8 @@ Icon
 [Tt]humbs.db
 .DS_Store
 
-# Allow per file ignoring
-*.local
-
 # Vendor
 /node_modules/
 
 # Built files
 /dist/
-
-# Temp
-/vite.config.ts.js
