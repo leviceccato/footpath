@@ -9,7 +9,7 @@
 		"esModuleInterop": true,
 		"jsx": "preserve",
 		"jsxImportSource": "solid-js",
-		"types": ["vite/client", "bun-types"],
+		"types": ["vite/client"],
 		"noEmit": true,
 		"isolatedModules": true,
 		"baseUrl": ".",

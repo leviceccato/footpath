@@ -22,9 +22,9 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.5.3",
+		"@types/bun": "^1.0.4",
 		"@vanilla-extract/css": "^1.13.0",
 		"@vanilla-extract/vite-plugin": "^3.6.1",
-		"bun-types": "^1.0.1",
 		"lefthook": "^1.5.5",
 		"typescript": "^5.2.2",
 		"vite": "^3.0.9",

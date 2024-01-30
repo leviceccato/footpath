@@ -1,7 +1,3 @@
-/* This is necessary since we added ["bun-types"] to tsconfig */
-/// <reference lib="dom" />
-/// <reference lib="dom.iterable" />
-
 /* Solid Refresh pragma */
 /* @refresh reload */
 
