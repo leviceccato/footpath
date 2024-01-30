@@ -1,16 +1,19 @@
 import { FocusTrap } from '@/providers/FocusTrap'
 import { usePortal } from '@/providers/Portal'
 import { defaultProps } from '@/utils/solid'
-import { type ReferenceElement, computePosition } from '@floating-ui/dom'
+import { type ReferenceElement } from '@floating-ui/dom'
 import {
 	type ParentComponent,
 	Show,
 	type Signal,
+	createEffect,
 	createSignal,
 	createUniqueId,
+	onMount,
 } from 'solid-js'
 import { Portal } from 'solid-js/web'
 import * as css from './Floating.css'
+const importFloatingUi = () => import('@floating-ui/dom')
 
 type State = {
 	a: number
@@ -37,12 +40,23 @@ export const Floating: ParentComponent<{
 	const { mounts } = usePortal()
 	const id = createUniqueId()
 
+	let hasInitialised = false
 	let arrowRef: HTMLDivElement | undefined
 	let contentRef: HTMLDivElement | undefined
 
 	const mount = () => mounts().get(props.mount)
 	const isShown = () => true
 	const contentVariant = () => (isShown() ? 'shown' : 'hidden')
+
+	createEffect(async function initialise(): Promise<void> {
+		if (hasInitialised || !mount() || !contentRef) {
+			return
+		}
+
+		const floatingUi = await importFloatingUi()
+
+		hasInitialised = true
+	})
 
 	return (
 		<Show when={mount()}>
