@@ -1,7 +1,8 @@
 import { FocusTrap } from '@/providers/FocusTrap'
 import { usePortal } from '@/providers/Portal'
+import { roundByDpr } from '@/utils/misc'
 import { defaultProps } from '@/utils/solid'
-import { type ReferenceElement } from '@floating-ui/dom'
+import { type ReferenceElement, computePosition } from '@floating-ui/dom'
 import {
 	type ParentComponent,
 	Show,
@@ -9,6 +10,7 @@ import {
 	createEffect,
 	createSignal,
 	createUniqueId,
+	onCleanup,
 	onMount,
 } from 'solid-js'
 import { Portal } from 'solid-js/web'
@@ -40,22 +42,43 @@ export const Floating: ParentComponent<{
 	const { mounts } = usePortal()
 	const id = createUniqueId()
 
-	let hasInitialised = false
+	let cleanupFloatingUi: (() => void) | undefined
 	let arrowRef: HTMLDivElement | undefined
-	let contentRef: HTMLDivElement | undefined
+	const [contentRef, setContentRef] = createSignal<HTMLElement>()
+	const [xPos, setXPos] = createSignal(0)
+	const [yPos, setYPos] = createSignal(0)
 
 	const mount = () => mounts().get(props.mount)
 	const isShown = () => true
 	const contentVariant = () => (isShown() ? 'shown' : 'hidden')
 
 	createEffect(async function initialise(): Promise<void> {
-		if (hasInitialised || !mount() || !contentRef) {
+		/* Cannot initialise */
+		const contentRefValue = contentRef()
+		if (!mount() || !contentRefValue) {
 			return
 		}
 
 		const floatingUi = await importFloatingUi()
 
-		hasInitialised = true
+		const updatePosition = async (): Promise<void> => {
+			const position = await floatingUi.computePosition(
+				props.reference,
+				contentRefValue,
+			)
+			setXPos(roundByDpr(position.x))
+			setYPos(roundByDpr(position.y))
+		}
+
+		cleanupFloatingUi = floatingUi.autoUpdate(
+			props.reference,
+			contentRefValue,
+			updatePosition,
+		)
+	})
+
+	onCleanup(() => {
+		cleanupFloatingUi?.()
 	})
 
 	return (
@@ -65,6 +88,7 @@ export const Floating: ParentComponent<{
 					class={`${css.contentVariants[contentVariant()]} ${
 						props.tooltipClass
 					}`}
+					style={`transform: translate(${xPos()}px, ${yPos()}px)`}
 					ref={contentRef}
 					id={id}
 					role="tooltip"

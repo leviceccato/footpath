@@ -1,7 +1,12 @@
 import * as themeCss from '@/providers/Theme.css'
 import { style, styleVariants } from '@vanilla-extract/css'
 
-export const content = style({})
+export const content = style({
+	position: 'absolute',
+	width: 'max-content',
+	top: 0,
+	left: 0,
+})
 
 export const contentVariants = styleVariants({
 	shown: [
