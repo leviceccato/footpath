@@ -43,10 +43,12 @@ export const Floating: ParentComponent<{
 	const id = createUniqueId()
 
 	let cleanupFloatingUi: (() => void) | undefined
-	let arrowRef: HTMLDivElement | undefined
 	const [contentRef, setContentRef] = createSignal<HTMLElement>()
+	const [arrowRef, setArrowRef] = createSignal<HTMLElement>()
 	const [xPos, setXPos] = createSignal(0)
 	const [yPos, setYPos] = createSignal(0)
+	const [arrowXPos, setArrowXPos] = createSignal(0)
+	const [arrowYPos, setArrowYPos] = createSignal(0)
 
 	const mount = () => mounts().get(props.mount)
 	const isShown = () => true
@@ -55,19 +57,25 @@ export const Floating: ParentComponent<{
 	createEffect(async function initialise(): Promise<void> {
 		/* Cannot initialise */
 		const contentRefValue = contentRef()
-		if (!mount() || !contentRefValue) {
+		const arrowRefValue = arrowRef()
+		if (cleanupFloatingUi || !mount() || !contentRefValue || !arrowRefValue) {
 			return
 		}
 
 		const floatingUi = await importFloatingUi()
 
 		const updatePosition = async (): Promise<void> => {
-			const position = await floatingUi.computePosition(
+			const data = await floatingUi.computePosition(
 				props.reference,
 				contentRefValue,
+				{
+					middleware: [floatingUi.arrow({ element: arrowRefValue })],
+				},
 			)
-			setXPos(roundByDpr(position.x))
-			setYPos(roundByDpr(position.y))
+			setXPos(roundByDpr(data.x))
+			setYPos(roundByDpr(data.y))
+			setArrowXPos(roundByDpr(data.middlewareData.arrow?.x ?? 0))
+			setArrowYPos(roundByDpr(data.middlewareData.arrow?.y ?? 0))
 		}
 
 		cleanupFloatingUi = floatingUi.autoUpdate(
@@ -94,7 +102,11 @@ export const Floating: ParentComponent<{
 					role="tooltip"
 				>
 					<Show when={props.showArrow}>
-						<div ref={arrowRef} class={css.arrow}>
+						<div
+							style={`transform: translate(${arrowXPos()}px, ${arrowYPos()}px)`}
+							ref={arrowRef}
+							class={css.arrow}
+						>
 							<div class={css.arrowInner} />
 						</div>
 					</Show>
