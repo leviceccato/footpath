@@ -69,3 +69,8 @@ export async function sequence<TItem>(
 		Promise.resolve(),
 	)
 }
+
+export function roundByDpr(value: number): number {
+	const dpr = window.devicePixelRatio
+	return Math.round(value * dpr) / dpr
+}
