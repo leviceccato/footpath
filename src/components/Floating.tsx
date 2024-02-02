@@ -2,7 +2,7 @@ import { FocusTrap } from '@/providers/FocusTrap'
 import { usePortal } from '@/providers/Portal'
 import { roundByDpr } from '@/utils/misc'
 import { defaultProps } from '@/utils/solid'
-import { type ReferenceElement, computePosition } from '@floating-ui/dom'
+import { type ReferenceElement } from '@floating-ui/dom'
 import {
 	type ParentComponent,
 	Show,
@@ -11,7 +11,6 @@ import {
 	createSignal,
 	createUniqueId,
 	onCleanup,
-	onMount,
 } from 'solid-js'
 import { Portal } from 'solid-js/web'
 import * as css from './Floating.css'
@@ -55,9 +54,9 @@ export const Floating: ParentComponent<{
 	const contentVariant = () => (isShown() ? 'shown' : 'hidden')
 
 	createEffect(async function initialise(): Promise<void> {
-		/* Cannot initialise */
 		const contentRefValue = contentRef()
 		const arrowRefValue = arrowRef()
+		/* Cannot initialise */
 		if (cleanupFloatingUi || !mount() || !contentRefValue || !arrowRefValue) {
 			return
 		}
@@ -97,14 +96,14 @@ export const Floating: ParentComponent<{
 						props.tooltipClass
 					}`}
 					style={`transform: translate(${xPos()}px, ${yPos()}px)`}
-					ref={contentRef}
+					ref={(r) => setContentRef(r)}
 					id={id}
 					role="tooltip"
 				>
 					<Show when={props.showArrow}>
 						<div
 							style={`transform: translate(${arrowXPos()}px, ${arrowYPos()}px)`}
-							ref={arrowRef}
+							ref={(r) => setArrowRef(r)}
 							class={css.arrow}
 						>
 							<div class={css.arrowInner} />
