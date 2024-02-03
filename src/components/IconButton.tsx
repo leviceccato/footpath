@@ -4,15 +4,10 @@ import { Text } from '@/components/Text'
 import { VisuallyHidden } from '@/components/VisuallyHidden'
 import { type IconName, useIcons } from '@/providers/Icons'
 import { sleep } from '@/utils/misc'
-import { type Instance, type VirtualElement } from '@popperjs/core'
+import { type VirtualElement } from '@floating-ui/dom'
 import { type Component, createSignal } from 'solid-js'
 import { splitProps } from 'solid-js'
 import * as css from './IconButton.css'
-
-const tooltipOffsetX = 0
-const tooltipOffsetY = 0
-
-const stubGetBoundingClientRect = () => new DOMRect()
 
 export const IconButton: Component<
 	ButtonProps & {
@@ -30,40 +25,40 @@ export const IconButton: Component<
 	])
 
 	let buttonRef: HTMLButtonElement | undefined
-	const [popover, setPopover] = createSignal<Instance>()
 	const [state, setState] = createSignal<PopoverState>()
+	const [mouseX, setMouseX] = createSignal(0)
+	const [mouseY, setMouseY] = createSignal(0)
 
-	const virtualElement: VirtualElement = {
-		getBoundingClientRect: stubGetBoundingClientRect,
+	let virtualElement: VirtualElement | undefined = {
+		getBoundingClientRect: () => {
+			const x = mouseX()
+			const y = mouseY()
+
+			return {
+				x,
+				y,
+				top: y,
+				left: x,
+				bottom: y,
+				right: x,
+				width: 0,
+				height: 0,
+				/* Required to satisfy type */
+				toJSON: () => {},
+			}
+		},
 	}
 
-	function updateVirtualReference(event: MouseEvent): void {
-		const x = event.clientX + tooltipOffsetX
-		const y = event.clientY + tooltipOffsetY
-
-		/* Satisfy DOMRect */
-		virtualElement.getBoundingClientRect = () => ({
-			x,
-			y,
-			width: 0,
-			height: 0,
-			top: y,
-			right: x,
-			bottom: y,
-			left: x,
-			toJSON: () => {},
-		})
-
-		popover()?.update()
+	function updateMousePosition(event: MouseEvent): void {
+		setMouseX(event.clientX)
+		setMouseY(event.clientY)
 	}
 
-	async function clearVirtualReference() {
+	async function clearVirtualElement() {
 		/* Delay before resetting to avoid any visual glitches */
 		await sleep(150)
 
-		virtualElement.getBoundingClientRect = stubGetBoundingClientRect
-
-		popover()?.update()
+		virtualElement = undefined
 	}
 
 	return (
@@ -71,8 +66,8 @@ export const IconButton: Component<
 			<Button
 				ref={buttonRef}
 				{...buttonProps}
-				onMouseMove={updateVirtualReference}
-				onMouseLeave={clearVirtualReference}
+				onMouseMove={updateMousePosition}
+				onMouseLeave={clearVirtualElement}
 				class={`${buttonProps.class || ''} ${css.button}`}
 			>
 				<VisuallyHidden>{_props.tooltip}</VisuallyHidden>
@@ -85,13 +80,8 @@ export const IconButton: Component<
 				when="hover"
 				mount="tooltip"
 				state={[state, setState]}
-				onUpdateInstance={setPopover}
 				element={buttonRef}
 				virtualElement={virtualElement}
-				options={{
-					placement: 'top-start',
-					modifiers: [{ name: 'offset', options: { offset: [14, 14] } }],
-				}}
 			>
 				<div aria-hidden class={css.tooltipInner}>
 					<Text variant="bodyXxs">{_props.tooltip}</Text>
