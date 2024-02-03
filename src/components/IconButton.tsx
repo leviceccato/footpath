@@ -26,39 +26,35 @@ export const IconButton: Component<
 
 	let buttonRef: HTMLButtonElement | undefined
 	const [state, setState] = createSignal<PopoverState>()
-	const [mouseX, setMouseX] = createSignal(0)
-	const [mouseY, setMouseY] = createSignal(0)
+	const [virtualElement, setVirtualElement] = createSignal<VirtualElement>()
 
-	let virtualElement: VirtualElement | undefined = {
-		getBoundingClientRect: () => {
-			const x = mouseX()
-			const y = mouseY()
+	function updateVirtualElement(event: MouseEvent): void {
+		setVirtualElement({
+			getBoundingClientRect: () => {
+				const x = event.clientX
+				const y = event.clientY
 
-			return {
-				x,
-				y,
-				top: y,
-				left: x,
-				bottom: y,
-				right: x,
-				width: 0,
-				height: 0,
-				/* Required to satisfy type */
-				toJSON: () => {},
-			}
-		},
-	}
-
-	function updateMousePosition(event: MouseEvent): void {
-		setMouseX(event.clientX)
-		setMouseY(event.clientY)
+				return {
+					x,
+					y,
+					top: y,
+					left: x,
+					bottom: y,
+					right: x,
+					width: 0,
+					height: 0,
+					/* Required to satisfy type */
+					toJSON: () => {},
+				}
+			},
+		})
 	}
 
 	async function clearVirtualElement() {
 		/* Delay before resetting to avoid any visual glitches */
 		await sleep(150)
 
-		virtualElement = undefined
+		setVirtualElement(undefined)
 	}
 
 	return (
@@ -66,7 +62,7 @@ export const IconButton: Component<
 			<Button
 				ref={buttonRef}
 				{...buttonProps}
-				onMouseMove={updateMousePosition}
+				onMouseMove={updateVirtualElement}
 				onMouseLeave={clearVirtualElement}
 				class={`${buttonProps.class || ''} ${css.button}`}
 			>
@@ -77,6 +73,7 @@ export const IconButton: Component<
 				/>
 			</Button>
 			<Popover
+				class={css.tooltip}
 				when="hover"
 				mount="tooltip"
 				state={[state, setState]}

@@ -1,7 +1,7 @@
 import { FocusTrap } from '@/providers/FocusTrap'
 import { usePortal } from '@/providers/Portal'
 import { roundByDpr, sleep } from '@/utils/misc'
-import { defaultProps } from '@/utils/solid'
+import { type ClassProps, defaultProps } from '@/utils/solid'
 import {
 	type ComputePositionReturn,
 	type VirtualElement,
@@ -96,20 +96,23 @@ const store = createRoot(() => {
 	}
 })
 
-export const Popover: ParentComponent<{
-	element: Element | undefined
-	virtualElement?: VirtualElement
-	state: Signal<PopoverState | undefined>
-	when?: boolean | 'hover' | 'click'
-	groupId?: string
-	hasArrow?: boolean
-	hoverDelay?: number
-	mount?: string
-	onShown?: () => void
-	onHidden?: () => void
-	onUpdate?: (_: ComputePositionReturn) => void
-}> = (rawProps) => {
+export const Popover: ParentComponent<
+	ClassProps & {
+		element: Element | undefined
+		virtualElement?: Accessor<VirtualElement | undefined>
+		state: Signal<PopoverState | undefined>
+		when?: boolean | 'hover' | 'click'
+		groupId?: string
+		hasArrow?: boolean
+		hoverDelay?: number
+		mount?: string
+		onShown?: () => void
+		onHidden?: () => void
+		onUpdate?: (_: ComputePositionReturn) => void
+	}
+> = (rawProps) => {
 	const props = defaultProps(rawProps, {
+		class: '',
 		hoverDelay: 400,
 		hasArrow: false,
 		mount: 'modal',
@@ -122,6 +125,7 @@ export const Popover: ParentComponent<{
 	store.addPopover(id, props.groupId)
 
 	let stopAutoUpdate: (() => void) | undefined
+	let update: (() => Promise<void>) | undefined
 	const [contentRef, setContentRef] = createSignal<HTMLDivElement>()
 	const [arrowRef, setArrowRef] = createSignal<HTMLDivElement>()
 	const [isHovered, setIsHovered] = createSignal(false)
@@ -135,6 +139,8 @@ export const Popover: ParentComponent<{
 	}
 
 	const portalMount = () => portal.mounts().get(props.mount)
+
+	const referenceEl = () => props.virtualElement?.() ?? props.element
 
 	function setPopoverShown(to: boolean): void {
 		store.setPopoverShown(id, to)
@@ -223,21 +229,23 @@ export const Popover: ParentComponent<{
 		}
 	}
 
-	async function initPopper(): Promise<void> {
+	async function initFloatingUi(): Promise<void> {
 		const contentRefValue = contentRef()
-		if (!props.element || !contentRefValue) {
+		const referenceElValue = referenceEl()
+		if (!props.element || !contentRefValue || !referenceElValue) {
 			return
 		}
 
 		/* Start Floating UI */
 
 		const floatingUi = await importFloatingUi()
-		const referenceEl = props.virtualElement ?? props.element
 
 		const middleware = [
-			floatingUi.offset(10),
-			floatingUi.autoPlacement(),
-			floatingUi.shift(),
+			floatingUi.offset(0),
+			floatingUi.flip(),
+			floatingUi.shift({
+				padding: 10,
+			}),
 		]
 
 		const arrowRefValue = arrowRef()
@@ -245,39 +253,52 @@ export const Popover: ParentComponent<{
 			middleware.push(floatingUi.arrow({ element: arrowRefValue }))
 		}
 
+		update = async (): Promise<void> => {
+			const referenceElValue = referenceEl()
+			if (!referenceElValue) {
+				return
+			}
+
+			const data = await floatingUi.computePosition(
+				referenceElValue,
+				contentRefValue,
+				{ middleware },
+			)
+
+			setX(roundByDpr(data.x))
+			setY(roundByDpr(data.y))
+			setArrowX(roundByDpr(data.middlewareData.arrow?.x ?? 0))
+			setArrowY(roundByDpr(data.middlewareData.arrow?.y ?? 0))
+
+			props.onUpdate?.(data)
+		}
+
 		stopAutoUpdate = floatingUi.autoUpdate(
-			referenceEl,
+			referenceElValue,
 			contentRefValue,
-			async (): Promise<void> => {
-				const data = await floatingUi.computePosition(
-					referenceEl,
-					contentRefValue,
-					{ middleware },
-				)
-
-				setX(roundByDpr(data.x))
-				setY(roundByDpr(data.y))
-				setArrowX(roundByDpr(data.middlewareData.arrow?.x ?? 0))
-				setArrowY(roundByDpr(data.middlewareData.arrow?.y ?? 0))
-
-				props.onUpdate?.(data)
-			},
+			update,
 		)
 	}
 
-	createEffect(() => {
+	createEffect(function maybeInitFloatingUi() {
 		if (portalMount() && contentRef() && !stopAutoUpdate) {
-			initPopper()
+			initFloatingUi()
 		}
 	})
 
-	createEffect(() => {
+	createEffect(function triggerUpdate() {
+		if (props.virtualElement?.()) {
+			update?.()
+		}
+	})
+
+	createEffect(function updateState() {
 		setState({
 			isShown: store.isPopoverShown(id)(),
 		})
 	})
 
-	createEffect(() => {
+	createEffect(function handleIsShownUpdate() {
 		if (state()?.isShown) {
 			toggleEventListeners(true)
 			props.onShown?.()
@@ -311,7 +332,7 @@ export const Popover: ParentComponent<{
 		<Show when={portalMount()}>
 			<Portal mount={portalMount()}>
 				<div
-					class={css.contentVariants[contentVariant()]}
+					class={`${props.class} ${css.contentVariants[contentVariant()]}`}
 					ref={(ref) => setContentRef(ref)}
 					id={id}
 					role="tooltip"
