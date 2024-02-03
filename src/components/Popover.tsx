@@ -1,13 +1,11 @@
 import { FocusTrap } from '@/providers/FocusTrap'
 import { usePortal } from '@/providers/Portal'
-import { type GlobalWindow, sleep } from '@/utils/misc'
+import { sleep } from '@/utils/misc'
 import { defaultProps } from '@/utils/solid'
 import {
-	type Instance,
-	type Options,
-	type StrictModifiers,
+	type ComputePositionReturn,
 	type VirtualElement,
-} from '@popperjs/core'
+} from '@floating-ui/dom'
 import {
 	type Accessor,
 	type ParentComponent,
@@ -23,7 +21,7 @@ import {
 } from 'solid-js'
 import { Portal } from 'solid-js/web'
 import * as css from './Popover.css'
-const importPopper = () => import('@popperjs/core')
+const importFloatingUi = () => import('@floating-ui/dom')
 
 export type PopoverState = {
 	isShown: boolean
@@ -104,13 +102,12 @@ export const Popover: ParentComponent<{
 	state: Signal<PopoverState | undefined>
 	when?: boolean | 'hover' | 'click'
 	groupId?: string
-	options?: Partial<Options>
 	hasArrow?: boolean
 	hoverDelay?: number
 	mount?: string
 	onShown?: () => void
 	onHidden?: () => void
-	onUpdateInstance?: (_: Instance) => void
+	onUpdate?: (_: ComputePositionReturn) => void
 }> = (rawProps) => {
 	const props = defaultProps(rawProps, {
 		hoverDelay: 400,
@@ -119,19 +116,19 @@ export const Popover: ParentComponent<{
 	})
 
 	const portal = usePortal()
-
 	const [state, setState] = props.state
-
 	const id = createUniqueId()
 
 	store.addPopover(id, props.groupId)
 
-	let popperInstance: Instance | undefined
-	let arrowRef: HTMLDivElement | undefined
-	let contentObserver: ResizeObserver | undefined
-
+	let stopAutoUpdate: (() => void) | undefined
 	const [contentRef, setContentRef] = createSignal<HTMLDivElement>()
+	const [arrowRef, setArrowRef] = createSignal<HTMLDivElement>()
 	const [isHovered, setIsHovered] = createSignal(false)
+	const [x, setX] = createSignal(0)
+	const [y, setY] = createSignal(0)
+	const [arrowX, setArrowX] = createSignal(0)
+	const [arrowY, setArrowY] = createSignal(0)
 
 	const contentVariant = (): keyof typeof css.contentVariants => {
 		return state()?.isShown ? 'shown' : 'hidden'
@@ -171,13 +168,6 @@ export const Popover: ParentComponent<{
 	}
 
 	function toggleEventListeners(enabled: boolean): void {
-		popperInstance?.setOptions((options) => ({
-			...options,
-			modifiers: [
-				...(options.modifiers || []),
-				{ name: 'eventListeners', enabled },
-			],
-		}))
 		if (enabled) {
 			window.addEventListener('pointerdown', handleClickToClose)
 			addIframeListeners()
@@ -190,10 +180,11 @@ export const Popover: ParentComponent<{
 
 	function hideIfTargetOutside(
 		maybeTarget: EventTarget | null,
-		maybeWindow: GlobalWindow | null,
+		maybeWindow: Window | null,
 	): void {
-		if (!maybeWindow) return
-		if (!(maybeTarget instanceof maybeWindow.Node)) return
+		if (!maybeWindow || !(maybeTarget instanceof Node)) {
+			return
+		}
 
 		const isOutsideReference =
 			props.element instanceof Element && !props.element?.contains(maybeTarget)
@@ -206,12 +197,14 @@ export const Popover: ParentComponent<{
 
 	function addIframeListeners(): void {
 		for (const iframe of document.querySelectorAll('iframe')) {
-			if (!iframe.contentWindow) return
+			if (!iframe.contentWindow) {
+				return
+			}
 
 			iframe.contentWindow.document.addEventListener(
 				'click',
 				({ target }: Event) => {
-					hideIfTargetOutside(target, iframe.contentWindow as GlobalWindow)
+					hideIfTargetOutside(target, iframe.contentWindow)
 				},
 				{
 					once: true,
@@ -232,43 +225,44 @@ export const Popover: ParentComponent<{
 
 	async function initPopper(): Promise<void> {
 		const contentRefValue = contentRef()
-		if (!props.element || !(contentRefValue instanceof HTMLElement)) {
+		const arrowRefValue = arrowRef()
+		if (!props.element || !contentRefValue || !arrowRefValue) {
 			return
 		}
 
-		/* Create popper instance */
+		/* Start Floating UI */
 
-		const { createPopper } = await importPopper()
+		const floatingUi = await importFloatingUi()
+		const referenceEl = props.virtualElement ?? props.element
 
-		const options = structuredClone(props.options) ?? {}
-		if (props.hasArrow) {
-			options.modifiers = [
-				...(options.modifiers || []),
-				{
-					name: 'arrow',
-					options: {
-						element: arrowRef,
-					},
-				},
-			]
-		}
-
-		popperInstance = createPopper<StrictModifiers>(
-			props.virtualElement ?? props.element,
+		stopAutoUpdate = floatingUi.autoUpdate(
+			referenceEl,
 			contentRefValue,
-			options,
+			async (): Promise<void> => {
+				const data = await floatingUi.computePosition(
+					referenceEl,
+					contentRefValue,
+					{
+						middleware: [
+							floatingUi.offset(10),
+							floatingUi.flip(),
+							floatingUi.arrow({ element: arrowRefValue }),
+						],
+					},
+				)
+
+				setX(data.x)
+				setY(data.y)
+				setArrowX(data.middlewareData.arrow?.x ?? 0)
+				setArrowY(data.middlewareData.arrow?.y ?? 0)
+
+				props.onUpdate?.(data)
+			},
 		)
-		props.onUpdateInstance?.(popperInstance)
-
-		/* Setup resize observer to update popper when content changes */
-
-		contentObserver = new ResizeObserver(() => popperInstance?.update())
-
-		contentObserver.observe(contentRefValue)
 	}
 
 	createEffect(() => {
-		if (portalMount() && contentRef() && !popperInstance) {
+		if (portalMount() && contentRef() && !stopAutoUpdate) {
 			initPopper()
 		}
 	})
@@ -283,7 +277,7 @@ export const Popover: ParentComponent<{
 		if (state()?.isShown) {
 			toggleEventListeners(true)
 			props.onShown?.()
-			return popperInstance?.update()
+			return
 		}
 		props.onHidden?.()
 		toggleEventListeners(false)
@@ -298,7 +292,7 @@ export const Popover: ParentComponent<{
 	})
 
 	onCleanup(() => {
-		contentObserver?.disconnect()
+		stopAutoUpdate?.()
 		toggleEventListeners(false)
 		store.removePopover(id)
 
@@ -317,9 +311,14 @@ export const Popover: ParentComponent<{
 					ref={(ref) => setContentRef(ref)}
 					id={id}
 					role="tooltip"
+					style={`transform: translate(${x()}px, ${y()}px)`}
 				>
 					<Show when={props.hasArrow}>
-						<div ref={arrowRef} class={css.arrow}>
+						<div
+							class={css.arrow}
+							ref={(ref) => setArrowRef(ref)}
+							style={`transform: translate(${arrowX()}px, ${arrowY()}px)`}
+						>
 							<div class={css.arrowInner} />
 						</div>
 					</Show>
