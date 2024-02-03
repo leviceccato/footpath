@@ -1,5 +1,5 @@
-import { type ButtonProps } from '@/components/Button'
-import { Popover } from '@/components/Popover'
+import { Button, type ButtonProps } from '@/components/Button'
+import { Popover, type PopoverState } from '@/components/Popover'
 import { Text } from '@/components/Text'
 import { VisuallyHidden } from '@/components/VisuallyHidden'
 import { type IconName, useIcons } from '@/providers/Icons'
@@ -11,6 +11,8 @@ import * as css from './IconButton.css'
 
 const tooltipOffsetX = 0
 const tooltipOffsetY = 0
+
+const stubGetBoundingClientRect = () => new DOMRect()
 
 export const IconButton: Component<
 	ButtonProps & {
@@ -28,28 +30,26 @@ export const IconButton: Component<
 	])
 
 	const [popover, setPopover] = createSignal<Instance>()
+	const [state, setState] = createSignal<PopoverState>()
 
-	const virtualReference: {
-		getBoundingClientRect: VirtualElement['getBoundingClientRect'] | null
-	} = {
-		getBoundingClientRect: null,
+	const virtualElement: VirtualElement = {
+		getBoundingClientRect: stubGetBoundingClientRect,
 	}
 
 	function updateVirtualReference(event: MouseEvent): void {
-		const _x = event.clientX + tooltipOffsetX
-		const _y = event.clientY + tooltipOffsetY
+		const x = event.clientX + tooltipOffsetX
+		const y = event.clientY + tooltipOffsetY
 
 		/* Satisfy DOMRect */
-
-		virtualReference.getBoundingClientRect = () => ({
-			x: _x,
-			y: _y,
+		virtualElement.getBoundingClientRect = () => ({
+			x,
+			y,
 			width: 0,
 			height: 0,
-			top: _y,
-			right: _x,
-			bottom: _y,
-			left: _x,
+			top: y,
+			right: x,
+			bottom: y,
+			left: x,
 			toJSON: () => {},
 		})
 
@@ -60,39 +60,40 @@ export const IconButton: Component<
 		/* Delay before resetting to avoid any visual glitches */
 		await sleep(150)
 
-		virtualReference.getBoundingClientRect = null
+		virtualElement.getBoundingClientRect = stubGetBoundingClientRect
 
 		popover()?.update()
 	}
 
 	return (
-		<Popover
-			{...buttonProps}
-			class={`${buttonProps.class || ''} ${css.button}`}
-			tooltipClass={css.tooltip}
-			when="hover"
-			mount="tooltip"
-			options={{
-				placement: 'top-start',
-				modifiers: [{ name: 'offset', options: { offset: [14, 14] } }],
-			}}
-			onUpdateInstance={setPopover}
-			virtualReference={virtualReference}
-			onMouseMove={updateVirtualReference}
-			onMouseLeave={clearVirtualReference}
-			reference={() => (
-				<>
-					<VisuallyHidden>{_props.tooltip}</VisuallyHidden>
-					<Icon
-						class={`${css.icon} ${_props.iconClass ?? ''}`}
-						name={_props.name}
-					/>
-				</>
-			)}
-		>
-			<div aria-hidden class={css.tooltipInner}>
-				<Text variant="bodyXxs">{_props.tooltip}</Text>
-			</div>
-		</Popover>
+		<>
+			<Button
+				{...buttonProps}
+				onMouseMove={updateVirtualReference}
+				onMouseLeave={clearVirtualReference}
+				class={`${buttonProps.class || ''} ${css.button}`}
+			>
+				<VisuallyHidden>{_props.tooltip}</VisuallyHidden>
+				<Icon
+					class={`${css.icon} ${_props.iconClass ?? ''}`}
+					name={_props.name}
+				/>
+			</Button>
+			<Popover
+				when="hover"
+				mount="tooltip"
+				state={[state, setState]}
+				onUpdateInstance={setPopover}
+				element={virtualElement}
+				options={{
+					placement: 'top-start',
+					modifiers: [{ name: 'offset', options: { offset: [14, 14] } }],
+				}}
+			>
+				<div aria-hidden class={css.tooltipInner}>
+					<Text variant="bodyXxs">{_props.tooltip}</Text>
+				</div>
+			</Popover>
+		</>
 	)
 }
