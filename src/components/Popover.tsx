@@ -234,7 +234,11 @@ export const Popover: ParentComponent<{
 		const floatingUi = await importFloatingUi()
 		const referenceEl = props.virtualElement ?? props.element
 
-		const middleware = [floatingUi.offset(10), floatingUi.flip()]
+		const middleware = [
+			floatingUi.offset(10),
+			floatingUi.autoPlacement(),
+			floatingUi.shift(),
+		]
 
 		const arrowRefValue = arrowRef()
 		if (props.hasArrow && arrowRefValue) {
