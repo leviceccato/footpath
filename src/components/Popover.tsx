@@ -230,9 +230,9 @@ export const Popover: ParentComponent<{
 	}
 
 	async function initPopper(): Promise<void> {
-		const _contentRef = contentRef()
+		const contentRefValue = contentRef()
 
-		if (!(_contentRef instanceof HTMLElement)) {
+		if (!(contentRefValue instanceof HTMLElement)) {
 			return
 		}
 
@@ -255,7 +255,7 @@ export const Popover: ParentComponent<{
 
 		popperInstance = createPopper<StrictModifiers>(
 			props.element,
-			_contentRef,
+			contentRefValue,
 			options,
 		)
 		props.onUpdateInstance?.(popperInstance)
@@ -264,7 +264,7 @@ export const Popover: ParentComponent<{
 
 		contentObserver = new ResizeObserver(() => popperInstance?.update())
 
-		contentObserver.observe(_contentRef)
+		contentObserver.observe(contentRefValue)
 	}
 
 	createEffect(() => {
