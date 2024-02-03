@@ -1,6 +1,6 @@
 import { FocusTrap } from '@/providers/FocusTrap'
 import { usePortal } from '@/providers/Portal'
-import { sleep } from '@/utils/misc'
+import { roundByDpr, sleep } from '@/utils/misc'
 import { defaultProps } from '@/utils/solid'
 import {
 	type ComputePositionReturn,
@@ -255,10 +255,10 @@ export const Popover: ParentComponent<{
 					{ middleware },
 				)
 
-				setX(data.x)
-				setY(data.y)
-				setArrowX(data.middlewareData.arrow?.x ?? 0)
-				setArrowY(data.middlewareData.arrow?.y ?? 0)
+				setX(roundByDpr(data.x))
+				setY(roundByDpr(data.y))
+				setArrowX(roundByDpr(data.middlewareData.arrow?.x ?? 0))
+				setArrowY(roundByDpr(data.middlewareData.arrow?.y ?? 0))
 
 				props.onUpdate?.(data)
 			},
