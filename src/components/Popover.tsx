@@ -225,8 +225,7 @@ export const Popover: ParentComponent<{
 
 	async function initPopper(): Promise<void> {
 		const contentRefValue = contentRef()
-		const arrowRefValue = arrowRef()
-		if (!props.element || !contentRefValue || !arrowRefValue) {
+		if (!props.element || !contentRefValue) {
 			return
 		}
 
@@ -235,6 +234,13 @@ export const Popover: ParentComponent<{
 		const floatingUi = await importFloatingUi()
 		const referenceEl = props.virtualElement ?? props.element
 
+		const middleware = [floatingUi.offset(10), floatingUi.flip()]
+
+		const arrowRefValue = arrowRef()
+		if (props.hasArrow && arrowRefValue) {
+			middleware.push(floatingUi.arrow({ element: arrowRefValue }))
+		}
+
 		stopAutoUpdate = floatingUi.autoUpdate(
 			referenceEl,
 			contentRefValue,
@@ -242,13 +248,7 @@ export const Popover: ParentComponent<{
 				const data = await floatingUi.computePosition(
 					referenceEl,
 					contentRefValue,
-					{
-						middleware: [
-							floatingUi.offset(10),
-							floatingUi.flip(),
-							floatingUi.arrow({ element: arrowRefValue }),
-						],
-					},
+					{ middleware },
 				)
 
 				setX(data.x)
