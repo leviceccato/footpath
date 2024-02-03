@@ -1,6 +1,5 @@
 import { Button } from '@/components/Button'
 import { IconButton } from '@/components/IconButton'
-import { Popover } from '@/components/Popover'
 import { ScrollArea } from '@/components/ScrollArea'
 import { Text } from '@/components/Text'
 import { type CodeDocument, useCodeDocuments } from '@/providers/CodeDocuments'
@@ -41,21 +40,6 @@ export const Header: Component = () => {
 				tooltip={t('menu')}
 				onClick={() => setIsMenuPopoverShown(!isMenuPopoverShown())}
 			/>
-			<Popover
-				when="click"
-				hasArrow={true}
-				virtualReference={menuButtonRef}
-				shownOverride={isMenuPopoverShown}
-				options={{
-					placement: 'bottom-start',
-					modifiers: [{ name: 'offset', options: { offset: [0, 13] } }],
-				}}
-				reference={() => <></>}
-			>
-				<div class={css.dropdown}>
-					<div class={css.dropdownButtonContainer}>Hello world</div>
-				</div>
-			</Popover>
 			<ScrollArea class={css.scrollArea}>
 				<div class={css.tabContainer}>
 					<For each={shownCodeDocuments()}>
