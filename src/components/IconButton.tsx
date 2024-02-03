@@ -29,6 +29,7 @@ export const IconButton: Component<
 		'iconClass',
 	])
 
+	let buttonRef: HTMLButtonElement | undefined
 	const [popover, setPopover] = createSignal<Instance>()
 	const [state, setState] = createSignal<PopoverState>()
 
@@ -68,6 +69,7 @@ export const IconButton: Component<
 	return (
 		<>
 			<Button
+				ref={buttonRef}
 				{...buttonProps}
 				onMouseMove={updateVirtualReference}
 				onMouseLeave={clearVirtualReference}
@@ -84,7 +86,8 @@ export const IconButton: Component<
 				mount="tooltip"
 				state={[state, setState]}
 				onUpdateInstance={setPopover}
-				element={virtualElement}
+				element={buttonRef}
+				virtualElement={virtualElement}
 				options={{
 					placement: 'top-start',
 					modifiers: [{ name: 'offset', options: { offset: [14, 14] } }],

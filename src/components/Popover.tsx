@@ -99,7 +99,8 @@ const store = createRoot(() => {
 })
 
 export const Popover: ParentComponent<{
-	element: Element | VirtualElement
+	element: Element | undefined
+	virtualElement?: VirtualElement
 	state: Signal<PopoverState | undefined>
 	when?: boolean | 'hover' | 'click'
 	groupId?: string
@@ -231,8 +232,7 @@ export const Popover: ParentComponent<{
 
 	async function initPopper(): Promise<void> {
 		const contentRefValue = contentRef()
-
-		if (!(contentRefValue instanceof HTMLElement)) {
+		if (!props.element || !(contentRefValue instanceof HTMLElement)) {
 			return
 		}
 
@@ -254,7 +254,7 @@ export const Popover: ParentComponent<{
 		}
 
 		popperInstance = createPopper<StrictModifiers>(
-			props.element,
+			props.virtualElement ?? props.element,
 			contentRefValue,
 			options,
 		)
@@ -290,13 +290,11 @@ export const Popover: ParentComponent<{
 	})
 
 	onMount(() => {
-		if (props.element instanceof Element) {
-			props.element.addEventListener('click', handleClick)
-			props.element.addEventListener('focusin', handleHoverIn)
-			props.element.addEventListener('focusout', handleHoverOut)
-			props.element.addEventListener('mouseenter', handleHoverIn)
-			props.element.addEventListener('mouseleave', handleHoverOut)
-		}
+		props.element?.addEventListener('click', handleClick)
+		props.element?.addEventListener('focusin', handleHoverIn)
+		props.element?.addEventListener('focusout', handleHoverOut)
+		props.element?.addEventListener('mouseenter', handleHoverIn)
+		props.element?.addEventListener('mouseleave', handleHoverOut)
 	})
 
 	onCleanup(() => {
@@ -304,13 +302,11 @@ export const Popover: ParentComponent<{
 		toggleEventListeners(false)
 		store.removePopover(id)
 
-		if (props.element instanceof Element) {
-			props.element.removeEventListener('click', handleClick)
-			props.element.removeEventListener('focusin', handleHoverIn)
-			props.element.removeEventListener('focusout', handleHoverOut)
-			props.element.removeEventListener('mouseenter', handleHoverIn)
-			props.element.removeEventListener('mouseleave', handleHoverOut)
-		}
+		props.element?.removeEventListener('click', handleClick)
+		props.element?.removeEventListener('focusin', handleHoverIn)
+		props.element?.removeEventListener('focusout', handleHoverOut)
+		props.element?.removeEventListener('mouseenter', handleHoverIn)
+		props.element?.removeEventListener('mouseleave', handleHoverOut)
 	})
 
 	return (
