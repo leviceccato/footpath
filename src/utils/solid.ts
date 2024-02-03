@@ -1,4 +1,4 @@
-import { mergeProps } from 'solid-js'
+import { createRoot, mergeProps, onCleanup } from 'solid-js'
 
 export type ClassProps = { class?: string }
 
@@ -26,4 +26,22 @@ export function defaultValues<
 ): Required<TDefaultProperties> & TObject {
 	return { ...object, ...defaultProperties } as Required<TDefaultProperties> &
 		TObject
+}
+
+/* Event listener util that will automatically unregister itself when the component is cleaned up */
+export function useEventListener<
+	TTarget extends EventTarget,
+	TEvent extends keyof EventMap,
+>(
+	target: TTarget,
+	event: TEvent,
+	listener: EventListener,
+	options?: AddEventListenerOptions,
+): void {
+	createRoot(() => {
+		target.addEventListener(event, listener, options)
+		onCleanup(() => {
+			target.removeEventListener(event, listener, options)
+		})
+	})
 }
