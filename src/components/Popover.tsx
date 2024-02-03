@@ -25,7 +25,7 @@ import { Portal } from 'solid-js/web'
 import * as css from './Popover.css'
 const importPopper = () => import('@popperjs/core')
 
-type PopoverState = {
+export type PopoverState = {
 	isShown: boolean
 }
 
@@ -100,7 +100,7 @@ const store = createRoot(() => {
 
 export const Popover: ParentComponent<{
 	element: Element | VirtualElement
-	state: Signal<PopoverState | null>
+	state: Signal<PopoverState | undefined>
 	when?: boolean | 'hover' | 'click'
 	groupId?: string
 	options?: Partial<Options>
