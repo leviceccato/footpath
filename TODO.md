@@ -9,6 +9,8 @@ A list of complete and incomplete tasks to track progress on Lacey.
 - Create favicon
 - Optimise computed values to potentially use createMemo across codebase
 - Add hex input for colour picker
+- Expose components in their own files (e.g. useIcons should not return Icon)
+- Nest extended component props in object, rather than spreading them into props (e.g. ButtonProps)
 
 ## Doing
 
