@@ -16,8 +16,6 @@ export const Header: Component = () => {
 
 	const [isMenuPopoverShown, setIsMenuPopoverShown] = createSignal(false)
 
-	let menuButtonRef: HTMLButtonElement | undefined
-
 	const shownCodeDocuments = () => {
 		const docs: CodeDocument[] = []
 
@@ -35,7 +33,6 @@ export const Header: Component = () => {
 	return (
 		<header class={css.root}>
 			<IconButton
-				ref={menuButtonRef}
 				name="menu"
 				tooltip={t('menu')}
 				onClick={() => setIsMenuPopoverShown(!isMenuPopoverShown())}
