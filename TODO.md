@@ -3,6 +3,7 @@ A list of complete and incomplete tasks to track progress on Lacey.
 ## To do (lowest to highest priority)
 
 - Add syntax highlighting
+- Statically define colours (don't parse)
 - Fix code documents/tabs
 - Add tooltips for language and colour picker buttons
 - Fix modal background contrast for dark colours
