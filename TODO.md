@@ -9,14 +9,14 @@ A list of complete and incomplete tasks to track progress on Lacey.
 - Create favicon
 - Optimise computed values to potentially use createMemo across codebase
 - Add hex input for colour picker
-- Add global activeCodeDocument property and remove individual isActive
 
 ## Doing
 
-- Expose components in their own files (e.g. useIcons should not return Icon)
+- Create Menu tree component
 
 ## Done (most recent to oldest)
 
+- Add global activeCodeDocument property and remove individual isActive
 - Expose composables as namespaced objects, rather for destructuring (e.g. useCodeDocuments)
 - Explicitly expose props from native elements
 - Refactor Popover to support mulitple popovers per button
