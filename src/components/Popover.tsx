@@ -122,7 +122,7 @@ export const Popover: ParentComponent<{
 		hasArrow: false,
 		mount: 'modal',
 		shiftPadding: 4,
-		offset: 0,
+		offset: 4,
 	})
 
 	const portal = usePortal()
