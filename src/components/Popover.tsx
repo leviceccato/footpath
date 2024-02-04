@@ -36,10 +36,10 @@ type Popover = {
 	setIsShown: Setter<boolean>
 }
 
-const store = createRoot(() => {
+const popoverStore = createRoot(() => {
 	const [popovers, setPopovers] = createSignal<Popover[]>([])
 
-	function addPopover(id: string, groupId?: string) {
+	function add(id: string, groupId?: string) {
 		const [isShown, setIsShown] = createSignal(false)
 
 		setPopovers([
@@ -53,16 +53,16 @@ const store = createRoot(() => {
 		])
 	}
 
-	function removePopover(id: string) {
+	function remove(id: string) {
 		setPopovers(popovers().filter((p) => p.id !== id))
 	}
 
-	function getPopover(id: string): Popover | undefined {
+	function get(id: string): Popover | undefined {
 		return popovers().find((p) => p.id === id)
 	}
 
-	function isPopoverShown(id: string): Accessor<boolean> {
-		const popover = getPopover(id)
+	function isShown(id: string): Accessor<boolean> {
+		const popover = get(id)
 		if (!popover) {
 			return () => false
 		}
@@ -76,8 +76,8 @@ const store = createRoot(() => {
 		)
 	}
 
-	function setPopoverShown(id: string, isShown: boolean) {
-		const popover = getPopover(id)
+	function setIsShown(id: string, isShown: boolean) {
+		const popover = get(id)
 		if (!popover) {
 			return
 		}
@@ -90,10 +90,10 @@ const store = createRoot(() => {
 	}
 
 	return {
-		addPopover,
-		removePopover,
-		isPopoverShown,
-		setPopoverShown,
+		add,
+		remove,
+		isShown,
+		setIsShown,
 		getOpenGroupMembers,
 	}
 })
@@ -129,7 +129,7 @@ export const Popover: ParentComponent<{
 	const [state, setState] = props.state
 	const id = createUniqueId()
 
-	store.addPopover(id, props.groupId)
+	popoverStore.add(id, props.groupId)
 
 	let stopAutoUpdate: (() => void) | undefined
 	let update: (() => Promise<void>) | undefined
@@ -161,7 +161,7 @@ export const Popover: ParentComponent<{
 	}
 
 	function setPopoverShown(to: boolean): void {
-		store.setPopoverShown(id, to)
+		popoverStore.setIsShown(id, to)
 	}
 
 	function handleClick(): void {
@@ -180,7 +180,7 @@ export const Popover: ParentComponent<{
 			return setPopoverShown(isHovered())
 		}
 
-		if (isHovered() && store.getOpenGroupMembers(props.groupId).length) {
+		if (isHovered() && popoverStore.getOpenGroupMembers(props.groupId).length) {
 			return setPopoverShown(true)
 		}
 	}
@@ -315,7 +315,7 @@ export const Popover: ParentComponent<{
 
 	createEffect(function updateState() {
 		setState({
-			isShown: store.isPopoverShown(id)(),
+			isShown: popoverStore.isShown(id)(),
 		})
 	})
 
@@ -343,7 +343,7 @@ export const Popover: ParentComponent<{
 	onCleanup(() => {
 		stopAutoUpdate?.()
 		toggleEventListeners(false)
-		store.removePopover(id)
+		popoverStore.remove(id)
 
 		const elementValue = element()
 		if (elementValue instanceof HTMLButtonElement) {
