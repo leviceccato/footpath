@@ -4,6 +4,7 @@ import { roundByDpr, sleep } from '@/utils/misc'
 import { type ClassProps, defaultProps } from '@/utils/solid'
 import {
 	type ComputePositionReturn,
+	type Placement,
 	type VirtualElement,
 } from '@floating-ui/dom'
 import {
@@ -104,7 +105,10 @@ export const Popover: ParentComponent<
 		when?: boolean | 'hover' | 'click'
 		groupId?: string
 		hasArrow?: boolean
+		offset?: number
+		shiftPadding?: number
 		hoverDelay?: number
+		placement?: Placement
 		mount?: string
 		onShown?: () => void
 		onHidden?: () => void
@@ -112,10 +116,13 @@ export const Popover: ParentComponent<
 	}
 > = (rawProps) => {
 	const props = defaultProps(rawProps, {
+		placement: 'bottom-start',
 		class: '',
 		hoverDelay: 400,
 		hasArrow: false,
 		mount: 'modal',
+		shiftPadding: 10,
+		offset: 0,
 	})
 
 	const portal = usePortal()
@@ -241,10 +248,10 @@ export const Popover: ParentComponent<
 		const floatingUi = await importFloatingUi()
 
 		const middleware = [
-			floatingUi.offset(0),
+			floatingUi.offset(props.offset),
 			floatingUi.flip(),
 			floatingUi.shift({
-				padding: 10,
+				padding: props.shiftPadding,
 			}),
 		]
 
@@ -262,7 +269,7 @@ export const Popover: ParentComponent<
 			const data = await floatingUi.computePosition(
 				referenceElValue,
 				contentRefValue,
-				{ middleware },
+				{ placement: 'bottom-start', middleware },
 			)
 
 			setX(roundByDpr(data.x))
