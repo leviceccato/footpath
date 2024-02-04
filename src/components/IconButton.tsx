@@ -9,6 +9,8 @@ import { type Component, createSignal } from 'solid-js'
 import { splitProps } from 'solid-js'
 import * as css from './IconButton.css'
 
+const CURSOR_SIZE = 16
+
 export const IconButton: Component<
 	ButtonProps & {
 		name: IconName
@@ -39,10 +41,10 @@ export const IconButton: Component<
 					y,
 					top: y,
 					left: x,
-					bottom: y,
-					right: x,
-					width: 0,
-					height: 0,
+					bottom: y + CURSOR_SIZE,
+					right: x + CURSOR_SIZE,
+					width: CURSOR_SIZE,
+					height: CURSOR_SIZE,
 					/* Required to satisfy type */
 					toJSON: () => {},
 				}
