@@ -98,11 +98,11 @@ const popoverStore = createRoot(() => {
 	}
 })
 
-export const Popover: ParentComponent<{
+export type PopoverProps = {
 	class?: string
 	elementRef?: ButtonProps['refSignal']
 	virtualElement?: Accessor<VirtualElement | undefined>
-	state: Signal<PopoverState | undefined>
+	state?: Signal<PopoverState | undefined>
 	when?: boolean | 'hover' | 'click'
 	groupId?: string
 	hasArrow?: boolean
@@ -114,7 +114,9 @@ export const Popover: ParentComponent<{
 	onShown?: () => void
 	onHidden?: () => void
 	onUpdate?: (_: ComputePositionReturn) => void
-}> = (rawProps) => {
+}
+
+export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 	const props = defaultProps(rawProps, {
 		placement: 'right',
 		class: '',
@@ -123,6 +125,7 @@ export const Popover: ParentComponent<{
 		mount: 'modal',
 		shiftPadding: 4,
 		offset: 4,
+		state: createSignal(),
 	})
 
 	const portal = usePortal()
