@@ -1,21 +1,20 @@
 import { Text } from '@/components/Text'
 import { useFocus } from '@/providers/FocusTrap'
-import { type JSX, type ParentComponent, Show, splitProps } from 'solid-js'
+import { type JSX, type ParentComponent, Show } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
 import * as css from './Button.css'
 
-export type ButtonProps = JSX.ButtonHTMLAttributes<HTMLButtonElement> & {
+export type ButtonProps = {
 	href?: string
 	text?: string
+	nativeButton?: JSX.ButtonHTMLAttributes<HTMLButtonElement>
 }
 
 export const Button: ParentComponent<ButtonProps> = (props) => {
-	const [_props, buttonProps] = splitProps(props, ['text', 'href', 'children'])
-
 	const [focusProps] = useFocus()
 
 	const tag = () => {
-		if (_props.href) {
+		if (props.href) {
 			return 'a'
 		}
 		return 'button'
@@ -25,12 +24,12 @@ export const Button: ParentComponent<ButtonProps> = (props) => {
 		<Dynamic
 			component={tag()}
 			{...focusProps}
-			{...buttonProps}
-			href={_props.href}
-			class={`${css.root} ${buttonProps.class ?? ''}`}
+			{...props}
+			href={props.href}
+			class={`${css.root} ${props.nativeButton?.class ?? ''}`}
 		>
-			<Show when={_props.text} fallback={_props.children}>
-				<Text variant="bodyXs">{_props.text}</Text>
+			<Show when={props.text} fallback={props.children}>
+				<Text variant="bodyXs">{props.text}</Text>
 			</Show>
 		</Dynamic>
 	)

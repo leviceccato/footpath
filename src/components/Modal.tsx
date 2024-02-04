@@ -61,9 +61,13 @@ export const Modal: ParentComponent<ModalProps> = (props) => {
 								>
 									<Text variant="bodyS">Modal</Text>
 									<IconButton
-										onClick={() => setIsShown(false)}
 										name="close"
 										tooltip={t('close')}
+										button={{
+											nativeButton: {
+												onClick: () => setIsShown(false),
+											},
+										}}
 									/>
 								</div>
 								<div class={css.main}>{props.children}</div>

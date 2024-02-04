@@ -65,12 +65,16 @@ export const Root: Component = () => {
 					<ScrollArea class={css.viewBar}>
 						<div class={css.viewBarInner}>
 							<Button
-								class={css.viewBarButtonVariant.active}
 								text={t('code')}
+								nativeButton={{
+									class: css.viewBarButtonVariant.active,
+								}}
 							/>
 							<Button
-								class={css.viewBarButtonVariant.inactive}
 								text={t('optimize')}
+								nativeButton={{
+									class: css.viewBarButtonVariant.inactive,
+								}}
 							/>
 						</div>
 					</ScrollArea>
@@ -90,14 +94,23 @@ export const Root: Component = () => {
 				>
 					<ScrollArea class={css.viewBar}>
 						<div class={css.viewBarInner}>
-							<Button class={css.viewBarButtonVariant.active} text={t('svg')} />
 							<Button
-								class={css.viewBarButtonVariant.inactive}
-								text={t('symbols')}
+								text={t('svg')}
+								nativeButton={{
+									class: css.viewBarButtonVariant.active,
+								}}
 							/>
 							<Button
-								class={css.viewBarButtonVariant.inactive}
+								text={t('symbols')}
+								nativeButton={{
+									class: css.viewBarButtonVariant.inactive,
+								}}
+							/>
+							<Button
 								text={t('data')}
+								nativeButton={{
+									class: css.viewBarButtonVariant.inactive,
+								}}
 							/>
 						</div>
 					</ScrollArea>

@@ -6,25 +6,17 @@ import { type IconName, useIcons } from '@/providers/Icons'
 import { sleep } from '@/utils/misc'
 import { type VirtualElement } from '@floating-ui/dom'
 import { type Component, createSignal } from 'solid-js'
-import { splitProps } from 'solid-js'
 import * as css from './IconButton.css'
 
 const CURSOR_SIZE = 16
 
-export const IconButton: Component<
-	ButtonProps & {
-		name: IconName
-		tooltip: string
-		iconClass?: string
-	}
-> = (props) => {
+export const IconButton: Component<{
+	name: IconName
+	tooltip: string
+	iconClass?: string
+	button?: ButtonProps
+}> = (props) => {
 	const [Icon] = useIcons()
-
-	const [_props, buttonProps] = splitProps(props, [
-		'name',
-		'tooltip',
-		'iconClass',
-	])
 
 	let buttonRef: HTMLButtonElement | undefined
 	const [state, setState] = createSignal<PopoverState>()
@@ -63,15 +55,17 @@ export const IconButton: Component<
 		<>
 			<Button
 				ref={buttonRef}
-				{...buttonProps}
-				onMouseMove={updateVirtualElement}
-				onMouseLeave={clearVirtualElement}
-				class={`${buttonProps.class || ''} ${css.button}`}
+				{...props.button}
+				nativeButton={{
+					onMouseMove: updateVirtualElement,
+					onMouseLeave: clearVirtualElement,
+					class: `${props.button?.nativeButton?.class ?? ''} ${css.button}`,
+				}}
 			>
-				<VisuallyHidden>{_props.tooltip}</VisuallyHidden>
+				<VisuallyHidden>{props.tooltip}</VisuallyHidden>
 				<Icon
-					class={`${css.icon} ${_props.iconClass ?? ''}`}
-					name={_props.name}
+					class={`${css.icon} ${props.iconClass ?? ''}`}
+					name={props.name}
 				/>
 			</Button>
 			<Popover
@@ -84,7 +78,7 @@ export const IconButton: Component<
 				virtualElement={virtualElement}
 			>
 				<div aria-hidden class={css.tooltipInner}>
-					<Text variant="bodyXxs">{_props.tooltip}</Text>
+					<Text variant="bodyXxs">{props.tooltip}</Text>
 				</div>
 			</Popover>
 		</>
