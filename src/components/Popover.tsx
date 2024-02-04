@@ -100,7 +100,7 @@ const store = createRoot(() => {
 
 export const Popover: ParentComponent<{
 	class?: string
-	elementRef?: ButtonProps['ref']
+	elementRef?: ButtonProps['refSignal']
 	virtualElement?: Accessor<VirtualElement | undefined>
 	state: Signal<PopoverState | undefined>
 	when?: boolean | 'hover' | 'click'
@@ -153,12 +153,11 @@ export const Popover: ParentComponent<{
 			return virtualElement
 		}
 
-		const elementRef = props.elementRef
-		if (typeof elementRef === 'function') {
+		if (!props.elementRef) {
 			return undefined
 		}
 
-		return elementRef
+		return props.elementRef[0]()
 	}
 
 	function setPopoverShown(to: boolean): void {

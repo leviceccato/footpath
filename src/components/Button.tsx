@@ -1,6 +1,6 @@
 import { Text } from '@/components/Text'
 import { useFocus } from '@/providers/FocusTrap'
-import { type JSX, type ParentComponent, Show } from 'solid-js'
+import { type JSX, type ParentComponent, Show, type Signal } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
 import * as css from './Button.css'
 
@@ -13,11 +13,12 @@ export type ButtonProps = {
 	onMouseMove?: ButtonAttrs['onMouseMove']
 	onMouseLeave?: ButtonAttrs['onMouseLeave']
 	onClick?: ButtonAttrs['onClick']
-	ref?: ButtonAttrs['ref']
+	refSignal?: Signal<HTMLButtonElement | undefined>
 }
 
 export const Button: ParentComponent<ButtonProps> = (props) => {
 	const [focusProps] = useFocus()
+	const [_, setRef] = props.refSignal ?? []
 
 	const tag = () => {
 		if (props.href) {
@@ -33,7 +34,7 @@ export const Button: ParentComponent<ButtonProps> = (props) => {
 			onMouseMove={props.onMouseMove}
 			onMouseLeave={props.onMouseLeave}
 			href={props.href}
-			ref={props.ref}
+			ref={(ref: HTMLButtonElement) => setRef?.(ref)}
 			class={`${css.root} ${props.class ?? ''}`}
 		>
 			<Show when={props.text} fallback={props.children}>

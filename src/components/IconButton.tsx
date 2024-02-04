@@ -16,12 +16,17 @@ export const IconButton: Component<{
 	iconClass?: string
 	class?: ButtonProps['class']
 	onClick?: ButtonProps['onClick']
-	ref?: ButtonProps['ref']
+	refSignal?: ButtonProps['refSignal']
 }> = (props) => {
 	const [Icon] = useIcons()
 
 	const [state, setState] = createSignal<PopoverState>()
 	const [virtualElement, setVirtualElement] = createSignal<VirtualElement>()
+	const refSignal = createSignal<HTMLButtonElement>()
+
+	const refSignalOrProp = () => {
+		return props.refSignal ?? refSignal
+	}
 
 	function updateVirtualElement(event: MouseEvent): void {
 		setVirtualElement({
@@ -55,7 +60,7 @@ export const IconButton: Component<{
 	return (
 		<>
 			<Button
-				ref={props.ref}
+				refSignal={refSignalOrProp()}
 				onMouseMove={updateVirtualElement}
 				onMouseLeave={clearVirtualElement}
 				onClick={props.onClick}
@@ -73,7 +78,7 @@ export const IconButton: Component<{
 				mount="tooltip"
 				offset={10}
 				state={[state, setState]}
-				elementRef={props.ref}
+				elementRef={refSignalOrProp()}
 				virtualElement={virtualElement}
 			>
 				<div aria-hidden class={css.tooltipInner}>
