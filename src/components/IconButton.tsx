@@ -78,6 +78,7 @@ export const IconButton: Component<
 				class={css.tooltip}
 				when="hover"
 				mount="tooltip"
+				offset={10}
 				state={[state, setState]}
 				element={buttonRef}
 				virtualElement={virtualElement}
