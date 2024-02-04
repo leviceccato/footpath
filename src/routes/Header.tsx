@@ -1,5 +1,7 @@
 import { Button } from '@/components/Button'
 import { IconButton } from '@/components/IconButton'
+import { Menu } from '@/components/Menu'
+import { type PopoverState } from '@/components/Popover'
 import { ScrollArea } from '@/components/ScrollArea'
 import { Text } from '@/components/Text'
 import { type CodeDocument, useCodeDocuments } from '@/providers/CodeDocuments'
@@ -11,7 +13,8 @@ export const Header: Component = () => {
 	const [t] = useI18n()
 	const codeDocuments = useCodeDocuments()
 
-	const [isMenuPopoverShown, setIsMenuPopoverShown] = createSignal(false)
+	const menuRefSignal = createSignal<HTMLButtonElement>()
+	const menuStateSignal = createSignal<PopoverState>()
 
 	const shownCodeDocuments = () => {
 		const docs: CodeDocument[] = []
@@ -29,11 +32,10 @@ export const Header: Component = () => {
 
 	return (
 		<header class={css.root}>
-			<IconButton
-				name="menu"
-				tooltip={t('menu')}
-				onClick={() => setIsMenuPopoverShown(!isMenuPopoverShown())}
-			/>
+			<IconButton refSignal={menuRefSignal} name="menu" tooltip={t('menu')} />
+			<Menu elementRef={menuRefSignal} state={menuStateSignal}>
+				{() => <div>Hello</div>}
+			</Menu>
 			<ScrollArea class={css.scrollArea}>
 				<div class={css.tabContainer}>
 					<For each={shownCodeDocuments()}>

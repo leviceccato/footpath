@@ -16,7 +16,14 @@ export const Menu: Component<{
 	}
 
 	return (
-		<Popover state={props.state} elementRef={props.elementRef} hasArrow={true}>
+		<Popover
+			state={props.state}
+			elementRef={props.elementRef}
+			hasArrow={true}
+			when="click"
+			placement="bottom-start"
+			offset={8}
+		>
 			<div class={css.root}>{props.children(controller)}</div>
 		</Popover>
 	)
