@@ -80,18 +80,16 @@ function createCodeDocumentsContext() {
 			setError(undefined)
 		}
 
-		return [
-			store,
-			{
-				setCodeDocuments: setStore,
-				createCodeDocument: create,
-				codeDocumentCount: count,
-				codeDocumentsError: error,
-				clearCodeDocumentsError: clearError,
-				activateCodeDocument: activate,
-				deleteCodeDocument: _delete,
-			},
-		] as const
+		return {
+			get: store,
+			set: setStore,
+			delete: _delete,
+			create,
+			count,
+			error,
+			clearError,
+			activate,
+		} as const
 	})
 }
 

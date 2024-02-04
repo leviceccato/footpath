@@ -9,17 +9,14 @@ import * as css from './Header.css'
 
 export const Header: Component = () => {
 	const [t] = useI18n()
-	const [
-		codeDocuments,
-		{ createCodeDocument, activateCodeDocument, deleteCodeDocument },
-	] = useCodeDocuments()
+	const codeDocuments = useCodeDocuments()
 
 	const [isMenuPopoverShown, setIsMenuPopoverShown] = createSignal(false)
 
 	const shownCodeDocuments = () => {
 		const docs: CodeDocument[] = []
 
-		for (const doc of Object.values(codeDocuments().value)) {
+		for (const doc of Object.values(codeDocuments.get().value)) {
 			if (!doc.deletedAt) {
 				docs.push(doc)
 			}
@@ -43,7 +40,7 @@ export const Header: Component = () => {
 						{(doc) => (
 							<div class={css.tabButtonWrapper}>
 								<Button
-									onClick={() => activateCodeDocument(doc.id)}
+									onClick={() => codeDocuments.activate(doc.id)}
 									class={
 										css.tabButtonVariant[doc.isActive ? 'active' : 'inactive']
 									}
@@ -53,7 +50,7 @@ export const Header: Component = () => {
 								<IconButton
 									name="close"
 									tooltip={t('close')}
-									onClick={() => deleteCodeDocument(doc.id)}
+									onClick={() => codeDocuments.delete(doc.id)}
 									class={
 										css.closeTabVariant[doc.isActive ? 'active' : 'inactive']
 									}
@@ -67,7 +64,7 @@ export const Header: Component = () => {
 				name="add"
 				tooltip={t('documentNew')}
 				class={css.addTabButton}
-				onClick={() => createCodeDocument(t('untitled'))}
+				onClick={() => codeDocuments.create(t('untitled'))}
 			/>
 		</header>
 	)
