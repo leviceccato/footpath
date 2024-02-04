@@ -174,7 +174,9 @@ export const Popover: ParentComponent<{
 		setIsHovered(isIn)
 
 		if (props.when === 'hover') {
-			await sleep(isHovered() ? props.hoverDelay : 0)
+			/* A small delay is required here to prevent flickering as floating UI attempts
+			to position itself */
+			await sleep(isHovered() ? props.hoverDelay : 10)
 			return setPopoverShown(isHovered())
 		}
 
