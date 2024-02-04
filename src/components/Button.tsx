@@ -33,6 +33,7 @@ export const Button: ParentComponent<ButtonProps> = (props) => {
 			{...focusProps}
 			onMouseMove={props.onMouseMove}
 			onMouseLeave={props.onMouseLeave}
+			onClick={props.onClick}
 			href={props.href}
 			ref={(ref: HTMLButtonElement) => setRef?.(ref)}
 			class={`${css.root} ${props.class ?? ''}`}
