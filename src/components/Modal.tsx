@@ -63,11 +63,7 @@ export const Modal: ParentComponent<ModalProps> = (props) => {
 									<IconButton
 										name="close"
 										tooltip={t('close')}
-										button={{
-											nativeButton: {
-												onClick: () => setIsShown(false),
-											},
-										}}
+										onClick={() => setIsShown(false)}
 									/>
 								</div>
 								<div class={css.main}>{props.children}</div>

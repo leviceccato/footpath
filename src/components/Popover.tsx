@@ -1,7 +1,7 @@
 import { FocusTrap } from '@/providers/FocusTrap'
 import { usePortal } from '@/providers/Portal'
 import { roundByDpr, sleep } from '@/utils/misc'
-import { type ClassProps, defaultProps } from '@/utils/solid'
+import { defaultProps } from '@/utils/solid'
 import {
 	type ComputePositionReturn,
 	type Placement,
@@ -21,6 +21,7 @@ import {
 	onMount,
 } from 'solid-js'
 import { Portal } from 'solid-js/web'
+import { type ButtonProps } from './Button'
 import * as css from './Popover.css'
 const importFloatingUi = () => import('@floating-ui/dom')
 
@@ -97,24 +98,23 @@ const store = createRoot(() => {
 	}
 })
 
-export const Popover: ParentComponent<
-	ClassProps & {
-		element: Element | undefined
-		virtualElement?: Accessor<VirtualElement | undefined>
-		state: Signal<PopoverState | undefined>
-		when?: boolean | 'hover' | 'click'
-		groupId?: string
-		hasArrow?: boolean
-		offset?: number
-		shiftPadding?: number
-		hoverDelay?: number
-		placement?: Placement
-		mount?: string
-		onShown?: () => void
-		onHidden?: () => void
-		onUpdate?: (_: ComputePositionReturn) => void
-	}
-> = (rawProps) => {
+export const Popover: ParentComponent<{
+	class?: string
+	elementRef?: ButtonProps['ref']
+	virtualElement?: Accessor<VirtualElement | undefined>
+	state: Signal<PopoverState | undefined>
+	when?: boolean | 'hover' | 'click'
+	groupId?: string
+	hasArrow?: boolean
+	offset?: number
+	shiftPadding?: number
+	hoverDelay?: number
+	placement?: Placement
+	mount?: string
+	onShown?: () => void
+	onHidden?: () => void
+	onUpdate?: (_: ComputePositionReturn) => void
+}> = (rawProps) => {
 	const props = defaultProps(rawProps, {
 		placement: 'bottom-start',
 		class: '',
@@ -147,7 +147,19 @@ export const Popover: ParentComponent<
 
 	const portalMount = () => portal.mounts().get(props.mount)
 
-	const referenceEl = () => props.virtualElement?.() ?? props.element
+	const element = () => {
+		const virtualElement = props.virtualElement?.()
+		if (virtualElement) {
+			return virtualElement
+		}
+
+		const elementRef = props.elementRef
+		if (typeof elementRef === 'function') {
+			return undefined
+		}
+
+		return elementRef
+	}
 
 	function setPopoverShown(to: boolean): void {
 		store.setPopoverShown(id, to)
@@ -199,8 +211,9 @@ export const Popover: ParentComponent<
 			return
 		}
 
+		const elementValue = element()
 		const isOutsideReference =
-			props.element instanceof Element && !props.element?.contains(maybeTarget)
+			elementValue instanceof Element && !elementValue?.contains(maybeTarget)
 		const isOutsideContent = !contentRef()?.contains(maybeTarget)
 
 		if (isOutsideReference && isOutsideContent) {
@@ -238,8 +251,8 @@ export const Popover: ParentComponent<
 
 	async function initFloatingUi(): Promise<void> {
 		const contentRefValue = contentRef()
-		const referenceElValue = referenceEl()
-		if (!props.element || !contentRefValue || !referenceElValue) {
+		const elementValue = element()
+		if (!elementValue || !contentRefValue) {
 			return
 		}
 
@@ -261,13 +274,13 @@ export const Popover: ParentComponent<
 		}
 
 		update = async (): Promise<void> => {
-			const referenceElValue = referenceEl()
-			if (!referenceElValue) {
+			const elementValue = element()
+			if (!elementValue) {
 				return
 			}
 
 			const data = await floatingUi.computePosition(
-				referenceElValue,
+				elementValue,
 				contentRefValue,
 				{ placement: 'bottom-start', middleware },
 			)
@@ -281,7 +294,7 @@ export const Popover: ParentComponent<
 		}
 
 		stopAutoUpdate = floatingUi.autoUpdate(
-			referenceElValue,
+			elementValue,
 			contentRefValue,
 			update,
 		)
@@ -316,11 +329,14 @@ export const Popover: ParentComponent<
 	})
 
 	onMount(() => {
-		props.element?.addEventListener('click', handleClick)
-		props.element?.addEventListener('focusin', handleHoverIn)
-		props.element?.addEventListener('focusout', handleHoverOut)
-		props.element?.addEventListener('mouseenter', handleHoverIn)
-		props.element?.addEventListener('mouseleave', handleHoverOut)
+		const elementValue = element()
+		if (elementValue instanceof HTMLButtonElement) {
+			elementValue.addEventListener('click', handleClick)
+			elementValue.addEventListener('focusin', handleHoverIn)
+			elementValue.addEventListener('focusout', handleHoverOut)
+			elementValue.addEventListener('mouseenter', handleHoverIn)
+			elementValue.addEventListener('mouseleave', handleHoverOut)
+		}
 	})
 
 	onCleanup(() => {
@@ -328,11 +344,14 @@ export const Popover: ParentComponent<
 		toggleEventListeners(false)
 		store.removePopover(id)
 
-		props.element?.removeEventListener('click', handleClick)
-		props.element?.removeEventListener('focusin', handleHoverIn)
-		props.element?.removeEventListener('focusout', handleHoverOut)
-		props.element?.removeEventListener('mouseenter', handleHoverIn)
-		props.element?.removeEventListener('mouseleave', handleHoverOut)
+		const elementValue = element()
+		if (elementValue instanceof HTMLButtonElement) {
+			elementValue.removeEventListener('click', handleClick)
+			elementValue.removeEventListener('focusin', handleHoverIn)
+			elementValue.removeEventListener('focusout', handleHoverOut)
+			elementValue.removeEventListener('mouseenter', handleHoverIn)
+			elementValue.removeEventListener('mouseleave', handleHoverOut)
+		}
 	})
 
 	return (

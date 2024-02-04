@@ -35,11 +35,7 @@ export const Header: Component = () => {
 			<IconButton
 				name="menu"
 				tooltip={t('menu')}
-				button={{
-					nativeButton: {
-						onClick: () => setIsMenuPopoverShown(!isMenuPopoverShown()),
-					},
-				}}
+				onClick={() => setIsMenuPopoverShown(!isMenuPopoverShown())}
 			/>
 			<ScrollArea class={css.scrollArea}>
 				<div class={css.tabContainer}>
@@ -47,28 +43,20 @@ export const Header: Component = () => {
 						{(doc) => (
 							<div class={css.tabButtonWrapper}>
 								<Button
-									nativeButton={{
-										onClick: () => activateCodeDocument(doc.id),
-										class:
-											css.tabButtonVariant[
-												doc.isActive ? 'active' : 'inactive'
-											],
-									}}
+									onClick={() => activateCodeDocument(doc.id)}
+									class={
+										css.tabButtonVariant[doc.isActive ? 'active' : 'inactive']
+									}
 								>
 									<Text variant="bodyXs">{doc.name}</Text>
 								</Button>
 								<IconButton
 									name="close"
 									tooltip={t('close')}
-									button={{
-										nativeButton: {
-											onClick: () => deleteCodeDocument(doc.id),
-											class:
-												css.closeTabVariant[
-													doc.isActive ? 'active' : 'inactive'
-												],
-										},
-									}}
+									onClick={() => deleteCodeDocument(doc.id)}
+									class={
+										css.closeTabVariant[doc.isActive ? 'active' : 'inactive']
+									}
 								/>
 							</div>
 						)}
@@ -78,12 +66,8 @@ export const Header: Component = () => {
 			<IconButton
 				name="add"
 				tooltip={t('documentNew')}
-				button={{
-					nativeButton: {
-						onClick: () => createCodeDocument(t('untitled')),
-						class: css.addTabButton,
-					},
-				}}
+				class={css.addTabButton}
+				onClick={() => createCodeDocument(t('untitled'))}
 			/>
 		</header>
 	)

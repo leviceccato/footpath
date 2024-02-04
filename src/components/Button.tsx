@@ -4,10 +4,16 @@ import { type JSX, type ParentComponent, Show } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
 import * as css from './Button.css'
 
+type ButtonAttrs = JSX.ButtonHTMLAttributes<HTMLButtonElement>
+
 export type ButtonProps = {
 	href?: string
 	text?: string
-	nativeButton?: JSX.ButtonHTMLAttributes<HTMLButtonElement>
+	class?: ButtonAttrs['class']
+	onMouseMove?: ButtonAttrs['onMouseMove']
+	onMouseLeave?: ButtonAttrs['onMouseLeave']
+	onClick?: ButtonAttrs['onClick']
+	ref?: ButtonAttrs['ref']
 }
 
 export const Button: ParentComponent<ButtonProps> = (props) => {
@@ -24,9 +30,11 @@ export const Button: ParentComponent<ButtonProps> = (props) => {
 		<Dynamic
 			component={tag()}
 			{...focusProps}
-			{...props}
+			onMouseMove={props.onMouseMove}
+			onMouseLeave={props.onMouseLeave}
 			href={props.href}
-			class={`${css.root} ${props.nativeButton?.class ?? ''}`}
+			ref={props.ref}
+			class={`${css.root} ${props.class ?? ''}`}
 		>
 			<Show when={props.text} fallback={props.children}>
 				<Text variant="bodyXs">{props.text}</Text>
