@@ -13,7 +13,7 @@ export function defaultProps<
 	TProps,
 	TdefaultProps extends Partial<PickOptionals<TProps>>,
 >(props: TProps, defaultProps: TdefaultProps) {
-	return mergeProps(defaultProps, props)
+	return mergeProps(defaultProps, props) as Required<TdefaultProps> & TProps
 }
 
 /* Similar to defaultProps, except it works for regular objects */
