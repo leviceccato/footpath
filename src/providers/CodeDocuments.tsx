@@ -11,7 +11,6 @@ export type CodeDocument = {
 	id: string
 	index: number
 	name: string
-	isActive: boolean
 	createdAt: Date
 	deletedAt: Date | null
 	content: string
@@ -22,6 +21,7 @@ type CodeDocumentStore = Record<string, CodeDocument>
 function createCodeDocumentsContext() {
 	return createRoot(() => {
 		const [error, setError] = createSignal<ErrorEvent>()
+		const [activeId, setActiveId] = createSignal<string>()
 		const [store, setStore] = createClientStore<CodeDocumentStore>({
 			name: 'code-documents',
 			version: 1,
@@ -35,11 +35,10 @@ function createCodeDocumentsContext() {
 		async function create(name: string): Promise<string> {
 			const id = crypto.randomUUID()
 
-			const document = {
+			const document: CodeDocument = {
 				id,
 				name,
 				index: count() + 1,
-				isActive: false,
 				createdAt: new Date(),
 				deletedAt: null,
 				content: '',
@@ -51,21 +50,10 @@ function createCodeDocumentsContext() {
 					[id]: document,
 				},
 			})
-			console.log(1, document)
+
+			setActiveId(id)
+
 			return id
-		}
-
-		function activate(id: string): void {
-			const newStore: CodeDocumentStore = {}
-
-			for (const doc of Object.values(store().value)) {
-				const currentId = doc.id
-				newStore[currentId] = doc
-
-				newStore[currentId].isActive = newStore[currentId].id === id
-			}
-
-			setStore({ value: newStore })
 		}
 
 		function _delete(id: string): void {
@@ -81,14 +69,15 @@ function createCodeDocumentsContext() {
 		}
 
 		return {
-			get: store,
+			all: store,
 			set: setStore,
 			delete: _delete,
 			create,
 			count,
 			error,
+			activeId,
 			clearError,
-			activate,
+			activate: setActiveId,
 		} as const
 	})
 }

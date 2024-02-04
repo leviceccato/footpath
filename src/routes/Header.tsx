@@ -16,7 +16,7 @@ export const Header: Component = () => {
 	const shownCodeDocuments = () => {
 		const docs: CodeDocument[] = []
 
-		for (const doc of Object.values(codeDocuments.get().value)) {
+		for (const doc of Object.values(codeDocuments.all().value)) {
 			if (!doc.deletedAt) {
 				docs.push(doc)
 			}
@@ -42,7 +42,11 @@ export const Header: Component = () => {
 								<Button
 									onClick={() => codeDocuments.activate(doc.id)}
 									class={
-										css.tabButtonVariant[doc.isActive ? 'active' : 'inactive']
+										css.tabButtonVariant[
+											doc.id === codeDocuments.activeId()
+												? 'active'
+												: 'inactive'
+										]
 									}
 								>
 									<Text variant="bodyXs">{doc.name}</Text>
@@ -52,7 +56,11 @@ export const Header: Component = () => {
 									tooltip={t('close')}
 									onClick={() => codeDocuments.delete(doc.id)}
 									class={
-										css.closeTabVariant[doc.isActive ? 'active' : 'inactive']
+										css.closeTabVariant[
+											doc.id === codeDocuments.activeId()
+												? 'active'
+												: 'inactive'
+										]
 									}
 								/>
 							</div>
