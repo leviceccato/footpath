@@ -11,3 +11,22 @@ export const root = style({
 	gap: 4,
 	padding: '8px 0 10px 0',
 })
+
+export const button = style({
+	display: 'flex',
+	width: '100%',
+	padding: '8px 16px 8px 0',
+	':hover': {
+		backgroundColor: themeCss.colour100Var,
+	},
+})
+
+export const buttonText = style({
+	paddingTop: 2,
+})
+
+export const buttonIcon = style({
+	width: 16,
+	height: 16,
+	padding: '0 10px',
+})
