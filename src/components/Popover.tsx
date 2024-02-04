@@ -116,7 +116,7 @@ export const Popover: ParentComponent<{
 	onUpdate?: (_: ComputePositionReturn) => void
 }> = (rawProps) => {
 	const props = defaultProps(rawProps, {
-		placement: 'bottom-start',
+		placement: 'right',
 		class: '',
 		hoverDelay: 400,
 		hasArrow: false,
@@ -281,7 +281,7 @@ export const Popover: ParentComponent<{
 			const data = await floatingUi.computePosition(
 				elementValue,
 				contentRefValue,
-				{ placement: 'bottom-start', middleware },
+				{ placement: props.placement, middleware },
 			)
 
 			setX(roundByDpr(data.x))

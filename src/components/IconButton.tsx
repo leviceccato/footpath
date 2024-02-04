@@ -8,7 +8,7 @@ import { type VirtualElement } from '@floating-ui/dom'
 import { type Component, createSignal } from 'solid-js'
 import * as css from './IconButton.css'
 
-const CURSOR_SIZE = 16
+const CURSOR_SIZE = 32
 
 export const IconButton: Component<{
 	name: IconName
@@ -31,8 +31,8 @@ export const IconButton: Component<{
 	function updateVirtualElement(event: MouseEvent): void {
 		setVirtualElement({
 			getBoundingClientRect: () => {
-				const x = event.clientX
-				const y = event.clientY
+				const x = event.clientX - CURSOR_SIZE / 2
+				const y = event.clientY - CURSOR_SIZE / 2
 
 				return {
 					x,
@@ -76,7 +76,6 @@ export const IconButton: Component<{
 				class={css.tooltip}
 				when="hover"
 				mount="tooltip"
-				offset={10}
 				state={[state, setState]}
 				elementRef={refSignalOrProp()}
 				virtualElement={virtualElement}
