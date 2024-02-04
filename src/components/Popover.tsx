@@ -121,7 +121,7 @@ export const Popover: ParentComponent<{
 		hoverDelay: 400,
 		hasArrow: false,
 		mount: 'modal',
-		shiftPadding: 10,
+		shiftPadding: 4,
 		offset: 0,
 	})
 
