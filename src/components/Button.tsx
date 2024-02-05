@@ -17,7 +17,7 @@ export type ButtonProps = {
 }
 
 export const Button: ParentComponent<ButtonProps> = (props) => {
-	const [focusProps] = useFocus()
+	const focus = useFocus()
 	const [_, setRef] = props.refSignal ?? []
 
 	const tag = () => {
@@ -30,7 +30,7 @@ export const Button: ParentComponent<ButtonProps> = (props) => {
 	return (
 		<Dynamic
 			component={tag()}
-			{...focusProps}
+			{...focus.reachableFocusableProps}
 			onMouseMove={props.onMouseMove}
 			onMouseLeave={props.onMouseLeave}
 			onClick={props.onClick}

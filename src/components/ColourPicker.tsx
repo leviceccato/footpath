@@ -29,7 +29,7 @@ export const ColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
 	let hueRangeRef: HTMLInputElement | undefined
 
 	const [theme] = useTheme()
-	const [focusableProps] = useFocus()
+	const focus = useFocus()
 
 	const [hue, setHue] = createSignal(0)
 	const [isSpectrumFocused, setIsSpectrumFocused] = createSignal(false)
@@ -243,7 +243,7 @@ export const ColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
 		>
 			<div
 				class={css.spectrumContainer}
-				{...focusableProps}
+				{...focus.reachableFocusableProps}
 				onFocus={[setIsSpectrumFocused, true]}
 				onBlur={[setIsSpectrumFocused, false]}
 			>
@@ -262,7 +262,7 @@ export const ColourPicker: Component<ClassProps & { spectrumSize?: number }> = (
 			<div class={css.hueRangeContainer}>
 				<input
 					class={css.hueRange}
-					{...focusableProps}
+					{...focus.reachableFocusableProps}
 					onInput={handleHueRangeInput}
 					ref={hueRangeRef}
 					type="range"

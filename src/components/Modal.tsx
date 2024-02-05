@@ -51,13 +51,13 @@ export const Modal: ParentComponent<ModalProps> = (props) => {
 		<Show when={isShown() && modal()}>
 			<Portal mount={modal()}>
 				<FocusTrap when={isShown()}>
-					{([_, unreachableFocusableProps]) => (
+					{(focus) => (
 						<div onClick={handleRootClick} class={css.root}>
 							{t('languageSetTo', 'what')}
 							<div ref={containerRef} class={css.container}>
 								<div
-									{...unreachableFocusableProps}
-									class={`${css.header} ${unreachableFocusableProps.class}`}
+									{...focus.unreachableFocusableProps}
+									class={`${css.header} ${focus.unreachableFocusableProps.class}`}
 								>
 									<Text variant="bodyS">Modal</Text>
 									<IconButton
