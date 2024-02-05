@@ -28,7 +28,13 @@ export const Header: Component = () => {
 		<header class={css.root}>
 			<IconButton refSignal={menuRefSignal} name="menu" tooltip={t('menu')} />
 			<Menu elementRef={menuRefSignal} state={menuStateSignal}>
-				{() => <div>Hello</div>}
+				{() => (
+					<>
+						<Menu.Button>Hello</Menu.Button>
+						<Menu.Divider />
+						<Menu.Button>Hello</Menu.Button>
+					</>
+				)}
 			</Menu>
 			<ScrollArea class={css.scrollArea}>
 				<div class={css.tabContainer}>

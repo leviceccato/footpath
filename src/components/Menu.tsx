@@ -12,7 +12,12 @@ export const Menu: Component<{
 	elementRef: PopoverProps['elementRef']
 	state: PopoverProps['state']
 	children: (_: Controller) => JSX.Element
-}> = (props) => {
+}> & {
+	Divider: Component
+	Button: ParentComponent<{
+		onClick?: ButtonProps['onClick']
+	}>
+} = (props) => {
 	const controller: Controller = {
 		isShown: false,
 	}
@@ -24,16 +29,18 @@ export const Menu: Component<{
 			hasArrow={true}
 			when="click"
 			placement="bottom-start"
-			offset={8}
+			offset={7}
 		>
 			<div class={css.root}>{props.children(controller)}</div>
 		</Popover>
 	)
 }
 
-export const MenuButton: ParentComponent<{
-	onClick?: ButtonProps['onClick']
-}> = (props) => {
+Menu.Divider = () => {
+	return <div class={css.divider} />
+}
+
+Menu.Button = (props) => {
 	return (
 		<Button class={css.button} onClick={props.onClick}>
 			<Text class={css.buttonText} variant="bodyXs">
