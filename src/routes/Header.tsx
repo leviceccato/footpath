@@ -4,7 +4,7 @@ import { Menu } from '@/components/Menu'
 import { type PopoverState } from '@/components/Popover'
 import { ScrollArea } from '@/components/ScrollArea'
 import { Text } from '@/components/Text'
-import { type CodeDocument, useCodeDocuments } from '@/providers/CodeDocuments'
+import { useCodeDocuments } from '@/providers/CodeDocuments'
 import { useI18n } from '@/providers/I18n'
 import { type Component, For, createSignal } from 'solid-js'
 import * as css from './Header.css'
@@ -17,16 +17,10 @@ export const Header: Component = () => {
 	const menuStateSignal = createSignal<PopoverState>()
 
 	const shownCodeDocuments = () => {
-		const docs: CodeDocument[] = []
-
-		for (const doc of Object.values(codeDocuments.all().value)) {
-			if (!doc.deletedAt) {
-				docs.push(doc)
-			}
-		}
-
+		const docs = Object.values(codeDocuments.all().value).filter((doc) => {
+			return !doc.deletedAt
+		})
 		docs.sort((a, b) => a.index - b.index)
-
 		return docs
 	}
 
