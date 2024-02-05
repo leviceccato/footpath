@@ -1,5 +1,5 @@
 import * as themeCss from '@/providers/Theme.css'
-import { style } from '@vanilla-extract/css'
+import { style, styleVariants } from '@vanilla-extract/css'
 
 export const root = style({
 	borderRadius: 4,
@@ -21,7 +21,7 @@ export const divider = style({
 export const button = style({
 	display: 'flex',
 	width: '100%',
-	padding: '8px 16px 8px 0',
+	padding: '8px 0',
 	':hover': {
 		backgroundColor: themeCss.colour100Var,
 	},
@@ -31,8 +31,18 @@ export const buttonText = style({
 	paddingTop: 2,
 })
 
-export const buttonIcon = style({
+const buttonIcon = style({
 	width: 16,
 	height: 16,
 	padding: '0 10px',
+})
+
+export const buttonIconVariant = styleVariants({
+	default: [buttonIcon],
+	right: [
+		buttonIcon,
+		{
+			marginLeft: 'auto',
+		},
+	],
 })

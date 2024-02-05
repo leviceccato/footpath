@@ -26,7 +26,9 @@ const icons = iconNames.map((name) => {
 
 /* Consumer component exposed with context */
 
-const Icon: Component<ClassProps & { name: IconName }> = (rawProps) => {
+export type IconProps = ClassProps & { name: IconName }
+
+const Icon: Component<IconProps> = (rawProps) => {
 	const props = defaultProps(rawProps, { class: '' })
 
 	const icon = iconConstants[props.name]

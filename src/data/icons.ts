@@ -28,6 +28,11 @@ export const icons = {
 		content:
 			'<path d="M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z" />',
 	},
+	chevronRight: {
+		viewBox: [0, 0, 24, 24],
+		content:
+			'<path d="M13.1717 12.0007L8.22192 7.05093L9.63614 5.63672L16.0001 12.0007L9.63614 18.3646L8.22192 16.9504L13.1717 12.0007Z" />',
+	},
 	warning: {
 		viewBox: [0, 0, 24, 24],
 		content:
@@ -37,6 +42,11 @@ export const icons = {
 		viewBox: [0, 0, 24, 24],
 		content:
 			'<path fill="none" d="M0 0h24v24H0z"/><path d="M4 15h2v5h12V4H6v5H4V3a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6zm6-4V8l5 4-5 4v-3H2v-2h8z"/>',
+	},
+	/* For sitations where the space taken by an icon is needed */
+	empty: {
+		viewBox: [0, 0, 24, 24],
+		content: '',
 	},
 } as const
 

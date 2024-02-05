@@ -1,6 +1,8 @@
 import { Button, type ButtonProps } from '@/components/Button'
 import { Popover, type PopoverProps } from '@/components/Popover'
 import { Text } from '@/components/Text'
+import { type IconProps, useIcons } from '@/providers/Icons'
+import { defaultProps } from '@/utils/solid'
 import { type Component, type JSX, type ParentComponent } from 'solid-js'
 import * as css from './Menu.css'
 
@@ -15,6 +17,8 @@ export const Menu: Component<{
 }> & {
 	Divider: Component
 	Button: ParentComponent<{
+		startIconName?: IconProps['name']
+		endIconName?: IconProps['name']
 		onClick?: ButtonProps['onClick']
 	}>
 } = (props) => {
@@ -40,12 +44,21 @@ Menu.Divider = () => {
 	return <div class={css.divider} />
 }
 
-Menu.Button = (props) => {
+Menu.Button = (rawProps) => {
+	const props = defaultProps(rawProps, {
+		startIconName: 'empty',
+		endIconName: 'empty',
+	})
+
+	const [Icon] = useIcons()
+
 	return (
 		<Button class={css.button} onClick={props.onClick}>
+			<Icon class={css.buttonIconVariant.default} name={props.startIconName} />
 			<Text class={css.buttonText} variant="bodyXs">
 				{props.children}
 			</Text>
+			<Icon class={css.buttonIconVariant.right} name={props.endIconName} />
 		</Button>
 	)
 }

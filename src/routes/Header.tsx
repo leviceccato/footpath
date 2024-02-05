@@ -30,9 +30,10 @@ export const Header: Component = () => {
 			<Menu elementRef={menuRefSignal} state={menuStateSignal}>
 				{() => (
 					<>
-						<Menu.Button>Hello</Menu.Button>
+						<Menu.Button startIconName="check">Hello</Menu.Button>
 						<Menu.Divider />
 						<Menu.Button>Hello</Menu.Button>
+						<Menu.Button endIconName="chevronRight">Edit</Menu.Button>
 					</>
 				)}
 			</Menu>
