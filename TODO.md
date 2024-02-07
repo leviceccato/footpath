@@ -9,7 +9,8 @@ A list of complete and incomplete tasks to track progress on Lacey.
 - Fix modal background contrast for dark colours
 - Create favicon
 - Optimise computed values to potentially use createMemo across codebase
-- Add hex input for colour picker
+- Add hex input for colour
+- Prevent Popover closing on focusout, base on Esc press instead
 
 ## Doing
 
