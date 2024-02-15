@@ -11,6 +11,9 @@ A list of complete and incomplete tasks to track progress on Lacey.
 - Optimise computed values to potentially use createMemo across codebase
 - Add hex input for colour
 - Prevent Escape from closing Popover if focus doesn't change
+- Deploy to Netlify and update docs
+- Add Footpath branding
+- Rename to Footpath
 
 ## Doing
 
