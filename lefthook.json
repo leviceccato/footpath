@@ -1,10 +1,14 @@
 {
-	"pre-push": {
-		"parallel": true,
+	"pre-commit": {
 		"commands": {
 			"check": {
 				"run": "bunx biome check --no-errors-on-unmatched --files-ignore-unknown=true {push_files}"
-			},
+			}
+		}
+	},
+	"pre-push": {
+		"parallel": true,
+		"commands": {
 			"type-check": {
 				"run": "bun run type-check"
 			}
