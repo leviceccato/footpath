@@ -1,6 +1,6 @@
-# Lacey
+# Footpath
 
-A tool to help with editing, viewing and optimising SVGs. It is an SPA built with [SolidJS](https://www.solidjs.com), [vanilla-extract](https://vanilla-extract.style), [Vite](https://vitejs.dev) and [Bun](https://bun.sh). Check it out at [lacey.onrender.com](https://lacey.onrender.com).
+A tool to help with editing, viewing and optimising SVGs. It is an SPA built with [SolidJS](https://www.solidjs.com), [vanilla-extract](https://vanilla-extract.style), [Vite](https://vitejs.dev) and [Bun](https://bun.sh).
 
 This project is an alpha state. Many features are missing as the bulk of development is yet to be completed.
 
@@ -39,10 +39,6 @@ bun test
 ### Git hooks
 
 This project uses `lefthook` to manage git hooks. See [https://github.com/evilmartians/lefthook/tree/master#readme](https://github.com/evilmartians/lefthook/tree/master#readme) for more information. `bunx lefthook install` should be ran after making any changes to `lefthook.json`.
-
-## Deployment
-
-This app is hosted on Render. Deploys must be manually triggered from the [Render dashboard](https://dashboard.render.com).
 
 ## Licenses
 

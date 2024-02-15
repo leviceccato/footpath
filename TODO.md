@@ -1,4 +1,4 @@
-A list of complete and incomplete tasks to track progress on Lacey.
+A list of complete and incomplete tasks to track progress.
 
 ## To do (lowest to highest priority)
 
