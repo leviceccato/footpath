@@ -3,7 +3,7 @@ import { Popover, type PopoverProps } from '@/components/Popover'
 import { Text } from '@/components/Text'
 import { type IconProps, useIcons } from '@/providers/Icons'
 import { defaultProps } from '@/utils/solid'
-import { type Component, type JSX, type ParentComponent } from 'solid-js'
+import { type Component, type ParentComponent } from 'solid-js'
 import * as css from './Menu.css'
 
 export const Menu: ParentComponent<{
