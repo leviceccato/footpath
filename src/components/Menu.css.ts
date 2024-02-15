@@ -21,7 +21,7 @@ export const divider = style({
 export const button = style({
 	display: 'flex',
 	width: '100%',
-	padding: '8px 0',
+	padding: '6px 0',
 	':hover': {
 		backgroundColor: themeCss.colour100Var,
 	},
