@@ -4,6 +4,7 @@ import { roundByDpr, sleep } from '@/utils/misc'
 import { defaultProps } from '@/utils/solid'
 import {
 	type ComputePositionReturn,
+	type OffsetOptions,
 	type Placement,
 	type VirtualElement,
 } from '@floating-ui/dom'
@@ -106,7 +107,7 @@ export type PopoverProps = {
 	when?: boolean | 'hover' | 'click'
 	groupId?: string
 	hasArrow?: boolean
-	offset?: number
+	offset?: OffsetOptions
 	shiftPadding?: number
 	hoverShowDelay?: number
 	hoverHideDelay?: number
