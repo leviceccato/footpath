@@ -34,16 +34,10 @@ export const Header: Component = () => {
 					<MenuButton startIconName="check">Hello</MenuButton>
 					<MenuDivider />
 					<MenuButton>Hello</MenuButton>
-					<MenuButton
-						refSignal={editMenuRefSignal}
-						endIconName="chevronRight"
-					>
+					<MenuButton refSignal={editMenuRefSignal} endIconName="chevronRight">
 						Edit
 					</MenuButton>
-					<MenuChild
-						elementRef={editMenuRefSignal}
-						state={editMenuStateSignal}
-					>
+					<MenuChild elementRef={editMenuRefSignal} state={editMenuStateSignal}>
 						<>
 							<MenuButton startIconName="check">Hello</MenuButton>
 							<MenuDivider />
