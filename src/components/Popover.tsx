@@ -108,7 +108,8 @@ export type PopoverProps = {
 	hasArrow?: boolean
 	offset?: number
 	shiftPadding?: number
-	hoverDelay?: number
+	hoverShowDelay?: number
+	hoverHideDelay?: number
 	placement?: Placement
 	mount?: string
 	onShown?: () => void
@@ -120,7 +121,10 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 	const props = defaultProps(rawProps, {
 		placement: 'right',
 		class: '',
-		hoverDelay: 400,
+		hoverShowDelay: 400,
+		/* This should never be zero. A small delay is required here to prevent flickering
+		as floating UI attempts to position itself */
+		hoverHideDelay: 10,
 		hasArrow: false,
 		mount: 'modal',
 		shiftPadding: 4,
@@ -190,9 +194,7 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 		setIsHovered(isIn)
 
 		if (props.when === 'hover') {
-			/* A small delay is required here to prevent flickering as floating UI attempts
-			to position itself */
-			await sleep(isHovered() ? props.hoverDelay : 10)
+			await sleep(isHovered() ? props.hoverShowDelay : props.hoverHideDelay)
 			return setPopoverShown(isHovered())
 		}
 
