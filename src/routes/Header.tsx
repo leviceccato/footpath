@@ -1,6 +1,6 @@
 import { Button } from '@/components/Button'
 import { IconButton } from '@/components/IconButton'
-import { Menu } from '@/components/Menu'
+import { Menu, MenuButton, MenuChild, MenuDivider } from '@/components/Menu'
 import { type PopoverState } from '@/components/Popover'
 import { ScrollArea } from '@/components/ScrollArea'
 import { Text } from '@/components/Text'
@@ -15,6 +15,8 @@ export const Header: Component = () => {
 
 	const menuRefSignal = createSignal<HTMLButtonElement>()
 	const menuStateSignal = createSignal<PopoverState>()
+	const editMenuRefSignal = createSignal<HTMLButtonElement>()
+	const editMenuStateSignal = createSignal<PopoverState>()
 
 	const shownCodeDocuments = () => {
 		const docs = Object.values(codeDocuments.all().value).filter((doc) => {
@@ -28,24 +30,28 @@ export const Header: Component = () => {
 		<header class={css.root}>
 			<IconButton refSignal={menuRefSignal} name="menu" tooltip={t('menu')} />
 			<Menu elementRef={menuRefSignal} state={menuStateSignal}>
-				{() => (
-					<>
-						<Menu.Button startIconName="check">Hello</Menu.Button>
-						<Menu.Divider />
-						<Menu.Button>Hello</Menu.Button>
-						<Menu.Button endIconName="chevronRight">Edit</Menu.Button>
-						<Menu elementRef={menuRefSignal} state={menuStateSignal}>
-				{() => (
-					<>
-						<Menu.Button startIconName="check">Hello</Menu.Button>
-						<Menu.Divider />
-						<Menu.Button>Hello</Menu.Button>
-						<Menu.Button endIconName="chevronRight">Edit</Menu.Button>
-					</>
-				)} 
-			</Menu>
-					</>
-				)}
+				<>
+					<MenuButton startIconName="check">Hello</MenuButton>
+					<MenuDivider />
+					<MenuButton>Hello</MenuButton>
+					<MenuButton
+						refSignal={editMenuRefSignal}
+						endIconName="chevronRight"
+					>
+						Edit
+					</MenuButton>
+					<MenuChild
+						elementRef={editMenuRefSignal}
+						state={editMenuStateSignal}
+					>
+						<>
+							<MenuButton startIconName="check">Hello</MenuButton>
+							<MenuDivider />
+							<MenuButton>Hello</MenuButton>
+							<MenuButton endIconName="chevronRight">Edit</MenuButton>
+						</>
+					</MenuChild>
+				</>
 			</Menu>
 			<ScrollArea class={css.scrollArea}>
 				<div class={css.tabContainer}>
