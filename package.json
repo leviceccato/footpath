@@ -1,5 +1,5 @@
 {
-	"name": "lacey",
+	"name": "footpath",
 	"scripts": {
 		"start": "vite",
 		"check": "biome check --apply .",
