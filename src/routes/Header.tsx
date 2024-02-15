@@ -42,7 +42,7 @@ export const Header: Component = () => {
 						<Menu.Button>Hello</Menu.Button>
 						<Menu.Button endIconName="chevronRight">Edit</Menu.Button>
 					</>
-				)}
+				)} 
 			</Menu>
 					</>
 				)}
