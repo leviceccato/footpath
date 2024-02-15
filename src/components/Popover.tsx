@@ -144,6 +144,19 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 	const [arrowX, setArrowX] = createSignal(0)
 	const [arrowY, setArrowY] = createSignal(0)
 
+	/*
+	We need to explicity track if the mouse has triggered a Popover. This is for a very 
+	specific situation: say we have two Popovers bound to an element, one is with hover and
+	the other with click and it includes focusable elements. When we initially hover the
+	element, the hover Popover will be shown. When we click, the click Popover will be shown
+	BUT the hover Popover gets hidden. This is because we are actually focusing inside the
+	click Popover which the hover Popover is reacting to.
+	
+	By introducing this state we can track if the mouse is inside element and prevent the
+	Popover from being hidden if a focusout event occurs.
+	*/
+	const [isMouseWithin, setIsMouseWithin] = createSignal(false)
+
 	const contentVariant = (): keyof typeof css.contentVariants => {
 		return state()?.isShown ? 'shown' : 'hidden'
 	}
@@ -188,11 +201,18 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 		}
 	}
 
-	function handleHoverOut(): void {
+	function handleHoverOut(event: Event): void {
+		if (isMouseWithin() && event.type === 'focusout') {
+			return
+		} 
 		handleHover(false)
+		setIsMouseWithin(false)
 	}
 
-	function handleHoverIn(): void {
+	function handleHoverIn(event: Event): void {
+		if (event.type === 'mouseenter') {
+			setIsMouseWithin(true)
+		}
 		handleHover(true)
 	}
 
