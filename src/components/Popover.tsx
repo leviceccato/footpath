@@ -204,7 +204,7 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 	function handleHoverOut(event: Event): void {
 		if (isMouseWithin() && event.type === 'focusout') {
 			return
-		} 
+		}
 		handleHover(false)
 		setIsMouseWithin(false)
 	}
