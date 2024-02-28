@@ -29,19 +29,15 @@ export function defaultValues<
 }
 
 /* Event listener util that will automatically unregister itself when the component is cleaned up */
-export function useEventListener<
-	TTarget extends EventTarget,
-	TEvent extends keyof EventMap,
->(
-	target: TTarget,
-	event: TEvent,
-	listener: EventListener,
-	options?: AddEventListenerOptions,
-): void {
+export function useEventListener(options: {
+	name: string
+	target: EventTarget
+	handler: EventListener
+} & AddEventListenerOptions): void {
 	createRoot(() => {
-		target.addEventListener(event, listener, options)
+		options.target.addEventListener(options.name, options.handler, options)
 		onCleanup(() => {
-			target.removeEventListener(event, listener, options)
+			options.target.removeEventListener(options.name, options.handler, options)
 		})
 	})
 }
