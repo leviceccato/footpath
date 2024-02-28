@@ -16,7 +16,7 @@ A list of complete and incomplete tasks to track progress.
 
 ## Doing
 
-- Fix MenuChild hovering
+- Fix MenuChild hovering. How to keep parent active when child is hovered? Context? Managing all elements in root element? Something else?
 
 ## Done (most recent to oldest)
 
