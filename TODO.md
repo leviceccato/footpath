@@ -13,7 +13,6 @@ A list of complete and incomplete tasks to track progress.
 - Prevent Escape from closing Popover if focus doesn't change
 - Deploy to Netlify and update docs
 - Add Footpath branding
-- Rename to Footpath
 
 ## Doing
 
@@ -21,6 +20,7 @@ A list of complete and incomplete tasks to track progress.
 
 ## Done (most recent to oldest)
 
+- Rename to Footpath
 - Create Menu tree component
 - Prevent Popover closing on focusout, base on Esc press instead
 - Add global activeCodeDocument property and remove individual isActive
