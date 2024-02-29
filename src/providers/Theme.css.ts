@@ -1,5 +1,10 @@
 import { createVar, style } from '@vanilla-extract/css'
 
+/* Device pixel ratio indepedent unit. This is used so we can
+have a consistent line width throughout the app, regardless of
+the browser's zoom level. */
+export const dpriUnitVar = createVar()
+
 /* Define vars for ramp from readable colour to theme colour
 First create base RGB values for use with rgba function */
 
@@ -34,7 +39,6 @@ export const colour900Var = createVar()
 export const colour1000Var = createVar()
 
 /* Create class */
-
 export const colours = style({
 	vars: {
 		[colourVar]: `rgb(${colourBaseVar})`,

@@ -1,5 +1,6 @@
 import { colourBrand, colourDark, colourLight } from '@/data/colours'
 import { createClientStore } from '@/utils/storage'
+import { useEventListener } from '@/utils/solid'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { hslToColorString, mix, parseToRgb, readableColor } from 'polished'
 import { type HslColor, type HslaColor } from 'polished/lib/types/color'
@@ -8,8 +9,6 @@ import {
 	createContext,
 	createRoot,
 	createSignal,
-	onCleanup,
-	onMount,
 	useContext,
 } from 'solid-js'
 import * as css from './Theme.css'
@@ -27,8 +26,33 @@ function createThemeContext() {
 			initialValue: false,
 		})
 
+		const dprMedia = window.matchMedia(`(resolution: ${window.devicePixelRatio}dppx)`)
+		const [dpr, setDpr] = createSignal(window.devicePixelRatio)
+
+		useEventListener({
+			target: dprMedia,
+			eventName: 'change',
+			listener: (event: MediaQueryListEvent) => {
+				if (event.matches) {
+					setDpr(window.devicePixelRatio)
+				}
+			},
+		})
+
+		const dpriUnit = () => {
+			return `calc(1px * ${dpr})`
+		}
+
 		const prefersDarkMedia = window.matchMedia('(prefers-color-scheme: dark)')
 		const [prefersDark, setPrefersDark] = createSignal(prefersDarkMedia.matches)
+
+		useEventListener({
+			target: prefersDarkMedia,
+			eventName: 'change',
+			listener: (event: MediaQueryListEvent) => {
+				setPrefersDark(event.matches)
+			},
+		})
 
 		const _colour = () => {
 			if (!useSystem().value) {
@@ -55,22 +79,10 @@ function createThemeContext() {
 			return [red, green, blue].join()
 		}
 
-		function handleMediaChange(event: MediaQueryListEvent) {
-			setPrefersDark(event.matches)
-		}
-
 		function _setColour(colour: HslColor | HslaColor) {
 			setUseSystem({ value: false })
 			setColour({ value: colour })
 		}
-
-		onMount(() => {
-			prefersDarkMedia.addEventListener('change', handleMediaChange)
-		})
-
-		onCleanup(() => {
-			prefersDarkMedia.removeEventListener('change', handleMediaChange)
-		})
 
 		const theme = () => {
 			return {
@@ -81,6 +93,7 @@ function createThemeContext() {
 				setUseSystem,
 				class: css.colours,
 				vars: assignInlineVars({
+					[css.dpriUnitVar]: dpriUnit(),
 					[css.colourBaseVar]: createColour(1),
 					[css.colourBase50Var]: createColour(0.95),
 					[css.colourBase100Var]: createColour(0.9),
