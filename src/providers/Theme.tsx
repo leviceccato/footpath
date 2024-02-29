@@ -1,6 +1,6 @@
 import { colourBrand, colourDark, colourLight } from '@/data/colours'
-import { createClientStore } from '@/utils/storage'
 import { useEventListener } from '@/utils/solid'
+import { createClientStore } from '@/utils/storage'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { hslToColorString, mix, parseToRgb, readableColor } from 'polished'
 import { type HslColor, type HslaColor } from 'polished/lib/types/color'
@@ -26,7 +26,9 @@ function createThemeContext() {
 			initialValue: false,
 		})
 
-		const dprMedia = window.matchMedia(`(resolution: ${window.devicePixelRatio}dppx)`)
+		const dprMedia = window.matchMedia(
+			`(resolution: ${window.devicePixelRatio}dppx)`,
+		)
 		const [dpr, setDpr] = createSignal(window.devicePixelRatio)
 
 		useEventListener({
