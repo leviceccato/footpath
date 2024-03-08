@@ -39,7 +39,7 @@ describe('utils', () => {
 
 		const pairs = rest.join('').match(/.{1, 2}/g) ?? []
 		for (const pair of pairs) {
-			expect(Number.isNaN(parseInt(pair, 16))).toBe(false)
+			expect(Number.isNaN(Number.parseInt(pair, 16))).toBe(false)
 		}
 	})
 

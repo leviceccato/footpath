@@ -1,4 +1,4 @@
-import { type HslColor } from 'polished/lib/types/color'
+import type { HslColor } from 'polished/lib/types/color'
 
 type HsvColour = {
 	hue: number

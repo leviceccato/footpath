@@ -5,7 +5,7 @@ import { clamp, hslToHsv, hsvToHsl } from '@/utils/misc'
 import { type ClassProps, defaultProps } from '@/utils/solid'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { hslToColorString, parseToHsl } from 'polished'
-import { type HslColor, type HslaColor } from 'polished/lib/types/color'
+import type { HslColor, HslaColor } from 'polished/lib/types/color'
 import {
 	type Component,
 	type JSX,

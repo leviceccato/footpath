@@ -1,4 +1,4 @@
-import { type TranslationRaw } from '@/utils/i18n'
+import type { TranslationRaw } from '@/utils/i18n'
 
 export const translation = {
 	languageSetTo: (language: string) => `Set language to ${language}`,

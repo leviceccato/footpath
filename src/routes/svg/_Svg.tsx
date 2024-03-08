@@ -1,5 +1,5 @@
 import { isInIframe } from '@/utils/misc'
-import { type Component } from 'solid-js'
+import type { Component } from 'solid-js'
 import * as css from './_Svg.css'
 
 export const Svg: Component = () => {

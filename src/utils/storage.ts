@@ -1,8 +1,5 @@
 import { defaultValues } from '@/utils/solid'
-import {
-	type StorageRequest,
-	type StorageResponse,
-} from '@/utils/storage.worker'
+import type { StorageRequest, StorageResponse } from '@/utils/storage.worker'
 import StorageWorker from '@/utils/storage.worker?worker'
 import { createEffect, createRoot, createSignal } from 'solid-js'
 

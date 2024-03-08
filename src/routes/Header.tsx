@@ -1,7 +1,7 @@
 import { Button } from '@/components/Button'
 import { IconButton } from '@/components/IconButton'
 import { Menu, MenuButton, MenuChild, MenuDivider } from '@/components/Menu'
-import { type PopoverState } from '@/components/Popover'
+import type { PopoverState } from '@/components/Popover'
 import { ScrollArea } from '@/components/ScrollArea'
 import { Text } from '@/components/Text'
 import { useCodeDocuments } from '@/providers/CodeDocuments'

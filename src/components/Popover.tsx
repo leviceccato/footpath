@@ -2,11 +2,11 @@ import { FocusTrap } from '@/providers/FocusTrap'
 import { usePortal } from '@/providers/Portal'
 import { roundByDpr, sleep } from '@/utils/misc'
 import { defaultProps } from '@/utils/solid'
-import {
-	type ComputePositionReturn,
-	type OffsetOptions,
-	type Placement,
-	type VirtualElement,
+import type {
+	ComputePositionReturn,
+	OffsetOptions,
+	Placement,
+	VirtualElement,
 } from '@floating-ui/dom'
 import {
 	type Accessor,
@@ -22,7 +22,7 @@ import {
 	onMount,
 } from 'solid-js'
 import { Portal } from 'solid-js/web'
-import { type ButtonProps } from './Button'
+import type { ButtonProps } from './Button'
 import * as css from './Popover.css'
 const importFloatingUi = () => import('@floating-ui/dom')
 

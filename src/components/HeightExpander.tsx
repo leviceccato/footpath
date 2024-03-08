@@ -1,5 +1,5 @@
 import { type ClassProps, defaultProps } from '@/utils/solid'
-import { type ParentComponent } from 'solid-js'
+import type { ParentComponent } from 'solid-js'
 import * as css from './HeightExpander.css'
 
 export const HeightExpander: ParentComponent<ClassProps & { when: boolean }> = (

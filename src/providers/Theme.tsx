@@ -3,7 +3,7 @@ import { useEventListener } from '@/utils/solid'
 import { createClientStore } from '@/utils/storage'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { hslToColorString, mix, parseToRgb, readableColor } from 'polished'
-import { type HslColor, type HslaColor } from 'polished/lib/types/color'
+import type { HslColor, HslaColor } from 'polished/lib/types/color'
 import {
 	type ParentComponent,
 	createContext,

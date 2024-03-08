@@ -5,10 +5,10 @@ import { Portal } from '@/providers/Portal'
 import { Theme } from '@/providers/Theme'
 import { Root } from '@/routes/_Root'
 import { Svg } from '@/routes/svg/_Svg'
-import { type Translation, type Translations } from '@/utils/i18n'
+import type { Translation, Translations } from '@/utils/i18n'
 import { lastSegmentFromPath } from '@/utils/misc'
 import { Match, Switch } from 'solid-js'
-import { type Component } from 'solid-js'
+import type { Component } from 'solid-js'
 import * as css from './App.css'
 
 /* Import translations and generate languageName -> importFunc map */

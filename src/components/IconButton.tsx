@@ -4,7 +4,7 @@ import { Text } from '@/components/Text'
 import { VisuallyHidden } from '@/components/VisuallyHidden'
 import { type IconName, useIcons } from '@/providers/Icons'
 import { sleep } from '@/utils/misc'
-import { type VirtualElement } from '@floating-ui/dom'
+import type { VirtualElement } from '@floating-ui/dom'
 import { type Component, createSignal } from 'solid-js'
 import * as css from './IconButton.css'
 
