@@ -31,7 +31,7 @@ export const arrowInner = style({
 	width: 7,
 	height: 7,
 	backgroundColor: themeCss.colourVar,
-	borderTop: `1px solid ${themeCss.colour200Var}`,
-	borderRight: `1px solid ${themeCss.colour200Var}`,
+	borderTop: `${themeCss.dpriUnitVar} solid ${themeCss.colour200Var}`,
+	borderRight: `${themeCss.dpriUnitVar} solid ${themeCss.colour200Var}`,
 	transform: 'rotate(-45deg)',
 })
