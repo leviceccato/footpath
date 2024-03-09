@@ -37,6 +37,10 @@ This project uses `lefthook` to manage git hooks. See [https://github.com/evilma
 
 ## Conventions
 
+### Tasks
+
+`TODO.md` is used as a kanban-style task management document. Currently it is designed for a single user will likely be expanded once the project reaches stable.
+
 ### Organisation
 
 In this project a flat directory style encouraged. There should only be 1 level of depth within `src`. This should improve discoverability of files and ease decision making when it comes to creating new ones.
