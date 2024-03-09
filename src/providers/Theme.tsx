@@ -42,7 +42,7 @@ function createThemeContext() {
 		})
 
 		const dpriUnit = () => {
-			return `calc(1px * ${dpr})`
+			return `calc(1px * ${dpr()})`
 		}
 
 		const prefersDarkMedia = window.matchMedia('(prefers-color-scheme: dark)')
