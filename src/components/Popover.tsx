@@ -104,7 +104,7 @@ export type PopoverProps = {
 	elementRef?: ButtonProps['refSignal']
 	virtualElement?: Accessor<VirtualElement | undefined>
 	state?: Signal<PopoverState | undefined>
-	when?: boolean | 'hover-reference' | 'click'
+	when?: boolean | 'hover-reference' | 'hover' | 'click'
 	groupId?: string
 	hasArrow?: boolean
 	offset?: OffsetOptions
