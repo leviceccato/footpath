@@ -143,7 +143,7 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 	let update: (() => Promise<void>) | undefined
 	const [contentRef, setContentRef] = createSignal<HTMLDivElement>()
 	const [arrowRef, setArrowRef] = createSignal<HTMLDivElement>()
-	const [isHovered, setIsHovered] = createSignal(false)
+	const [isReferenceHovered, setIsReferenceHovered] = createSignal(false)
 	const [x, setX] = createSignal(0)
 	const [y, setY] = createSignal(0)
 	const [arrowX, setArrowX] = createSignal(0)
@@ -192,14 +192,14 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 	}
 
 	async function handleHover(isIn: boolean): Promise<void> {
-		setIsHovered(isIn)
+		setIsReferenceHovered(isIn)
 
 		if (props.when === 'hover-reference') {
-			await sleep(isHovered() ? props.hoverShowDelay : props.hoverHideDelay)
-			return setPopoverShown(isHovered())
+			await sleep(isReferenceHovered() ? props.hoverShowDelay : props.hoverHideDelay)
+			return setPopoverShown(isReferenceHovered())
 		}
 
-		if (isHovered() && popoverStore.getOpenGroupMembers(props.groupId).length) {
+		if (isReferenceHovered() && popoverStore.getOpenGroupMembers(props.groupId).length) {
 			return setPopoverShown(true)
 		}
 	}
