@@ -87,7 +87,7 @@ export const shown = style({
 
 export const scrollbar = style({
 	'::before': {
-		border: `1px solid ${themeCss.colour400Var}`,
+		border: `${themeCss.dpriUnitVar} solid ${themeCss.colour400Var}`,
 		backgroundColor: themeCss.colourVar,
 		boxShadow: `0 1px 5px 0 rgba(${themeCss.colourBase700Var}, 0.1)`,
 		pointerEvents: 'all',

@@ -16,7 +16,7 @@ export const container = style({
 	width: '100%',
 	backgroundColor: themeCss.colourVar,
 	borderRadius: 8,
-	border: `1px solid ${themeCss.colour200Var}`,
+	border: `${themeCss.dpriUnitVar} solid ${themeCss.colour200Var}`,
 	boxShadow: ' 0px 10px 15px -3px rgba(0,0,0,0.1)',
 })
 
@@ -25,7 +25,7 @@ export const header = style({
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'space-between',
-	borderBottom: `1px solid ${themeCss.colour150Var}`,
+	borderBottom: `${themeCss.dpriUnitVar} solid ${themeCss.colour150Var}`,
 })
 
 export const main = style({

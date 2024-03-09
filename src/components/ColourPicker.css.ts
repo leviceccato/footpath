@@ -7,7 +7,7 @@ export const root = style({})
 
 export const spectrumContainer = style({
 	position: 'relative',
-	border: `1px solid ${themeCss.colour1000Var}`,
+	border: `${themeCss.dpriUnitVar} solid ${themeCss.colour1000Var}`,
 	':focus-visible': {
 		outlineOffset: 2,
 		outline: `2px dashed ${themeCss.colour1000Var}`,
@@ -38,7 +38,7 @@ export const hueRangeContainer = style({
 
 export const hueRange = style({
 	height: 8,
-	border: `1px solid ${themeCss.colour1000Var}`,
+	border: `${themeCss.dpriUnitVar} solid ${themeCss.colour1000Var}`,
 	borderRadius: 1000,
 	background:
 		'linear-gradient(to right, rgb(255, 0, 0), rgb(255, 255, 0), rgb(0, 255, 0), rgb(0, 255, 255), rgb(0, 0, 255), rgb(255, 0, 255), rgb(255, 0, 0))',
