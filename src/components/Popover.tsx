@@ -104,7 +104,7 @@ export type PopoverProps = {
 	elementRef?: ButtonProps['refSignal']
 	virtualElement?: Accessor<VirtualElement | undefined>
 	state?: Signal<PopoverState | undefined>
-	when?: boolean | 'hover' | 'click'
+	when?: boolean | 'hover-reference' | 'click'
 	groupId?: string
 	hasArrow?: boolean
 	offset?: OffsetOptions
@@ -194,7 +194,7 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 	async function handleHover(isIn: boolean): Promise<void> {
 		setIsHovered(isIn)
 
-		if (props.when === 'hover') {
+		if (props.when === 'hover-reference') {
 			await sleep(isHovered() ? props.hoverShowDelay : props.hoverHideDelay)
 			return setPopoverShown(isHovered())
 		}
