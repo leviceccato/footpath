@@ -15,7 +15,7 @@ export const divider = style({
 	width: '100%',
 	margin: '4px 0',
 	height: themeCss.dpriUnitVar,
-	backgroundColor: themeCss.colour200Var,
+	backgroundColor: themeCss.colour100Var,
 })
 
 export const button = style({
