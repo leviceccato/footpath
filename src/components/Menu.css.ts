@@ -4,7 +4,7 @@ import { style, styleVariants } from '@vanilla-extract/css'
 export const root = style({
 	borderRadius: 4,
 	backgroundColor: themeCss.colourVar,
-	border: `1px solid ${themeCss.colour200Var}`,
+	border: `${themeCss.dpriUnitVar} solid ${themeCss.colour200Var}`,
 	boxShadow: ' 0px 10px 15px -3px rgba(0,0,0,0.1)',
 	display: 'flex',
 	flexDirection: 'column',
@@ -14,7 +14,7 @@ export const root = style({
 export const divider = style({
 	width: '100%',
 	margin: '4px 0',
-	height: 1,
+	height: themeCss.dpriUnitVar,
 	backgroundColor: themeCss.colour200Var,
 })
 
