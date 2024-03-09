@@ -2,6 +2,7 @@ A list of complete and incomplete tasks to track progress.
 
 ## To do (lowest to highest priority)
 
+- Investigate feature toggles/flags (see https://youtube.com/shorts/--j2Y7v35yA?si=Iev8tPIvCE_QaV-M)
 - Add syntax highlighting
 - Statically define colours (don't parse)
 - Fix code documents/tabs
