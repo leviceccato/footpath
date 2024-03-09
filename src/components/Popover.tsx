@@ -195,11 +195,16 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 		setIsReferenceHovered(isIn)
 
 		if (props.when === 'hover-reference') {
-			await sleep(isReferenceHovered() ? props.hoverShowDelay : props.hoverHideDelay)
+			await sleep(
+				isReferenceHovered() ? props.hoverShowDelay : props.hoverHideDelay,
+			)
 			return setPopoverShown(isReferenceHovered())
 		}
 
-		if (isReferenceHovered() && popoverStore.getOpenGroupMembers(props.groupId).length) {
+		if (
+			isReferenceHovered() &&
+			popoverStore.getOpenGroupMembers(props.groupId).length
+		) {
 			return setPopoverShown(true)
 		}
 	}
