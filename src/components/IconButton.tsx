@@ -74,7 +74,7 @@ export const IconButton: Component<{
 			</Button>
 			<Popover
 				class={css.tooltip}
-				when="hover"
+				when="hover-reference"
 				mount="tooltip"
 				state={[state, setState]}
 				elementRef={refSignalOrProp()}
