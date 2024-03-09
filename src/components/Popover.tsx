@@ -1,7 +1,7 @@
 import { FocusTrap } from '@/providers/FocusTrap'
 import { usePortal } from '@/providers/Portal'
 import { roundByDpr, sleep } from '@/utils/misc'
-import { defaultProps } from '@/utils/solid'
+import { defaultProps, useEventListener } from '@/utils/solid'
 import type {
 	ComputePositionReturn,
 	OffsetOptions,
@@ -358,11 +358,31 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 	onMount(() => {
 		const elementValue = element()
 		if (elementValue instanceof HTMLButtonElement) {
-			elementValue.addEventListener('click', handleClick)
-			elementValue.addEventListener('focusin', handleHoverIn)
-			elementValue.addEventListener('focusout', handleHoverOut)
-			elementValue.addEventListener('mouseenter', handleHoverIn)
-			elementValue.addEventListener('mouseleave', handleHoverOut)
+			useEventListener({
+				target: elementValue,
+				eventName: 'click',
+				listener: handleClick,
+			})
+			useEventListener({
+				target: elementValue,
+				eventName: 'focusin',
+				listener: handleHoverIn,
+			})
+			useEventListener({
+				target: elementValue,
+				eventName: 'focusout',
+				listener: handleHoverOut,
+			})
+			useEventListener({
+				target: elementValue,
+				eventName: 'mouseenter',
+				listener: handleHoverIn,
+			})
+			useEventListener({
+				target: elementValue,
+				eventName: 'mouseleave',
+				listener: handleHoverOut,
+			})
 		}
 	})
 
@@ -370,15 +390,6 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 		stopAutoUpdate?.()
 		toggleEventListeners(false)
 		popoverStore.remove(id)
-
-		const elementValue = element()
-		if (elementValue instanceof HTMLButtonElement) {
-			elementValue.removeEventListener('click', handleClick)
-			elementValue.removeEventListener('focusin', handleHoverIn)
-			elementValue.removeEventListener('focusout', handleHoverOut)
-			elementValue.removeEventListener('mouseenter', handleHoverIn)
-			elementValue.removeEventListener('mouseleave', handleHoverOut)
-		}
 	})
 
 	return (
