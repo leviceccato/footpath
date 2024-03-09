@@ -1,6 +1,6 @@
 {
 	"pre-push": {
-		"parallel": "true",
+		"parallel": true,
 		"commands": {
 			"check": {
 				"run": "bunx biome check --no-errors-on-unmatched --files-ignore-unknown=true {push_files}"
