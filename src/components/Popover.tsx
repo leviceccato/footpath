@@ -185,13 +185,13 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 		popoverStore.setIsShown(id, to)
 	}
 
-	function handleClick(): void {
+	function handleReferenceClick(): void {
 		if (props.when === 'click') {
 			setPopoverShown(!state()?.isShown)
 		}
 	}
 
-	async function handleHover(isIn: boolean): Promise<void> {
+	async function handleReferenceHover(isIn: boolean): Promise<void> {
 		setIsReferenceHovered(isIn)
 
 		if (props.when === 'hover-reference') {
@@ -209,19 +209,19 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 		}
 	}
 
-	function handleHoverOut(event: Event): void {
+	function handleReferenceHoverOut(event: Event): void {
 		if (isMouseWithin() && event.type === 'focusout') {
 			return
 		}
-		handleHover(false)
+		handleReferenceHover(false)
 		setIsMouseWithin(false)
 	}
 
-	function handleHoverIn(event: Event): void {
+	function handleReferenceHoverIn(event: Event): void {
 		if (event.type === 'mouseenter') {
 			setIsMouseWithin(true)
 		}
-		handleHover(true)
+		handleReferenceHover(true)
 	}
 
 	function toggleEventListeners(enabled: boolean): void {
@@ -366,27 +366,27 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 			useEventListener({
 				target: elementValue,
 				eventName: 'click',
-				listener: handleClick,
+				listener: handleReferenceClick,
 			})
 			useEventListener({
 				target: elementValue,
 				eventName: 'focusin',
-				listener: handleHoverIn,
+				listener: handleReferenceHoverIn,
 			})
 			useEventListener({
 				target: elementValue,
 				eventName: 'focusout',
-				listener: handleHoverOut,
+				listener: handleReferenceHoverOut,
 			})
 			useEventListener({
 				target: elementValue,
 				eventName: 'mouseenter',
-				listener: handleHoverIn,
+				listener: handleReferenceHoverIn,
 			})
 			useEventListener({
 				target: elementValue,
 				eventName: 'mouseleave',
-				listener: handleHoverOut,
+				listener: handleReferenceHoverOut,
 			})
 		}
 	})
