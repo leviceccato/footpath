@@ -27,7 +27,7 @@ g(`${editor} .cm-gutters`, {
 	cursor: 'auto',
 	backgroundColor: 'transparent',
 	color: themeCss.colour400Var,
-	borderRight: `1px solid ${themeCss.colour150Var}`,
+	borderRight: `${themeCss.dpriUnitVar} solid ${themeCss.colour150Var}`,
 })
 
 g(`${editor} .cm-lineNumbers .cm-gutterElement`, {

@@ -18,7 +18,7 @@ export const root = style({
 })
 
 export const main = style({
-	borderTop: `1px solid ${themeCss.colour150Var}`,
+	borderTop: `${themeCss.dpriUnitVar} solid ${themeCss.colour150Var}`,
 	height: '100%',
 	display: 'flex',
 })
@@ -30,7 +30,7 @@ export const viewContainer = style({
 })
 
 export const viewResizer = style({
-	width: 1,
+	width: themeCss.dpriUnitVar,
 	position: 'relative',
 	backgroundColor: themeCss.colour150Var,
 	userSelect: 'none',
@@ -101,7 +101,7 @@ export const viewBarButtonVariant = styleVariants({
 
 export const view = style({
 	height: '100%',
-	borderTop: `1px solid ${themeCss.colour150Var}`,
+	borderTop: `${themeCss.dpriUnitVar} solid ${themeCss.colour150Var}`,
 })
 
 export const codeEditor = style({

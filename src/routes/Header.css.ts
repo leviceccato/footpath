@@ -25,13 +25,13 @@ export const menuButtonVariant = styleVariants({
 	default: [
 		menuButton,
 		{
-			border: '1px solid transparent',
+			border: `${themeCss.dpriUnitVar} solid transparent`,
 		},
 	],
 	dropdownOpen: [
 		menuButton,
 		{
-			border: `1px solid ${themeCss.colour200Var}`,
+			border: `${themeCss.dpriUnitVar} solid ${themeCss.colour200Var}`,
 		},
 	],
 })
@@ -39,7 +39,7 @@ export const menuButtonVariant = styleVariants({
 export const dropdown = style({
 	borderRadius: 4,
 	backgroundColor: themeCss.colourVar,
-	border: `1px solid ${themeCss.colour200Var}`,
+	border: `${themeCss.dpriUnitVar} solid ${themeCss.colour200Var}`,
 	boxShadow: ' 0px 10px 15px -3px rgba(0,0,0,0.1)',
 })
 
@@ -50,8 +50,8 @@ export const dropdownButtonContainer = style({
 export const scrollArea = style({
 	width: '100%',
 	height: '100%',
-	borderLeft: `1px solid ${themeCss.colour150Var}`,
-	borderRight: `1px solid ${themeCss.colour150Var}`,
+	borderLeft: `${themeCss.dpriUnitVar} solid ${themeCss.colour150Var}`,
+	borderRight: `${themeCss.dpriUnitVar} solid ${themeCss.colour150Var}`,
 })
 
 export const tabContainer = style({
@@ -65,7 +65,7 @@ export const tabButtonWrapper = style({
 	minWidth: 100,
 	selectors: {
 		'&:not(:first-of-type)': {
-			borderLeft: `1px solid ${themeCss.colour150Var}`,
+			borderLeft: `${themeCss.dpriUnitVar} solid ${themeCss.colour150Var}`,
 		},
 	},
 })
