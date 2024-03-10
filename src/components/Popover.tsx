@@ -10,9 +10,9 @@ import type {
 } from '@floating-ui/dom'
 import {
 	type Accessor,
+	type JSX,
 	type ParentComponent,
 	type Setter,
-	type JSX,
 	Show,
 	type Signal,
 	createEffect,
@@ -110,7 +110,7 @@ export type PopoverProps = {
 	hasArrow?: boolean
 	offset?: OffsetOptions
 	shiftPadding?: number
-	role?: JSX.AriaAttributes['role'],
+	role?: JSX.AriaAttributes['role']
 	hoverShowDelay?: number
 	hoverHideDelay?: number
 	placement?: Placement
