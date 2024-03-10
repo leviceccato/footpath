@@ -227,6 +227,18 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 		handleReferenceHover(true)
 	}
 
+	function handleContentHover(isIn: boolean): Promise<void> {
+		
+	}
+
+	function handleContentHoverIn(event: Event): void {
+
+	}
+
+	function handleContentHoverOut(event: Event): void {
+
+	}
+
 	function toggleEventListeners(enabled: boolean): void {
 		if (enabled) {
 			window.addEventListener('pointerdown', handleClickToClose)
@@ -390,6 +402,30 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 				target: elementValue,
 				eventName: 'mouseleave',
 				listener: handleReferenceHoverOut,
+			})
+		}
+
+		const contentValue = contentRef()
+		if (contentValue) {
+			useEventListener({
+				target: contentValue,
+				eventName: 'focusin',
+				listener: handleContentHoverIn,
+			})
+			useEventListener({
+				target: contentValue,
+				eventName: 'focusout',
+				listener: handleContentHoverOut,
+			})
+			useEventListener({
+				target: contentValue,
+				eventName: 'mouseenter',
+				listener: handleContentHoverIn,
+			})
+			useEventListener({
+				target: contentValue,
+				eventName: 'mouseleave',
+				listener: handleContentHoverOut,
 			})
 		}
 	})
