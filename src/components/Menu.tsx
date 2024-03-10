@@ -64,7 +64,7 @@ export const MenuChild: ParentComponent<{
 		<Popover
 			state={props.state}
 			elementRef={props.elementRef}
-			when="hover-reference"
+			when="hover"
 			placement="right-start"
 			hoverShowDelay={0}
 			hoverHideDelay={400}

@@ -147,24 +147,13 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 	const [contentRef, setContentRef] = createSignal<HTMLDivElement>()
 	const [arrowRef, setArrowRef] = createSignal<HTMLDivElement>()
 	const [isReferenceHovered, setIsReferenceHovered] = createSignal(false)
+	const [isReferenceFocused, setIsReferenceFocused] = createSignal(false)
 	const [isContentHovered, setIsContentHovered] = createSignal(false)
+	const [isContentFocused, setIsContentFocused] = createSignal(false)
 	const [x, setX] = createSignal(0)
 	const [y, setY] = createSignal(0)
 	const [arrowX, setArrowX] = createSignal(0)
 	const [arrowY, setArrowY] = createSignal(0)
-
-	/*
-	We need to explicity track if the mouse has triggered a Popover. This is for a very 
-	specific situation: say we have two Popovers bound to an element, one is with hover and
-	the other with click and it includes focusable elements. When we initially hover the
-	element, the hover Popover will be shown. When we click, the click Popover will be shown
-	BUT the hover Popover gets hidden. This is because we are actually focusing inside the
-	click Popover which the hover Popover is reacting to.
-	
-	By introducing this state we can track if the mouse is inside element and prevent the
-	Popover from being hidden if a focusout event occurs.
-	*/
-	const [isMouseWithin, setIsMouseWithin] = createSignal(false)
 
 	const contentVariant = (): keyof typeof css.contentVariants => {
 		return state()?.isShown ? 'shown' : 'hidden'
@@ -190,56 +179,13 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 	}
 
 	function handleReferenceClick(): void {
-		if (props.when === 'click') {
+		if (
+			props.when === 'click' ||
+			props.when === 'hover' ||
+			props.when === 'hover-reference'
+		) {
 			setPopoverShown(!state()?.isShown)
 		}
-	}
-
-	async function handleReferenceHover(isIn: boolean): Promise<void> {
-		setIsReferenceHovered(isIn)
-
-		if (props.when === 'hover-reference') {
-			await sleep(
-				isReferenceHovered() || isContentHovered()
-					? props.hoverShowDelay
-					: props.hoverHideDelay,
-			)
-			return setPopoverShown(isReferenceHovered() || isContentHovered())
-		}
-
-		if (
-			(isReferenceHovered() || isContentHovered()) &&
-			popoverStore.getOpenGroupMembers(props.groupId).length
-		) {
-			return setPopoverShown(true)
-		}
-	}
-
-	function handleReferenceHoverOut(event: Event): void {
-		if (isMouseWithin() && event.type === 'focusout') {
-			return
-		}
-		handleReferenceHover(false)
-		setIsMouseWithin(false)
-	}
-
-	function handleReferenceHoverIn(event: Event): void {
-		if (event.type === 'mouseenter') {
-			setIsMouseWithin(true)
-		}
-		handleReferenceHover(true)
-	}
-
-	async function handleContentHover(isIn: boolean): Promise<void> {
-		setIsContentHovered(isIn)
-	}
-
-	function handleContentHoverIn(): void {
-		handleContentHover(true)
-	}
-
-	function handleContentHoverOut(): void {
-		handleContentHover(false)
 	}
 
 	function toggleEventListeners(enabled: boolean): void {
@@ -378,6 +324,40 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 		toggleEventListeners(false)
 	})
 
+	createEffect(async function handleHoverAndFocus() {
+		switch (props.when) {
+			case false:
+				setPopoverShown(false)
+				return
+			case true:
+				setPopoverShown(true)
+				return
+			case 'hover-reference':
+				await sleep(
+					isReferenceHovered() ? props.hoverShowDelay : props.hoverHideDelay,
+				)
+				setPopoverShown(isReferenceHovered())
+				return
+			case 'hover':
+				await sleep(
+					isReferenceHovered() || isContentHovered()
+						? props.hoverShowDelay
+						: props.hoverHideDelay,
+				)
+				setPopoverShown(isReferenceHovered() || isContentHovered())
+				return
+			case 'click':
+				/* If this popover has other open group members then essentially 
+				treat it has being when='hover' */
+				if (
+					popoverStore.getOpenGroupMembers(props.groupId).length &&
+					isReferenceHovered()
+				) {
+					setPopoverShown(true)
+				}
+		}
+	})
+
 	onMount(() => {
 		const elementValue = element()
 		if (elementValue instanceof HTMLButtonElement) {
@@ -389,22 +369,22 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 			useEventListener({
 				target: elementValue,
 				eventName: 'focusin',
-				listener: handleReferenceHoverIn,
+				listener: () => setIsReferenceFocused(true),
 			})
 			useEventListener({
 				target: elementValue,
 				eventName: 'focusout',
-				listener: handleReferenceHoverOut,
+				listener: () => setIsReferenceFocused(false),
 			})
 			useEventListener({
 				target: elementValue,
 				eventName: 'mouseenter',
-				listener: handleReferenceHoverIn,
+				listener: () => setIsReferenceHovered(true),
 			})
 			useEventListener({
 				target: elementValue,
 				eventName: 'mouseleave',
-				listener: handleReferenceHoverOut,
+				listener: () => setIsReferenceHovered(false),
 			})
 		}
 
@@ -413,22 +393,22 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 			useEventListener({
 				target: contentValue,
 				eventName: 'focusin',
-				listener: handleContentHoverIn,
+				listener: () => setIsContentFocused(true),
 			})
 			useEventListener({
 				target: contentValue,
 				eventName: 'focusout',
-				listener: handleContentHoverOut,
+				listener: () => setIsContentFocused(false),
 			})
 			useEventListener({
 				target: contentValue,
 				eventName: 'mouseenter',
-				listener: handleContentHoverIn,
+				listener: () => setIsContentHovered(true),
 			})
 			useEventListener({
 				target: contentValue,
 				eventName: 'mouseleave',
-				listener: handleContentHoverOut,
+				listener: () => setIsContentHovered(false),
 			})
 		}
 	})
