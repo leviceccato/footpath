@@ -227,17 +227,11 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 		handleReferenceHover(true)
 	}
 
-	async function handleContentHover(isIn: boolean): Promise<void> {
-		
-	}
+	async function handleContentHover(isIn: boolean): Promise<void> {}
 
-	function handleContentHoverIn(event: Event): void {
+	function handleContentHoverIn(event: Event): void {}
 
-	}
-
-	function handleContentHoverOut(event: Event): void {
-
-	}
+	function handleContentHoverOut(event: Event): void {}
 
 	function toggleEventListeners(enabled: boolean): void {
 		if (enabled) {
