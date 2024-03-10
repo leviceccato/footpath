@@ -12,6 +12,7 @@ import {
 	type Accessor,
 	type ParentComponent,
 	type Setter,
+	type JSX,
 	Show,
 	type Signal,
 	createEffect,
@@ -109,6 +110,7 @@ export type PopoverProps = {
 	hasArrow?: boolean
 	offset?: OffsetOptions
 	shiftPadding?: number
+	role?: JSX.AriaAttributes['role'],
 	hoverShowDelay?: number
 	hoverHideDelay?: number
 	placement?: Placement
@@ -122,6 +124,7 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 	const props = defaultProps(rawProps, {
 		placement: 'right',
 		class: '',
+		role: 'tooltip',
 		hoverShowDelay: 400,
 		/* This should never be zero. A small delay is required here to prevent flickering
 		as floating UI attempts to position itself */
@@ -404,7 +407,7 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 					class={`${props.class} ${css.contentVariants[contentVariant()]}`}
 					ref={(ref) => setContentRef(ref)}
 					id={id}
-					role="tooltip"
+					role={props.role}
 					style={`transform: translate(${x()}px, ${y()}px)`}
 				>
 					<Show when={props.hasArrow}>
