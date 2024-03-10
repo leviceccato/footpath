@@ -227,7 +227,7 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 		handleReferenceHover(true)
 	}
 
-	function handleContentHover(isIn: boolean): Promise<void> {
+	async function handleContentHover(isIn: boolean): Promise<void> {
 		
 	}
 
