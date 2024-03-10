@@ -15,13 +15,15 @@ A list of complete and incomplete tasks to track progress.
 - Deploy to Netlify and update docs
 - Add Footpath branding
 - Support triangular submenu hovering (use onUpdate prop in Menu?)
+- Fix escape on main menu not refocusing menu button
 
 ## Doing
 
-- Fix MenuChild hovering. How to keep parent active when child is hovered? Context? Managing all elements in root element? Something else?
+- Prevent FocusTrap from immediately trapping focus, it should only do it when a 'click' event happens.
 
 ## Done (most recent to oldest)
 
+- Fix MenuChild hovering. How to keep parent active when child is hovered? Context? Managing all elements in root element? Something else?
 - Make "thin 1px lines" DPR indepedent (always 1px, ignore browser zoom)
 - Rename to Footpath
 - Create Menu tree component
