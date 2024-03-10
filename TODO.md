@@ -14,7 +14,7 @@ A list of complete and incomplete tasks to track progress.
 - Prevent Escape from closing Popover if focus doesn't change
 - Deploy to Netlify and update docs
 - Add Footpath branding
-- Support triangular submenu hovering
+- Support triangular submenu hovering (use onUpdate prop in Menu?)
 
 ## Doing
 
