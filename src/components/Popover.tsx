@@ -192,11 +192,9 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 		if (enabled) {
 			window.addEventListener('pointerdown', handleClickToClose)
 			addIframeListeners()
-			window.addEventListener('keydown', handleEscapeToClose)
 			return
 		}
 		window.removeEventListener('pointerdown', handleClickToClose)
-		window.removeEventListener('keydown', handleEscapeToClose)
 	}
 
 	function hideIfTargetOutside(
@@ -390,6 +388,11 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 
 		const contentValue = contentRef()
 		if (contentValue) {
+			useEventListener({
+				target: contentValue,
+				eventName: 'keydown',
+				listener: handleEscapeToClose,
+			})
 			useEventListener({
 				target: contentValue,
 				eventName: 'focusin',
