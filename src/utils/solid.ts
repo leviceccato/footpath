@@ -35,16 +35,19 @@ export function useEventListener<TEvent extends Event>(
 		target: EventTarget
 		listener: (event: TEvent) => void
 	} & AddEventListenerOptions,
-): void {
+): () => void {
 	const listener: EventListener = (event: Event) => {
 		options.listener(event as TEvent)
 	}
 
+	const removeListener = () => {
+		options.target.removeEventListener(options.eventName, listener, options)
+	}
+
 	createRoot(() => {
 		options.target.addEventListener(options.eventName, listener, options)
-
-		onCleanup(() => {
-			options.target.removeEventListener(options.eventName, listener, options)
-		})
+		onCleanup(removeListener)
 	})
+
+	return removeListener
 }
