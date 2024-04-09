@@ -32,7 +32,9 @@
     <div id="root"></div>
     <script type="module">
       import { main } from './index.gleam'
-      main()
+      import enUs from './public/locales/en_us.json?raw'
+
+      main(enUs)
     </script>
   </body>
 </html>

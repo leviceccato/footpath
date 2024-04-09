@@ -4,15 +4,19 @@ import lustre/element.{text}
 import lustre/element/html.{button, div, p}
 import lustre/event.{on_click}
 
-pub fn main() {
+pub fn main(default_locale_string: String) {
   let app = lustre.simple(init, update, view)
-  let assert Ok(_) = lustre.start(app, "#root", Nil)
+  let assert Ok(_) = lustre.start(app, "#root", default_locale_string)
 
   Nil
 }
 
-fn init(_flags) {
-  0
+type Model {
+  Model(locale: String, count: Int)
+}
+
+fn init(default_locale_string: String) -> Model {
+  Model(locale: default_locale_string, count: 0)
 }
 
 type Msg {
@@ -20,15 +24,15 @@ type Msg {
   Decr
 }
 
-fn update(model, msg) {
+fn update(model: Model, msg: Msg) -> Model {
   case msg {
-    Incr -> model + 1
-    Decr -> model - 1
+    Incr -> Model(..model, count: model.count + 1)
+    Decr -> Model(..model, count: model.count - 1)
   }
 }
 
-fn view(model) {
-  let count = int.to_string(model)
+fn view(model: Model) -> element.Element(Msg) {
+  let count = int.to_string(model.count)
 
   div([], [
     button([on_click(Incr)], [text(" + ")]),
