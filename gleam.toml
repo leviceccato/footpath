@@ -1,4 +1,4 @@
-name = "footpath"
+name = "app"
 
 [dependencies]
 gleam_stdlib = "~> 0.36"

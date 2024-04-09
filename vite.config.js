@@ -3,14 +3,14 @@ import gleamPlugin from 'vite-gleam'
 import tailwindPlugin from '@tailwindcss/vite'
 
 export default defineConfig({
-  root: './src',
+  root: './src/app',
   clearScreen: false,
   plugins: [gleamPlugin(), tailwindPlugin()],
   server: {
     host: true,
   },
   build: {
-    outDir: '../dist',
+    outDir: '../../dist',
     emptyOutDir: true,
   },
 })
