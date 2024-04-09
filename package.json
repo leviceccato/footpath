@@ -1,12 +1,9 @@
 {
-	"name": "footpath",
+	"type": "module",
 	"scripts": {
 		"start": "vite",
-		"check": "biome check --apply .",
-		"type-check": "tsc",
 		"build": "vite build",
-		"preview": "vite preview",
-		"postinstall": "lefthook install"
+		"preview": "vite preview"
 	},
 	"dependencies": {
 		"@floating-ui/dom": "^1.6.1",

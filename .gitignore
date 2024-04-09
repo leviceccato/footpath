@@ -4,7 +4,8 @@ Icon
 .DS_Store
 
 # Vendor
-/node_modules/
+/node_modules
 
 # Built files
-/dist/
+/dist
+/build

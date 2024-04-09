@@ -25,10 +25,14 @@
       type="font/woff2"
       crossorigin
     />
-    <script src="./main.tsx" type="module"></script>
+    <link ref="stylesheet" href="./index.css" />
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script type="module">
+      import { main } from './index.gleam'
+      main()
+    </script>
   </body>
 </html>
