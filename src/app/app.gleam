@@ -7,6 +7,7 @@ import lustre/attribute.{class}
 import lustre/element/html.{button, div, p}
 import lustre/event.{on_click}
 import app/i18n
+import app/msg
 
 pub fn main(default_locale_string: String) -> Result(Nil, Nil) {
   use default_translator <- result.try(
@@ -34,25 +35,20 @@ fn init(default_translator: i18n.Translator) -> Model {
   Model(t: default_translator, count: 0)
 }
 
-type Message {
-  Incr
-  Decr
-}
-
-fn update(m: Model, message: Message) -> Model {
+fn update(m: Model, message: msg.Message) -> Model {
   case message {
-    Incr -> Model(..m, count: m.count + 1)
-    Decr -> Model(..m, count: m.count - 1)
+    msg.Incr -> Model(..m, count: m.count + 1)
+    msg.Decr -> Model(..m, count: m.count - 1)
   }
 }
 
-fn view(m: Model) -> element.Element(Message) {
+fn view(m: Model) -> element.Element(msg.Message) {
   let count = int.to_string(m.count)
 
   div([], [
-    button([on_click(Incr)], [text(" + ")]),
+    button([on_click(msg.Incr)], [text(" + ")]),
     p([class("text-red-100 block")], [text(count)]),
-    button([on_click(Decr)], [text(" - ")]),
+    button([on_click(msg.Decr)], [text(" - ")]),
     p([], [text(m.t("locale-es-es", []))]),
   ])
 }
