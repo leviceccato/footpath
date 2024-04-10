@@ -1,16 +1,16 @@
 import { defineConfig } from 'vite'
 import gleamPlugin from 'vite-gleam'
-import tailwindPlugin from '@tailwindcss/vite'
+import tailwindcssPlugin from '@tailwindcss/vite'
 
 export default defineConfig({
-  root: './src/app',
+  root: './src',
   clearScreen: false,
-  plugins: [gleamPlugin(), tailwindPlugin()],
+  plugins: [tailwindcssPlugin(), gleamPlugin()],
   server: {
     host: true,
   },
   build: {
-    outDir: '../../dist',
+    outDir: '../dist',
     emptyOutDir: true,
   },
 })

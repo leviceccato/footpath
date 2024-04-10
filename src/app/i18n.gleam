@@ -18,7 +18,7 @@ pub fn translator_from_json(
   locale_json: String,
 ) -> Result(Translator, json.DecodeError) {
   use locale <- result.try(locale_from_json(locale_json))
-  Ok(fn(key, args: List(String)) {
+  Ok(fn(key, args) {
     locale
     |> dict.get(key)
     |> result.map(fn(translator) { translator(args) })

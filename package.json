@@ -15,7 +15,7 @@
   "devDependencies": {
     "@tailwindcss/vite": "next",
     "tailwindcss": "next",
-    "vite": "^3.0.9",
+    "vite": "^5.2.8",
     "vite-gleam": "^0.4.1"
   }
 }

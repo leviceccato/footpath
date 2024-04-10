@@ -3,6 +3,7 @@ import gleam/io
 import gleam/result
 import lustre
 import lustre/element.{text}
+import lustre/attribute.{class}
 import lustre/element/html.{button, div, p}
 import lustre/event.{on_click}
 import app/i18n
@@ -50,8 +51,8 @@ fn view(m: Model) -> element.Element(Message) {
 
   div([], [
     button([on_click(Incr)], [text(" + ")]),
-    p([], [text(count)]),
+    p([class("text-red-100 block")], [text(count)]),
     button([on_click(Decr)], [text(" - ")]),
-    p([], [text(m.t("locale_es_es", []))]),
+    p([], [text(m.t("locale-es-es", []))]),
   ])
 }
