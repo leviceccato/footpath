@@ -11,5 +11,6 @@ packages = [
 ]
 
 [requirements]
-gleam_stdlib = { version = "~> 0.36"}
+gleam_json = { version = "~> 1.0"}
+gleam_stdlib = { version = "~> 0.36" }
 lustre = { version = "~> 4.1" }

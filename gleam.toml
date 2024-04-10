@@ -3,3 +3,4 @@ name = "app"
 [dependencies]
 gleam_stdlib = "~> 0.36"
 lustre = "~> 4.1"
+gleam_json = "~> 1.0"
