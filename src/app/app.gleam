@@ -1,3 +1,4 @@
+import gleam/dict
 import gleam/int
 import gleam/io
 import gleam/result
@@ -14,18 +15,25 @@ import lustre_http
 import app/i18n
 import app/msg
 
-pub fn main(base_url: String, default_locale_string: String) {
-  use default_translator <- result.try(
-    i18n.json_to_translator(default_locale_string)
+pub fn main(base_url: String, en_us_locale_string: String) {
+  use en_us_translator <- result.try(
+    i18n.json_to_translator(en_us_locale_string)
     |> result.map_error(fn(_) {
       io.println_error("Unable to parse default locale")
     }),
   )
 
+  let translators =
+    dict.new()
+    |> dict.insert("en-us", en_us_translator)
+
   let app =
     lustre.application(
       fn(_) {
-        #(Model(base_url, t: default_translator, count: 0), effect.none())
+        #(
+          Model(base_url, translators, t: en_us_translator, count: 0),
+          effect.none(),
+        )
       },
       update,
       view,
@@ -40,7 +48,12 @@ pub fn main(base_url: String, default_locale_string: String) {
 }
 
 type Model {
-  Model(base_url: String, t: i18n.Translator, count: Int)
+  Model(
+    base_url: String,
+    t: i18n.Translator,
+    translators: dict.Dict(String, i18n.Translator),
+    count: Int,
+  )
 }
 
 fn update(
@@ -50,7 +63,9 @@ fn update(
   case message {
     msg.Incr -> #(Model(..m, count: m.count + 1), effect.none())
     msg.Decr -> #(Model(..m, count: m.count - 1), effect.none())
+
     msg.UserClickedGetEsLocale -> #(m, get_es_locale(m))
+
     msg.ApiUpdatedTranslator(maybe_translator) -> {
       case maybe_translator {
         Ok(translator) -> #(
