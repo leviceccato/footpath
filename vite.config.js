@@ -1,6 +1,6 @@
+import tailwindcssPlugin from '@tailwindcss/vite'
 import { defineConfig } from 'vite'
 import gleamPlugin from 'vite-gleam'
-import tailwindcssPlugin from '@tailwindcss/vite'
 
 export default defineConfig({
   root: './src',

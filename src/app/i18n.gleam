@@ -1,49 +1,51 @@
 import gleam/dict
-import gleam/result
 import gleam/dynamic as d
 import gleam/json
-import gleam/string
 import gleam/list
+import gleam/result
+import gleam/string
 
-type TranslatorFunc =
-  fn(List(String)) -> String
-
-type Locale =
-  dict.Dict(String, TranslatorFunc)
+pub type Locale =
+  dict.Dict(String, String)
 
 pub type Translator =
   fn(String, List(String)) -> String
 
-pub fn translator_from_json(
+pub fn json_to_translator(
   locale_json: String,
 ) -> Result(Translator, json.DecodeError) {
-  use locale <- result.try(locale_from_json(locale_json))
-  Ok(fn(key, args) {
+  use static_locale <- result.try(json_to_locale(locale_json))
+  Ok(locale_to_translator(static_locale))
+}
+
+pub fn locale_to_translator(locale: Locale) -> Translator {
+  let locale =
+    dict.map_values(locale, fn(_, value) { value_to_translator_func(value) })
+
+  fn(key, args) {
     locale
     |> dict.get(key)
-    |> result.map(fn(translator) { translator(args) })
-    |> result.map(fn(value) {
-      case value {
+    |> result.map(fn(translator) {
+      case translator(args) {
         "" -> key
-        _ -> value
+        value -> value
       }
     })
     |> result.unwrap(key)
-  })
+  }
 }
 
-fn locale_from_json(locale_json: String) -> Result(Locale, json.DecodeError) {
-  use static_locale <- result.try(json.decode(
-    locale_json,
-    d.dict(d.string, d.string),
-  ))
-  Ok(
-    dict.map_values(static_locale, fn(_, value) { value_to_translator(value) }),
-  )
+pub fn locale_decoder() {
+  d.dict(d.string, d.string)
 }
 
-fn value_to_translator(value: String) -> TranslatorFunc {
+fn json_to_locale(locale_json: String) -> Result(Locale, json.DecodeError) {
+  json.decode(locale_json, locale_decoder())
+}
+
+fn value_to_translator_func(value: String) -> fn(List(String)) -> String {
   let static_segments = string.split(value, "{}")
+
   fn(args) {
     list.interleave([static_segments, args])
     |> string.join("")

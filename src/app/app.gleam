@@ -1,26 +1,38 @@
 import gleam/int
 import gleam/io
 import gleam/result
+import gleam/string
+
 import lustre
-import lustre/element.{text}
 import lustre/attribute.{class}
+import lustre/effect
+import lustre/element.{text}
 import lustre/element/html.{button, div, p}
-import lustre/event.{on_click}
+import lustre/event
+import lustre_http
+
 import app/i18n
 import app/msg
 
-pub fn main(default_locale_string: String) -> Result(Nil, Nil) {
+pub fn main(base_url: String, default_locale_string: String) {
   use default_translator <- result.try(
-    i18n.translator_from_json(default_locale_string)
+    i18n.json_to_translator(default_locale_string)
     |> result.map_error(fn(_) {
       io.println_error("Unable to parse default locale")
     }),
   )
 
-  let app = lustre.simple(init, update, view)
+  let app =
+    lustre.application(
+      fn(_) {
+        #(Model(base_url, t: default_translator, count: 0), effect.none())
+      },
+      update,
+      view,
+    )
 
   use _ <- result.try(
-    lustre.start(app, "#root", default_translator)
+    lustre.start(app, "#root", Nil)
     |> result.map_error(fn(_) { io.println_error("Failed to start app") }),
   )
 
@@ -28,17 +40,29 @@ pub fn main(default_locale_string: String) -> Result(Nil, Nil) {
 }
 
 type Model {
-  Model(t: i18n.Translator, count: Int)
+  Model(base_url: String, t: i18n.Translator, count: Int)
 }
 
-fn init(default_translator: i18n.Translator) -> Model {
-  Model(t: default_translator, count: 0)
-}
-
-fn update(m: Model, message: msg.Message) -> Model {
+fn update(
+  m: Model,
+  message: msg.Message,
+) -> #(Model, effect.Effect(msg.Message)) {
   case message {
-    msg.Incr -> Model(..m, count: m.count + 1)
-    msg.Decr -> Model(..m, count: m.count - 1)
+    msg.Incr -> #(Model(..m, count: m.count + 1), effect.none())
+    msg.Decr -> #(Model(..m, count: m.count - 1), effect.none())
+    msg.UserClickedGetEsLocale -> #(m, get_es_locale(m))
+    msg.ApiUpdatedTranslator(maybe_translator) -> {
+      case maybe_translator {
+        Ok(translator) -> #(
+          Model(..m, t: i18n.locale_to_translator(translator)),
+          effect.none(),
+        )
+        Error(error) -> {
+          io.debug("got here " <> string.inspect(error))
+          #(m, effect.none())
+        }
+      }
+    }
   }
 }
 
@@ -46,9 +70,17 @@ fn view(m: Model) -> element.Element(msg.Message) {
   let count = int.to_string(m.count)
 
   div([], [
-    button([on_click(msg.Incr)], [text(" + ")]),
-    p([class("text-red-100 block")], [text(count)]),
-    button([on_click(msg.Decr)], [text(" - ")]),
+    button([event.on_click(msg.Incr)], [text(" + ")]),
+    p([class("text-red-500 block")], [text(count)]),
+    button([event.on_click(msg.Decr)], [text(" - ")]),
     p([], [text(m.t("locale-es-es", []))]),
+    button([event.on_click(msg.UserClickedGetEsLocale)], [text("Get es locale")]),
   ])
+}
+
+fn get_es_locale(m: Model) -> effect.Effect(msg.Message) {
+  lustre_http.get(
+    m.base_url <> "/locales/es.json",
+    lustre_http.expect_json(i18n.locale_decoder(), msg.ApiUpdatedTranslator),
+  )
 }
