@@ -102,25 +102,40 @@ fn update(
 fn view(m: Model) -> element.Element(msg.Message) {
   let count = int.to_string(m.count)
 
-  div([class("h-full"), event.on("pointermove", handle_pointermove)], [
-    button([event.on_click(msg.Incr)], [text(" + ")]),
-    p([class("text-red-500 block")], [text(count)]),
-    button([event.on_click(msg.Decr)], [text(" - ")]),
-    p([], [text(m.t("locale-es-es", []))]),
-    button([event.on_click(msg.UserClickedGetEsLocale)], [text("Get es locale")]),
-    div(
-      [
-        class(
-          "fixed top-0 left-0 pointer-events-none translate-x-[var(--x)] translate-y-[var(--y)]",
-        ),
-        style([
-          #("--x", int.to_string(m.popover_x) <> "px"),
-          #("--y", int.to_string(m.popover_y) <> "px"),
-        ]),
-      ],
-      [text("Popover")],
-    ),
-  ])
+  div(
+    [
+      class("h-full"),
+      event.on("pointermove", handle_pointermove),
+      event.on("pointerout", handle_pointerout),
+    ],
+    [
+      button([event.on_click(msg.Incr)], [text(" + ")]),
+      p([class("text-red-500 block")], [text(count)]),
+      button([event.on_click(msg.Decr)], [text(" - ")]),
+      p([], [text(m.t("locale-es-es", []))]),
+      button([event.on_click(msg.UserClickedGetEsLocale)], [
+        text("Get es locale"),
+      ]),
+      div(
+        [
+          class(
+            "fixed top-0 left-0 pointer-events-none translate-x-[var(--x)] translate-y-[var(--y)]",
+          ),
+          style([
+            #("--x", int.to_string(m.popover_x) <> "px"),
+            #("--y", int.to_string(m.popover_y) <> "px"),
+          ]),
+        ],
+        [text("Popover")],
+      ),
+    ],
+  )
+}
+
+fn handle_pointerout(
+  _event: dynamic.Dynamic,
+) -> Result(msg.Message, List(dynamic.DecodeError)) {
+  Ok(msg.UserUpdatedPopoverCoods(#(0.0, 0.0)))
 }
 
 fn handle_pointermove(
