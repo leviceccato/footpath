@@ -7,4 +7,5 @@ pub type Message {
   Decr
   ApiUpdatedTranslator(Result(i18n.Locale, lustre_http.HttpError))
   UserClickedGetEsLocale
+  UserUpdatedPopoverCoods(#(Float, Float))
 }
