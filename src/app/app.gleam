@@ -21,7 +21,7 @@ import app/web
 
 const popover_width = 200
 
-const popover_height = 200
+const popover_height = 32
 
 const popover_margin = 32
 
@@ -52,8 +52,6 @@ pub fn main(base_url: String, en_us_locale_string: String) {
             count: 0,
             popover_x: 0,
             popover_y: 0,
-            popover_width: 0.0,
-            popover_height: 0.0,
             popover_content: "This is the popover content",
           ),
           effect.none(),
@@ -79,8 +77,6 @@ type Model {
     count: Int,
     popover_x: Int,
     popover_y: Int,
-    popover_width: Float,
-    popover_height: Float,
     popover_content: String,
   )
 }
@@ -178,7 +174,7 @@ fn view(m: Model) -> element.Element(msg.Message) {
               div(
                 [
                   class(
-                    "whitespace-nowrap p-3 animate-[slide_2s_linear_infinite]",
+                    "whitespace-nowrap p-0.5 animate-[slide_3s_linear_infinite]",
                   ),
                 ],
                 [text(m.popover_content)],
