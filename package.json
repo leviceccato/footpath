@@ -6,16 +6,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@floating-ui/dom": "^1.6.1",
     "codemirror": "^6.0.1",
-    "idb": "^7.1.1",
     "polished": "^4.2.2",
     "simplebar": "^5.3.9"
   },
   "devDependencies": {
     "@tailwindcss/vite": "next",
-    "tailwindcss": "next",
+    "tailwindcss": "^4.0.0-alpha.14",
     "vite": "^5.2.8",
-    "vite-gleam": "^0.4.1"
+    "vite-gleam": "^0.4.2"
   }
 }
