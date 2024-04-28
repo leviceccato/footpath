@@ -8,10 +8,10 @@ import gleam/result
 import gleam/string
 
 import lustre
-import lustre/attribute.{class, id, style}
+import lustre/attribute.{class, style}
 import lustre/effect
 import lustre/element.{text}
-import lustre/element/html.{button, div, p}
+import lustre/element/html.{button, div}
 import lustre/event
 import lustre_http
 
@@ -49,7 +49,6 @@ pub fn main(base_url: String, en_us_locale_string: String) {
             base_url,
             translators,
             t: en_us_translator,
-            count: 0,
             popover_x: 0,
             popover_y: 0,
             popover_content: "This is the popover content",
@@ -74,7 +73,6 @@ type Model {
     base_url: String,
     t: i18n.Translator,
     translators: dict.Dict(String, i18n.Translator),
-    count: Int,
     popover_x: Int,
     popover_y: Int,
     popover_content: String,
@@ -86,9 +84,6 @@ fn update(
   message: msg.Message,
 ) -> #(Model, effect.Effect(msg.Message)) {
   case message {
-    msg.Incr -> #(Model(..m, count: m.count + 1), effect.none())
-    msg.Decr -> #(Model(..m, count: m.count - 1), effect.none())
-
     msg.UserClickedGetEsLocale -> #(m, get_es_locale(m))
 
     msg.UserUpdatedPopoverCoods(#(x, y)) -> {
@@ -135,26 +130,27 @@ fn update(
 }
 
 fn view(m: Model) -> element.Element(msg.Message) {
-  let count = int.to_string(m.count)
-
   div(
     [
-      id("root"),
-      class("h-full"),
+      class("h-full p-6"),
       event.on("pointermove", handle_pointermove),
       event.on("pointerout", handle_pointerout),
     ],
     [
-      button([event.on_click(msg.Incr)], [text(" + ")]),
-      p([class("text-red-500 block")], [text(count)]),
-      button([event.on_click(msg.Decr)], [text(" - ")]),
-      p([], [text(m.t("locale-es-es", []))]),
       button([event.on_click(msg.UserClickedGetEsLocale)], [
         text("Get es locale"),
       ]),
+      div([class("mt-6 w-[200px] h-[400px] border")], [
+        scroll_view(
+          div([class("p-2")], [
+            text(
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras semper mi ac dolor fermentum, in aliquet orci lobortis. Proin non lacinia lacus, a pulvinar turpis. Integer neque quam, pulvinar at pulvinar nec, commodo at ex. Vestibulum viverra finibus molestie. Sed rhoncus id nisi ac pharetra. Quisque pulvinar ex lobortis efficitur mattis. Etiam dapibus fringilla nibh vel sollicitudin. Sed a eros dui. Aenean sed sodales quam. Suspendisse aliquam diam ipsum, sed vulputate justo sollicitudin et. Mauris euismod ullamcorper nibh quis sodales. Proin suscipit nunc ac lectus fermentum, eu gravida mi scelerisque. Proin diam felis, fringilla eget mattis ut, sollicitudin sit amet nunc. Aenean vulputate elit metus, quis molestie lacus finibus vel. Morbi dui ex, pellentesque in commodo nec, porttitor lobortis justo. Nunc ac dolor sit amet mi interdum tempus at non nisl.",
+            ),
+          ]),
+        ),
+      ]),
       div(
         [
-          id("popover"),
           class(
             "overflow-x-hidden fixed border top-0 left-0 pointer-events-none translate-x-[var(--x)] translate-y-[var(--y)]",
           ),
@@ -205,4 +201,10 @@ fn get_es_locale(m: Model) -> effect.Effect(msg.Message) {
     m.base_url <> "/locales/es.json",
     lustre_http.expect_json(i18n.locale_decoder(), msg.ApiUpdatedTranslator),
   )
+}
+
+fn scroll_view(
+  children: element.Element(msg.Message),
+) -> element.Element(msg.Message) {
+  div([class("scroll-view overflow-auto max-w-full max-h-full")], [children])
 }

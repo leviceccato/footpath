@@ -6,9 +6,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "codemirror": "^6.0.1",
-    "polished": "^4.2.2",
-    "simplebar": "^5.3.9"
+    "codemirror": "^6.0.1"
   },
   "devDependencies": {
     "@tailwindcss/vite": "next",
