@@ -7,10 +7,7 @@
 }
 
 .scroll-view {
-  --default-scrollbar-thumb-color: var(
-    --scrollbar-thumb-color,
-    rgb(217, 217, 217)
-  );
+  --default-scrollbar-thumb-color: var(--scrollbar-thumb-color, #d3d3d3);
   --default-scrollbar-track-color: var(--scrollbar-track-color, white);
   --scrollbar-width: thin;
   --scrollbar-width-legacy: 10px;
@@ -21,6 +18,7 @@
     scrollbar-color: var(--default-scrollbar-thumb-color)
       var(--default-scrollbar-track-color);
     scrollbar-width: var(--scrollbar-width);
+    scrollbar-gutter: stable;
   }
 }
 
