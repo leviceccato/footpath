@@ -7,6 +7,7 @@ import gleam/list
 import gleam/result
 import gleam/string
 
+import gleam_community/colour
 import lustre
 import lustre/attribute.{class, style}
 import lustre/effect
@@ -52,6 +53,7 @@ pub fn main(base_url: String, en_us_locale_string: String) {
             popover_x: 0,
             popover_y: 0,
             popover_content: "This is the popover content",
+            preview_bg_color: colour.white,
           ),
           effect.none(),
         )
@@ -76,6 +78,7 @@ type Model {
     popover_x: Int,
     popover_y: Int,
     popover_content: String,
+    preview_bg_color: colour.Color,
   )
 }
 
@@ -207,4 +210,8 @@ fn scroll_view(
   children: element.Element(msg.Message),
 ) -> element.Element(msg.Message) {
   div([class("scroll-view overflow-auto max-w-full max-h-full")], [children])
+}
+
+fn color_picker_view() -> element.Element(msg.Message) {
+  todo
 }
