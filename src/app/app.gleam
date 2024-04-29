@@ -12,7 +12,7 @@ import lustre
 import lustre/attribute.{class, style}
 import lustre/effect
 import lustre/element.{text}
-import lustre/element/html.{button, div}
+import lustre/element/html.{button, canvas, div}
 import lustre/event
 import lustre_http
 
@@ -54,6 +54,7 @@ pub fn main(base_url: String, en_us_locale_string: String) {
             popover_y: 0,
             popover_content: "This is the popover content",
             preview_bg_color: colour.white,
+            is_preview_picker_shown: False,
           ),
           effect.none(),
         )
@@ -79,6 +80,7 @@ type Model {
     popover_y: Int,
     popover_content: String,
     preview_bg_color: colour.Color,
+    is_preview_picker_shown: Bool,
   )
 }
 
@@ -187,15 +189,15 @@ fn view(m: Model) -> element.Element(msg.Message) {
 }
 
 fn handle_pointerout(
-  _event: dynamic.Dynamic,
+  _ev: dynamic.Dynamic,
 ) -> Result(msg.Message, List(dynamic.DecodeError)) {
   Ok(msg.UserUpdatedPopoverCoods(#(0.0, 0.0)))
 }
 
 fn handle_pointermove(
-  event: dynamic.Dynamic,
+  ev: dynamic.Dynamic,
 ) -> Result(msg.Message, List(dynamic.DecodeError)) {
-  event.mouse_position(event)
+  event.mouse_position(ev)
   |> result.map(msg.UserUpdatedPopoverCoods)
 }
 
@@ -212,6 +214,17 @@ fn scroll_view(
   div([class("scroll-view overflow-auto max-w-full max-h-full")], [children])
 }
 
-fn color_picker_view() -> element.Element(msg.Message) {
+fn handle_picker_pointerdown(
+  ev: dynamic.Dynamic,
+) -> Result(msg.Message, List(dynamic.DecodeError)) {
+  event.prevent_default(ev)
+  event.stop_propagation(ev)
   todo
+}
+
+fn color_picker_view() -> element.Element(msg.Message) {
+  canvas([
+    event.on("pointerdown", handle_picker_pointerdown),
+    class("block aspect-1 w-full"),
+  ])
 }
