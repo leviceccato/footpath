@@ -12,7 +12,7 @@ import lustre
 import lustre/attribute.{class, style}
 import lustre/effect
 import lustre/element.{text}
-import lustre/element/html.{button, canvas, div}
+import lustre/element/html.{button, div}
 import lustre/event
 import lustre_http
 
@@ -212,19 +212,4 @@ fn scroll_view(
   children: element.Element(msg.Message),
 ) -> element.Element(msg.Message) {
   div([class("scroll-view overflow-auto max-w-full max-h-full")], [children])
-}
-
-fn handle_picker_pointerdown(
-  ev: dynamic.Dynamic,
-) -> Result(msg.Message, List(dynamic.DecodeError)) {
-  event.prevent_default(ev)
-  event.stop_propagation(ev)
-  todo
-}
-
-fn color_picker_view() -> element.Element(msg.Message) {
-  canvas([
-    event.on("pointerdown", handle_picker_pointerdown),
-    class("block aspect-1 w-full"),
-  ])
 }
