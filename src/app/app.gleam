@@ -222,15 +222,15 @@ fn view(m: model.Model) -> element.Element(msg.Message) {
             // Need to add a few here so there are no blank spaces in the animation
             list.range(0, 4)
               |> list.map(fn(_) {
-              div(
-                [
-                  class(
-                    "whitespace-nowrap p-0.5 animate-[slide_3s_linear_infinite]",
-                  ),
-                ],
-                [text(m.popover_content)],
-              )
-            }),
+                div(
+                  [
+                    class(
+                      "whitespace-nowrap p-0.5 animate-[slide_3s_linear_infinite]",
+                    ),
+                  ],
+                  [text(m.popover_content)],
+                )
+              }),
           ),
         ],
       ),
