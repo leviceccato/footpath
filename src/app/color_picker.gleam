@@ -130,11 +130,11 @@ fn position_to_color(position: #(Float, Float)) -> Result(colour.Color, Nil) {
   let saturation = x /. size_float
   let value = { size_float -. y } /. size_float
 
-  from_hsva(0.0, saturation, value, 1.0)
+  hsv_to_color(0.0, saturation, value)
 }
 
 fn color_to_position(color: colour.Color) -> #(Float, Float) {
-  let #(_, saturation, value, _) = to_hsva(color)
+  let #(_, saturation, value) = color_to_hsv(color)
 
   let size_float = int.to_float(size)
 
@@ -144,8 +144,8 @@ fn color_to_position(color: colour.Color) -> #(Float, Float) {
   #(x, y)
 }
 
-fn to_hsva(color: colour.Color) -> #(Float, Float, Float, Float) {
-  let #(hue, saturation, lightness, alpha) = colour.to_hsla(color)
+fn color_to_hsv(color: colour.Color) -> #(Float, Float, Float) {
+  let #(hue, saturation, lightness, _) = colour.to_hsla(color)
 
   let value = lightness +. saturation *. float.min(lightness, 1.0 -. lightness)
 
@@ -154,14 +154,13 @@ fn to_hsva(color: colour.Color) -> #(Float, Float, Float, Float) {
     _ -> 2.0 *. { 1.0 -. lightness /. value }
   }
 
-  #(hue, saturation, value, alpha)
+  #(hue, saturation, value)
 }
 
-fn from_hsva(
+fn hsv_to_color(
   hue: Float,
   saturation: Float,
   value: Float,
-  alpha: Float,
 ) -> Result(colour.Color, Nil) {
   let lightness = value *. { 1.0 -. saturation /. 2.0 }
 
@@ -169,7 +168,6 @@ fn from_hsva(
     0.0 | 1.0 -> saturation
     _ -> { value -. lightness } /. float.min(lightness, 1.0 -. lightness)
   }
-  io.debug(#(hue, saturation, lightness, alpha))
 
-  colour.from_hsla(hue, saturation, lightness, alpha)
+  colour.from_hsla(hue, saturation, lightness, 1.0)
 }
