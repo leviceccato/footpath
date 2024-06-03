@@ -6,10 +6,7 @@ import { App } from '@/components/App'
 import 'modern-normalize/modern-normalize.css'
 import { render } from 'solid-js/web'
 
-const rootId = 'root'
-const root = document.getElementById(rootId)
-if (!root) {
-	console.error(`Failed to mount app, no element with id '${rootId}' found`)
-} else {
+const root = document.getElementById('root')
+if (root) {
 	render(() => <App />, root)
 }
