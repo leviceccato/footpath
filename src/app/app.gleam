@@ -9,14 +9,16 @@ import gleam/string
 
 import gleam_community/colour
 import lustre
-import lustre/attribute.{class, style}
+import lustre/attribute.{alt, class, id, src, style}
 import lustre/effect
 import lustre/element.{text}
-import lustre/element/html.{button, div}
+import lustre/element/html.{button, div, img}
 import lustre/event
 import lustre_http
 
+import app/color_picker
 import app/i18n
+import app/model
 import app/msg
 import app/web
 
@@ -29,6 +31,8 @@ const popover_margin = 32
 const pointer_safe_width = 32
 
 const pointer_safe_height = 32
+
+const preview_color_picker_id = "preview_picker"
 
 pub fn main(base_url: String, en_us_locale_string: String) {
   use en_us_translator <- result.try(
@@ -46,7 +50,7 @@ pub fn main(base_url: String, en_us_locale_string: String) {
     lustre.application(
       fn(_) {
         #(
-          Model(
+          model.Model(
             base_url,
             translators,
             t: en_us_translator,
@@ -54,7 +58,10 @@ pub fn main(base_url: String, en_us_locale_string: String) {
             popover_y: 0,
             popover_content: "This is the popover content",
             preview_bg_color: colour.white,
-            is_preview_picker_shown: False,
+            preview_picker: model.ColorPicker(
+              is_shown: False,
+              sv_range_coords: #(0, 0),
+            ),
           ),
           effect.none(),
         )
@@ -71,24 +78,44 @@ pub fn main(base_url: String, en_us_locale_string: String) {
   Ok(Nil)
 }
 
-type Model {
-  Model(
-    base_url: String,
-    t: i18n.Translator,
-    translators: dict.Dict(String, i18n.Translator),
-    popover_x: Int,
-    popover_y: Int,
-    popover_content: String,
-    preview_bg_color: colour.Color,
-    is_preview_picker_shown: Bool,
-  )
-}
-
 fn update(
-  m: Model,
+  m: model.Model,
   message: msg.Message,
-) -> #(Model, effect.Effect(msg.Message)) {
+) -> #(model.Model, effect.Effect(msg.Message)) {
   case message {
+    msg.DoNothing -> #(m, effect.none())
+
+    msg.UserToggledPreviewPicker(True) -> #(
+      model.Model(
+        ..m,
+        preview_picker: model.ColorPicker(..m.preview_picker, is_shown: True),
+      ),
+      color_picker.init(preview_color_picker_id),
+    )
+    msg.UserToggledPreviewPicker(False) -> #(
+      model.Model(
+        ..m,
+        preview_picker: model.ColorPicker(..m.preview_picker, is_shown: False),
+      ),
+      color_picker.destroy(preview_color_picker_id),
+    )
+
+    msg.DomUpdatedPreviewSvRangeCoords(coords) -> #(
+      model.Model(
+        ..m,
+        preview_picker: model.ColorPicker(
+          ..m.preview_picker,
+          sv_range_coords: coords,
+        ),
+      ),
+      effect.none(),
+    )
+
+    msg.UserUpdatedPreviewBgColor(color) -> #(
+      model.Model(..m, preview_bg_color: color),
+      effect.none(),
+    )
+
     msg.UserClickedGetEsLocale -> #(m, get_es_locale(m))
 
     msg.UserUpdatedPopoverCoods(#(x, y)) -> {
@@ -116,13 +143,16 @@ fn update(
             - popover_height,
         )
 
-      #(Model(..m, popover_x: clamped_x, popover_y: clamped_y), effect.none())
+      #(
+        model.Model(..m, popover_x: clamped_x, popover_y: clamped_y),
+        effect.none(),
+      )
     }
 
     msg.ApiUpdatedTranslator(maybe_translator) -> {
       case maybe_translator {
         Ok(translator) -> #(
-          Model(..m, t: i18n.locale_to_translator(translator)),
+          model.Model(..m, t: i18n.locale_to_translator(translator)),
           effect.none(),
         )
         Error(error) -> {
@@ -134,7 +164,7 @@ fn update(
   }
 }
 
-fn view(m: Model) -> element.Element(msg.Message) {
+fn view(m: model.Model) -> element.Element(msg.Message) {
   div(
     [
       class("h-full p-6"),
@@ -142,6 +172,14 @@ fn view(m: Model) -> element.Element(msg.Message) {
       event.on("pointerout", handle_pointerout),
     ],
     [
+      // This is a hack to allow hidden drag previews. Specifically for the color picker.
+      img([
+        id("empty-image"),
+        alt(""),
+        src(
+          "data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=",
+        ),
+      ]),
       button([event.on_click(msg.UserClickedGetEsLocale)], [
         text("Get es locale"),
       ]),
@@ -154,6 +192,18 @@ fn view(m: Model) -> element.Element(msg.Message) {
           ]),
         ),
       ]),
+      button(
+        [
+          event.on_click(msg.UserToggledPreviewPicker(
+            !m.preview_picker.is_shown,
+          )),
+        ],
+        [text("Toggle color picker")],
+      ),
+      case m.preview_picker.is_shown {
+        True -> color_picker.view(m.preview_bg_color, preview_color_picker_id)
+        False -> element.none()
+      },
       div(
         [
           class(
@@ -201,7 +251,7 @@ fn handle_pointermove(
   |> result.map(msg.UserUpdatedPopoverCoods)
 }
 
-fn get_es_locale(m: Model) -> effect.Effect(msg.Message) {
+fn get_es_locale(m: model.Model) -> effect.Effect(msg.Message) {
   lustre_http.get(
     m.base_url <> "/locales/es.json",
     lustre_http.expect_json(i18n.locale_decoder(), msg.ApiUpdatedTranslator),

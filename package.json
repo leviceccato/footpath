@@ -6,11 +6,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "codemirror": "^6.0.1"
+    "codemirror": "^6.0.1",
+    "tailwindcss": "^4.0.0-alpha.14"
   },
   "devDependencies": {
     "@tailwindcss/vite": "next",
-    "tailwindcss": "^4.0.0-alpha.14",
     "vite": "^5.2.8",
     "vite-gleam": "^0.4.2"
   }
