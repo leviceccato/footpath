@@ -47,3 +47,6 @@ pub fn set_data_transfer_drag_image(
   width: Int,
   height: Int,
 ) -> Nil
+
+@external(javascript, "../web.ffi.js", "generateUid")
+pub fn generate_uid() -> String

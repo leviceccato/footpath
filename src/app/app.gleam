@@ -16,11 +16,12 @@ import lustre/element/html.{button, div, img}
 import lustre/event
 import lustre_http
 
-import app/color_picker
 import app/i18n
 import app/model
 import app/msg
 import app/web
+
+// Constants
 
 const popover_width = 200
 
@@ -33,6 +34,8 @@ const pointer_safe_width = 32
 const pointer_safe_height = 32
 
 const preview_color_picker_id = "preview_picker"
+
+// Main
 
 pub fn main(base_url: String, en_us_locale_string: String) {
   use en_us_translator <- result.try(

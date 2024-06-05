@@ -3,6 +3,7 @@ import gleam/dict
 import gleam_community/colour
 
 import app/i18n
+import app/util
 
 pub type ColorPicker {
   ColorPicker(is_shown: Bool, sv_range_coords: #(Int, Int))
@@ -16,7 +17,6 @@ pub type Model {
     popover_x: Int,
     popover_y: Int,
     popover_content: String,
-    preview_bg_color: colour.Color,
-    preview_picker: ColorPicker,
+    preview_bg_color: util.Hsl,
   )
 }

@@ -1,5 +1,15 @@
 @import 'tailwindcss';
 
+@theme {
+  --font-family-body: 'IBM Plex Sans', 'sans-serif';
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-weight: 500;
+  src: url('/fonts/IBMPlexSans-Medium.woff2') format('woff2');
+}
+
 @keyframes slide {
   100% {
     transform: translateX(-100%);
