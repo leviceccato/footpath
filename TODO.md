@@ -12,7 +12,6 @@ A list of complete and incomplete tasks to track progress.
 - Optimise computed values to potentially use createMemo across codebase
 - Add hex input for colour
 - Prevent Escape from closing Popover if focus doesn't change
-- Deploy to Netlify and update docs
 - Add Footpath branding
 - Fix escape on main menu not refocusing menu button
 
@@ -22,6 +21,7 @@ A list of complete and incomplete tasks to track progress.
 
 ## Done (most recent to oldest)
 
+- Deploy to Netlify and update docs
 - Fix MenuChild hovering. How to keep parent active when child is hovered? Context? Managing all elements in root element? Something else?
 - Make "thin 1px lines" DPR indepedent (always 1px, ignore browser zoom)
 - Rename to Footpath
