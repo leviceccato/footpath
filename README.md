@@ -63,6 +63,10 @@ bun test
 
 Rather than using individual component testing this project instead relies on E2E testing through Playwright to test complex UI interactions and flows. Currently, this is not implemented as the main flows are interactions in the app are yet to be resolved.
 
+## Deployment
+
+This app is hosted on Netlify. Commits to `main` will trigger a deploy.
+
 ## Licenses
 
 All non-third-party source code is licensed under the [MIT license](http://opensource.org/licenses/mit-license.php).
