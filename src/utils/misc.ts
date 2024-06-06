@@ -76,12 +76,12 @@ export function debounce<TArgs extends unknown[]>(
 	delay: number,
 	func: (...args: TArgs) => unknown,
 ): (...args: TArgs) => void {
-	let timer: number | undefined = undefined
+	let timer: ReturnType<typeof setTimeout> | undefined = undefined
 
 	function debounced(...args: TArgs): void {
 		clearTimeout(timer)
 
-		timer = window.setTimeout(() => {
+		timer = setTimeout(() => {
 			func(...args)
 			timer = undefined
 		}, delay)
