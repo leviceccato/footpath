@@ -26,25 +26,6 @@ function createThemeContext() {
 			initialValue: false,
 		})
 
-		const dprMedia = window.matchMedia(
-			`(resolution: ${window.devicePixelRatio}dppx)`,
-		)
-		const [dpr, setDpr] = createSignal(window.devicePixelRatio)
-
-		useEventListener({
-			target: dprMedia,
-			eventName: 'change',
-			listener: (event: MediaQueryListEvent) => {
-				if (event.matches) {
-					setDpr(window.devicePixelRatio)
-				}
-			},
-		})
-
-		const dpriUnit = () => {
-			return `calc(1px * ${dpr()})`
-		}
-
 		const prefersDarkMedia = window.matchMedia('(prefers-color-scheme: dark)')
 		const [prefersDark, setPrefersDark] = createSignal(prefersDarkMedia.matches)
 
@@ -95,7 +76,7 @@ function createThemeContext() {
 				setUseSystem,
 				class: css.colours,
 				vars: assignInlineVars({
-					[css.dpriUnitVar]: dpriUnit(),
+					[css.dpriUnitVar]: '1px',
 					[css.colourBaseVar]: createColour(1),
 					[css.colourBase50Var]: createColour(0.95),
 					[css.colourBase100Var]: createColour(0.9),
