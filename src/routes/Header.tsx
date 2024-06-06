@@ -28,7 +28,12 @@ export const Header: Component = () => {
 
 	return (
 		<header class={css.root}>
-			<IconButton refSignal={menuRefSignal} name="menu" tooltip={t('menu')} />
+			<IconButton
+				refSignal={menuRefSignal}
+				class={css.headerButton}
+				name="menu"
+				tooltip={t('menu')}
+			/>
 			<Menu elementRef={menuRefSignal} state={menuStateSignal}>
 				<>
 					<MenuButton startIconName="check">Hello</MenuButton>
@@ -84,7 +89,7 @@ export const Header: Component = () => {
 			<IconButton
 				name="add"
 				tooltip={t('documentNew')}
-				class={css.addTabButton}
+				class={css.headerButton}
 				onClick={() => codeDocuments.create(t('untitled'))}
 			/>
 		</header>

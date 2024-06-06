@@ -2,10 +2,8 @@ import * as themeCss from '@/providers/Theme.css'
 import { style } from '@vanilla-extract/css'
 
 export const button = style({
-	margin: 4,
 	borderRadius: 4,
 	padding: 6,
-	minWidth: 32,
 	display: 'flex',
 	justifyContent: 'center',
 	alignItems: 'center',

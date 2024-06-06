@@ -140,7 +140,7 @@ export const closeTabIcon = style({
 	width: 16,
 })
 
-export const addTabButton = style({
+export const headerButton = style({
 	margin: 4,
 	borderRadius: 4,
 	padding: 6,
@@ -151,10 +151,6 @@ export const addTabButton = style({
 	':hover': {
 		backgroundColor: themeCss.colour100Var,
 	},
-})
-
-export const addTabIcon = style({
-	width: 16,
 })
 
 export const menuContainer = style({})
