@@ -1,5 +1,5 @@
+import { debounce } from '@/utils/misc'
 import { type IDBPDatabase, openDB } from 'idb'
-import { debounce } from 'radash'
 
 type RequestInit = {
 	type: 'init'
@@ -86,7 +86,7 @@ function get(): void {
 	})
 }
 
-const set = debounce({ delay: 200 }, (data: unknown): void => {
+const set = debounce(200, (data: unknown): void => {
 	dbPromise?.then(async (db) => {
 		await db.put(storeName, data, keyName)
 

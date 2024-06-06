@@ -71,3 +71,21 @@ export function roundByDpr(value: number): number {
 	const dpr = window.devicePixelRatio
 	return Math.round(value * dpr) / dpr
 }
+
+export function debounce<TArgs extends unknown[]>(
+	delay: number,
+	func: (...args: TArgs) => unknown,
+): (...args: TArgs) => void {
+	let timer: number | undefined = undefined
+
+	function debounced(...args: TArgs): void {
+		clearTimeout(timer)
+
+		timer = window.setTimeout(() => {
+			func(...args)
+			timer = undefined
+		}, delay)
+	}
+
+	return debounced
+}
