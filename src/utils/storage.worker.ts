@@ -1,26 +1,24 @@
 import { debounce } from '@/utils/misc'
 import { type IDBPDatabase, openDB } from 'idb'
 
+export type StorageRequest = RequestInit | RequestGet | RequestSet
+
 type RequestInit = {
 	type: 'init'
-	payload: {
-		name: string
-		version: number
-	}
+	name: string
+	version: number
 }
 
 type RequestSet = {
 	type: 'set'
-	payload: {
-		data: unknown
-	}
+	data: unknown
 }
 
 type RequestGet = {
 	type: 'get'
 }
 
-export type StorageRequest = RequestInit | RequestGet | RequestSet
+export type StorageResponse = ResponseInit | ResponseGet | ResponseSet
 
 type ResponseInit = {
 	type: 'init'
@@ -28,32 +26,28 @@ type ResponseInit = {
 
 type ResponseGet = {
 	type: 'get'
-	payload: {
-		data: unknown
-	}
+	data: unknown
 }
 
 type ResponseSet = {
 	type: 'set'
 }
 
-export type StorageResponse = ResponseInit | ResponseGet | ResponseSet
-
 const storeName = 'data'
 const keyName = 'value'
 
 let dbPromise: Promise<IDBPDatabase<unknown>> | undefined
 
-self.onmessage = ({ data }: MessageEvent<StorageRequest>) => {
-	switch (data.type) {
+self.onmessage = (event: MessageEvent<StorageRequest>) => {
+	switch (event.data.type) {
 		case 'init':
-			init(data.payload.name, data.payload.version)
+			init(event.data.name, event.data.version)
 			break
 		case 'get':
 			get()
 			break
 		case 'set':
-			set(data.payload.data)
+			set(event.data.data)
 			break
 	}
 }
@@ -79,9 +73,7 @@ function get(): void {
 
 		respond({
 			type: 'get',
-			payload: {
-				data,
-			},
+			data,
 		})
 	})
 }

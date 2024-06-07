@@ -39,17 +39,15 @@ export function createClientStore<TValue>(rawProps: {
 							resolve(worker)
 							break
 						case 'get':
-							setStore({ value: data.payload.data as TValue })
+							setStore({ value: data.data as TValue })
 							break
 					}
 				}
 
 				request(worker, {
 					type: 'init',
-					payload: {
-						name: props.name,
-						version: props.version,
-					},
+					name: props.name,
+					version: props.version,
 				})
 			})
 
@@ -60,9 +58,7 @@ export function createClientStore<TValue>(rawProps: {
 					workerPromise.then((worker) => {
 						request(worker, {
 							type: 'set',
-							payload: {
-								data,
-							},
+							data,
 						})
 					})
 				})
