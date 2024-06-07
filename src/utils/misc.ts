@@ -76,7 +76,7 @@ export function debounce<TArgs extends unknown[]>(
 	delay: number,
 	func: (...args: TArgs) => unknown,
 ): (...args: TArgs) => void {
-	let timer: ReturnType<typeof setTimeout> | undefined = undefined
+	let timer: ReturnType<typeof setTimeout> | undefined
 
 	function debounced(...args: TArgs): void {
 		clearTimeout(timer)
