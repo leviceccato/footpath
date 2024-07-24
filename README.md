@@ -10,7 +10,7 @@ A tool to help with editing, viewing and optimising SVGs. It is an SPA built wit
 ### Requirements
 
 - Bun 1
-- Gleam 1.2
+- Gleam 1.3
 
 ### Development
 
