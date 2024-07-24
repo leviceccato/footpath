@@ -1,4 +1,4 @@
-import { Error, Ok } from './gleam.mjs'
+import { Error as GleamError, Ok } from './gleam.mjs'
 
 export function getDocumentElement() {
   return document.documentElement
@@ -23,7 +23,7 @@ export function requestAnimationFrame(callback) {
 export function querySelector(selectors) {
   const element = document.querySelector(selectors)
   if (!element) {
-    return new Error()
+    return new GleamError()
   }
 
   return new Ok(element)
@@ -31,7 +31,7 @@ export function querySelector(selectors) {
 
 export function getEventDataTransfer(event) {
   if (!event.dataTransfer) {
-    return new Error()
+    return new GleamError()
   }
 
   return new Ok(event.dataTransfer)
