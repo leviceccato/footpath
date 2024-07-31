@@ -16,6 +16,7 @@ import {
 	Show,
 	type Signal,
 	createEffect,
+	createMemo,
 	createRoot,
 	createSignal,
 	createUniqueId,
@@ -159,9 +160,9 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 		return state()?.isShown ? 'shown' : 'hidden'
 	}
 
-	const portalMount = () => portal.mounts().get(props.mount)
+	const portalMount = createMemo(() => portal.mounts().get(props.mount))
 
-	const element = () => {
+	const element = createMemo(() => {
 		const virtualElement = props.virtualElement?.()
 		if (virtualElement) {
 			return virtualElement
@@ -172,7 +173,7 @@ export const Popover: ParentComponent<PopoverProps> = (rawProps) => {
 		}
 
 		return props.elementRef[0]()
-	}
+	})
 
 	function setPopoverShown(to: boolean): void {
 		popoverStore.setIsShown(id, to)

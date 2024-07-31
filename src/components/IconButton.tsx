@@ -5,7 +5,7 @@ import { VisuallyHidden } from '@/components/VisuallyHidden'
 import { type IconName, useIcons } from '@/providers/Icons'
 import { sleep } from '@/utils/misc'
 import type { VirtualElement } from '@floating-ui/dom'
-import { type Component, createSignal } from 'solid-js'
+import { type Component, createMemo, createSignal } from 'solid-js'
 import * as css from './IconButton.css'
 
 const CURSOR_SIZE = 32
@@ -24,9 +24,9 @@ export const IconButton: Component<{
 	const [virtualElement, setVirtualElement] = createSignal<VirtualElement>()
 	const refSignal = createSignal<HTMLButtonElement>()
 
-	const refSignalOrProp = () => {
+	const refSignalOrProp = createMemo(() => {
 		return props.refSignal ?? refSignal
-	}
+	})
 
 	function updateVirtualElement(event: MouseEvent): void {
 		setVirtualElement({

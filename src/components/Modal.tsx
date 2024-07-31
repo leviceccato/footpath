@@ -3,7 +3,13 @@ import { Text } from '@/components/Text'
 import { FocusTrap } from '@/providers/FocusTrap'
 import { useI18n } from '@/providers/I18n'
 import { usePortal } from '@/providers/Portal'
-import { type ParentComponent, Show, type Signal, createEffect } from 'solid-js'
+import {
+	type ParentComponent,
+	Show,
+	type Signal,
+	createEffect,
+	createMemo,
+} from 'solid-js'
 import { Portal } from 'solid-js/web'
 import * as css from './Modal.css'
 
@@ -21,7 +27,7 @@ export const Modal: ParentComponent<ModalProps> = (props) => {
 
 	let containerRef: HTMLDivElement | undefined
 
-	const modal = () => mounts().get('modal')
+	const modal = createMemo(() => mounts().get('modal'))
 
 	createEffect(() => {
 		if (isShown()) {

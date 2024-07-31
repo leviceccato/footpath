@@ -7,6 +7,7 @@ import type { HslColor, HslaColor } from 'polished/lib/types/color'
 import {
 	type ParentComponent,
 	createContext,
+	createMemo,
 	createRoot,
 	createSignal,
 	useContext,
@@ -37,7 +38,7 @@ function createThemeContext() {
 			},
 		})
 
-		const _colour = () => {
+		const _colour = createMemo(() => {
 			if (!useSystem().value) {
 				return colour().value
 			}
@@ -45,14 +46,15 @@ function createThemeContext() {
 				return colourDark
 			}
 			return colourLight
-		}
+		})
 
-		const readable = () =>
+		const readable = createMemo(() =>
 			readableColor(
 				hslToColorString(_colour()),
 				hslToColorString(colourDark),
 				hslToColorString(colourLight),
-			)
+			),
+		)
 
 		const isColourLight = () => readable() === hslToColorString(colourLight)
 
