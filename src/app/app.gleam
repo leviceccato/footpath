@@ -7,7 +7,6 @@ import gleam/list
 import gleam/result
 import gleam/string
 
-import gleam_community/colour
 import lustre
 import lustre/attribute.{alt, class, id, src, style}
 import lustre/effect
@@ -33,7 +32,7 @@ const pointer_safe_width = 32
 
 const pointer_safe_height = 32
 
-const preview_color_picker_id = "preview_picker"
+// const preview_color_picker_id = "preview_picker"
 
 // Main
 
@@ -60,11 +59,7 @@ pub fn main(base_url: String, en_us_locale_string: String) {
             popover_x: 0,
             popover_y: 0,
             popover_content: "This is the popover content",
-            preview_bg_color: colour.white,
-            preview_picker: model.ColorPicker(
-              is_shown: False,
-              sv_range_coords: #(0, 0),
-            ),
+            preview_bg_color: #(0.1, 0.1, 0.1),
           ),
           effect.none(),
         )
@@ -88,37 +83,34 @@ fn update(
   case message {
     msg.DoNothing -> #(m, effect.none())
 
-    msg.UserToggledPreviewPicker(True) -> #(
-      model.Model(
-        ..m,
-        preview_picker: model.ColorPicker(..m.preview_picker, is_shown: True),
-      ),
-      color_picker.init(preview_color_picker_id),
-    )
-    msg.UserToggledPreviewPicker(False) -> #(
-      model.Model(
-        ..m,
-        preview_picker: model.ColorPicker(..m.preview_picker, is_shown: False),
-      ),
-      color_picker.destroy(preview_color_picker_id),
-    )
-
-    msg.DomUpdatedPreviewSvRangeCoords(coords) -> #(
-      model.Model(
-        ..m,
-        preview_picker: model.ColorPicker(
-          ..m.preview_picker,
-          sv_range_coords: coords,
-        ),
-      ),
-      effect.none(),
-    )
-
-    msg.UserUpdatedPreviewBgColor(color) -> #(
-      model.Model(..m, preview_bg_color: color),
-      effect.none(),
-    )
-
+    // msg.UserToggledPreviewPicker(True) -> #(
+    //   model.Model(
+    //     ..m,
+    //     preview_picker: model.ColorPicker(..m.preview_picker, is_shown: True),
+    //   ),
+    //   color_picker.init(preview_color_picker_id),
+    // )
+    // msg.UserToggledPreviewPicker(False) -> #(
+    //   model.Model(
+    //     ..m,
+    //     preview_picker: model.ColorPicker(..m.preview_picker, is_shown: False),
+    //   ),
+    //   color_picker.destroy(preview_color_picker_id),
+    // )
+    // msg.DomUpdatedPreviewSvRangeCoords(coords) -> #(
+    //   model.Model(
+    //     ..m,
+    //     preview_picker: model.ColorPicker(
+    //       ..m.preview_picker,
+    //       sv_range_coords: coords,
+    //     ),
+    //   ),
+    //   effect.none(),
+    // )
+    // msg.UserUpdatedPreviewBgColor(color) -> #(
+    //   model.Model(..m, preview_bg_color: color),
+    //   effect.none(),
+    // )
     msg.UserClickedGetEsLocale -> #(m, get_es_locale(m))
 
     msg.UserUpdatedPopoverCoods(#(x, y)) -> {
@@ -196,17 +188,18 @@ fn view(m: model.Model) -> element.Element(msg.Message) {
         ),
       ]),
       button(
-        [
-          event.on_click(msg.UserToggledPreviewPicker(
-            !m.preview_picker.is_shown,
-          )),
-        ],
+        // [
+        //   event.on_click(msg.UserToggledPreviewPicker(
+        //     !m.preview_picker.is_shown,
+        //   )),
+        // ],
+        [],
         [text("Toggle color picker")],
       ),
-      case m.preview_picker.is_shown {
-        True -> color_picker.view(m.preview_bg_color, preview_color_picker_id)
-        False -> element.none()
-      },
+      // case m.preview_picker.is_shown {
+      //   True -> color_picker.view(m.preview_bg_color, preview_color_picker_id)
+      //   False -> element.none()
+      // },
       div(
         [
           class(

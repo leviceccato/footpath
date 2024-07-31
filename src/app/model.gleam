@@ -1,7 +1,5 @@
 import gleam/dict
 
-import gleam_community/colour
-
 import app/i18n
 import app/util
 

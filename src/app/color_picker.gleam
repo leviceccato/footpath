@@ -18,13 +18,13 @@ import app/web
 const size = 180
 
 pub type Model {
-  Model(root_ref: util.ElementRef(Message), hsv: Hsv, top: Int, left: Int)
+  Model(root_ref: util.ElementRef(Message), hsv: util.Hsv, top: Int, left: Int)
 }
 
 pub type Message {
   DidNothing
   DomUpdatedTopAndLeft(top: Int, left: Int)
-  UserChangedHsv(hsv: Hsv)
+  UserChangedHsv(hsv: util.Hsv)
 }
 
 pub fn color_picker() {
@@ -154,7 +154,7 @@ fn position_to_sv(position: #(Float, Float)) -> #(Float, Float) {
   #(saturation, value)
 }
 
-fn hsv_to_position(hsv: Hsv) -> #(Float, Float) {
+fn hsv_to_position(hsv: util.Hsv) -> #(Float, Float) {
   let #(_, saturation, value) = hsv
 
   let size_float = int.to_float(size)
@@ -165,7 +165,7 @@ fn hsv_to_position(hsv: Hsv) -> #(Float, Float) {
   #(x, y)
 }
 
-fn hsv_to_hsl(hsv: Hsv) -> Hsl {
+fn hsv_to_hsl(hsv: util.Hsv) -> util.Hsl {
   let #(hue, saturation, value) = hsv
 
   let lightness = value *. { 1.0 -. saturation /. 2.0 }
