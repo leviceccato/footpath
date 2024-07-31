@@ -9,15 +9,15 @@ A list of complete and incomplete tasks to track progress.
 - Add tooltips for language and colour picker buttons
 - Fix modal background contrast for dark colours
 - Create favicon
-- Optimise computed values to potentially use createMemo across codebase
 - Add hex input for colour
 - Prevent Escape from closing Popover if focus doesn't change
 - Add Footpath branding
 - Fix escape on main menu not refocusing menu button
+- Prevent FocusTrap from immediately trapping focus, it should only do it when a 'click' event happens.
 
 ## Doing
 
-- Prevent FocusTrap from immediately trapping focus, it should only do it when a 'click' event happens.
+- Optimise computed values to potentially use createMemo across codebase
 
 ## Done (most recent to oldest)
 
