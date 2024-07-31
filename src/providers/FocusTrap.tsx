@@ -58,7 +58,7 @@ export const FocusTrap: Component<FocusTrapProps> = (props) => {
 		if (!rootRef) {
 			return []
 		}
-		return Array.from(rootRef.querySelectorAll(`[${attr}]`)) as HTMLElement[]
+		return Array.from(rootRef.querySelectorAll(`[${attr}]`))
 	}
 
 	function getReachableFocusables(): HTMLElement[] {
