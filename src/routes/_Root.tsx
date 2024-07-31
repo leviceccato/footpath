@@ -7,7 +7,7 @@ import { usePortal } from '@/providers/Portal'
 import { useTheme } from '@/providers/Theme'
 import { Header } from '@/routes/Header'
 import { clamp, decimalToPercentage } from '@/utils/misc'
-import { type Component, createSignal } from 'solid-js'
+import { type Component, createMemo, createSignal } from 'solid-js'
 import * as css from './_Root.css'
 
 export const Root: Component = () => {
@@ -21,11 +21,9 @@ export const Root: Component = () => {
 
 	const [width, setWidth] = createSignal(0.5)
 
-	const widthPercentage = () => decimalToPercentage(width())
+	const widthPercentage = createMemo(() => decimalToPercentage(width()))
 
-	const oppositeWidth = () => 1 - width()
-
-	const oppositeWidthPercentage = () => decimalToPercentage(oppositeWidth())
+	const oppositeWidthPercentage = () => decimalToPercentage(1 - width())
 
 	function _setWidth(newWidth: number): void {
 		setWidth(clamp(0, newWidth, 1))
