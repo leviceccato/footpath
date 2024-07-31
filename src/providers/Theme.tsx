@@ -69,7 +69,7 @@ function createThemeContext() {
 			setColour({ value: colour })
 		}
 
-		const theme = () => {
+		const theme = createMemo(() => {
 			return {
 				colour: _colour,
 				setColour: _setColour,
@@ -94,7 +94,7 @@ function createThemeContext() {
 					[css.colourBase1000Var]: createColour(0),
 				}),
 			}
-		}
+		})
 
 		return [theme] as const
 	})
